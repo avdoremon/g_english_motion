@@ -59,6 +59,7 @@ class AudioService {
     sync: true,
   );
   bool _muted = false;
+  bool _disposed = false;
   bool _englishOk = false; // cached positive isEnglishAvailable()
   int _epoch = 0;
   Completer<void> _cancel = Completer<void>();
@@ -70,6 +71,7 @@ class AudioService {
   /// Mutes, stops anything playing, completes the in-flight call promptly and
   /// drops queued items.
   void muteForListening() {
+    if (_disposed) return;
     _muted = true;
     _epoch++;
     if (!_cancel.isCompleted) _cancel.complete();
@@ -81,6 +83,7 @@ class AudioService {
   void restoreAfterListening() => _muted = false;
 
   Future<void> sayEnglish(String text, {String? itemId}) {
+    if (_disposed) return Future<void>.value();
     if (_muted) {
       _emit(text);
       return Future<void>.value();
@@ -96,6 +99,7 @@ class AudioService {
   }
 
   Future<void> playLine(VoiceLine l) {
+    if (_disposed) return Future<void>.value();
     if (_muted) {
       _emit(l.caption);
       return Future<void>.value();
@@ -112,10 +116,15 @@ class AudioService {
   }
 
   Future<void> dispose() async {
+    if (_disposed) return;
+    _disposed = true;
     _epoch++;
     if (!_cancel.isCompleted) _cancel.complete();
-    await _safe(_tts.dispose);
-    await _safe(_clips.dispose);
+    const t = Duration(seconds: 2);
+    await Future.wait([
+      _safe(() => _tts.dispose().timeout(t)),
+      _safe(() => _clips.dispose().timeout(t)),
+    ]);
     await _captions.close();
   }
 
@@ -192,49 +201,117 @@ class AudioService {
   }
 }
 
+/// Tiny seam over flutter_tts so the adapter's stop-guard is unit-testable.
+abstract class TtsBackend {
+  Future<bool> isLanguageAvailable(String lang);
+  Future<void> setLanguage(String lang);
+  Future<void> awaitCompletion(bool value);
+  Future<void> speak(String text);
+  Future<void> stop();
+}
+
+class FlutterTtsBackend implements TtsBackend {
+  final FlutterTts _t = FlutterTts();
+  @override
+  Future<bool> isLanguageAvailable(String lang) async =>
+      await _t.isLanguageAvailable(lang) == true;
+  @override
+  Future<void> setLanguage(String lang) async => _t.setLanguage(lang);
+  @override
+  Future<void> awaitCompletion(bool value) async =>
+      _t.awaitSpeakCompletion(value);
+  @override
+  Future<void> speak(String text) async => _t.speak(text);
+  @override
+  Future<void> stop() async => _t.stop();
+}
+
+/// Generation guard: a stop() landing between the setup awaits and the native
+/// speak cancels the utterance instead of letting it play afterwards.
 class FlutterTtsEngine implements SpeechEngine {
-  FlutterTtsEngine() : _tts = FlutterTts();
-  final FlutterTts _tts;
+  FlutterTtsEngine({TtsBackend? backend}) : _b = backend ?? FlutterTtsBackend();
+  final TtsBackend _b;
+  int _gen = 0;
 
   @override
-  Future<bool> isEnglishAvailable() async =>
-      await _tts.isLanguageAvailable('en-US') == true;
+  Future<bool> isEnglishAvailable() => _b.isLanguageAvailable('en-US');
 
   @override
   Future<void> speak(String text) async {
-    await _tts.setLanguage('en-US');
-    await _tts.awaitSpeakCompletion(true);
-    await _tts.speak(text);
+    final g = _gen;
+    await _b.setLanguage('en-US');
+    if (g != _gen) return;
+    await _b.awaitCompletion(true);
+    if (g != _gen) return;
+    await _b.speak(text);
   }
 
   @override
   Future<void> stop() async {
-    await _tts.stop();
+    _gen++;
+    await _b.stop();
   }
 
   @override
   Future<void> dispose() => stop();
 }
 
+/// Tiny seam over just_audio's AudioPlayer.
+abstract class AudioBackend {
+  Future<void> setAsset(String path);
+  Future<void> play();
+  Future<void> stop();
+  Future<void> dispose();
+  bool get completed;
+}
+
+class JustAudioBackend implements AudioBackend {
+  final AudioPlayer _p = AudioPlayer();
+  @override
+  Future<void> setAsset(String path) async {
+    await _p.setAsset(path);
+  }
+
+  @override
+  Future<void> play() => _p.play();
+  @override
+  Future<void> stop() => _p.stop();
+  @override
+  Future<void> dispose() => _p.dispose();
+  @override
+  bool get completed => _p.processingState == ProcessingState.completed;
+}
+
 class JustAudioClipPlayer implements ClipPlayer {
-  final AudioPlayer _player = AudioPlayer();
+  JustAudioClipPlayer({AudioBackend? backend})
+    : _b = backend ?? JustAudioBackend();
+  final AudioBackend _b;
+  int _gen = 0;
 
   /// Completes when playback ends or is interrupted; true only if it played
-  /// to the end.
+  /// to the end. A stop() during setAsset aborts before play().
   @override
   Future<bool> play(String assetPath) async {
+    final g = _gen;
     try {
-      await _player.setAsset(assetPath);
-      await _player.play();
-      return _player.processingState == ProcessingState.completed;
+      await _b.setAsset(assetPath);
+      if (g != _gen) return false;
+      await _b.play();
+      return g == _gen && _b.completed;
     } catch (_) {
       return false;
     }
   }
 
   @override
-  Future<void> stop() => _player.stop();
+  Future<void> stop() async {
+    _gen++;
+    await _b.stop();
+  }
 
   @override
-  Future<void> dispose() => _player.dispose();
+  Future<void> dispose() async {
+    _gen++;
+    await _b.dispose();
+  }
 }

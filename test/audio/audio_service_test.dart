@@ -260,6 +260,24 @@ void main() {
     expect(log, containsAll(['tts.dispose', 'clip.dispose']));
   });
 
+  test('after dispose: no engine calls, no throw', () async {
+    await svc.dispose();
+    log.clear();
+    await svc.sayEnglish('ball');
+    await svc.playLine(VoiceLine.welcome);
+    svc.muteForListening();
+    expect(log, isEmpty);
+  });
+
+  test('dispose does not hang on a hung engine dispose', () async {
+    final hung = AudioService(
+      _HangDispose(),
+      clips,
+      assetExists: existing.contains,
+    );
+    await hung.dispose().timeout(const Duration(seconds: 4));
+  });
+
   test('every VoiceLine has asset path and caption', () {
     for (final l in VoiceLine.values) {
       expect(l.assetPath, 'assets/audio/vi/${l.name}.m4a');
@@ -282,4 +300,15 @@ class _ThrowingAvail implements SpeechEngine {
   Future<void> stop() async {}
   @override
   Future<void> dispose() async {}
+}
+
+class _HangDispose implements SpeechEngine {
+  @override
+  Future<bool> isEnglishAvailable() async => true;
+  @override
+  Future<void> speak(String text) async {}
+  @override
+  Future<void> stop() async {}
+  @override
+  Future<void> dispose() => Completer<void>().future;
 }
