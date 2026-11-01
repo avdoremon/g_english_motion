@@ -31,7 +31,34 @@ class CalibrationProgress {
   final int? selectedPoseIndex;
 }
 
+/// One person followed across frames (keyed by hip position, not by the
+/// pose's index in the list, whose order is not stable).
+class _Track {
+  _Track(Pose p, this.index) : lastX = p.midHipX!, lastY = p.midHipY! {
+    samples.add(p);
+  }
+
+  final List<Pose> samples = [];
+  double lastX, lastY;
+
+  /// Index of the latest matched pose in its frame.
+  int index;
+
+  void add(Pose p, int i) {
+    samples.add(p);
+    lastX = p.midHipX!;
+    lastY = p.midHipY!;
+    index = i;
+  }
+}
+
 /// Averages ~[hold] of frames, picks the still pose closest to the center.
+///
+/// Tolerances (landmark jitter and kids' stance are noisy):
+/// - still means the mid-hip y moved by less than [stillRatio] x torso
+///   (peak-to-peak) over the hold;
+/// - up to [maxBadFrames] consecutive frames without a usable person are
+///   absorbed (they count as time but give no sample); one more resets.
 class Calibrator {
   Calibrator({this.hold = const Duration(seconds: 2)});
 
@@ -40,19 +67,29 @@ class Calibrator {
   /// Frame-interval slack so that N frames at 30 fps spanning (N-1) intervals
   /// count as a full hold of N/30 s.
   static const Duration _frameSlack = Duration(milliseconds: 40);
-  static const double _stillRatio = 0.02;
+
+  /// Allowed peak-to-peak hip-y movement over the hold, in torso heights.
+  static const double stillRatio = 0.08;
+
+  /// Consecutive frames without a usable person that do not reset the hold.
+  static const int maxBadFrames = 5;
+
+  /// Largest |dx|+|dy| hip move between frames for the same person.
+  static const double _maxTrackJump = 0.15;
   static const double _maxCenterOffset = 0.2;
   static const double _minNoseY = 0.08;
   static const double _minCoverage = 0.8;
 
   Duration? _start;
   int _frames = 0;
-  final Map<int, List<Pose>> _samples = {};
+  int _badRun = 0;
+  final List<_Track> _tracks = [];
 
   void _reset() {
     _start = null;
     _frames = 0;
-    _samples.clear();
+    _badRun = 0;
+    _tracks.clear();
   }
 
   CalibrationProgress _fail(CalibrationIssue issue) {
@@ -74,6 +111,33 @@ class Calibrator {
     return p.joints[PoseJoint.nose]!.y < _minNoseY;
   }
 
+  /// Adds this frame's usable poses to the tracks by nearest hip position.
+  void _assign(Map<int, Pose> usable) {
+    final pairs = <({double d, int pose, _Track track})>[];
+    for (final e in usable.entries) {
+      for (final t in _tracks) {
+        final d =
+            (e.value.midHipX! - t.lastX).abs() +
+            (e.value.midHipY! - t.lastY).abs();
+        if (d <= _maxTrackJump) pairs.add((d: d, pose: e.key, track: t));
+      }
+    }
+    pairs.sort((a, b) => a.d.compareTo(b.d));
+    final usedPoses = <int>{};
+    final usedTracks = <_Track>{};
+    for (final pr in pairs) {
+      if (usedPoses.contains(pr.pose) || usedTracks.contains(pr.track)) {
+        continue;
+      }
+      usedPoses.add(pr.pose);
+      usedTracks.add(pr.track);
+      pr.track.add(usable[pr.pose]!, pr.pose);
+    }
+    for (final e in usable.entries) {
+      if (!usedPoses.contains(e.key)) _tracks.add(_Track(e.value, e.key));
+    }
+  }
+
   CalibrationProgress add(PoseFrame f) {
     final usable = <int, Pose>{};
     var anyPerson = false;
@@ -89,12 +153,19 @@ class Calibrator {
       anyPerson = true;
       if (!_isTooClose(p)) usable[i] = p;
     }
-    if (!anyPerson) return _fail(CalibrationIssue.noPerson);
-    if (usable.isEmpty) return _fail(CalibrationIssue.tooClose);
 
-    _start ??= f.timestamp;
-    _frames++;
-    usable.forEach((i, p) => (_samples[i] ??= []).add(p));
+    if (usable.isEmpty) {
+      final issue = anyPerson
+          ? CalibrationIssue.tooClose
+          : CalibrationIssue.noPerson;
+      if (_start == null || ++_badRun > maxBadFrames) return _fail(issue);
+      _frames++;
+    } else {
+      _badRun = 0;
+      _start ??= f.timestamp;
+      _frames++;
+      _assign(usable);
+    }
 
     final elapsed = f.timestamp - _start! + _frameSlack;
     final progress = (elapsed.inMicroseconds / hold.inMicroseconds).clamp(
@@ -106,11 +177,11 @@ class Calibrator {
   }
 
   CalibrationProgress _finish() {
-    int? bestIndex;
+    _Track? bestTrack;
     double bestOffset = double.infinity;
     Calibration? best;
-    for (final entry in _samples.entries) {
-      final s = entry.value;
+    for (final track in _tracks) {
+      final s = track.samples;
       if (s.length < _minCoverage * _frames) continue;
       final n = s.length;
       final hips = [for (final p in s) p.midHipY!];
@@ -119,12 +190,12 @@ class Calibrator {
           [for (final p in s) p.torsoHeight!].reduce((a, b) => a + b) / n;
       final minHip = hips.reduce((a, b) => a < b ? a : b);
       final maxHip = hips.reduce((a, b) => a > b ? a : b);
-      if (maxHip - minHip >= _stillRatio * torso) continue;
+      if (maxHip - minHip >= stillRatio * torso) continue;
       final cx = [for (final p in s) p.midHipX!].reduce((a, b) => a + b) / n;
       final offset = (cx - 0.5).abs();
       if (offset < bestOffset) {
         bestOffset = offset;
-        bestIndex = entry.key;
+        bestTrack = track;
         best = Calibration(
           torsoHeight: torso,
           centerX: cx,
@@ -137,11 +208,12 @@ class Calibrator {
     if (bestOffset > _maxCenterOffset) {
       return _fail(CalibrationIssue.notCentered);
     }
+    final index = bestTrack!.index;
     _reset();
     return CalibrationProgress(
       progress: 1.0,
       result: best,
-      selectedPoseIndex: bestIndex,
+      selectedPoseIndex: index,
     );
   }
 }

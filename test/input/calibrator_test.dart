@@ -123,15 +123,83 @@ void main() {
     expect(p.result, isNull);
   });
 
-  test('losing the person resets the hold', () {
+  test('a few missing frames (up to 5) do not reset the hold', () {
     final c = Calibrator();
-    final a = standingSequence(duration: const Duration(seconds: 1));
-    feed(c, a);
-    c.add(const PoseFrame([], Duration(milliseconds: 1100)));
+    feed(c, standingSequence(duration: const Duration(seconds: 1)));
+    for (var i = 0; i < Calibrator.maxBadFrames; i++) {
+      final r = c.add(
+        PoseFrame(const [], Duration(milliseconds: 1000 + i * 33)),
+      );
+      expect(r.issue, isNull);
+    }
     final p = c.add(
       PoseFrame([makePose()], const Duration(milliseconds: 1200)),
     );
+    expect(p.progress, greaterThan(0.5));
+    Calibration? result;
+    for (final f in standingSequence(
+      duration: const Duration(seconds: 1),
+      start: const Duration(milliseconds: 1233),
+    )) {
+      result ??= c.add(f).result;
+    }
+    expect(result, isNotNull);
+  });
+
+  test('6 consecutive missing frames reset the hold', () {
+    final c = Calibrator();
+    feed(c, standingSequence(duration: const Duration(seconds: 1)));
+    CalibrationProgress r = const CalibrationProgress(progress: 1);
+    for (var i = 0; i <= Calibrator.maxBadFrames; i++) {
+      r = c.add(PoseFrame(const [], Duration(milliseconds: 1000 + i * 33)));
+    }
+    expect(r.issue, CalibrationIssue.noPerson);
+    expect(r.progress, 0);
+    final p = c.add(
+      PoseFrame([makePose()], const Duration(milliseconds: 1300)),
+    );
     expect(p.progress, lessThan(0.1));
+  });
+
+  test('hip jitter of +-0.01 over 2 s still calibrates', () {
+    final frames = poseSequence(
+      duration: const Duration(seconds: 2),
+      posesAt: (t) {
+        final i = t.inMilliseconds ~/ 33;
+        return [makePose(hipY: 0.6 + (i.isEven ? 0.01 : -0.01))];
+      },
+    );
+    final p = feed(Calibrator(), frames);
+    expect(p.result, isNotNull);
+    expect(p.issue, isNull);
+  });
+
+  test('swaying beyond 0.08 torso is still notStill', () {
+    final frames = poseSequence(
+      duration: const Duration(seconds: 2),
+      posesAt: (t) => [
+        makePose(
+          hipY: 0.6 + (t.inMilliseconds ~/ 100 % 2 == 0 ? 0.015 : -0.015),
+        ),
+      ],
+    );
+    expect(feed(Calibrator(), frames).issue, CalibrationIssue.notStill);
+  });
+
+  test('two people in swapped list order: the centred one is calibrated', () {
+    final frames = poseSequence(
+      duration: const Duration(seconds: 2),
+      posesAt: (t) {
+        final centred = makePose(hipX: 0.5);
+        final side = makePose(hipX: 0.8);
+        return t.inMilliseconds ~/ 33 % 2 == 0
+            ? [centred, side]
+            : [side, centred];
+      },
+    );
+    final p = feed(Calibrator(), frames);
+    expect(p.result, isNotNull);
+    expect(p.result!.centerX, closeTo(0.5, 0.01));
   });
 
   test('wrists present do not affect calibration', () {
