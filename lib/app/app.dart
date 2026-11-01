@@ -329,10 +329,16 @@ class _RootState extends State<_Root> {
   Widget build(BuildContext context) {
     final pending = _afterSafety;
     if (pending != null) {
-      return Scaffold(
-        body: SafetyScreen(
-          store: _d.store,
-          onAcknowledged: () => _begin(pending.$1, pending.$2),
+      return PopScope(
+        canPop: false,
+        onPopInvokedWithResult: (didPop, _) {
+          if (!didPop) setState(() => _afterSafety = null);
+        },
+        child: Scaffold(
+          body: SafetyScreen(
+            store: _d.store,
+            onAcknowledged: () => _begin(pending.$1, pending.$2),
+          ),
         ),
       );
     }
@@ -347,19 +353,56 @@ class _RootState extends State<_Root> {
         ),
       );
     }
-    return Scaffold(
-      body: ListenableBuilder(
-        listenable: ctl,
-        builder: (context, _) => GameShell(
-          events: ctl.events,
-          session: ctl.session,
-          audio: _d.audio,
-          wakelock: _d.wakelock,
-          captionFilter: ctl.shouldShowCaption,
-          child: _stage(ctl),
+    // Back never exits the app from a play flow: it goes through the same
+    // close path as the exit button (the controller is disposed, the camera
+    // released). While a question is running, a grown-up-free confirmation
+    // protects against an accidental swipe.
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, _) {
+        if (!didPop) _onBack(ctl);
+      },
+      child: Scaffold(
+        body: ListenableBuilder(
+          listenable: ctl,
+          builder: (context, _) => GameShell(
+            events: ctl.events,
+            session: ctl.session,
+            audio: _d.audio,
+            wakelock: _d.wakelock,
+            captionFilter: ctl.shouldShowCaption,
+            child: _stage(ctl),
+          ),
         ),
       ),
     );
+  }
+
+  Future<void> _onBack(GameController ctl) async {
+    if (ctl.phase != GamePhase.playing) {
+      _goHome();
+      return;
+    }
+    final leave = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        backgroundColor: AppTheme.background,
+        title: const Text('Thoát trò chơi?'),
+        actions: [
+          TextButton(
+            key: const ValueKey('stay'),
+            onPressed: () => Navigator.of(ctx).pop(false),
+            child: const Text('Ở lại'),
+          ),
+          FilledButton(
+            key: const ValueKey('leave'),
+            onPressed: () => Navigator.of(ctx).pop(true),
+            child: const Text('Thoát'),
+          ),
+        ],
+      ),
+    );
+    if (leave == true && mounted && _ctl == ctl) _goHome();
   }
 
   Widget _exitOverlay(Widget child) => Stack(

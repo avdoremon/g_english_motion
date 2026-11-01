@@ -376,6 +376,61 @@ void main() {
     return (log, sources, const Stream<Duration>.empty());
   }
 
+  testWidgets('system back in a play flow closes it through the controller', (
+    tester,
+  ) async {
+    final (log, sources, _) = await pumpFlow(tester);
+    await tester.tap(find.byKey(const ValueKey('play')));
+    await tester.pump();
+    await tester.pump();
+    var t = Duration.zero;
+    for (
+      var i = 0;
+      i < 80 && find.byKey(const ValueKey('lane-0')).evaluate().isEmpty;
+      i++
+    ) {
+      t += const Duration(milliseconds: 33);
+      sources.last.framesCtl.add(PoseFrame([makePose()], t));
+      await tester.pump(const Duration(milliseconds: 33));
+    }
+    expect(find.byKey(const ValueKey('lane-0')), findsOneWidget);
+
+    // Back asks first; staying keeps playing and the camera running.
+    await tester.binding.handlePopRoute();
+    await tester.pump();
+    expect(find.text('Thoát trò chơi?'), findsOneWidget);
+    await tester.tap(find.byKey(const ValueKey('stay')));
+    await tester.pump(const Duration(milliseconds: 300));
+    expect(find.byKey(const ValueKey('lane-0')), findsOneWidget);
+    expect(sources.last.stops, 0);
+
+    // Leaving goes Home and releases the camera (controller close path).
+    await tester.binding.handlePopRoute();
+    await tester.pump();
+    await tester.tap(find.byKey(const ValueKey('leave')));
+    await tester.pump();
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 1));
+    expect(find.byKey(const ValueKey('play')), findsOneWidget);
+    expect(sources.last.stops, 1);
+    expect(log.last, startsWith('stop1'));
+  });
+
+  testWidgets('system back before the game runs goes straight home', (
+    tester,
+  ) async {
+    final (_, sources, _) = await pumpFlow(tester);
+    await tester.tap(find.byKey(const ValueKey('play')));
+    await tester.pump();
+    await tester.pump();
+    await tester.binding.handlePopRoute();
+    await tester.pump();
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 1));
+    expect(find.byKey(const ValueKey('play')), findsOneWidget);
+    expect(sources.last.stops, 1);
+  });
+
   testWidgets(
     'dispose during a pending permission start: next camera waits for the orphan stop',
     (tester) async {
