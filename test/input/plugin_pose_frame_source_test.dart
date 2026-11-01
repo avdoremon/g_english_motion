@@ -270,14 +270,20 @@ void main() {
       expect(g2.single.aspectRatio, PoseFrame.defaultAspectRatio);
     });
 
-    test('backend stream errors are dropped and frames keep flowing', () async {
+    test('backend stream errors are forwarded as failures and frames keep '
+        'flowing', () async {
       final src = source();
       await src.start();
+      final failures = <PoseSourceFailure>[];
+      final sub = src.failures.listen(failures.add);
+      addTearDown(sub.cancel);
       final got = await collect(src, () {
         backend.fail(PlatformException(code: 'POSE_ERROR'));
         backend.emit(result(body()));
       });
       expect(got, hasLength(1));
+      expect(failures, hasLength(1));
+      expect((failures.single.error as PlatformException).code, 'POSE_ERROR');
     });
   });
 

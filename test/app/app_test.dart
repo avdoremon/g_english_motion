@@ -393,6 +393,77 @@ void main() {
     },
   );
 
+  testWidgets(
+    'a camera that never delivers frames shows the camera-problem screen; '
+    'Thử lại releases the old source before the new one starts',
+    (tester) async {
+      SharedPreferences.setMockInitialValues({'progress.safetyAck': true});
+      store = ProgressStore(await SharedPreferences.getInstance());
+      final log = <String>[];
+      final sources = <_RecSource>[];
+      final ticks = StreamController<Duration>.broadcast(sync: true);
+      addTearDown(ticks.close);
+      await tester.binding.setSurfaceSize(const Size(1280, 720));
+      addTearDown(() => tester.binding.setSurfaceSize(null));
+      await tester.pumpWidget(
+        GEnglishMotionApp(
+          deps: AppDependencies(
+            store: store,
+            audio: AudioService(
+              HarnessTts([]),
+              HarnessClips(),
+              assetExists: (_) => false,
+            ),
+            repo: ContentRepository([harnessUnit()]),
+            levels: const [harnessLevel],
+            sourceFactory: () {
+              final src = _RecSource(sources.length + 1, log);
+              sources.add(src);
+              return src;
+            },
+            ticker: () => ticks.stream,
+            wakelock: _NoWakelock(),
+          ),
+        ),
+      );
+      await tester.tap(find.byKey(const ValueKey('play')));
+      await tester.pump();
+      await tester.pump();
+      var t = Duration.zero;
+      for (var i = 0; i < 200; i++) {
+        t += const Duration(milliseconds: 33);
+        ticks.add(t);
+        await tester.pump(const Duration(milliseconds: 33));
+      }
+      expect(find.text('Camera không hoạt động'), findsOneWidget);
+      expect(
+        find.text('Kiểm tra quyền camera và khởi động lại ứng dụng'),
+        findsOneWidget,
+      );
+      expect(find.text('Về trang chính'), findsOneWidget);
+      await tester.pump(const Duration(milliseconds: 300));
+      expect(log, ['start1', 'stop1:begin', 'stop1:end']);
+
+      await tester.tap(find.text('Thử lại'));
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 500));
+      expect(log, ['start1', 'stop1:begin', 'stop1:end', 'start2']);
+      expect(find.text('Camera không hoạt động'), findsNothing);
+
+      // Home from a second failure.
+      for (var i = 0; i < 200; i++) {
+        t += const Duration(milliseconds: 33);
+        ticks.add(t);
+        await tester.pump(const Duration(milliseconds: 33));
+      }
+      expect(find.text('Camera không hoạt động'), findsOneWidget);
+      await tester.tap(find.text('Về trang chính'));
+      await tester.pump();
+      await tester.pump(const Duration(seconds: 1));
+      expect(find.byKey(const ValueKey('play')), findsOneWidget);
+    },
+  );
+
   Future<void> leave(WidgetTester tester) async {
     await tester.tap(find.byKey(const ValueKey('exit')));
     await tester.pump();
@@ -609,6 +680,9 @@ class _RecSource implements PoseFrameSource {
   Stream<PoseFrame> get frames => frames0.stream;
 
   StreamController<PoseFrame> get framesCtl => frames0;
+
+  @override
+  Stream<PoseSourceFailure> get failures => const Stream.empty();
 
   @override
   Future<PermissionOutcome> start() async {

@@ -89,6 +89,8 @@ class PluginPoseFrameSource implements PoseFrameSource {
 
   final StreamController<PoseFrame> _out =
       StreamController<PoseFrame>.broadcast();
+  final StreamController<PoseSourceFailure> _failures =
+      StreamController<PoseSourceFailure>.broadcast();
   StreamSubscription<RawPoseResult>? _sub;
 
   /// Bumped by [stop] so a start still awaiting cannot open the camera after.
@@ -146,9 +148,20 @@ class PluginPoseFrameSource implements PoseFrameSource {
     }
     // Stopped meanwhile (or another start won): do not open the camera.
     if (gen != _generation || _sub != null) return outcome;
-    _sub = _backend.results().listen(_onResult, onError: (Object _) {});
+    // Plugin stream errors (NO_MANAGER, CAMERA_ERROR, POSE_ERROR) are not
+    // fatal on their own; they are reported on [failures] and the game
+    // decides (it gives up when they persist without frames).
+    _sub = _backend.results().listen(
+      _onResult,
+      onError: (Object e) {
+        if (_sub != null) _failures.add(PoseSourceFailure(e));
+      },
+    );
     return outcome;
   }
+
+  @override
+  Stream<PoseSourceFailure> get failures => _failures.stream;
 
   /// Broadcast; frames arrive only between [start] and [stop].
   @override

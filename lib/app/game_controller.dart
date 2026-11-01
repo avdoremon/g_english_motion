@@ -36,6 +36,11 @@ enum GamePhase {
   /// for its own phase).
   playing,
   finished,
+
+  /// The camera delivers nothing usable (no frames, persistent errors, or
+  /// calibration never completes); the session was stopped and the camera
+  /// released. The UI offers retry / home.
+  cameraProblem,
 }
 
 /// Source of monotonic elapsed time, one event per frame. Tests drive it by
@@ -58,6 +63,12 @@ typedef TickerFactory = Stream<Duration> Function();
 ///   the controller synthesizes PlayerLost (and PlayerFound at the next
 ///   frame). If the player is really gone, [PoseSession] reports it itself
 ///   500 ms later.
+/// - Camera problems: the ticker also runs during calibration. No frame for
+///   [calibrationNoFrameTimeout], source errors without a frame in between
+///   for [failureTimeout] (calibration or play), or a calibration that does
+///   not finish within [calibrationTimeout] end in [GamePhase.cameraProblem]:
+///   the session is paused, the camera released, and the app offers a retry
+///   (a new controller + source, started after this one closed).
 /// - Prompt watchdog: if the spoken question does not complete within
 ///   [promptWatchdog] the round is started anyway.
 /// - Presence events: PlayerLost is given to the session first and then
@@ -79,6 +90,9 @@ class GameController extends ChangeNotifier {
     this.feedbackTime = const Duration(milliseconds: 2500),
     this.frameWatchdog = const Duration(seconds: 2),
     this.promptWatchdog = const Duration(seconds: 12),
+    this.calibrationNoFrameTimeout = const Duration(seconds: 5),
+    this.calibrationTimeout = const Duration(seconds: 30),
+    this.failureTimeout = const Duration(seconds: 5),
   }) : _store = store,
        _repo = repo,
        _audio = audio,
@@ -91,6 +105,17 @@ class GameController extends ChangeNotifier {
   final int grade;
   final LevelConfig level;
   final Duration feedbackTime, frameWatchdog, promptWatchdog;
+
+  /// Calibration: no frame at all for this long => [GamePhase.cameraProblem].
+  final Duration calibrationNoFrameTimeout;
+
+  /// Calibration: frames arrive but it never completes within this long
+  /// (measured on the injected ticker) => [GamePhase.cameraProblem].
+  final Duration calibrationTimeout;
+
+  /// Source errors with no frame in between for this long (calibration or
+  /// play) => [GamePhase.cameraProblem].
+  final Duration failureTimeout;
 
   final ProgressStore _store;
   final ContentRepository _repo;
@@ -112,6 +137,7 @@ class GameController extends ChangeNotifier {
   PoseSession? _pose;
   Calibrator? _calibrator;
   StreamSubscription<PoseFrame>? _frameSub;
+  StreamSubscription<PoseSourceFailure>? _failSub;
   StreamSubscription<GameInputEvent>? _poseSub;
   StreamSubscription<Duration>? _tickSub;
   StreamController<PoseFrame>? _poseFrames;
@@ -123,6 +149,11 @@ class GameController extends ChangeNotifier {
   Duration _lastFrameAt = Duration.zero;
   bool _lost = false;
   bool _watchdogLost = false;
+
+  // Calibration/failure timing, all on the ticker clock ([_now]).
+  Duration? _calibAnchor;
+  Duration? _calibLastFrame;
+  Duration? _failedSince;
 
   PlannedQuestion? _prompted;
   bool _promptedReview = false;
@@ -261,14 +292,66 @@ class GameController extends ChangeNotifier {
     }
     _calibrator = _calibratorFactory();
     _calibrationProgress = null;
+    _calibAnchor = null;
+    _calibLastFrame = null;
+    _failedSince = null;
     _setPhase(GamePhase.calibrating);
-    _frameSub = source.frames.listen(_onFrame, onError: (Object _) {});
+    // The ticker also times calibration (it used to start only with play).
+    _tickSub ??= _tickerFactory().listen(_onTick);
+    _frameSub = source.frames.listen(
+      _onFrame,
+      onError: (Object e) => _onSourceFailure(e),
+    );
+    _failSub = source.failures.listen(_onSourceFailure);
     return outcome;
+  }
+
+  void _onSourceFailure(Object e) {
+    if (_disposed ||
+        (_phase != GamePhase.calibrating && _phase != GamePhase.playing)) {
+      return;
+    }
+    debugPrint('GameController: camera/pose source error: $e');
+    _failedSince ??= _now;
+  }
+
+  /// Gives up on the camera: stops the session and input (camera released)
+  /// and shows the camera-problem screen. A retry builds a new controller and
+  /// source, after this one is fully closed (see the app's `_release`).
+  void _enterCameraProblem(String why) {
+    if (_disposed ||
+        _phase == GamePhase.cameraProblem ||
+        _phase == GamePhase.finished) {
+      return;
+    }
+    debugPrint('GameController: camera problem: $why');
+    _quiet(() => _tickSub?.cancel());
+    _tickSub = null;
+    _promptPending = false;
+    _promptToken++;
+    _session?.pause();
+    _audio.cancelAll();
+    _setPhase(GamePhase.cameraProblem);
+    unawaited(_stopInput());
+  }
+
+  void _checkCalibrationTimeouts(Duration now) {
+    final anchor = _calibAnchor ??= now;
+    final lastFrame = _calibLastFrame ?? anchor;
+    if (now - lastFrame >= calibrationNoFrameTimeout) {
+      _enterCameraProblem('no camera frame during calibration');
+    } else if (_failedSince != null && now - _failedSince! >= failureTimeout) {
+      _enterCameraProblem('camera errors during calibration');
+    } else if (now - anchor >= calibrationTimeout) {
+      _enterCameraProblem('calibration did not finish');
+    }
   }
 
   void _onFrame(PoseFrame f) {
     if (_disposed) return;
+    _failedSince = null;
     _lastFrameAt = _now;
+    if (_phase == GamePhase.calibrating) _calibLastFrame = _now;
     _lastFrameTs = f.timestamp;
     if (_phase == GamePhase.calibrating) {
       final p = _calibrator!.add(f);
@@ -360,7 +443,7 @@ class GameController extends ChangeNotifier {
     _session = s;
     _lastFrameAt = _now;
     _lastTick = null;
-    _tickSub = _tickerFactory().listen(_onTick);
+    _tickSub ??= _tickerFactory().listen(_onTick);
     _setPhase(GamePhase.playing);
     // Before the first question; the audio queue keeps the order.
     unawaited(
@@ -421,11 +504,15 @@ class GameController extends ChangeNotifier {
 
   void _onTick(Duration elapsed) {
     if (_disposed) return;
-    final s = _session;
-    if (s == null) return;
     final prev = _lastTick;
     _lastTick = elapsed;
     _now = elapsed;
+    if (_phase == GamePhase.calibrating) {
+      _checkCalibrationTimeouts(elapsed);
+      return;
+    }
+    final s = _session;
+    if (s == null || _phase == GamePhase.cameraProblem) return;
     var dt = prev == null ? Duration.zero : elapsed - prev;
     if (dt > maxTickStep) dt = maxTickStep;
     if (dt.isNegative) dt = Duration.zero;
@@ -438,6 +525,12 @@ class GameController extends ChangeNotifier {
         _now - _lastFrameAt >= frameWatchdog) {
       _watchdogLost = true;
       _setLost(true, PlayerLost(at: _lastFrameTs));
+    }
+    if (_phase == GamePhase.playing &&
+        _failedSince != null &&
+        _now - _failedSince! >= failureTimeout) {
+      _enterCameraProblem('camera errors during play');
+      return;
     }
     s.tick(dt);
     _afterSessionChange();
@@ -569,6 +662,7 @@ class GameController extends ChangeNotifier {
     // deliberately not awaited (they add nothing and can stall under
     // FakeAsync).
     _quiet(() => _frameSub?.cancel());
+    _quiet(() => _failSub?.cancel());
     _quiet(() => _poseSub?.cancel());
     _quiet(() => _pose?.dispose());
     _quiet(() => _poseFrames?.close());

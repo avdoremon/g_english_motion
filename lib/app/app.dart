@@ -20,6 +20,7 @@ import '../ui/screens/home_screen.dart';
 import '../ui/screens/lane_jump_screen.dart';
 import '../ui/screens/result_screen.dart';
 import '../ui/shell/calibration_screen.dart';
+import '../ui/shell/camera_problem_screen.dart';
 import '../ui/shell/game_shell.dart';
 import '../ui/shell/permission_screen.dart';
 import '../ui/shell/pose_camera_host.dart';
@@ -468,6 +469,11 @@ class _RootState extends State<_Root> {
                 ctl.calibrationProgress ??
                 const CalibrationProgress(progress: 0),
           ),
+        );
+      case GamePhase.cameraProblem:
+        return CameraProblemScreen(
+          onRetry: () => _begin(ctl.grade, ctl.level.level),
+          onHome: _goHome,
         );
       case GamePhase.playing:
         return LaneJumpScreen(controller: ctl, onExit: _goHome);

@@ -459,6 +459,94 @@ void main() {
     );
   });
 
+  group('camera problems', () {
+    // Fake time: the harness ticker drives the controller's only clock.
+    test('a camera that never delivers a frame: cameraProblem after 5 s, '
+        'camera released once', () async {
+      h = await GameHarness.create();
+      await c().start(h.source);
+      expect(c().phase, GamePhase.calibrating);
+      await h.run(const Duration(seconds: 4), withFrames: false);
+      expect(c().phase, GamePhase.calibrating);
+      await h.run(const Duration(milliseconds: 1500), withFrames: false);
+      expect(c().phase, GamePhase.cameraProblem);
+      expect(h.source.stops, 1);
+      expect(c().session, isNull);
+      // Nothing revives it, and dispose does not stop the camera twice.
+      await h.run(const Duration(seconds: 1), withFrames: false);
+      expect(c().phase, GamePhase.cameraProblem);
+      c().dispose();
+      await c().closed;
+      expect(h.source.stops, 1);
+    });
+
+    test('plugin errors without any frame end calibration in cameraProblem, '
+        'not endless "hold still"', () async {
+      h = await GameHarness.create();
+      await c().start(h.source);
+      h.source.emitFailure(StateError('CAMERA_ERROR'));
+      await h.run(const Duration(seconds: 3), withFrames: false);
+      expect(c().phase, GamePhase.calibrating, reason: 'not yet 5 s');
+      await h.run(const Duration(seconds: 3), withFrames: false);
+      expect(c().phase, GamePhase.cameraProblem);
+      expect(h.source.stops, 1);
+    });
+
+    test(
+      'an error followed by frames is a hiccup, not a camera problem',
+      () async {
+        h = await GameHarness.create();
+        await c().start(h.source);
+        h.source.emitFailure(StateError('POSE_ERROR'));
+        await h.run(const Duration(seconds: 2), withFrames: false);
+        await h.run(const Duration(seconds: 1)); // frames: calibrates, plays
+        h.source.emitFailure(StateError('POSE_ERROR'));
+        await h.run(const Duration(seconds: 12));
+        expect(c().phase, isNot(GamePhase.cameraProblem));
+        expect(h.source.stops, 0);
+      },
+    );
+
+    test(
+      'frames that never calibrate: cameraProblem after 30 s overall',
+      () async {
+        h = await GameHarness.create();
+        await c().start(h.source);
+        // Frames arrive (so no no-frame timeout) but nobody is in them.
+        await h.run(const Duration(seconds: 25), poses: (_) => const []);
+        expect(c().phase, GamePhase.calibrating);
+        await h.run(const Duration(seconds: 7), poses: (_) => const []);
+        expect(c().phase, GamePhase.cameraProblem);
+        expect(h.source.stops, 1);
+      },
+    );
+
+    test(
+      'errors that persist 5 s during play stop the session cleanly',
+      () async {
+        await playing();
+        await h.run(const Duration(seconds: 1));
+        h.source.emitFailure(StateError('CAMERA_ERROR'));
+        await h.run(const Duration(seconds: 4), withFrames: false);
+        expect(c().phase, GamePhase.playing, reason: 'watchdog only so far');
+        await h.run(const Duration(seconds: 2), withFrames: false);
+        expect(c().phase, GamePhase.cameraProblem);
+        expect(c().session!.phase, SessionPhase.paused);
+        expect(h.source.stops, 1);
+      },
+    );
+
+    test(
+      'a frame stall without errors stays the watchdog\'s business',
+      () async {
+        await playing();
+        await h.run(const Duration(seconds: 12), withFrames: false);
+        expect(c().phase, GamePhase.playing);
+        expect(h.source.stops, 0);
+      },
+    );
+  });
+
   group('prompt watchdog', () {
     test('hung speech: round starts after 12 s anyway', () async {
       await playing(hangTts: true);
