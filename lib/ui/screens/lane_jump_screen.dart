@@ -288,6 +288,8 @@ class QuestionPrompt extends StatelessWidget {
               key: const ValueKey('prompt-picture'),
               item: itemFor(id),
               size: 120,
+              // Never the word: a screen reader would announce the answer.
+              semanticLabel: 'Hình cần chọn',
             );
     }
     final reveal = feedback && q.form == QuestionForm.listenPickPicture;
@@ -408,7 +410,12 @@ class LaneTile extends StatelessWidget {
                 return Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    if (option.showPicture) ItemPicture(item: item, size: pic),
+                    if (option.showPicture)
+                      ItemPicture(
+                        item: item,
+                        size: pic,
+                        semanticLabel: item.word,
+                      ),
                     if (gap > 0) SizedBox(height: gap),
                     if (option.showWord)
                       Text(
@@ -448,13 +455,23 @@ class LaneTile extends StatelessWidget {
 
 /// The item's bundled picture (`assets/images/<item.image>`). With no image,
 /// or when the asset cannot be loaded, a coloured circle with the first
-/// letter of the word is drawn instead. The word is the semantic label (for
-/// screen readers only; never visible text).
+/// letter of the word is drawn instead. [semanticLabel] is for screen readers
+/// only (never visible text); lane tiles pass the word, the prompt picture a
+/// neutral label.
 class ItemPicture extends StatelessWidget {
-  const ItemPicture({super.key, required this.item, this.size = 120});
+  const ItemPicture({
+    super.key,
+    required this.item,
+    this.size = 120,
+    this.semanticLabel,
+  });
 
   final ContentItem item;
   final double size;
+
+  /// Announced by screen readers. Null (the default) means the picture is
+  /// silent: a prompt picture must never name the word it asks for.
+  final String? semanticLabel;
 
   static const _palette = [
     AppTheme.accent,
@@ -483,18 +500,26 @@ class ItemPicture extends StatelessWidget {
   Widget build(BuildContext context) {
     final asset = assetFor(item);
     final fallback = _letterCircle(context);
-    if (asset == null) return fallback;
-    return SizedBox(
-      width: size,
-      height: size,
-      child: Image.asset(
-        asset,
-        width: size,
-        height: size,
-        fit: BoxFit.contain,
-        semanticLabel: item.word,
-        errorBuilder: (context, error, stack) => fallback,
-      ),
+    // One node for the whole picture (image or letter circle): exactly the
+    // given label, or silence. The letter of the fallback is never read out.
+    return Semantics(
+      label: semanticLabel,
+      image: true,
+      excludeSemantics: true,
+      child: asset == null
+          ? fallback
+          : SizedBox(
+              width: size,
+              height: size,
+              child: Image.asset(
+                asset,
+                width: size,
+                height: size,
+                fit: BoxFit.contain,
+                semanticLabel: semanticLabel,
+                errorBuilder: (context, error, stack) => fallback,
+              ),
+            ),
     );
   }
 

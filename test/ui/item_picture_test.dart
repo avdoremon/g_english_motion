@@ -42,10 +42,12 @@ ChoiceQuestion question(QuestionForm form) => ChoiceQuestion(
 
 void main() {
   group('ItemPicture', () {
-    testWidgets('draws the bundled PNG with the word as semantic label', (
+    testWidgets('draws the bundled PNG with the given semantic label', (
       tester,
     ) async {
-      await tester.pumpWidget(host(ItemPicture(item: ball, size: 100)));
+      await tester.pumpWidget(
+        host(ItemPicture(item: ball, size: 100, semanticLabel: 'ball')),
+      );
       final img = tester.widget<Image>(find.byType(Image));
       final provider = img.image as AssetImage;
       expect(provider.assetName, 'assets/images/grade1/ball.png');
@@ -67,6 +69,34 @@ void main() {
       await tester.pump();
       expect(find.text('Z'), findsOneWidget);
     });
+
+    testWidgets('no semanticLabel: the picture says nothing about the word', (
+      tester,
+    ) async {
+      final handle = tester.ensureSemantics();
+      await tester.pumpWidget(host(ItemPicture(item: ball)));
+      expect(tester.widget<Image>(find.byType(Image)).semanticLabel, isNull);
+      expect(find.bySemanticsLabel('ball'), findsNothing);
+      handle.dispose();
+      await tester.runAsync(() => Future<void>.delayed(Duration.zero));
+    });
+
+    testWidgets(
+      'letter circle carries the label when given, never the letter',
+      (tester) async {
+        final handle = tester.ensureSemantics();
+        final cat = item('c', 'cat', null);
+        await tester.pumpWidget(
+          host(ItemPicture(item: cat, semanticLabel: 'cat')),
+        );
+        expect(find.bySemanticsLabel('cat'), findsOneWidget);
+        expect(find.bySemanticsLabel('C'), findsNothing);
+        await tester.pumpWidget(host(ItemPicture(item: cat)));
+        expect(find.bySemanticsLabel('cat'), findsNothing);
+        expect(find.bySemanticsLabel('C'), findsNothing);
+        handle.dispose();
+      },
+    );
 
     testWidgets('no image: letter circle, no Image widget', (tester) async {
       await tester.pumpWidget(host(ItemPicture(item: item('c', 'cat', null))));
@@ -98,6 +128,33 @@ void main() {
       expect(find.text('boy'), findsNothing, reason: 'picture only');
       expect(find.bySemanticsLabel('Hình boy'), findsOneWidget);
       await tester.runAsync(() => Future<void>.delayed(Duration.zero));
+    });
+
+    testWidgets('a lane with a letter-circle fallback is announced by word', (
+      tester,
+    ) async {
+      final handle = tester.ensureSemantics();
+      final cat = item('c', 'cat', null);
+      await tester.pumpWidget(
+        host(
+          SizedBox(
+            width: 200,
+            height: 260,
+            child: LaneTile(
+              option: const ChoiceOption(
+                itemId: 'c',
+                showPicture: true,
+                showWord: false,
+              ),
+              item: cat,
+              selected: false,
+            ),
+          ),
+        ),
+      );
+      expect(find.bySemanticsLabel('Hình cat'), findsOneWidget);
+      expect(find.bySemanticsLabel('C'), findsNothing);
+      handle.dispose();
     });
   });
 
@@ -157,6 +214,48 @@ void main() {
       expect(find.text('B'), findsNothing);
       expect(find.text('ball'), findsNothing);
       await tester.runAsync(() => Future<void>.delayed(Duration.zero));
+    });
+
+    testWidgets('seePicturePickWord prompt does not announce the answer', (
+      tester,
+    ) async {
+      final handle = tester.ensureSemantics();
+      await tester.pumpWidget(
+        host(
+          QuestionPrompt(
+            question: question(QuestionForm.seePicturePickWord),
+            itemFor: lookup,
+          ),
+        ),
+      );
+      final sem = tester.getSemantics(
+        find.byKey(const ValueKey('prompt-picture')),
+      );
+      expect(sem.label, 'Hình cần chọn');
+      expect(sem.label, isNot(contains('ball')));
+      expect(find.bySemanticsLabel(RegExp('ball')), findsNothing);
+      handle.dispose();
+      await tester.runAsync(() => Future<void>.delayed(Duration.zero));
+    });
+
+    testWidgets('prompt letter-circle fallback is not announced as a letter', (
+      tester,
+    ) async {
+      final handle = tester.ensureSemantics();
+      final noPic = {'ball': item('ball', 'ball', null), 'boy': boy};
+      await tester.pumpWidget(
+        host(
+          QuestionPrompt(
+            question: question(QuestionForm.seePicturePickWord),
+            itemFor: (id) => noPic[id]!,
+          ),
+        ),
+      );
+      expect(find.text('B'), findsOneWidget);
+      expect(find.bySemanticsLabel('Hình cần chọn'), findsOneWidget);
+      expect(find.bySemanticsLabel('B'), findsNothing);
+      expect(find.bySemanticsLabel(RegExp('ball')), findsNothing);
+      handle.dispose();
     });
   });
 }
