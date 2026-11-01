@@ -2,17 +2,19 @@
 
 Source of truth for content tasks. `TBC` = title not confirmed from a source yet (do NOT guess; verify against the printed textbook table of contents before authoring content). Index 0 = Starter (grades 3-5).
 
-Only 7 titles could be confirmed in the limited research budget (search-result page titles); all others are `TBC`.
+Only 11 titles could be confirmed (search-result page titles plus S5); all others are `TBC`.
 
+
+**Vocabulary note:** Grade 1 u01/u02 vocabulary in `assets/content/grade1/` is author-written for these unit topics and is NOT teacher-reviewed (`reviewed: false`). The printed book's word list could not be verified; check it against the printed textbook before release.
 
 ## Grade 1
 
 | Grade | Index | Unit id | Title | Theme | Source |
 |---|---|---|---|---|---|
-| 1 | 1 | u01 | TBC | TBC | - |
-| 1 | 2 | u02 | TBC | TBC | - |
-| 1 | 3 | u03 | TBC | TBC | - |
-| 1 | 4 | u04 | TBC | TBC | - |
+| 1 | 1 | u01 | In the school playground | TBC | S5 |
+| 1 | 2 | u02 | In the dining room | TBC | S5 |
+| 1 | 3 | u03 | At the street market | TBC | S5 |
+| 1 | 4 | u04 | In the bedroom | TBC | S5 |
 | 1 | 5 | u05 | TBC | TBC | - |
 | 1 | 6 | u06 | TBC | TBC | - |
 | 1 | 7 | u07 | TBC | TBC | - |
@@ -132,4 +134,6 @@ Only 7 titles could be confirmed in the limited research budget (search-result p
 - S3: https://www.vietjack.com/tieng-anh-5-moi/unit-3-where-did-you-go-on-holiday.jsp, https://www.vietjack.com/sbt-tieng-anh-5-kn/unit-1-all-about-me.jsp, https://www.vietjack.com/sbt-tieng-anh-5-kn/unit-2-our-homes.jsp, https://kenhgiaovien.com/tai-lieu/giao-nls-tieng-anh-5-global-success-unit-4-our-free-time-activities-lesson-1 (page titles)
 - S4: https://www.vietjack.com/tieng-anh-5-moi/starter.jsp (page title "Starter")
 
-Not reachable from the sandbox: hoatieu.vn and loigiaihay.com table-of-contents pages (fetch failed / no content). Unit counts per grade come from the task brief, not from a fetched source.
+- S5: https://hoatieu.vn/powerpoint-tieng-anh-tieu-hoc-global-success-259402 (Grade 1 Units 1-4 titles)
+
+Not reachable from the sandbox (earlier attempt): loigiaihay.com table-of-contents pages (fetch failed / no content). Unit counts per grade come from the task brief, not from a fetched source.

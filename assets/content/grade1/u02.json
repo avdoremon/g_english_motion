@@ -1,0 +1,224 @@
+{
+  "grade": 1,
+  "unit": "u02",
+  "index": 2,
+  "title": "In the dining room",
+  "items": [
+    {
+      "id": "g1u02-table",
+      "word": "table",
+      "ttsText": "table",
+      "image": "grade1/table.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u02-chair",
+        "g1u02-fork",
+        "g1u02-cake"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u02-chair",
+      "word": "chair",
+      "ttsText": "chair",
+      "image": "grade1/chair.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u02-cup",
+        "g1u02-milk",
+        "g1u02-fish"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u02-cup",
+      "word": "cup",
+      "ttsText": "cup",
+      "image": "grade1/cup.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u02-plate",
+        "g1u02-rice",
+        "g1u02-bread"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u02-plate",
+      "word": "plate",
+      "ttsText": "plate",
+      "image": "grade1/plate.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u02-spoon",
+        "g1u02-egg",
+        "g1u02-table"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u02-spoon",
+      "word": "spoon",
+      "ttsText": "spoon",
+      "image": "grade1/spoon.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u02-fork",
+        "g1u02-cake",
+        "g1u02-chair"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u02-fork",
+      "word": "fork",
+      "ttsText": "fork",
+      "image": "grade1/fork.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u02-milk",
+        "g1u02-fish",
+        "g1u02-cup"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u02-milk",
+      "word": "milk",
+      "ttsText": "milk",
+      "image": "grade1/milk.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u02-rice",
+        "g1u02-bread",
+        "g1u02-plate"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u02-rice",
+      "word": "rice",
+      "ttsText": "rice",
+      "image": "grade1/rice.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u02-egg",
+        "g1u02-table",
+        "g1u02-spoon"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u02-egg",
+      "word": "egg",
+      "ttsText": "egg",
+      "image": "grade1/egg.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u02-cake",
+        "g1u02-chair",
+        "g1u02-fork"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u02-cake",
+      "word": "cake",
+      "ttsText": "cake",
+      "image": "grade1/cake.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u02-fish",
+        "g1u02-cup",
+        "g1u02-milk"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u02-fish",
+      "word": "fish",
+      "ttsText": "fish",
+      "image": "grade1/fish.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u02-bread",
+        "g1u02-plate",
+        "g1u02-rice"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u02-bread",
+      "word": "bread",
+      "ttsText": "bread",
+      "image": "grade1/bread.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u02-table",
+        "g1u02-spoon",
+        "g1u02-egg"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    }
+  ]
+}

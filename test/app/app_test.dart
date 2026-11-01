@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:g_english_motion/app/app.dart';
 import 'package:g_english_motion/app/game_controller.dart';
@@ -31,6 +32,7 @@ void main() {
   Future<void> pumpApp(
     WidgetTester tester, {
     bool content = true,
+    ContentRepository? repo,
     bool safetyAcked = true,
     PermissionOutcome permission = PermissionOutcome.granted,
   }) async {
@@ -54,7 +56,7 @@ void main() {
         deps: AppDependencies(
           store: store,
           audio: audio,
-          repo: ContentRepository(content ? [harnessUnit()] : []),
+          repo: repo ?? ContentRepository(content ? [harnessUnit()] : []),
           levels: const [harnessLevel],
           sourceFactory: () => source,
           ticker: () => const Stream<Duration>.empty(),
@@ -78,6 +80,22 @@ void main() {
       await tester.pump();
       expect(find.text('Chưa có bài học'), findsNothing);
       expect(find.byKey(const ValueKey('play')), findsOneWidget);
+    },
+  );
+
+  testWidgets(
+    'with the real shipped content Play no longer shows "Chưa có bài học"',
+    (tester) async {
+      final real = (await tester.runAsync(
+        () => ContentRepository.loadFromAssets(rootBundle),
+      ))!;
+      expect(real.unitsFor(1), isNotEmpty);
+      await pumpApp(tester, repo: real);
+      await tester.tap(find.byKey(const ValueKey('play')));
+      await tester.pump();
+      await tester.pump();
+      expect(find.text('Chưa có bài học'), findsNothing);
+      expect(source.started, isTrue);
     },
   );
 

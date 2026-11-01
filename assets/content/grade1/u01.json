@@ -1,0 +1,224 @@
+{
+  "grade": 1,
+  "unit": "u01",
+  "index": 1,
+  "title": "In the school playground",
+  "items": [
+    {
+      "id": "g1u01-ball",
+      "word": "ball",
+      "ttsText": "ball",
+      "image": "grade1/ball.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u01-kite",
+        "g1u01-rope",
+        "g1u01-boy"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u01-kite",
+      "word": "kite",
+      "ttsText": "kite",
+      "image": "grade1/kite.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u01-bike",
+        "g1u01-tree",
+        "g1u01-girl"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u01-bike",
+      "word": "bike",
+      "ttsText": "bike",
+      "image": "grade1/bike.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u01-slide",
+        "g1u01-bird",
+        "g1u01-dog"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u01-slide",
+      "word": "slide",
+      "ttsText": "slide",
+      "image": "grade1/slide.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u01-swing",
+        "g1u01-sun",
+        "g1u01-ball"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u01-swing",
+      "word": "swing",
+      "ttsText": "swing",
+      "image": "grade1/swing.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u01-rope",
+        "g1u01-boy",
+        "g1u01-kite"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u01-rope",
+      "word": "rope",
+      "ttsText": "rope",
+      "image": "grade1/rope.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u01-tree",
+        "g1u01-girl",
+        "g1u01-bike"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u01-tree",
+      "word": "tree",
+      "ttsText": "tree",
+      "image": "grade1/tree.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u01-bird",
+        "g1u01-dog",
+        "g1u01-slide"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u01-bird",
+      "word": "bird",
+      "ttsText": "bird",
+      "image": "grade1/bird.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u01-sun",
+        "g1u01-ball",
+        "g1u01-swing"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u01-sun",
+      "word": "sun",
+      "ttsText": "sun",
+      "image": "grade1/sun.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u01-boy",
+        "g1u01-kite",
+        "g1u01-rope"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u01-boy",
+      "word": "boy",
+      "ttsText": "boy",
+      "image": "grade1/boy.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u01-girl",
+        "g1u01-bike",
+        "g1u01-tree"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u01-girl",
+      "word": "girl",
+      "ttsText": "girl",
+      "image": "grade1/girl.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u01-dog",
+        "g1u01-slide",
+        "g1u01-bird"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u01-dog",
+      "word": "dog",
+      "ttsText": "dog",
+      "image": "grade1/dog.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u01-ball",
+        "g1u01-swing",
+        "g1u01-sun"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    }
+  ]
+}
