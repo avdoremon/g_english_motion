@@ -11,7 +11,7 @@ Bản tiếng Anh của game học toán motion: bé đứng trước camera đi
 - Nền tảng: Android trước (máy kiểm thử: Galaxy S24 Ultra, Android 17), hỗ trợ điện thoại khoảng 4 năm gần đây. iOS làm sau.
 - Stack: Flutter + Flame + MediaPipe Pose, cùng stack với game toán.
 - Kế thừa từ game toán: mascot Tin Tin, 100 điểm mỗi câu đúng, sai thì báo sai và giải thích đáp án đúng, không đăng nhập ở MVP, tiến độ lưu cục bộ.
-- Ngoài phạm vi MVP: iOS, đăng nhập và bảng xếp hạng, chế độ trường học, ứng dụng riêng trên TV, nhận dạng giọng nói/chấm phát âm, nhận dạng cử chỉ bàn tay (Hand Landmarker).
+- Ngoài phạm vi MVP: iOS, đăng nhập và bảng xếp hạng, chế độ trường học, ứng dụng riêng trên TV, chấm phát âm chi tiết theo âm vị (mini-game đọc to ở mục 3.4 chỉ kiểm tra "nói đúng từ", không chấm điểm phát âm), nhận dạng cử chỉ bàn tay (Hand Landmarker).
 
 ## 2. Điều khiển bằng cơ thể (hướng A: chỉ dùng Pose)
 
@@ -42,12 +42,23 @@ Trên trời có 3–4 đáp án trôi chậm. Một mũi tên quét qua lại l
 
 Lớp 3–5 xen kẽ cả ba dạng (cùng một câu hỏi có thể được trình bày theo dạng khác nhau tùy bài).
 
+### 3.4 SayIt (mini-game đọc to, nhận dạng giọng nói)
+
+Mini-game độc lập với ba chế độ trên. Mỗi ván có **3 từ**; mỗi từ chạy trên màn hình theo một trong hai kiểu: **rơi từ trên xuống** hoặc **đi từ phải qua trái** (chọn ngẫu nhiên mỗi từ, tốc độ theo level). Bé đọc to từ đang chạy; hệ thống nhận dạng giọng nói và chấm. Khi có kết quả, từ hiển thị "Đúng" hoặc "Sai" (kèm Tin Tin vui/buồn), sau đó **nổ và biến mất**; từ kế tiếp xuất hiện. Từ chạm đáy màn hình (hoặc mép trái) mà chưa có kết quả thì tính là sai, rồi cũng nổ và biến mất. Hết 3 từ thì hiện kết quả ván (số từ đúng, sao).
+
+- **Nhận dạng:** dùng bộ nhận dạng giọng nói sẵn có của Android (`SpeechRecognizer`, ngôn ngữ `en-US`), lấy danh sách kết quả thay thế và điểm tin cậy nếu máy cung cấp. Ưu tiên bộ nhận dạng trên máy (`createOnDeviceSpeechRecognizer`, API 31+) khi có; nếu không thì dùng bộ mặc định (có thể cần mạng).
+- **Quy tắc chấm:** đúng khi bất kỳ kết quả thay thế nào, sau khi chuẩn hóa (chữ thường, bỏ dấu câu), trùng với từ đích hoặc với một biến thể chấp nhận được trong dữ liệu (`spokenVariants`, ví dụ đồng âm hoặc cách nhận dạng thường gặp); nếu máy cung cấp điểm tin cậy thì phải >= 0,3. Không chấm gần đúng theo khoảng cách chữ cái ở MVP để tránh cho đúng nhầm. Đây là kiểm tra "nói đúng từ", không phải chấm phát âm.
+- **Lớp 1–2:** TTS đọc mẫu từ trước ("nghe rồi đọc theo"); chỉ dùng từ ngắn 1–2 âm tiết. **Lớp 3–5:** không đọc mẫu, từ dài hơn ở level cao.
+- **Cửa sổ nghe:** chỉ nghe khi từ đang chạy; trong lúc nghe, tắt nhạc nền và hiệu ứng âm thanh để micro điện thoại không thu lại tiếng từ TV.
+- **Level:** dùng bảng level ở mục 5: thời gian mỗi câu là thời gian từ chạy hết màn hình; lớp 1–2 chỉ cần 3 từ trong 1 unit ở level thấp.
+- **Rủi ro cần đo trước:** độ chính xác với giọng trẻ em, độ ồn phòng và tiếng TV, phụ thuộc mạng/dịch vụ của Google trên máy, mic ở khoảng cách 2–3 m. Nếu không nhận dạng được (không có dịch vụ, mất mạng, từ chối quyền micro), mini-game bị ẩn khỏi menu và các chế độ khác vẫn chơi bình thường.
+
 ## 4. Nội dung
 
 - Nguồn: danh sách từ vựng và mẫu câu do ta tự soạn theo chủ đề từng unit của Global Success (từ vựng là dữ kiện; không sao chép văn bản sách). Một giáo viên hoặc chính người dùng rà soát một lần cho khớp sách.
 - Cấu trúc sách đã xác nhận qua nguồn: lớp 1 và lớp 2 mỗi lớp 16 unit (kèm Review/Funtime ở lớp 2); lớp 3 có Starter + Unit 1–20 + 4 bài Review; lớp 4 có Starter + 20 unit + 4 Review; lớp 5 có Starter + Unit 1–20 (10 unit mỗi tập). Danh sách tên unit đầy đủ của từng lớp sẽ được đối chiếu với mục lục chính thức ở bước kế hoạch triển khai (chưa nhập vào đây để tránh ghi sai).
 - Tiếng Anh là môn bắt buộc từ lớp 3; lớp 1–2 là chương trình làm quen, nên nội dung lớp 1–2 chỉ là nghe và nhận biết từ qua hình, không cần đánh vần.
-- Định dạng dữ liệu: file JSON theo `grade/unit`, mỗi mục gồm `word`, `image`, `ttsText`, `sentencePatterns[]`, `distractors[]`, `modes[]`. Thêm unit chỉ cần thêm dữ liệu, không sửa code.
+- Định dạng dữ liệu: file JSON theo `grade/unit`, mỗi mục gồm `word`, `image`, `ttsText`, `sentencePatterns[]`, `distractors[]`, `spokenVariants[]` (cách nhận dạng chấp nhận được cho mini-game đọc to), `modes[]` (gồm cả `sayIt`). Thêm unit chỉ cần thêm dữ liệu, không sửa code.
 - Âm thanh: `flutter_tts` đọc bằng giọng tiếng Anh sẵn có trên máy. Nếu giọng trên máy nào đó quá tệ, dùng file âm thanh thu sẵn cho từ cốt lõi.
 
 ### Random hóa câu hỏi (chống học vẹt theo thứ tự)
@@ -85,7 +96,7 @@ Các khối độc lập, giao tiếp qua giao diện rõ ràng:
 2. `modes/` – LaneJump, DragSpell, SkyShoot; mỗi mode nhận một câu hỏi và các sự kiện, trả về kết quả đúng/sai.
 3. `content/` – nạp JSON, sinh câu hỏi và đáp án nhiễu theo level, thực hiện random hóa (mục 4) và đọc/ghi lịch sử câu đã hỏi.
 4. `levels/` – cấu hình level, bộ đếm giờ, tính điểm và sao.
-5. `audio/` – TTS, hiệu ứng âm thanh, nhạc nền.
+5. `audio/` – TTS, hiệu ứng âm thanh, nhạc nền; `speech/` – bộ nhận dạng giọng nói (giao diện + bản Android) và bộ chấm từ cho SayIt.
 6. `mascot/` – các trạng thái hoạt hình của Tin Tin và hiệu ứng (nhún nhảy, pháo hoa sao, v.v.).
 7. `progress/` – lưu tiến độ cục bộ.
 

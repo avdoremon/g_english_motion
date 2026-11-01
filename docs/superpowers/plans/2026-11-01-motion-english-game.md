@@ -20,6 +20,7 @@
 - 5 level mỗi lớp, bảng level đúng như spec mục 5 (số câu 8/10/10/12/12; thời gian 20/18/15/12/10 giây; đáp án 3/3/4/4/4). Câu nhiều bước cộng 50% thời gian.
 - 100 điểm mỗi câu đúng. Sao: 1 sao từ 50%, 2 sao từ 75%, 3 sao từ 90%. Mở khóa level N+1 khi level N có >= 1 sao.
 - Random: pool mỗi level >= 2 lần số câu; đáp án đúng không cùng vị trí quá 2 câu liên tiếp; ưu tiên mục chưa hỏi gần đây; câu sai xếp lại một lần cuối lượt.
+- SayIt (đọc to): 3 từ mỗi ván; mỗi từ rơi từ trên xuống hoặc đi từ phải qua trái; có kết quả thì hiện đúng/sai rồi nổ và biến mất; từ chạm đáy/mép trái chưa có kết quả tính là sai. Nhận dạng bằng Android `SpeechRecognizer` `en-US`; đúng khi một kết quả thay thế chuẩn hóa trùng từ đích hoặc `spokenVariants`, và điểm tin cậy >= 0,3 nếu có; không chấm gần đúng theo khoảng cách chữ cái. Tắt nhạc/hiệu ứng khi đang nghe. Cần quyền `RECORD_AUDIO`. Không nhận dạng được thì ẩn mini-game, các chế độ khác vẫn chơi.
 - Không đăng nhập; tiến độ lưu cục bộ; quảng cáo chỉ banner nhỏ ở góc.
 - Repo: `avdoremon/g_english_motion`. Tên package Dart: `g_english_motion`. Nội dung từ vựng tự soạn theo chủ đề unit, không sao chép văn bản sách.
 
@@ -29,7 +30,7 @@
 - Hai người cùng trong khung hình: chỉ theo dõi người đã hiệu chỉnh ban đầu, không nhảy sang người khác.
 - Từ có chữ cái lặp (ví dụ "apple" có hai chữ p): ghép bằng bất kỳ chữ p nào đều đúng.
 - Pool nhỏ hơn số câu cần (unit mới ít mục): vẫn đủ số câu, cho lặp lại thay vì thiếu câu.
-- TTS không khả dụng hoặc ứng dụng bị đưa xuống nền giữa level: không crash, hiển thị chữ thay cho giọng đọc, đồng hồ tạm dừng.
+- TTS hoặc nhận dạng giọng nói không khả dụng (không có dịch vụ, mất mạng, từ chối quyền micro) hay ứng dụng bị đưa xuống nền giữa level: không crash, hiển thị chữ thay cho giọng đọc, ẩn SayIt, đồng hồ tạm dừng.
 
 ---
 
@@ -42,7 +43,8 @@ lib/
                mock_pose_source.dart, mediapipe_pose_source.dart
   content/     models.dart, content_repository.dart, history_store.dart, question_generator.dart
   levels/      level_config.dart, scoring.dart
-  modes/       lane_jump.dart, drag_spell.dart, sky_shoot.dart
+  modes/       lane_jump.dart, drag_spell.dart, sky_shoot.dart, say_it.dart
+  speech/      word_judge.dart, speech_source.dart, android_speech_source.dart
   audio/       tts_service.dart
   progress/    progress_store.dart
   ui/          theme/ (token theo phương án đồ họa được chọn), screens/, mascot/
@@ -59,7 +61,8 @@ test/          phản chiếu cấu trúc lib/
 - [ ] **Step 1:** Dựng app Flutter tối thiểu hiện camera + landmark hông/vai (dùng plugin `flutter_mp_pose_landmarker`), log độ cao hông chuẩn hóa mỗi khung hình.
 - [ ] **Step 2:** Một người lớn và một bé (nếu có) nhảy 20 lần mỗi người ở 2,5 m, phòng sáng và phòng tối; ghi số lần nhảy bị bỏ sót, số lần báo nhầm, và độ trễ từ lúc chân rời đất (quay video 60 fps) tới lúc log báo.
 - [ ] **Step 3:** Ghi kết quả vào notes. Tiêu chí qua: bỏ sót <= 10%, báo nhầm <= 5%, độ trễ <= 250 ms. Nếu không qua, chỉnh ngưỡng và ghi lại; cập nhật Global Constraints cho khớp trước khi làm Task 3.
-- [ ] **Step 4:** Commit notes. Không merge mã spike.
+- [ ] **Step 4:** Spike nhận dạng giọng nói trên cùng app: gọi `SpeechRecognizer` `en-US` (thử cả bản trên máy nếu `isOnDeviceRecognitionAvailable`) cho 10 từ lớp 3 (ví dụ hand, head, red, blue, mother, school, rabbit, window, kitchen, teacher); mỗi từ đọc 5 lần bởi người lớn và (nếu có) một bé, ở 1 m và 2,5 m, TV tắt và TV bật tiếng. Ghi tỉ lệ nhận đúng ở kết quả đầu, ở top-N kết quả thay thế, có/không có mạng, và các biến thể nhận sai lặp lại (đưa vào `spokenVariants`). Tiêu chí qua cho người lớn: >= 80% đúng trong top-N ở 2,5 m với TV tắt tiếng; nếu bé dưới 60% hoặc cần mạng bắt buộc, ghi rõ để người dùng quyết định phạm vi SayIt (chỉ lớp 3–5, hoặc bật tùy chọn).
+- [ ] **Step 5:** Commit notes. Không merge mã spike.
 
 ## Task 1: Khởi tạo dự án Flutter
 
@@ -132,8 +135,8 @@ test/          phản chiếu cấu trúc lib/
 
 **Interfaces:**
 - Produces:
-  - `class ContentItem { final String id, word, ttsText; final String? image; final List<String> sentencePatterns, distractors; final List<ModeKind> modes; }`
-  - `enum ModeKind { laneJump, dragSpell, skyShoot }`
+  - `class ContentItem { final String id, word, ttsText; final String? image; final List<String> sentencePatterns, distractors, spokenVariants; final List<ModeKind> modes; }` (`spokenVariants` mặc định rỗng)
+  - `enum ModeKind { laneJump, dragSpell, skyShoot, sayIt }`
   - `class Unit { final int grade; final String id, title; final List<ContentItem> items; }`
   - `class ContentRepository { ContentRepository(this.units); static Future<ContentRepository> loadFromAssets(AssetBundle b); List<Unit> unitsFor(int grade); List<ContentItem> itemsFor(int grade, {required List<String> unitIds}); }`
   - JSON schema: `{"grade":3,"unit":"u04","title":"Our bodies","items":[{"id":"u04-hand","word":"hand","ttsText":"hand","image":"hand.png","sentencePatterns":["This is my hand."],"distractors":["head","arm"],"modes":["dragSpell","skyShoot"]}]}`
@@ -211,6 +214,36 @@ test/          phản chiếu cấu trúc lib/
 - [ ] **Step 2:** Chạy test, kỳ vọng FAIL. Cài. Chạy test, kỳ vọng PASS.
 - [ ] **Step 3:** Commit `feat(modes): sky shoot round logic`.
 
+## Task 10A: WordJudge – chấm từ nói
+
+**Files:** Create `lib/speech/word_judge.dart`; Test `test/speech/word_judge_test.dart`.
+
+**Interfaces:**
+- Produces:
+  - `class RecognitionResult { final List<String> transcripts; final List<double>? confidences; }` (`transcripts[0]` là kết quả tốt nhất)
+  - `class WordJudge { static bool matches(RecognitionResult r, ContentItem item, {double minConfidence = 0.3}); static String normalize(String s); }` — `normalize` hạ chữ thường, bỏ dấu câu, gộp khoảng trắng.
+
+- [ ] **Step 1:** Test: `matches` đúng khi `transcripts == ['Hand.']` và `word == 'hand'`; đúng khi từ đích chỉ có ở kết quả thay thế thứ ba; đúng khi trùng một `spokenVariants` (ví dụ `word 'red'`, variants `['read']`); sai với `['hat']`; sai khi trùng nhưng `confidences == [0.1, ...]` cho đúng kết quả đó; `confidences == null` thì bỏ qua ngưỡng (đúng); `transcripts` rỗng → sai; `'a hand'` (có từ thừa) → sai; `normalize('  HAND!! ') == 'hand'`.
+- [ ] **Step 2:** Chạy test, kỳ vọng FAIL. Cài. Chạy test, kỳ vọng PASS.
+- [ ] **Step 3:** Commit `feat(speech): word judge`.
+
+## Task 10B: Logic SayIt (mini-game đọc to)
+
+**Files:** Create `lib/modes/say_it.dart`; Test `test/modes/say_it_test.dart`.
+
+**Interfaces:**
+- Consumes: `ContentItem`, `RecognitionResult`, `WordJudge` (Task 10A), `RoundResult` (Task 8).
+- Produces:
+  - `enum WordMotion { fallDown, rightToLeft }`
+  - `enum WordPhase { running, judged, exploding, gone }`
+  - `class SayItWord { final ContentItem item; final WordMotion motion; WordPhase phase; RoundResult? result; double progress; }` (`progress` 0..1 từ lúc xuất hiện tới đáy/mép trái)
+  - `class SayItGame { SayItGame(List<ContentItem> items, {required Duration travelTime, required Random rng}); void tick(Duration dt); void onRecognized(RecognitionResult r); void onRecognitionFailed(); SayItWord get current; bool get finished; int get correctCount; List<SayItWord> get words; }`
+  - Hằng: `const Duration kExplosionTime = Duration(milliseconds: 800);` `const Duration kJudgedHold = Duration(milliseconds: 700);`
+
+- [ ] **Step 1:** Test (đồng hồ giả bằng `tick`): `SayItGame` ném `ArgumentError` nếu không đúng 3 mục; từ đầu `running` với `progress == 0`; `tick(travelTime/2)` → `progress == 0.5`; `onRecognized` khớp → `result == correct`, `phase == judged`; sau `kJudgedHold` → `exploding`, sau `kExplosionTime` nữa → `gone` và `current` là từ kế tiếp; `onRecognized` không khớp → `wrong`; `tick` đủ `travelTime` mà chưa có kết quả → `wrong` (mất từ) rồi cũng nổ và biến mất; `onRecognitionFailed` (lỗi nhận dạng hoặc không nghe thấy) chưa chốt kết quả, từ vẫn chạy; sau từ thứ ba `gone` → `finished == true`, `correctCount` đúng; `onRecognized` khi từ đang `judged`/`exploding` bị bỏ qua; với `Random(1)` cả hai giá trị `WordMotion` đều xuất hiện trong 20 ván.
+- [ ] **Step 2:** Chạy test, kỳ vọng FAIL. Cài.
+- [ ] **Step 3:** Chạy test, kỳ vọng PASS. Commit `feat(modes): say-it round logic`.
+
 ## Task 11: Tiến độ và lịch sử lưu cục bộ
 
 **Files:** Create `lib/progress/progress_store.dart`; Test `test/progress/progress_store_test.dart`.
@@ -244,6 +277,23 @@ test/          phản chiếu cấu trúc lib/
 - [ ] **Step 3:** Chạy test, kỳ vọng PASS. Cài bản debug lên S24 Ultra và xác nhận log sự kiện khi nhảy/bước.
 - [ ] **Step 4:** Commit `feat(input): pose session and mediapipe source`.
 
+## Task 13A: Nhận dạng giọng nói Android
+
+**Files:** Create `lib/speech/speech_source.dart`, `lib/speech/android_speech_source.dart`, `android/app/src/main/AndroidManifest.xml` (quyền `RECORD_AUDIO`, khai báo `<queries>` cho dịch vụ nhận dạng); Test `test/speech/speech_session_test.dart`.
+
+**Interfaces:**
+- Consumes: `RecognitionResult` (Task 10A), `TtsService` (Task 12).
+- Produces:
+  - `abstract class SpeechSource { Future<SpeechAvailability> check(); Stream<RecognitionResult> listen({Duration maxListen = const Duration(seconds: 6)}); Future<void> stop(); }`
+  - `enum SpeechAvailability { available, noPermission, noService, noEnglish }`
+  - `class SpeechSession { SpeechSession(SpeechSource s, AudioDucker ducker); Stream<RecognitionResult> listenForWord(); }` — gọi `ducker.mute()` trước khi nghe và `ducker.restore()` sau khi xong hoặc lỗi; `abstract class AudioDucker { void mute(); void restore(); }`
+  - `class AndroidSpeechSource implements SpeechSource` — dùng `SpeechRecognizer` `en-US` với kết quả thay thế và điểm tin cậy; ưu tiên bộ trên máy khi `isOnDeviceRecognitionAvailable` (API 31+), bắt `UnsupportedOperationException`; gói plugin Flutter hiện có (ví dụ `speech_to_text`) nếu đủ top-N và điểm tin cậy, nếu không thì viết kênh nền Kotlin.
+
+- [ ] **Step 1:** Test `SpeechSession` với `FakeSpeechSource` và `FakeDucker`: gọi `listenForWord` thì `mute` được gọi trước khi nguồn bắt đầu nghe và `restore` được gọi khi luồng kết thúc; nguồn ném lỗi → `restore` vẫn được gọi và lỗi được chuyển thành sự kiện lỗi, không crash; `check()` trả `noPermission`/`noService` → `SpeechSession` báo không khả dụng để UI ẩn SayIt (Review Focus).
+- [ ] **Step 2:** Chạy test, kỳ vọng FAIL. Cài `SpeechSession` và `AndroidSpeechSource`.
+- [ ] **Step 3:** Chạy test, kỳ vọng PASS. Cài bản debug lên S24 Ultra, đọc thử 5 từ và xác nhận kết quả về đúng, nhạc nền tắt trong lúc nghe.
+- [ ] **Step 4:** Commit `feat(speech): android recognizer and session`.
+
 ## Task 14: Nội dung lớp 1–5
 
 **Files:** Create `assets/content/grade{1..5}/u<NN>.json` theo `docs/content/unit-map.md`; Test `test/content/content_validity_test.dart`.
@@ -251,7 +301,7 @@ test/          phản chiếu cấu trúc lib/
 **Interfaces:**
 - Consumes: schema ở Task 5, bảng unit ở `unit-map.md`.
 
-- [ ] **Step 1:** Test duyệt mọi file JSON: `id` duy nhất toàn cục; mỗi unit >= 8 mục (để pool level 1 >= 16 khi gộp 2 unit); mỗi mục có >= 2 `distractors` khác `word`; mục chỉ có `dragSpell` thì `word` dài >= 3 chữ cái; lớp 1–2 chỉ dùng `laneJump`; lớp 3–5 có ít nhất một mục `dragSpell` và `skyShoot` mỗi unit.
+- [ ] **Step 1:** Test duyệt mọi file JSON: `id` duy nhất toàn cục; mỗi unit >= 8 mục (để pool level 1 >= 16 khi gộp 2 unit); mỗi mục có >= 2 `distractors` khác `word`; mục chỉ có `dragSpell` thì `word` dài >= 3 chữ cái; lớp 1–2 chỉ dùng `laneJump` và `sayIt`; lớp 3–5 có ít nhất một mục `dragSpell` và `skyShoot` mỗi unit; mỗi unit có >= 4 mục `sayIt` (từ đơn, không dấu câu), và lớp 1–2 chỉ cho `sayIt` với từ <= 2 âm tiết; `spokenVariants` (nếu có) khác `word` và đã chuẩn hóa. Điền `spokenVariants` từ kết quả spike ở Task 0.
 - [ ] **Step 2:** Chạy test, kỳ vọng FAIL (chưa có dữ liệu). Soạn từng lớp theo thứ tự lớp 3, 4, 5, 1, 2; mỗi lớp một commit.
 - [ ] **Step 3:** Chạy test, kỳ vọng PASS. Nhờ giáo viên hoặc chủ dự án rà từ vựng với sách thật.
 
@@ -265,7 +315,7 @@ test/          phản chiếu cấu trúc lib/
 
 **Điều kiện bắt đầu:** người dùng chọn một trong ba phương án (A Khu vườn mây, B Phi hành đoàn, C Kẹo giấy) và cung cấp mascot Tin Tin thật.
 
-- [ ] **Step 1:** Widget test mỗi màn hình dùng `MockPoseSource`: `HomeScreen` có nút Play và chọn lớp; `LaneJumpScreen` hiện 3–4 làn, `Jumped` ở làn đúng hiện `TinTinState.happy`; `SkyShootScreen` hiện số lượt bắn còn lại; `ResultScreen` hiện đúng số sao theo `Scoring.stars`.
+- [ ] **Step 1:** Widget test mỗi màn hình dùng `MockPoseSource`: `HomeScreen` có nút Play và chọn lớp, và chỉ hiện mục SayIt khi `SpeechAvailability.available`; `LaneJumpScreen` hiện 3–4 làn, `Jumped` ở làn đúng hiện `TinTinState.happy`; `SkyShootScreen` hiện số lượt bắn còn lại; `SayItScreen` (dùng `FakeSpeechSource`) hiện từ đang chạy theo `WordMotion`, hiện nhãn "Đúng"/"Sai" khi `judged`, hiệu ứng nổ khi `exploding`, và không còn widget của từ khi `gone`; `ResultScreen` hiện đúng số sao theo `Scoring.stars`.
 - [ ] **Step 2:** Chạy test, kỳ vọng FAIL. Cài màn hình với token của phương án chọn; hiệu ứng ngắn dưới 1,5 giây (nhún chữ, pháo hoa sao, Tin Tin nhảy múa).
 - [ ] **Step 3:** Cài khung chung: màn hiệu chỉnh đầu phiên, tạm dừng khi `PlayerLost`, tạm dừng khi ứng dụng xuống nền (`AppLifecycleState.paused`, Review Focus), banner quảng cáo nhỏ ở góc.
 - [ ] **Step 4:** Chạy test, kỳ vọng PASS. Commit `feat(ui): screens, mascot, theme`.
@@ -281,7 +331,7 @@ test/          phản chiếu cấu trúc lib/
 
 ## Self-review
 
-- **Độ phủ spec:** điều khiển (Task 2–4, 13), ba mode (8–10, 15), nội dung (5, 14), random hóa (7), level/điểm (6, 11), kiến trúc/lỗi (13, 15), TTS (12), đồ họa/animation (15), repo (Global Constraints).
+- **Độ phủ spec:** điều khiển (Task 2–4, 13), ba mode (8–10, 15), SayIt (10A, 10B, 13A, 15), nội dung (5, 14), random hóa (7), level/điểm (6, 11), kiến trúc/lỗi (13, 15), TTS (12), đồ họa/animation (15), repo (Global Constraints).
 - **Nhất quán kiểu:** `RoundResult`, `ModeKind`, `LevelConfig`, `HoldProgress` được định nghĩa một lần và dùng nhất quán ở các task sau.
 - **Thay đổi nhỏ so với spec:** `JumpDetector` phát sự kiện ngay khi vượt ngưỡng (độ trễ thấp) và chỉ nạp lại khi người chơi hạ xuống; spec viết "rồi hạ xuống", ý là điều kiện nạp lại.
 - **Phụ thuộc:** Task 0 quyết định ngưỡng cho Task 3; Task 5 bước 4 tạo `unit-map.md` cho Task 14; Task 15 chờ người dùng chọn phương án đồ họa.
