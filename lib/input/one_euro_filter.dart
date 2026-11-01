@@ -7,6 +7,7 @@ class OneEuroFilter {
   static const double dCutoff = 1.0;
 
   final double minCutoff;
+
   /// Speed coefficient. Default 5.0 (not 0.01): coordinates are normalized 0..1,
   /// so speeds are small and a low beta cannot meet the step-response spec.
   final double beta;
