@@ -211,9 +211,13 @@ class _GameShellState extends State<GameShell> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
+    // Every child is keyed: when the overlay appears/disappears Flutter
+    // matches children by key, so the camera host's element (and its single
+    // platform view) is never re-paired with another widget and re-created.
     return Stack(
       children: [
         Positioned.fill(
+          key: const ValueKey('shell-content'),
           child: Column(
             children: [
               Expanded(child: widget.child),
@@ -228,10 +232,16 @@ class _GameShellState extends State<GameShell> with WidgetsBindingObserver {
         ),
         if (_playerLost)
           const Positioned.fill(
+            key: ValueKey('shell-pause-overlay'),
             child: PauseOverlay(message: 'Em đâu rồi? Quay lại khung hình nhé'),
           ),
         if (widget.cameraHost case final host?)
-          Positioned(left: 0, bottom: 0, child: host),
+          Positioned(
+            key: const ValueKey('shell-camera-host'),
+            left: 0,
+            bottom: 0,
+            child: host,
+          ),
       ],
     );
   }

@@ -148,6 +148,60 @@ void main() {
     expect(disposed, hasLength(1));
   });
 
+  testWidgets(
+    'GameShell creates the host once across PlayerLost/Found and app '
+    'inactive/resumed (a second live view would put the plugin\'s one '
+    'PreviewView in two parents)',
+    (tester) async {
+      final binding = TestWidgetsFlutterBinding.ensureInitialized();
+      final events = StreamController<GameInputEvent>.broadcast();
+      addTearDown(events.close);
+      final audio = AudioService(_Tts(), _Clips(), assetExists: (_) => false);
+      await tester.pumpWidget(
+        Directionality(
+          textDirection: TextDirection.ltr,
+          child: GameShell(
+            events: events.stream,
+            audio: audio,
+            wakelock: _Wakelock(),
+            timerFactory: _timer,
+            cameraHost: const PoseCameraHost(),
+            child: const Text('play'),
+          ),
+        ),
+      );
+      await tester.pump();
+      expect(created, hasLength(1));
+
+      for (var i = 0; i < 3; i++) {
+        events.add(const PlayerLost(at: Duration.zero));
+        await tester.pump();
+        await tester.pump();
+        expect(find.byType(AndroidView), findsOneWidget);
+        events.add(const PlayerFound(at: Duration.zero));
+        await tester.pump();
+        await tester.pump();
+      }
+      binding.handleAppLifecycleStateChanged(AppLifecycleState.inactive);
+      await tester.pump();
+      events.add(const PlayerLost(at: Duration.zero));
+      await tester.pump();
+      binding.handleAppLifecycleStateChanged(AppLifecycleState.resumed);
+      await tester.pump();
+      events.add(const PlayerFound(at: Duration.zero));
+      await tester.pump();
+      await tester.pump();
+
+      expect(created, hasLength(1), reason: 'host re-created');
+      expect(disposed, isEmpty, reason: 'host disposed while the shell lives');
+
+      await tester.pumpWidget(const SizedBox());
+      await tester.pump();
+      expect(disposed, hasLength(1));
+      await audio.dispose();
+    },
+  );
+
   testWidgets('GameShell without a host has no platform view', (tester) async {
     final audio = AudioService(_Tts(), _Clips(), assetExists: (_) => false);
     await tester.pumpWidget(
