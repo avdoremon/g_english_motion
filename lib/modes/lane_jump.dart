@@ -5,7 +5,7 @@ import 'round.dart';
 class LaneJumpRound implements Round {
   LaneJumpRound(
     this.question, {
-    required Duration timeLimit,
+    required this.timeLimit,
     required int initialLane,
   }) : assert(question.choices.isNotEmpty, 'a question needs choices'),
        _remaining = timeLimit,
@@ -29,6 +29,16 @@ class LaneJumpRound implements Round {
 
   @override
   Duration get remaining => _remaining;
+
+  @override
+  final Duration timeLimit;
+
+  @override
+  double get elapsedFraction {
+    final limit = timeLimit.inMicroseconds;
+    if (limit <= 0) return 1.0;
+    return (1 - _remaining.inMicroseconds / limit).clamp(0.0, 1.0);
+  }
 
   @override
   bool get clockRunning => _started && _playerPresent && _result == null;

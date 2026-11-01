@@ -92,6 +92,37 @@ class LevelSession implements PausableSession {
   /// must branch on `phase == finished`.
   Round get round => _round!;
 
+  /// How the level hints at the answer (from [LevelConfig.hints]).
+  HintMode get hintMode => level.hints;
+
+  /// Fraction (0..1) of the current question's time limit that has elapsed;
+  /// 0 before the first round and while the question is still being read.
+  double get roundElapsedFraction =>
+      (_begun && _queue.isNotEmpty) ? _round!.elapsedFraction : 0.0;
+
+  /// Share of the time limit after which [HintMode.partial] reveals the
+  /// pictures.
+  static const double partialHintAt = 0.5;
+
+  /// Whether the word lanes of the current question show their pictures as a
+  /// hint ("Gợi ý hình"). Only the listen-and-pick-word form has word-only
+  /// lanes; the picture-based forms are unaffected. The hint is a property of
+  /// ALL options (never of the right one), so it cannot give the answer away.
+  bool get showTileHints {
+    if (!_begun || _queue.isEmpty || _phase == SessionPhase.finished) {
+      return false;
+    }
+    final q = current.question;
+    if (q is! ChoiceQuestion || q.form != QuestionForm.listenPickWord) {
+      return false;
+    }
+    return switch (level.hints) {
+      HintMode.full => true,
+      HintMode.partial => roundElapsedFraction >= partialHintAt,
+      HintMode.none => false,
+    };
+  }
+
   /// Position among the non-review questions (0-based, capped at the count).
   int get index => _pos < plan.length ? _pos : plan.length;
 
@@ -99,7 +130,10 @@ class LevelSession implements PausableSession {
   int get totalQuestions => plan.length;
 
   /// Completes when the end-of-level history writes are done (never throws;
-  /// store failures are logged and swallowed).
+  /// store failures are logged and swallowed). The writes start when the
+  /// session finishes; before that this future is already complete (it
+  /// completes immediately, there is nothing pending), so await it only after
+  /// [phase] is [SessionPhase.finished].
   Future<void> get historyWritten => _historyWritten;
 
   void begin() {

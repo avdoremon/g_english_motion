@@ -144,6 +144,7 @@ class GameController extends ChangeNotifier {
   static const confirmGrace = Duration(milliseconds: 500);
 
   SessionPhase? _lastSessionPhase;
+  bool _lastTileHints = false;
   bool _disposed = false;
   bool _finishHandled = false;
   Future<void> _persisted = Future<void>.value();
@@ -177,6 +178,11 @@ class GameController extends ChangeNotifier {
   /// Lane the player currently stands in (live, also while the question is
   /// being read aloud).
   int get selectedLane => _selectedLane;
+
+  /// Whether the word lanes show their pictures as a hint right now (see
+  /// [LevelSession.showTileHints]). Listeners are notified when it flips
+  /// (e.g. `partial` crossing 50% of the time limit), not on every tick.
+  bool get showTileHints => _session?.showTileHints ?? false;
 
   /// Input events (including synthetic presence events) for GameShell.
   Stream<GameInputEvent> get events => _events.stream;
@@ -459,7 +465,10 @@ class GameController extends ChangeNotifier {
       _onFeedback(s);
     }
     if (now == SessionPhase.finished && !_finishHandled) _onFinished(s);
-    if (before != now) notifyListeners();
+    final hints = s.showTileHints;
+    final hintsChanged = hints != _lastTileHints;
+    _lastTileHints = hints;
+    if (before != now || hintsChanged) notifyListeners();
   }
 
   void _maybeStartRound(LevelSession s) {

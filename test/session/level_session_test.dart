@@ -40,6 +40,14 @@ class FakeRound implements Round {
   Duration get remaining => _remaining;
   @override
   bool get clockRunning => started && _result == null;
+  @override
+  Duration get timeLimit => const Duration(seconds: 10);
+  @override
+  double get elapsedFraction =>
+      (1 - _remaining.inMilliseconds / timeLimit.inMilliseconds).clamp(
+        0.0,
+        1.0,
+      );
 }
 
 class SlowHistory extends RecordingHistory {
@@ -92,11 +100,14 @@ class RecordingHistory extends InMemoryHistoryStore {
   }
 }
 
-PlannedQuestion pqOf(String id) => PlannedQuestion(
+PlannedQuestion pqOf(
+  String id, [
+  QuestionForm form = QuestionForm.listenPickWord,
+]) => PlannedQuestion(
   mode: ModeKind.laneJump,
   question: ChoiceQuestion(
     itemId: id,
-    form: QuestionForm.listenPickWord,
+    form: form,
     ttsText: id,
     choices: const [],
     correctIndex: 0,
@@ -116,11 +127,23 @@ const ms = Duration(milliseconds: 16);
 const feedback = Duration(milliseconds: 2500);
 
 class Harness {
-  Harness(int n, {Duration? feedbackTime, RecordingHistory? h})
-    : history = h ?? RecordingHistory(),
-      plan = [for (var i = 0; i < n; i++) pqOf('i$i')] {
+  Harness(
+    int n, {
+    Duration? feedbackTime,
+    RecordingHistory? h,
+    HintMode hints = HintMode.full,
+    QuestionForm form = QuestionForm.listenPickWord,
+  }) : history = h ?? RecordingHistory(),
+       plan = [for (var i = 0; i < n; i++) pqOf('i$i', form)] {
     session = LevelSession(
-      level: level,
+      level: LevelConfig(
+        level: 1,
+        questionCount: 8,
+        baseTime: const Duration(seconds: 10),
+        choiceCount: 3,
+        hints: hints,
+        window: UnitWindow.current,
+      ),
       plan: plan,
       history: history,
       feedbackTime: feedbackTime ?? feedback,
@@ -553,5 +576,77 @@ void main() {
     expect((o.correct, o.total, o.points, o.stars), (0, 0, 0, 0));
     expect(o.unlockedNext, isFalse);
     expect(h.rounds, isEmpty);
+  });
+
+  group('tile hints (LevelConfig.hints for LaneJump word tiles)', () {
+    test('exposes the hint mode and the round elapsed fraction', () {
+      final h = Harness(2, hints: HintMode.partial)..session.begin();
+      expect(h.session.hintMode, HintMode.partial);
+      expect(h.session.roundElapsedFraction, 0);
+      h.session.onPromptFinished();
+      h.session.tick(const Duration(seconds: 4));
+      expect(h.session.roundElapsedFraction, closeTo(0.4, 1e-9));
+    });
+
+    test('full: pictures from the very start, even while the prompt plays', () {
+      final h = Harness(2, hints: HintMode.full)..session.begin();
+      expect(h.session.showTileHints, isTrue);
+      h.session.onPromptFinished();
+      expect(h.session.showTileHints, isTrue);
+      h.session.tick(const Duration(seconds: 9));
+      expect(h.session.showTileHints, isTrue);
+    });
+
+    test('partial: pictures appear once 50% of the time limit has elapsed', () {
+      final h = Harness(2, hints: HintMode.partial)..session.begin();
+      expect(h.session.showTileHints, isFalse);
+      h.session.onPromptFinished();
+      expect(h.session.showTileHints, isFalse);
+      h.session.tick(const Duration(milliseconds: 4900));
+      expect(h.session.showTileHints, isFalse);
+      h.session.tick(const Duration(milliseconds: 100)); // exactly 50%
+      expect(h.session.showTileHints, isTrue);
+    });
+
+    test('partial: the next question starts hidden again', () {
+      final h = Harness(3, hints: HintMode.partial)..session.begin();
+      h.session.onPromptFinished();
+      h.session.tick(const Duration(seconds: 6));
+      expect(h.session.showTileHints, isTrue);
+      h.cur.setResult(RoundResult.wrong);
+      h.session.tick(ms);
+      h.session.tick(feedback);
+      expect(h.session.phase, SessionPhase.prompting);
+      expect(h.session.showTileHints, isFalse);
+    });
+
+    test('none: never', () {
+      final h = Harness(2, hints: HintMode.none)..session.begin();
+      h.session.onPromptFinished();
+      h.session.tick(const Duration(seconds: 9));
+      expect(h.session.showTileHints, isFalse);
+    });
+
+    test('picture-based forms are unaffected in every mode', () {
+      for (final form in [
+        QuestionForm.seePicturePickWord,
+        QuestionForm.listenPickPicture,
+        QuestionForm.fillBlank,
+      ]) {
+        for (final mode in HintMode.values) {
+          final h = Harness(2, hints: mode, form: form)..session.begin();
+          h.session.onPromptFinished();
+          h.session.tick(const Duration(seconds: 9));
+          expect(h.session.showTileHints, isFalse, reason: '$form $mode');
+        }
+      }
+    });
+
+    test('not shown once the level is finished', () {
+      final h = Harness(1, hints: HintMode.full)..session.begin();
+      h.answer(RoundResult.correct);
+      expect(h.session.phase, SessionPhase.finished);
+      expect(h.session.showTileHints, isFalse);
+    });
   });
 }

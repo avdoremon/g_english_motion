@@ -17,6 +17,12 @@ import '../theme/app_theme.dart';
 /// [ItemPicture]; when the item has no image or the asset cannot be loaded it
 /// falls back to a coloured circle with the first letter of the word.
 ///
+/// Hints ("Gợi ý hình", `LevelConfig.hints`): on listen-and-pick-word lanes
+/// the picture of each option is shown next to its word when
+/// [GameController.showTileHints] says so (always for `full`, after half of
+/// the time limit for `partial`, never for `none`). The pictures belong to
+/// ALL options and nothing marks the right one before the child chose.
+///
 /// Prompt ([QuestionPrompt]): the listen forms show only the speaker icon and
 /// "Nghe nhé" (a visible word would give the answer away; listen-and-pick-
 /// picture reveals the word in the feedback, after answering); see-picture
@@ -323,6 +329,7 @@ class _Lanes extends StatelessWidget {
     final selected = c.selectedLane;
     final showAnswer =
         body._feedback && body.session.lastResult != RoundResult.correct;
+    final hint = c.showTileHints;
     return Row(
       children: [
         for (var i = 0; i < q.choices.length; i++) ...[
@@ -334,6 +341,7 @@ class _Lanes extends StatelessWidget {
               item: c.itemFor(q.choices[i].itemId),
               selected: i == selected,
               isAnswer: showAnswer && i == q.correctIndex,
+              showHintPicture: hint,
             ),
           ),
         ],
@@ -351,12 +359,24 @@ class LaneTile extends StatelessWidget {
     required this.item,
     required this.selected,
     this.isAnswer = false,
+    this.showHintPicture = false,
   });
 
   final ChoiceOption option;
   final ContentItem item;
   final bool selected;
   final bool isAnswer;
+
+  /// Hint: draw the item's picture above its word. The same flag is passed
+  /// to every lane, so it never singles out the right one. Items without a
+  /// bundled picture show only their word.
+  final bool showHintPicture;
+
+  bool get _showPicture =>
+      option.showPicture ||
+      (showHintPicture &&
+          option.showWord &&
+          ItemPicture.assetFor(item) != null);
 
   @override
   Widget build(BuildContext context) {
@@ -404,13 +424,20 @@ class LaneTile extends StatelessWidget {
             // what is left (at least 32 px).
             child: LayoutBuilder(
               builder: (context, box) {
-                final wordH = option.showWord ? 44.0 : 0.0;
-                final gap = option.showPicture && option.showWord ? 8.0 : 0.0;
-                final pic = (box.maxHeight - wordH - gap).clamp(32.0, 120.0);
+                // The word line is ~48.5 px tall at 28 sp; with a picture too
+                // the picture takes what is left (at least 24 px on the
+                // smallest phones, 32 px when it is the only content).
+                final both = _showPicture && option.showWord;
+                final wordH = option.showWord ? 50.0 : 0.0;
+                final gap = both ? 8.0 : 0.0;
+                final pic = (box.maxHeight - wordH - gap).clamp(
+                  both ? 24.0 : 32.0,
+                  120.0,
+                );
                 return Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    if (option.showPicture)
+                    if (_showPicture)
                       ItemPicture(
                         item: item,
                         size: pic,

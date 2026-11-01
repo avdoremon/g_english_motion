@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:g_english_motion/content/question_models.dart';
+import 'package:g_english_motion/content/curriculum.dart';
 import 'package:g_english_motion/input/game_input_event.dart';
+import 'package:g_english_motion/levels/level_config.dart';
+import 'package:g_english_motion/session/level_session.dart';
 import 'package:g_english_motion/ui/mascot/tin_tin.dart';
 import 'package:g_english_motion/ui/screens/lane_jump_screen.dart';
 import 'package:g_english_motion/ui/theme/app_theme.dart';
@@ -218,5 +222,205 @@ void main() {
       expect(size, greaterThanOrEqualTo(28), reason: '"${t.data}"');
     }
     await finish(tester);
+  });
+
+  group('picture hints on word lanes (LevelConfig.hints)', () {
+    LevelConfig levelWith(HintMode m) => LevelConfig(
+      level: 1,
+      questionCount: 8,
+      baseTime: const Duration(seconds: 20),
+      choiceCount: 3,
+      hints: m,
+      window: UnitWindow.current,
+    );
+
+    /// Boots a harness (with item pictures) whose first question is a
+    /// listen-and-pick-word one, then lets the prompt finish so the clock
+    /// runs.
+    Future<void> bootHint(
+      WidgetTester tester,
+      HintMode mode, {
+      Size size = const Size(1280, 720),
+    }) async {
+      await tester.binding.setSurfaceSize(size);
+      addTearDown(() => tester.binding.setSurfaceSize(null));
+      await tester.runAsync(() async {
+        for (var seed = 0; seed < 60; seed++) {
+          h = await GameHarness.create(
+            level: levelWith(mode),
+            withImages: true,
+            seed: seed,
+          );
+          await h.startAndCalibrate();
+          final first = h.controller.session!.current.question;
+          if (first.form == QuestionForm.listenPickWord) {
+            await h.run(const Duration(milliseconds: 300));
+            return;
+          }
+          await h.dispose();
+        }
+        fail('no seed starts with a listenPickWord question');
+      });
+      expect(
+        h.controller.session!.phase,
+        SessionPhase.playing,
+        reason: 'the clock should be running',
+      );
+      await tester.pumpWidget(
+        MaterialApp(
+          theme: AppTheme.dark(),
+          home: Scaffold(body: LaneJumpScreen(controller: h.controller)),
+        ),
+      );
+    }
+
+    Finder pictures() => find.descendant(
+      of: find.byType(LaneTile),
+      matching: find.byType(ItemPicture),
+    );
+
+    Future<void> elapse(WidgetTester tester, Duration d) async {
+      await tester.runAsync(() => h.run(d));
+      await tester.pump();
+    }
+
+    void expectWordsOnEveryLane() {
+      for (var i = 0; i < 3; i++) {
+        final c = q().choices[i];
+        final w = harnessWords[int.parse(c.itemId.split('i').last)];
+        expect(
+          find.descendant(of: lane(i), matching: find.text(w)),
+          findsOneWidget,
+          reason: 'lane $i keeps its word',
+        );
+      }
+    }
+
+    testWidgets('the default level 1 hints are full', (tester) async {
+      final levels = await tester.runAsync(() => LevelConfig.load(rootBundle));
+      expect(levels!.first.hints, HintMode.full);
+    });
+
+    testWidgets('full: every lane shows its picture with the word from the '
+        'start', (tester) async {
+      await bootHint(tester, HintMode.full);
+      expect(h.controller.session!.round.elapsedFraction, lessThan(0.1));
+      expect(pictures(), findsNWidgets(3));
+      for (var i = 0; i < 3; i++) {
+        expect(
+          find.descendant(of: lane(i), matching: find.byType(ItemPicture)),
+          findsOneWidget,
+        );
+      }
+      expectWordsOnEveryLane();
+      await finish(tester);
+    });
+
+    testWidgets('partial: pictures appear after 50% of the time limit', (
+      tester,
+    ) async {
+      await bootHint(tester, HintMode.partial);
+      expect(pictures(), findsNothing);
+      expectWordsOnEveryLane();
+      await elapse(tester, const Duration(seconds: 8)); // ~ 40%
+      expect(h.controller.session!.round.elapsedFraction, lessThan(0.5));
+      expect(pictures(), findsNothing);
+      await elapse(tester, const Duration(seconds: 3)); // ~ 55%
+      expect(h.controller.session!.round.elapsedFraction, greaterThan(0.5));
+      expect(pictures(), findsNWidgets(3));
+      expectWordsOnEveryLane();
+      await finish(tester);
+    });
+
+    testWidgets('none: pictures never appear', (tester) async {
+      await bootHint(tester, HintMode.none);
+      expect(pictures(), findsNothing);
+      await elapse(tester, const Duration(seconds: 15));
+      expect(h.controller.session!.round.elapsedFraction, greaterThan(0.6));
+      expect(pictures(), findsNothing);
+      expectWordsOnEveryLane();
+      await finish(tester);
+    });
+
+    testWidgets('hint pictures are on all options and never mark the answer', (
+      tester,
+    ) async {
+      await bootHint(tester, HintMode.full);
+      // Every tile looks the same: only the player's own lane differs, and
+      // that marker is independent of the right answer.
+      final a = q().correctIndex;
+      for (var i = 0; i < 3; i++) {
+        final t = tester.widget<LaneTile>(lane(i));
+        expect(t.isAnswer, isFalse, reason: 'lane $i');
+        expect(t.showHintPicture, isTrue, reason: 'lane $i (answer is $a)');
+      }
+      expect(find.byIcon(Icons.check_circle), findsNothing);
+      await finish(tester);
+    });
+
+    testWidgets('full hints fit a small landscape phone (800x360)', (
+      tester,
+    ) async {
+      await bootHint(tester, HintMode.full, size: const Size(800, 360));
+      await tester.pump();
+      expect(tester.takeException(), isNull);
+      expect(pictures(), findsNWidgets(3));
+      for (var i = 0; i < 3; i++) {
+        final word = find.descendant(of: lane(i), matching: find.byType(Text));
+        expect(
+          tester.getSize(word.first).height,
+          greaterThanOrEqualTo(24),
+          reason: 'word on lane $i not shrunk',
+        );
+      }
+      await finish(tester);
+    });
+
+    testWidgets('all text stays >= 28 sp with hints', (tester) async {
+      await bootHint(tester, HintMode.full);
+      for (final t in tester.widgetList<Text>(find.byType(Text))) {
+        final size = DefaultTextStyle.of(tester.element(find.byWidget(t))).style
+            .merge(t.style)
+            .fontSize!;
+        expect(size, greaterThanOrEqualTo(28), reason: '"${t.data}"');
+      }
+      await finish(tester);
+    });
+
+    testWidgets('picture-based forms are unaffected by the hint mode', (
+      tester,
+    ) async {
+      await tester.binding.setSurfaceSize(const Size(1280, 720));
+      addTearDown(() => tester.binding.setSurfaceSize(null));
+      await tester.runAsync(() async {
+        for (var seed = 0; seed < 60; seed++) {
+          h = await GameHarness.create(
+            level: levelWith(HintMode.none),
+            withImages: true,
+            seed: seed,
+          );
+          await h.startAndCalibrate();
+          if (h.controller.session!.current.question.form ==
+              QuestionForm.listenPickPicture) {
+            return;
+          }
+          await h.dispose();
+        }
+        fail('no seed starts with a listenPickPicture question');
+      });
+      await tester.pumpWidget(
+        MaterialApp(
+          theme: AppTheme.dark(),
+          home: Scaffold(body: LaneJumpScreen(controller: h.controller)),
+        ),
+      );
+      // Picture lanes keep their pictures even with hints off.
+      expect(pictures(), findsNWidgets(3));
+      expect(
+        find.descendant(of: lane(0), matching: find.byType(Text)),
+        findsNothing,
+      );
+      await finish(tester);
+    });
   });
 }

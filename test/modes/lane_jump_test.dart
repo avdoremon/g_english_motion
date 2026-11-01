@@ -159,4 +159,48 @@ void main() {
       throwsA(isA<AssertionError>()),
     );
   });
+
+  group('elapsedFraction / timeLimit (time-based, not frame-based)', () {
+    test('timeLimit is exposed and the fraction is 0 before start', () {
+      final r = _round();
+      expect(r.timeLimit, const Duration(seconds: 10));
+      expect(r.elapsedFraction, 0);
+      r.tick(const Duration(seconds: 3)); // clock not running
+      expect(r.elapsedFraction, 0);
+    });
+
+    test('follows the elapsed time whatever the tick size', () {
+      for (final step in [16, 67, 250]) {
+        final r = _round()..start();
+        var spent = 0;
+        while (spent < 5000) {
+          r.tick(Duration(milliseconds: step));
+          spent += step;
+        }
+        expect(
+          r.elapsedFraction,
+          closeTo(spent / 10000, 1e-9),
+          reason: '$step',
+        );
+      }
+    });
+
+    test('is exactly 0.5 after half the time limit', () {
+      final r = _round()..start();
+      r.tick(const Duration(seconds: 5));
+      expect(r.elapsedFraction, 0.5);
+    });
+
+    test('freezes while the player is lost and reaches 1 on timeout', () {
+      final r = _round()..start();
+      r.tick(const Duration(seconds: 2));
+      r.onEvent(const PlayerLost(at: _t0));
+      r.tick(const Duration(seconds: 5));
+      expect(r.elapsedFraction, closeTo(0.2, 1e-9));
+      r.onEvent(const PlayerFound(at: _t0));
+      r.tick(const Duration(seconds: 30));
+      expect(r.result, RoundResult.timeout);
+      expect(r.elapsedFraction, 1.0);
+    });
+  });
 }

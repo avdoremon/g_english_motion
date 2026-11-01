@@ -20,4 +20,11 @@ abstract class Round {
   int? get chosenIndex;
   Duration get remaining;
   bool get clockRunning;
+
+  /// The question's full time limit.
+  Duration get timeLimit;
+
+  /// Fraction (0..1) of [timeLimit] that has elapsed on the running clock.
+  /// 0 before [start]; frozen while the clock is stopped (player lost).
+  double get elapsedFraction;
 }
