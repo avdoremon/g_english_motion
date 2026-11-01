@@ -13,13 +13,14 @@ import '../theme/app_theme.dart';
 /// progress, timer ring, score), the prompt, one lane per choice and Tin Tin
 /// with the Đúng/Sai verdict.
 ///
-/// Pictures: until real art arrives with the Task 15 content, a "picture" is
-/// a placeholder - a coloured circle with the first letter of the item's
-/// word ([ItemPicture]). Swapping in real images only touches that widget.
+/// Pictures: the bundled PNG (`assets/images/<item.image>`) is drawn by
+/// [ItemPicture]; when the item has no image or the asset cannot be loaded it
+/// falls back to a coloured circle with the first letter of the word.
 ///
-/// Prompt: listen-and-pick-picture shows the speaker icon and the word (the
-/// hint); listen-and-pick-word shows only the speaker icon (the word would
-/// give the answer away); see-picture shows the picture.
+/// Prompt ([QuestionPrompt]): the listen forms show only the speaker icon and
+/// "Nghe nhé" (a visible word would give the answer away; listen-and-pick-
+/// picture reveals the word in the feedback, after answering); see-picture
+/// shows the picture.
 class LaneJumpScreen extends StatelessWidget {
   const LaneJumpScreen({super.key, required this.controller, this.onExit});
 
@@ -220,54 +221,18 @@ class _PromptArea extends StatelessWidget {
     final q = body.question;
     final c = body.controller;
     final ok = body.session.lastResult == RoundResult.correct;
-    final Widget prompt;
-    switch (q.form) {
-      case QuestionForm.seePicturePickWord:
-        final id = q.promptImageItemId;
-        prompt = id == null
-            ? const SizedBox.shrink()
-            : ItemPicture(
-                key: const ValueKey('prompt-picture'),
-                item: c.itemFor(id),
-                size: 120,
-              );
-      case QuestionForm.listenPickPicture:
-        prompt = Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Icon(Icons.volume_up, size: 56, color: AppTheme.accent),
-            const SizedBox(width: 16),
-            Flexible(
-              child: Text(
-                c.itemFor(q.itemId).word,
-                style: t.titleLarge,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-            ),
-          ],
-        );
-      default:
-        prompt = Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Icon(Icons.volume_up, size: 56, color: AppTheme.accent),
-            const SizedBox(width: 16),
-            Flexible(
-              child: Text(
-                'Nghe nhé',
-                style: t.titleLarge,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-            ),
-          ],
-        );
-    }
     return LayoutBuilder(
       builder: (context, box) => Row(
         children: [
-          Expanded(child: Center(child: prompt)),
+          Expanded(
+            child: Center(
+              child: QuestionPrompt(
+                question: q,
+                itemFor: c.itemFor,
+                feedback: body._feedback,
+              ),
+            ),
+          ),
           if (body._feedback)
             Row(
               key: const ValueKey('feedback-label'),
@@ -292,6 +257,54 @@ class _PromptArea extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+/// The question prompt. It never shows the answer before the child chose:
+/// the listen forms are a speaker icon only; after answering
+/// ([feedback] true) listen-and-pick-picture reveals the spoken word.
+class QuestionPrompt extends StatelessWidget {
+  const QuestionPrompt({
+    super.key,
+    required this.question,
+    required this.itemFor,
+    this.feedback = false,
+  });
+
+  final ChoiceQuestion question;
+  final ContentItem Function(String id) itemFor;
+  final bool feedback;
+
+  @override
+  Widget build(BuildContext context) {
+    final t = Theme.of(context).textTheme;
+    final q = question;
+    if (q.form == QuestionForm.seePicturePickWord) {
+      final id = q.promptImageItemId;
+      return id == null
+          ? const SizedBox.shrink()
+          : ItemPicture(
+              key: const ValueKey('prompt-picture'),
+              item: itemFor(id),
+              size: 120,
+            );
+    }
+    final reveal = feedback && q.form == QuestionForm.listenPickPicture;
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        const Icon(Icons.volume_up, size: 56, color: AppTheme.accent),
+        const SizedBox(width: 16),
+        Flexible(
+          child: Text(
+            reveal ? itemFor(q.itemId).word : 'Nghe nhé',
+            style: t.titleLarge,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
+      ],
     );
   }
 }
@@ -433,8 +446,10 @@ class LaneTile extends StatelessWidget {
   }
 }
 
-/// Placeholder picture: a coloured circle with the first letter of the
-/// item's word. Real art arrives with the Task 15 content.
+/// The item's bundled picture (`assets/images/<item.image>`). With no image,
+/// or when the asset cannot be loaded, a coloured circle with the first
+/// letter of the word is drawn instead. The word is the semantic label (for
+/// screen readers only; never visible text).
 class ItemPicture extends StatelessWidget {
   const ItemPicture({super.key, required this.item, this.size = 120});
 
@@ -458,8 +473,32 @@ class ItemPicture extends StatelessWidget {
     return _palette[h % _palette.length];
   }
 
+  /// Asset path of the item's picture, null when it has none.
+  static String? assetFor(ContentItem item) {
+    final img = item.image;
+    return (img == null || img.isEmpty) ? null : 'assets/images/$img';
+  }
+
   @override
   Widget build(BuildContext context) {
+    final asset = assetFor(item);
+    final fallback = _letterCircle(context);
+    if (asset == null) return fallback;
+    return SizedBox(
+      width: size,
+      height: size,
+      child: Image.asset(
+        asset,
+        width: size,
+        height: size,
+        fit: BoxFit.contain,
+        semanticLabel: item.word,
+        errorBuilder: (context, error, stack) => fallback,
+      ),
+    );
+  }
+
+  Widget _letterCircle(BuildContext context) {
     final letter = item.word.isEmpty ? '?' : item.word[0].toUpperCase();
     return Container(
       width: size,
