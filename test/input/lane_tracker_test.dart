@@ -1,0 +1,110 @@
+import 'package:flutter_test/flutter_test.dart';
+import 'package:g_english_motion/input/calibrator.dart';
+import 'package:g_english_motion/input/lane_tracker.dart';
+import 'package:g_english_motion/input/pose_types.dart';
+
+import '../helpers/synthetic_poses.dart';
+
+const _calib = Calibration(
+  torsoHeight: 0.3,
+  centerX: 0.5,
+  baselineHipY: 0.6,
+  baselineShoulderY: 0.3,
+);
+
+Pose _at(double x) => makePose(hipX: x);
+Duration _ms(int ms) => Duration(milliseconds: ms);
+
+LaneTracker _tracker({int laneCount = 3, bool mirror = false}) =>
+    LaneTracker(_calib, laneCount: laneCount, mirror: mirror);
+
+void main() {
+  group('lane mapping (3 lanes, no mirror)', () {
+    final cases = {0.5: 1, 0.30: 0, 0.70: 2, 0.0: 0, 1.0: 2};
+    cases.forEach((x, lane) {
+      test('x $x -> lane $lane', () {
+        expect(_tracker().update(_at(x), _ms(0)), lane);
+      });
+    });
+
+    test('initial lane is the middle lane', () {
+      expect(_tracker().current, 1);
+      expect(_tracker(laneCount: 4).current, 2);
+    });
+  });
+
+  group('4 lanes', () {
+    test('x 0.41 -> 1 and 0.59 -> 2', () {
+      expect(_tracker(laneCount: 4).update(_at(0.41), _ms(0)), 1);
+      expect(_tracker(laneCount: 4).update(_at(0.59), _ms(0)), 2);
+    });
+  });
+
+  group('hysteresis', () {
+    // 3 lanes: boundary between lane 1 and 2 is 0.5 + 0.09 = 0.59.
+    test('just past boundary stays, well past switches', () {
+      final t = _tracker();
+      t.update(_at(0.5), _ms(0));
+      expect(t.update(_at(0.60), _ms(33)), 1);
+      expect(t.update(_at(0.62), _ms(66)), 2);
+    });
+
+    test('moving back needs to pass the boundary by hysteresis too', () {
+      final t = _tracker();
+      t.update(_at(0.7), _ms(0));
+      expect(t.current, 2);
+      expect(t.update(_at(0.58), _ms(33)), 2);
+      expect(t.update(_at(0.56), _ms(66)), 1);
+    });
+  });
+
+  group('mirror', () {
+    test('x 0.30 -> lane 2', () {
+      final t = _tracker(mirror: true);
+      expect(t.update(_at(0.30), _ms(0)), 2);
+    });
+  });
+
+  test('lost pose keeps the current lane', () {
+    final t = _tracker();
+    t.update(_at(0.3), _ms(0));
+    expect(t.update(makePose(confidence: 0.1), _ms(33)), 0);
+  });
+
+  group('laneAt', () {
+    test('returns lane before the change for earlier times', () {
+      final t = _tracker();
+      t.update(_at(0.5), _ms(0));
+      t.update(_at(0.5), _ms(500));
+      t.update(_at(0.7), _ms(1000));
+      expect(t.current, 2);
+      expect(t.laneAt(_ms(800)), 1);
+      expect(t.laneAt(_ms(1000)), 2);
+      expect(t.laneAt(_ms(1200)), 2);
+    });
+
+    test('history over 1 s is available', () {
+      final t = _tracker();
+      t.update(_at(0.5), _ms(0));
+      t.update(_at(0.7), _ms(100));
+      for (var ms = 133; ms <= 1100; ms += 33) {
+        t.update(_at(0.7), _ms(ms));
+      }
+      expect(t.laneAt(_ms(50)), 1);
+      expect(t.laneAt(_ms(1000)), 2);
+    });
+  });
+
+  group('setLaneCount', () {
+    test('changes count without throwing and clamps lane', () {
+      final t = _tracker();
+      t.update(_at(0.9), _ms(0));
+      expect(t.current, 2);
+      expect(() => t.setLaneCount(4), returnsNormally);
+      expect(t.update(_at(0.9), _ms(33)), 3);
+      t.setLaneCount(2);
+      expect(t.current, 1);
+      expect(t.laneAt(_ms(0)), inInclusiveRange(0, 1));
+    });
+  });
+}
