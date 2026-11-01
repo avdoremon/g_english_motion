@@ -149,6 +149,7 @@ class GameHarness {
     ConfirmGesture confirm = ConfirmGesture.jump,
     bool withImages = false,
     int unitSize = 8,
+    int seed = 7,
   }) async {
     SharedPreferences.setMockInitialValues({});
     final store = ProgressStore(await SharedPreferences.getInstance());
@@ -180,7 +181,7 @@ class GameHarness {
       repo: repo,
       audio: audio,
       ticker: () => tickCtl.stream,
-      rng: math.Random(7),
+      rng: math.Random(seed),
     );
     return GameHarness._(
       store,

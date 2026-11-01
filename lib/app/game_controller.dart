@@ -293,8 +293,10 @@ class GameController extends ChangeNotifier {
   }
 
   /// Whether a caption may be displayed now. Vietnamese lines always are; the
-  /// English word of a picture question is held back until the child has
-  /// answered (it would reveal the answer).
+  /// spoken English word of a lane-jump question is held back until the child
+  /// has answered: in every lane form (listen-pick-picture, see-picture-pick-
+  /// word and listen-pick-word) the prompt deliberately hides the word, so
+  /// its caption would reveal the answer.
   bool shouldShowCaption(String text) {
     if (VoiceLine.isCaption(text)) return true;
     final s = _session;
@@ -304,10 +306,14 @@ class GameController extends ChangeNotifier {
       return true;
     }
     final q = s.current.question;
-    return !(q is ChoiceQuestion &&
-        (q.form == QuestionForm.listenPickPicture ||
-            q.form == QuestionForm.seePicturePickWord));
+    return !(q is ChoiceQuestion && _hidesWord.contains(q.form));
   }
+
+  static const _hidesWord = {
+    QuestionForm.listenPickPicture,
+    QuestionForm.seePicturePickWord,
+    QuestionForm.listenPickWord,
+  };
 
   void _beginPlay(Calibration cal) {
     final frames = StreamController<PoseFrame>.broadcast(sync: true);

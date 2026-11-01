@@ -210,22 +210,22 @@ void main() {
       );
     });
 
-    test(
-      'English captions are held back for picture questions until answered',
-      () async {
-        h = await GameHarness.create(withImages: true);
+    test('the spoken English word is held back in every lane-jump form until answered', () async {
+      final seen = <QuestionForm>{};
+      // Different seeds plan different form mixes; stop once all are seen.
+      for (var seed = 1; seed < 20 && seen.length < 3; seed++) {
+        h = await GameHarness.create(withImages: true, seed: seed);
         await h.startAndCalibrate();
-        final seen = <QuestionForm>{};
         for (var i = 0; i < 8 && c().phase == GamePhase.playing; i++) {
           final q = c().session!.current.question as ChoiceQuestion;
           seen.add(q.form);
-          final picture =
-              q.form == QuestionForm.listenPickPicture ||
-              q.form == QuestionForm.seePicturePickWord;
           expect(c().shouldShowCaption('Giỏi quá!'), isTrue);
+          // Every lane-jump form (listenPickPicture, seePicturePickWord
+          // and listenPickWord) hides the answer in its prompt, so the
+          // spoken word must not be captioned either.
           expect(
             c().shouldShowCaption(q.ttsText),
-            !picture,
+            isFalse,
             reason: '${q.form} before answering',
           );
           await h.run(
@@ -245,10 +245,15 @@ void main() {
             stopWhen: () => c().session!.phase == SessionPhase.playing,
           );
         }
-        expect(seen, contains(QuestionForm.seePicturePickWord));
-        expect(seen, contains(QuestionForm.listenPickWord));
-      },
-    );
+        if (seen.length < 3) await h.dispose();
+      }
+      // LaneJump hosts exactly these three forms (fillBlank is SkyShoot).
+      expect(seen, {
+        QuestionForm.listenPickPicture,
+        QuestionForm.seePicturePickWord,
+        QuestionForm.listenPickWord,
+      });
+    });
   });
 
   group('frame watchdog', () {
