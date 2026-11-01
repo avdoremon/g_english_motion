@@ -1,7 +1,6 @@
 import 'pose_types.dart';
 
-/// Which gesture confirms a choice.
-enum ConfirmGesture { jump, raiseHands }
+export 'confirm_gesture.dart';
 
 enum PermissionOutcome { granted, denied, permanentlyDenied }
 
