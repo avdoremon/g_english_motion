@@ -99,7 +99,7 @@ Tin Tin có các trạng thái: chờ, vui, buồn, cổ vũ, nhảy múa. Chữ
 
 ## 8. Đồ họa: ba phương án (làm bằng Claude Design)
 
-Cả ba dùng cùng mascot Tin Tin và cùng bộ màn hình để so sánh công bằng: (1) màn hình chính, (2) màn LaneJump lớp 1–2, (3) màn SkyShoot lớp 3–5, (4) màn DragSpell lớp 3–5, (5) màn kết quả level với sao.
+Cả ba dùng cùng mascot Tin Tin và cùng bộ 3 màn hình để so sánh công bằng: màn hình chính, màn SkyShoot (lớp 3–5) và màn DragSpell (lớp 3–5). Màn LaneJump (lớp 1–2) và màn kết quả level sẽ được dựng theo phương án được chọn. Bản dựng trên Claude Design: https://claude.ai/artifact/TsnrqbHnzA9aNQkK8ktCo2 . Tin Tin trong bản dựng là hình tạm do ta vẽ; thay bằng mascot Tin Tin thật của game toán khi có tệp gốc.
 
 - **Phương án A – "Khu vườn mây" (Sky Garden):** pastel mềm, trời xanh nhạt, mây bông, cây cỏ tròn trịa; cảm giác dịu mắt, hợp phụ huynh.
 - **Phương án B – "Phi hành đoàn vũ trụ" (Space Cadets):** nền vũ trụ tím xanh đậm, hành tinh và sao hoạt hình; SkyShoot trở thành bắn sao băng; tương phản mạnh, đọc rõ khi chiếu TV.
