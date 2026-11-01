@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart' show rootBundle;
+import 'package:flutter/services.dart' show MethodChannel, rootBundle;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:g_english_motion/app/app.dart';
 import 'package:g_english_motion/app/game_controller.dart';
@@ -164,7 +164,17 @@ void main() {
     expect(opened, 1);
   });
 
-  test('AppDependencies wires a real app-settings opener by default', () {
+  test('the default app-settings opener calls permission_handler', () async {
+    TestWidgetsFlutterBinding.ensureInitialized();
+    final calls = <String>[];
+    const channel = MethodChannel('flutter.baseflow.com/permissions/methods');
+    final messenger =
+        TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger;
+    messenger.setMockMethodCallHandler(channel, (call) async {
+      calls.add(call.method);
+      return true;
+    });
+    addTearDown(() => messenger.setMockMethodCallHandler(channel, null));
     final d = AppDependencies(
       store: store,
       audio: AudioService(
@@ -175,8 +185,36 @@ void main() {
       repo: ContentRepository([]),
       levels: const [],
     );
-    expect(d.openSettings, isNotNull);
+    d.openSettings();
+    await pumpEventQueue();
+    expect(calls, ['openAppSettings']);
   });
+
+  testWidgets(
+    'the shell clears captions when the controller starts a question',
+    (tester) async {
+      late GameController made;
+      await pumpApp(
+        tester,
+        controllerFactory: (grade, level, d) => made = GameController(
+          grade: grade,
+          level: level,
+          store: d.store,
+          repo: d.repo,
+          audio: d.audio,
+          ticker: d.ticker,
+        ),
+      );
+      await tester.tap(find.byKey(const ValueKey('play')));
+      await tester.pump();
+      final shell = tester.widget<GameShell>(find.byType(GameShell));
+      expect(shell.captionReset, same(made.captionReset));
+      expect(shell.captionFilter, isNotNull);
+      await tester.tap(find.byKey(const ValueKey('exit')));
+      await tester.pump();
+      await tester.pump(const Duration(seconds: 1));
+    },
+  );
 
   test('default pose source is the plugin adapter, with its camera host', () {
     final audio = AudioService(
@@ -350,7 +388,7 @@ void main() {
     await tester.pump(const Duration(seconds: 1));
   }
 
-  Future<(List<String>, List<_RecSource>, Stream<Duration>)> pumpFlow(
+  Future<(List<String>, List<_RecSource>)> pumpFlow(
     WidgetTester tester, {
     Completer<void>? firstGate,
     String? closedMode,
@@ -400,13 +438,13 @@ void main() {
         ),
       ),
     );
-    return (log, sources, const Stream<Duration>.empty());
+    return (log, sources);
   }
 
   testWidgets('system back in a play flow closes it through the controller', (
     tester,
   ) async {
-    final (log, sources, _) = await pumpFlow(tester);
+    final (log, sources) = await pumpFlow(tester);
     await tester.tap(find.byKey(const ValueKey('play')));
     await tester.pump();
     await tester.pump();
@@ -446,7 +484,7 @@ void main() {
   testWidgets('system back before the game runs goes straight home', (
     tester,
   ) async {
-    final (_, sources, _) = await pumpFlow(tester);
+    final (_, sources) = await pumpFlow(tester);
     await tester.tap(find.byKey(const ValueKey('play')));
     await tester.pump();
     await tester.pump();
@@ -462,7 +500,7 @@ void main() {
     'dispose during a pending permission start: next camera waits for the orphan stop',
     (tester) async {
       final gate = Completer<void>();
-      final (log, sources, _) = await pumpFlow(tester, firstGate: gate);
+      final (log, sources) = await pumpFlow(tester, firstGate: gate);
       await tester.tap(find.byKey(const ValueKey('play')));
       await tester.pump();
       await tester.pump();
@@ -487,7 +525,10 @@ void main() {
     testWidgets('closed that ${mode}s does not block the next game', (
       tester,
     ) async {
-      final (log, _, _) = await pumpFlow(
+      final printed = <String>[];
+      final oldPrint = debugPrint;
+      debugPrint = (String? m, {int? wrapWidth}) => printed.add(m ?? '');
+      final (log, _) = await pumpFlow(
         tester,
         closedMode: mode,
         closeTimeout: const Duration(milliseconds: 300),
@@ -507,6 +548,19 @@ void main() {
       await tester.pump(const Duration(milliseconds: 400));
       await tester.pump();
       expect(log.where((e) => e == 'start2'), hasLength(1));
+      // Restored in the body: the binding checks the override at test end,
+      // before tearDown callbacks run.
+      debugPrint = oldPrint;
+      if (mode == 'hang') {
+        expect(printed, contains('close timed out — possible camera overlap'));
+      } else {
+        expect(
+          printed.where(
+            (m) => m.startsWith('Closing the previous game failed'),
+          ),
+          hasLength(1),
+        );
+      }
       await leave(tester);
     });
   }
