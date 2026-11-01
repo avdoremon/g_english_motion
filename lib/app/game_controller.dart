@@ -138,6 +138,7 @@ class GameController extends ChangeNotifier {
   Future<PermissionOutcome>? _startFuture;
   Future<void>? _inputStopped;
   bool _cameraStarting = false;
+  bool _welcomed = false;
 
   /// First moments of each question: jumps are ignored (spec: 500 ms).
   static const confirmGrace = Duration(milliseconds: 500);
@@ -152,6 +153,12 @@ class GameController extends ChangeNotifier {
   /// 60 Hz tick does not rebuild the whole screen.
   final _Pulse _hud = _Pulse();
   ChangeNotifier get hudTick => _hud;
+
+  /// Pinged when a new question starts being read, so the caption strip drops
+  /// the previous question's feedback caption instead of showing it for up to
+  /// its full display time.
+  Listenable get captionReset => _captionReset;
+  final _Pulse _captionReset = _Pulse();
 
   GamePhase get phase => _phase;
 
@@ -218,7 +225,11 @@ class GameController extends ChangeNotifier {
       return PermissionOutcome.granted;
     }
     _setPhase(GamePhase.requestingPermission);
-    unawaited(_audio.playLine(VoiceLine.welcome));
+    // Once per controller: a retry from the permission screen re-enters here.
+    if (!_welcomed) {
+      _welcomed = true;
+      unawaited(_audio.playLine(VoiceLine.welcome));
+    }
     PermissionOutcome outcome;
     _cameraStarting = true;
     try {
@@ -470,6 +481,8 @@ class GameController extends ChangeNotifier {
     final token = ++_promptToken;
     _promptPending = true;
     _promptStartedAt = _now;
+    // Before the question's own (possibly synchronous) caption.
+    _captionReset.ping();
     final q = pq.question;
     unawaited(
       _audio
@@ -590,6 +603,12 @@ class GameController extends ChangeNotifier {
     // Drop whatever is still being said; the audio stays usable for the
     // next screen (not muted).
     _audio.cancelAll();
+    // Release the listeners first: a hung camera stop must not keep the
+    // shell's subscription or the hud notifier alive (nothing below emits
+    // on them any more: _disposed guards every producer).
+    _quiet(_events.close);
+    _hud.dispose();
+    _captionReset.dispose();
     await _stopInput();
     // A permission/camera start still in flight finishes (and releases an
     // orphan camera) inside `closed`; the app bounds this wait.
@@ -599,8 +618,6 @@ class GameController extends ChangeNotifier {
         await pending;
       } catch (_) {}
     }
-    _quiet(_events.close);
-    _hud.dispose();
     try {
       await _persisted;
     } catch (_) {}

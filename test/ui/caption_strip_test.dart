@@ -11,20 +11,27 @@ void main() {
   setUp(() => ctl = StreamController<String>.broadcast(sync: true));
   tearDown(() => ctl.close());
 
-  Future<void> pump(WidgetTester tester, {bool Function(String)? filter}) =>
-      tester.pumpWidget(
-        MaterialApp(
-          theme: AppTheme.dark(),
-          home: Scaffold(
-            body: Column(
-              children: [
-                const Expanded(child: SizedBox()),
-                CaptionStrip(captions: ctl.stream, filter: filter),
-              ],
+  Future<void> pump(
+    WidgetTester tester, {
+    bool Function(String)? filter,
+    Listenable? clearOn,
+  }) => tester.pumpWidget(
+    MaterialApp(
+      theme: AppTheme.dark(),
+      home: Scaffold(
+        body: Column(
+          children: [
+            const Expanded(child: SizedBox()),
+            CaptionStrip(
+              captions: ctl.stream,
+              filter: filter,
+              clearOn: clearOn,
             ),
-          ),
+          ],
         ),
-      );
+      ),
+    ),
+  );
 
   testWidgets('shows a caption at 28 sp or more, hides it after 3 s', (
     tester,
@@ -68,5 +75,28 @@ void main() {
     expect(find.text('ball'), findsNothing);
     // The suppressed word does not even replace the visible caption.
     expect(find.text('Nghe nhé'), findsOneWidget);
+  });
+
+  testWidgets('clearOn empties the strip at once; later captions still show', (
+    tester,
+  ) async {
+    final reset = ChangeNotifier();
+    addTearDown(reset.dispose);
+    await pump(tester, clearOn: reset);
+    ctl.add('Giỏi quá!');
+    await tester.pump(const Duration(milliseconds: 500));
+    expect(find.text('Giỏi quá!'), findsOneWidget);
+    // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
+    reset.notifyListeners();
+    await tester.pump();
+    expect(find.text('Giỏi quá!'), findsNothing);
+    ctl.add('Nghe nhé');
+    await tester.pump();
+    expect(find.text('Nghe nhé'), findsOneWidget);
+    // The old caption's timer must not hide the new one early.
+    await tester.pump(const Duration(milliseconds: 2600));
+    expect(find.text('Nghe nhé'), findsOneWidget);
+    await tester.pump(const Duration(milliseconds: 500));
+    expect(find.text('Nghe nhé'), findsNothing);
   });
 }

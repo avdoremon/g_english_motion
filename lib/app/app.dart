@@ -380,6 +380,7 @@ class _RootState extends State<_Root> {
             audio: _d.audio,
             wakelock: _d.wakelock,
             captionFilter: ctl.shouldShowCaption,
+            captionReset: ctl.captionReset,
             cameraHost: _d.cameraHost,
             child: _stage(ctl),
           ),

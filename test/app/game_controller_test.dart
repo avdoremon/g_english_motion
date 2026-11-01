@@ -94,6 +94,32 @@ void main() {
       },
     );
 
+    test('the welcome line is spoken once, not on every retry', () async {
+      h = await GameHarness.create(permission: PermissionOutcome.denied);
+      await h.startAndCalibrate();
+      for (var i = 0; i < 3; i++) {
+        unawaited(c().start(h.source));
+        await pumpEventQueue();
+      }
+      expect(c().phase, GamePhase.permissionDenied);
+      expect(
+        h.captions.where((x) => x == VoiceLine.welcome.caption),
+        hasLength(1),
+      );
+    });
+
+    test('captionReset pings once before each new question is read', () async {
+      await playing();
+      var pings = 0;
+      c().captionReset.addListener(() => pings++);
+      await inject(Confirmed(correctIndex(), at: Duration.zero));
+      await h.run(const Duration(milliseconds: 2700));
+      expect(pings, 1, reason: 'question 2 began prompting');
+      await inject(Confirmed(correctIndex(), at: Duration.zero));
+      await h.run(const Duration(milliseconds: 2700));
+      expect(pings, 2);
+    });
+
     test('calibration progress is exposed while calibrating', () async {
       h = await GameHarness.create();
       final f = c().start(h.source);
@@ -437,6 +463,29 @@ void main() {
   });
 
   group('dispose', () {
+    test('a hung camera stop does not keep events/hud open', () async {
+      h = await GameHarness.create(hangStop: true);
+      await h.startAndCalibrate();
+      var done = false;
+      c().events.listen(null, onDone: () => done = true);
+      c().dispose();
+      await pumpEventQueue();
+      expect(h.source.stops, 1, reason: 'the stop is in flight (hung)');
+      expect(done, isTrue, reason: 'events closed without waiting for stop');
+      expect(
+        () => c().hudTick.addListener(() {}),
+        throwsA(anything),
+        reason: 'hud released without waiting for stop',
+      );
+      var closed = false;
+      unawaited(c().closed.then((_) => closed = true));
+      await pumpEventQueue();
+      expect(closed, isFalse, reason: 'closed still reports the hung stop');
+      expect(h.source.stops, 1, reason: 'exactly one stop');
+      // tearDown's h.dispose() would wait on the hung stop: skip it.
+      h = await GameHarness.create();
+    });
+
     test('stops camera, closes events, ignores later frames/ticks', () async {
       await playing();
       var done = false;

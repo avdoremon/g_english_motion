@@ -61,6 +61,7 @@ class GameShell extends StatefulWidget {
     this.elapsed = _monotonic,
     this.showBanner = false,
     this.captionFilter,
+    this.captionReset,
     this.cameraHost,
   });
 
@@ -78,6 +79,9 @@ class GameShell extends StatefulWidget {
 
   /// Captions for which this returns false are not shown in the strip.
   final bool Function(String caption)? captionFilter;
+
+  /// Notifies when the caption strip should be emptied (new question).
+  final Listenable? captionReset;
 
   /// The pose plugin's invisible camera host ([PoseCameraHost] in
   /// production, null in tests). Kept for the shell's whole life so the
@@ -216,6 +220,7 @@ class _GameShellState extends State<GameShell> with WidgetsBindingObserver {
               CaptionStrip(
                 captions: widget.audio.captions,
                 filter: widget.captionFilter,
+                clearOn: widget.captionReset,
               ),
               if (widget.showBanner) const BannerSlot(),
             ],

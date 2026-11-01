@@ -15,8 +15,9 @@ void main() {
       final line = raw.trim();
       if (line.isEmpty || line.startsWith('#')) continue;
       final i = line.indexOf('=');
-      if (i > 0)
+      if (i > 0) {
         out[line.substring(0, i).trim()] = line.substring(i + 1).trim();
+      }
     }
     return out;
   }

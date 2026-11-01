@@ -13,6 +13,7 @@ class CaptionStrip extends StatefulWidget {
     super.key,
     required this.captions,
     this.filter,
+    this.clearOn,
     this.visibleFor = const Duration(seconds: 3),
   });
 
@@ -22,6 +23,10 @@ class CaptionStrip extends StatefulWidget {
 
   final Stream<String> captions;
   final bool Function(String caption)? filter;
+
+  /// When this notifies, the current caption is dropped at once (a new
+  /// question starts; the previous feedback caption must not linger).
+  final Listenable? clearOn;
   final Duration visibleFor;
 
   @override
@@ -37,11 +42,22 @@ class _CaptionStripState extends State<CaptionStrip> {
   void initState() {
     super.initState();
     _sub = widget.captions.listen(_onCaption);
+    widget.clearOn?.addListener(_clear);
+  }
+
+  void _clear() {
+    _hide?.cancel();
+    _hide = null;
+    if (mounted && _text != null) setState(() => _text = null);
   }
 
   @override
   void didUpdateWidget(CaptionStrip old) {
     super.didUpdateWidget(old);
+    if (old.clearOn != widget.clearOn) {
+      old.clearOn?.removeListener(_clear);
+      widget.clearOn?.addListener(_clear);
+    }
     if (old.captions != widget.captions) {
       _sub?.cancel();
       _sub = widget.captions.listen(_onCaption);
@@ -60,6 +76,7 @@ class _CaptionStripState extends State<CaptionStrip> {
 
   @override
   void dispose() {
+    widget.clearOn?.removeListener(_clear);
     _sub?.cancel();
     _hide?.cancel();
     super.dispose();
@@ -89,9 +106,8 @@ class _CaptionStripState extends State<CaptionStrip> {
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                      fontSize: CaptionStrip.fontSize,
-                    ),
+                    style: Theme.of(context).textTheme.bodyLarge!
+                        .copyWith(fontSize: CaptionStrip.fontSize),
                   ),
                 ),
               ),

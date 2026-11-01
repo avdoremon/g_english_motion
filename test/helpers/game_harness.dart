@@ -23,10 +23,14 @@ class CountingSource extends FakePoseFrameSource {
     super.frames, {
     super.outcome,
     bool delayPermission = false,
+    this.hangStop = false,
   }) : _gate = delayPermission ? Completer<void>() : null,
        super.fromStream();
   final Completer<void>? _gate;
   int stops = 0;
+
+  /// stop() never completes (a hung native camera release).
+  final bool hangStop;
 
   void finishPermission() => _gate?.complete();
 
@@ -39,6 +43,7 @@ class CountingSource extends FakePoseFrameSource {
   @override
   Future<void> stop() async {
     stops++;
+    if (hangStop) await Completer<void>().future;
     await super.stop();
   }
 }
@@ -150,6 +155,7 @@ class GameHarness {
     bool withImages = false,
     int unitSize = 8,
     int seed = 7,
+    bool hangStop = false,
   }) async {
     SharedPreferences.setMockInitialValues({});
     final store = ProgressStore(await SharedPreferences.getInstance());
@@ -159,6 +165,7 @@ class GameHarness {
       frames.stream,
       outcome: permission,
       delayPermission: delayPermission,
+      hangStop: hangStop,
     );
     final ttsLog = <String>[];
     final audio = AudioService(
