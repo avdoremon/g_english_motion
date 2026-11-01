@@ -142,3 +142,34 @@ List<PoseFrame> backingAwaySequence({
     },
   );
 }
+
+// ---------------------------------------------------------------------------
+// Multi-person helpers. Added in Task 5.
+// ---------------------------------------------------------------------------
+
+/// Returns [frames] with [extra] appended to every frame's pose list
+/// (or prepended when [first] is true). Timestamps are unchanged.
+List<PoseFrame> withExtraPerson(
+  List<PoseFrame> frames,
+  Pose extra, {
+  bool first = false,
+}) {
+  return [
+    for (final f in frames)
+      PoseFrame(first ? [extra, ...f.poses] : [...f.poses, extra], f.timestamp),
+  ];
+}
+
+/// Returns [frames] with the pose at [index] replaced by [replace].
+List<PoseFrame> replacePoseAt(
+  List<PoseFrame> frames,
+  int index,
+  List<Pose> Function(PoseFrame f) replace,
+) {
+  return [
+    for (var i = 0; i < frames.length; i++)
+      i == index
+          ? PoseFrame(replace(frames[i]), frames[i].timestamp)
+          : frames[i],
+  ];
+}
