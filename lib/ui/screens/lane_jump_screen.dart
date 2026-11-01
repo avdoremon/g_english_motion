@@ -97,12 +97,6 @@ class _Header extends StatelessWidget {
     final t = Theme.of(context).textTheme;
     final total = session.totalQuestions;
     final n = (session.index + 1).clamp(1, total);
-    final limit = Scoring.timeFor(controller.level, ModeKind.laneJump);
-    final remaining = session.round.remaining;
-    final frac = limit.inMilliseconds == 0
-        ? 0.0
-        : (remaining.inMilliseconds / limit.inMilliseconds).clamp(0.0, 1.0);
-    final seconds = (remaining.inMilliseconds / 1000).ceil();
     return Row(
       children: [
         if (onExit != null) ...[
@@ -122,24 +116,23 @@ class _Header extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              FittedBox(
-                fit: BoxFit.scaleDown,
-                alignment: Alignment.centerLeft,
-                child: Row(
-                  children: [
-                    Text('$n/$total', style: t.bodyLarge),
-                    if (session.isReview) ...[
-                      const SizedBox(width: 12),
-                      const Icon(
-                        Icons.replay,
-                        size: 28,
-                        color: AppTheme.yellow,
+              Row(
+                children: [
+                  Text('$n/$total', style: t.bodyLarge),
+                  if (session.isReview) ...[
+                    const SizedBox(width: 12),
+                    const Icon(Icons.replay, size: 28, color: AppTheme.yellow),
+                    const SizedBox(width: 4),
+                    Flexible(
+                      child: Text(
+                        'Ôn lại',
+                        style: t.bodyLarge,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                       ),
-                      const SizedBox(width: 4),
-                      Text('Ôn lại', style: t.bodyLarge),
-                    ],
+                    ),
                   ],
-                ),
+                ],
               ),
               ClipRRect(
                 borderRadius: BorderRadius.circular(8),
@@ -154,7 +147,42 @@ class _Header extends StatelessWidget {
           ),
         ),
         const SizedBox(width: 20),
-        Semantics(
+        _TimerRing(controller: controller, session: session),
+        const SizedBox(width: 20),
+        Row(
+          key: const ValueKey('score'),
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Icon(Icons.star, color: AppTheme.yellow, size: 36),
+            const SizedBox(width: 6),
+            Text('${controller.score}', style: t.titleLarge),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
+/// The only part that follows the 60 Hz tick (see GameController.hudTick).
+class _TimerRing extends StatelessWidget {
+  const _TimerRing({required this.controller, required this.session});
+
+  final GameController controller;
+  final LevelSession session;
+
+  @override
+  Widget build(BuildContext context) {
+    final t = Theme.of(context).textTheme;
+    final limit = Scoring.timeFor(controller.level, ModeKind.laneJump);
+    return ListenableBuilder(
+      listenable: controller.hudTick,
+      builder: (context, _) {
+        final remaining = session.round.remaining;
+        final frac = limit.inMilliseconds == 0
+            ? 0.0
+            : (remaining.inMilliseconds / limit.inMilliseconds).clamp(0.0, 1.0);
+        final seconds = (remaining.inMilliseconds / 1000).ceil();
+        return Semantics(
           label: 'Còn $seconds giây',
           excludeSemantics: true,
           child: SizedBox(
@@ -175,18 +203,8 @@ class _Header extends StatelessWidget {
               ],
             ),
           ),
-        ),
-        const SizedBox(width: 20),
-        Row(
-          key: const ValueKey('score'),
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Icon(Icons.star, color: AppTheme.yellow, size: 36),
-            const SizedBox(width: 6),
-            Text('${controller.score}', style: t.titleLarge),
-          ],
-        ),
-      ],
+        );
+      },
     );
   }
 }
@@ -219,7 +237,14 @@ class _PromptArea extends StatelessWidget {
           children: [
             const Icon(Icons.volume_up, size: 56, color: AppTheme.accent),
             const SizedBox(width: 16),
-            Text(c.itemFor(q.itemId).word, style: t.titleLarge),
+            Flexible(
+              child: Text(
+                c.itemFor(q.itemId).word,
+                style: t.titleLarge,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
           ],
         );
       default:
@@ -228,35 +253,35 @@ class _PromptArea extends StatelessWidget {
           children: [
             const Icon(Icons.volume_up, size: 56, color: AppTheme.accent),
             const SizedBox(width: 16),
-            Text('Nghe nhé', style: t.titleLarge),
+            Flexible(
+              child: Text(
+                'Nghe nhé',
+                style: t.titleLarge,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
           ],
         );
     }
     return LayoutBuilder(
       builder: (context, box) => Row(
         children: [
-          Expanded(
-            child: Center(
-              child: FittedBox(fit: BoxFit.scaleDown, child: prompt),
-            ),
-          ),
+          Expanded(child: Center(child: prompt)),
           if (body._feedback)
-            FittedBox(
-              fit: BoxFit.scaleDown,
-              child: Row(
-                key: const ValueKey('feedback-label'),
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(
-                    ok ? Icons.check_circle : Icons.cancel,
-                    size: 56,
-                    color: ok ? AppTheme.green : AppTheme.pink,
-                  ),
-                  const SizedBox(width: 8),
-                  Text(ok ? 'Đúng' : 'Sai', style: t.titleLarge),
-                  const SizedBox(width: 16),
-                ],
-              ),
+            Row(
+              key: const ValueKey('feedback-label'),
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(
+                  ok ? Icons.check_circle : Icons.cancel,
+                  size: 56,
+                  color: ok ? AppTheme.green : AppTheme.pink,
+                ),
+                const SizedBox(width: 8),
+                Text(ok ? 'Đúng' : 'Sai', style: t.titleLarge),
+                const SizedBox(width: 16),
+              ],
             ),
           TinTin(
             state: !body._feedback
@@ -335,49 +360,75 @@ class LaneTile extends StatelessWidget {
           ),
         ),
         padding: const EdgeInsets.all(12),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: Stack(
           children: [
-            Expanded(
-              child: Center(
-                child: FittedBox(
-                  fit: BoxFit.scaleDown,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      if (option.showPicture)
-                        ItemPicture(item: item, size: 120),
-                      if (option.showPicture && option.showWord)
-                        const SizedBox(height: 8),
-                      if (option.showWord) Text(item.word, style: t.titleLarge),
-                    ],
-                  ),
+            if (isAnswer)
+              const Positioned(
+                top: 0,
+                right: 0,
+                child: Icon(
+                  Icons.check_circle,
+                  size: 40,
+                  color: AppTheme.green,
                 ),
               ),
-            ),
-            if (isAnswer)
-              const Icon(Icons.check_circle, size: 40, color: AppTheme.green),
-            if (selected)
-              FittedBox(
-                fit: BoxFit.scaleDown,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Icon(
-                      Icons.arrow_upward,
-                      size: 32,
-                      color: AppTheme.accent,
-                    ),
-                    const SizedBox(width: 6),
-                    Text('Em ở đây', style: t.bodyLarge),
-                  ],
-                ),
-              )
-            else
-              const SizedBox(height: 40),
+            Positioned.fill(child: _content(t)),
           ],
         ),
       ),
+    );
+  }
+
+  Widget _content(TextTheme t) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Expanded(
+          child: Center(
+            // No scaling: words stay at full size; the picture takes
+            // what is left (at least 32 px).
+            child: LayoutBuilder(
+              builder: (context, box) {
+                final wordH = option.showWord ? 44.0 : 0.0;
+                final gap = option.showPicture && option.showWord ? 8.0 : 0.0;
+                final pic = (box.maxHeight - wordH - gap).clamp(32.0, 120.0);
+                return Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    if (option.showPicture) ItemPicture(item: item, size: pic),
+                    if (gap > 0) SizedBox(height: gap),
+                    if (option.showWord)
+                      Text(
+                        item.word,
+                        style: t.titleLarge,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                  ],
+                );
+              },
+            ),
+          ),
+        ),
+        if (selected)
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Icon(Icons.arrow_upward, size: 32, color: AppTheme.accent),
+              const SizedBox(width: 6),
+              Flexible(
+                child: Text(
+                  'Em ở đây',
+                  style: t.bodyLarge,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ],
+          )
+        else
+          const SizedBox(height: 40),
+      ],
     );
   }
 }

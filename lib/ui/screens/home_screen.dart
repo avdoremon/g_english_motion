@@ -75,51 +75,66 @@ class _HomeScreenState extends State<HomeScreen> {
             Expanded(
               child: Row(
                 children: [
-                  const Expanded(
+                  Expanded(
                     flex: 2,
-                    child: Center(
-                      child: TinTin(state: TinTinState.idle, size: 200),
+                    child: LayoutBuilder(
+                      builder: (context, box) => Center(
+                        child: TinTin(
+                          state: TinTinState.idle,
+                          size: box.maxHeight.clamp(80.0, 200.0),
+                        ),
+                      ),
                     ),
                   ),
                   Expanded(
                     flex: 5,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text('Em học lớp mấy?', style: t.bodyLarge),
-                        const SizedBox(height: 8),
-                        Wrap(
-                          alignment: WrapAlignment.center,
-                          spacing: 12,
-                          runSpacing: 12,
-                          children: [
-                            for (var g = 1; g <= 5; g++) _gradeTile(g, t),
-                          ],
+                    // Scrolls on short screens (landscape phones) instead of
+                    // overflowing; centred when there is room.
+                    child: LayoutBuilder(
+                      builder: (context, box) => SingleChildScrollView(
+                        child: ConstrainedBox(
+                          constraints: BoxConstraints(minHeight: box.maxHeight),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text('Em học lớp mấy?', style: t.bodyLarge),
+                              const SizedBox(height: 8),
+                              Wrap(
+                                alignment: WrapAlignment.center,
+                                spacing: 12,
+                                runSpacing: 12,
+                                children: [
+                                  for (var g = 1; g <= 5; g++) _gradeTile(g, t),
+                                ],
+                              ),
+                              const SizedBox(height: 16),
+                              Text('Chọn cấp độ', style: t.bodyLarge),
+                              const SizedBox(height: 8),
+                              Wrap(
+                                alignment: WrapAlignment.center,
+                                spacing: 12,
+                                runSpacing: 12,
+                                children: [
+                                  for (var l = 1; l <= HomeScreen.levels; l++)
+                                    _levelTile(l, level, t),
+                                ],
+                              ),
+                              const SizedBox(height: 24),
+                              FilledButton.icon(
+                                key: const ValueKey('play'),
+                                onPressed: () => widget.onPlay(_grade, level),
+                                icon: const Icon(Icons.play_arrow, size: 36),
+                                label: const Text('Chơi'),
+                              ),
+                              if (widget.sayItAvailable &&
+                                  store.sayItEnabled) ...[
+                                const SizedBox(height: 12),
+                                _sayItEntry(t),
+                              ],
+                            ],
+                          ),
                         ),
-                        const SizedBox(height: 16),
-                        Text('Chọn cấp độ', style: t.bodyLarge),
-                        const SizedBox(height: 8),
-                        Wrap(
-                          alignment: WrapAlignment.center,
-                          spacing: 12,
-                          runSpacing: 12,
-                          children: [
-                            for (var l = 1; l <= HomeScreen.levels; l++)
-                              _levelTile(l, level, t),
-                          ],
-                        ),
-                        const SizedBox(height: 24),
-                        FilledButton.icon(
-                          key: const ValueKey('play'),
-                          onPressed: () => widget.onPlay(_grade, level),
-                          icon: const Icon(Icons.play_arrow, size: 36),
-                          label: const Text('Chơi'),
-                        ),
-                        if (widget.sayItAvailable && store.sayItEnabled) ...[
-                          const SizedBox(height: 12),
-                          _sayItEntry(t),
-                        ],
-                      ],
+                      ),
                     ),
                   ),
                 ],

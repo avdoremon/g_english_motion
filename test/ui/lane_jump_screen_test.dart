@@ -170,6 +170,45 @@ void main() {
     await finish(tester);
   });
 
+  testWidgets('lane words render at full size (no shrinking)', (tester) async {
+    for (final (size, min) in const [
+      (Size(1280, 720), 28.0),
+      (Size(800, 360), 24.0),
+    ]) {
+      await boot(tester, size: size);
+      final lanes = q().choices;
+      var checked = 0;
+      for (var i = 0; i < lanes.length; i++) {
+        if (!lanes[i].showWord) continue;
+        final word = find.descendant(of: lane(i), matching: find.byType(Text));
+        expect(
+          tester.getSize(word.first).height,
+          greaterThanOrEqualTo(min),
+          reason: '$size lane $i',
+        );
+        checked++;
+      }
+      // Picture lanes: the placeholder letter is at least 48 px wide.
+      for (var i = 0; i < lanes.length; i++) {
+        if (!lanes[i].showPicture) continue;
+        expect(
+          tester
+              .getSize(
+                find.descendant(
+                  of: lane(i),
+                  matching: find.byType(ItemPicture),
+                ),
+              )
+              .width,
+          greaterThanOrEqualTo(48),
+        );
+        checked++;
+      }
+      expect(checked, 3);
+      await finish(tester);
+    }
+  });
+
   testWidgets('all text is at least 28 sp', (tester) async {
     await boot(tester);
     for (final t in tester.widgetList<Text>(find.byType(Text))) {

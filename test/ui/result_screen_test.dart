@@ -16,9 +16,14 @@ LevelOutcome _o(int stars, {int correct = 6, int total = 8}) => LevelOutcome(
 void main() {
   late int again, next;
 
-  Future<void> pump(WidgetTester tester, LevelOutcome o) async {
+  Future<void> pump(
+    WidgetTester tester,
+    LevelOutcome o, {
+    bool hasNext = true,
+    Size size = const Size(1280, 720),
+  }) async {
     again = next = 0;
-    await tester.binding.setSurfaceSize(const Size(1280, 720));
+    await tester.binding.setSurfaceSize(size);
     addTearDown(() => tester.binding.setSurfaceSize(null));
     await tester.pumpWidget(
       MaterialApp(
@@ -26,6 +31,7 @@ void main() {
         home: Scaffold(
           body: ResultScreen(
             outcome: o,
+            hasNext: hasNext,
             onPlayAgain: () => again++,
             onNext: () => next++,
           ),
@@ -75,6 +81,20 @@ void main() {
     for (final b in tester.widgetList(find.byType(FilledButton))) {
       expect(tester.getSize(find.byWidget(b)).height, greaterThanOrEqualTo(56));
     }
+    await tester.pump(const Duration(seconds: 6));
+  });
+
+  testWidgets('last level: no forward button even with stars', (tester) async {
+    await pump(tester, _o(3, correct: 8), hasNext: false);
+    expect(find.text('Tiếp tục'), findsNothing);
+    await tester.tap(find.text('Về trang chính'));
+    expect(next, 1);
+    await tester.pump(const Duration(seconds: 6));
+  });
+
+  testWidgets('no overflow at 800x360', (tester) async {
+    await pump(tester, _o(3, correct: 8), size: const Size(800, 360));
+    expect(tester.takeException(), isNull);
     await tester.pump(const Duration(seconds: 6));
   });
 }

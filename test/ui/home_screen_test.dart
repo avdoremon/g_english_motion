@@ -19,8 +19,12 @@ void main() {
     parent = 0;
   });
 
-  Future<void> pump(WidgetTester tester, {bool sayIt = true}) async {
-    await tester.binding.setSurfaceSize(const Size(1280, 720));
+  Future<void> pump(
+    WidgetTester tester, {
+    bool sayIt = true,
+    Size size = const Size(1280, 720),
+  }) async {
+    await tester.binding.setSurfaceSize(size);
     addTearDown(() => tester.binding.setSurfaceSize(null));
     await tester.pumpWidget(
       MaterialApp(
@@ -165,4 +169,19 @@ void main() {
       expect(size, greaterThanOrEqualTo(28), reason: t.data);
     }
   });
+
+  for (final size in const [Size(1280, 720), Size(800, 360)]) {
+    testWidgets('no overflow at ${size.width.toInt()}x${size.height.toInt()}', (
+      tester,
+    ) async {
+      unawaited(store.saveStars(1, 1, 2));
+      await pump(tester, size: size);
+      expect(find.text('Tin Tin English'), findsOneWidget);
+      expect(tester.takeException(), isNull);
+      // Everything is reachable: Play can be scrolled into view and tapped.
+      await tester.ensureVisible(find.byKey(const ValueKey('play')));
+      await tester.tap(find.byKey(const ValueKey('play')));
+      expect(played, isNotEmpty);
+    });
+  }
 }

@@ -14,11 +14,18 @@ class ResultScreen extends StatelessWidget {
     required this.outcome,
     required this.onPlayAgain,
     required this.onNext,
+    this.hasNext = true,
   });
 
   final LevelOutcome outcome;
   final VoidCallback onPlayAgain;
   final VoidCallback onNext;
+
+  /// False on the last level: there is nothing to continue to, so the
+  /// second button always goes home.
+  final bool hasNext;
+
+  bool get _forward => outcome.unlockedNext && hasNext;
 
   @override
   Widget build(BuildContext context) {
@@ -71,12 +78,8 @@ class ResultScreen extends StatelessWidget {
                 ),
                 FilledButton.icon(
                   onPressed: onNext,
-                  icon: Icon(
-                    outcome.unlockedNext ? Icons.arrow_forward : Icons.home,
-                  ),
-                  label: Text(
-                    outcome.unlockedNext ? 'Tiếp tục' : 'Về trang chính',
-                  ),
+                  icon: Icon(_forward ? Icons.arrow_forward : Icons.home),
+                  label: Text(_forward ? 'Tiếp tục' : 'Về trang chính'),
                 ),
               ],
             ),
