@@ -186,6 +186,7 @@ class PoseSession {
 
   void _onFrame(PoseFrame f) {
     final t = f.timestamp;
+    _laneTracker.aspectRatio = f.aspectRatio;
     _lastValidAt ??= t;
     final player = _pickPlayer(f.poses);
 

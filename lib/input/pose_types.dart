@@ -61,8 +61,19 @@ class Pose {
 }
 
 class PoseFrame {
-  const PoseFrame(this.poses, this.timestamp);
+  const PoseFrame(
+    this.poses,
+    this.timestamp, {
+    this.aspectRatio = defaultAspectRatio,
+  });
+
+  /// Assumed when the native side does not report the frame size.
+  static const double defaultAspectRatio = 16 / 9;
 
   final List<Pose> poses;
   final Duration timestamp;
+
+  /// Upright frame width / height. x is normalised by the width and y by the
+  /// height, so distances on the two axes are only comparable through this.
+  final double aspectRatio;
 }

@@ -9,7 +9,9 @@ class LaneTracker {
     required int laneCount,
     this.mirror = true,
     this.hysteresis = 0.1,
-  }) : _laneCount = laneCount < 1 ? 1 : laneCount {
+    double aspectRatio = PoseFrame.defaultAspectRatio,
+  }) : _laneCount = laneCount < 1 ? 1 : laneCount,
+       _aspect = aspectRatio > 0 ? aspectRatio : PoseFrame.defaultAspectRatio {
     _current = _rawLane(_center);
     _baseline = _current;
   }
@@ -23,6 +25,7 @@ class LaneTracker {
   final double hysteresis;
 
   int _laneCount;
+  double _aspect;
   late int _current;
 
   /// Lane that was current before the oldest retained change.
@@ -31,7 +34,15 @@ class LaneTracker {
 
   int get current => _current;
 
-  double get _width => widthPerTorso * _calibration.torsoHeight;
+  /// Frame width / height of the latest frame. The torso height is a fraction
+  /// of the frame height while x is a fraction of the width, so the lane width
+  /// in x is `0.6 * torso / aspectRatio`. May change at rotation.
+  double get aspectRatio => _aspect;
+  set aspectRatio(double v) {
+    if (v > 0) _aspect = v;
+  }
+
+  double get _width => widthPerTorso * _calibration.torsoHeight / _aspect;
 
   /// Lane layout is symmetric around the (possibly mirrored) centre.
   double get _center =>

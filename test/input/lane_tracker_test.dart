@@ -15,8 +15,10 @@ const _calib = Calibration(
 Pose _at(double x) => makePose(hipX: x);
 Duration _ms(int ms) => Duration(milliseconds: ms);
 
+// These cases assume equal x/y scales (aspect 1.0): lane width in x is then
+// 0.6 * 0.3 = 0.18. The 16:9 behaviour is covered in the aspect group below.
 LaneTracker _tracker({int laneCount = 3, bool mirror = false}) =>
-    LaneTracker(_calib, laneCount: laneCount, mirror: mirror);
+    LaneTracker(_calib, laneCount: laneCount, mirror: mirror, aspectRatio: 1.0);
 
 void main() {
   group('lane mapping (3 lanes, no mirror)', () {
@@ -55,6 +57,29 @@ void main() {
       expect(t.current, 2);
       expect(t.update(_at(0.58), _ms(33)), 2);
       expect(t.update(_at(0.56), _ms(66)), 1);
+    });
+  });
+
+  group('aspect ratio (torso is a fraction of height, x of width)', () {
+    test('default is 16:9 and lane width is 0.6 * torso / aspect', () {
+      expect(PoseFrame.defaultAspectRatio, closeTo(16 / 9, 1e-9));
+      final width = 0.6 * 0.3 / (16 / 9); // 0.10125
+      final t = LaneTracker(_calib, laneCount: 3, mirror: false);
+      // Lane 1 spans centre +- width/2; just inside stays, beyond moves.
+      expect(t.update(_at(0.5 + width * 0.4), _ms(0)), 1);
+      final t2 = LaneTracker(_calib, laneCount: 3, mirror: false);
+      expect(t2.update(_at(0.5 + width * 1.6), _ms(0)), 2);
+      // With the old (aspect-blind) 0.18 width this x would still be lane 1.
+      final t3 = LaneTracker(_calib, laneCount: 3, mirror: false);
+      expect(t3.update(_at(0.5 + 0.18 * 0.9), _ms(0)), 2);
+    });
+
+    test('the latest aspect ratio is used (rotation)', () {
+      final t = LaneTracker(_calib, laneCount: 3, mirror: false)
+        ..aspectRatio = 1.0;
+      expect(t.update(_at(0.5 + 0.18 * 0.4), _ms(0)), 1);
+      t.aspectRatio = 16 / 9;
+      expect(t.update(_at(0.5 + 0.18 * 0.4), _ms(33)), 2);
     });
   });
 

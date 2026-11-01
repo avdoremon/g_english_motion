@@ -35,8 +35,11 @@ void main() {
     messenger.setMockStreamHandler(_events, null);
   });
 
-  Map<String, Object?> lm(double x, double y, double c) =>
-      {'x': x, 'y': y, 'confidence': c};
+  Map<String, Object?> lm(double x, double y, double c) => {
+    'x': x,
+    'y': y,
+    'confidence': c,
+  };
 
   test('maps payload to PoseFrame with exact coords and timestamp', () async {
     final src = MediapipeFrameSource();
@@ -66,6 +69,35 @@ void main() {
     await sub.cancel();
   });
 
+  test(
+    'frameWidth/frameHeight give the aspect ratio; absent -> 16:9',
+    () async {
+      final src = MediapipeFrameSource();
+      final got = <PoseFrame>[];
+      final sub = src.frames.listen(got.add);
+      await Future<void>.delayed(Duration.zero);
+      sink!.success({
+        'timestampMicros': 1,
+        'frameWidth': 640,
+        'frameHeight': 480,
+        'poses': <Object>[],
+      });
+      sink!.success({'timestampMicros': 2, 'poses': <Object>[]});
+      sink!.success({
+        'timestampMicros': 3,
+        'frameWidth': 0,
+        'frameHeight': 480,
+        'poses': <Object>[],
+      });
+      await Future<void>.delayed(Duration.zero);
+      expect(got, hasLength(3));
+      expect(got[0].aspectRatio, closeTo(4 / 3, 1e-9));
+      expect(got[1].aspectRatio, PoseFrame.defaultAspectRatio);
+      expect(got[2].aspectRatio, PoseFrame.defaultAspectRatio);
+      await sub.cancel();
+    },
+  );
+
   test('two poses preserved in order; ints accepted as numbers', () async {
     final src = MediapipeFrameSource();
     final got = <PoseFrame>[];
@@ -74,8 +106,14 @@ void main() {
     sink!.success({
       'timestampMicros': 10,
       'poses': [
-        {'landmarks': {'nose': lm(0.2, 0.2, 1.0)}},
-        {'landmarks': {'nose': {'x': 1, 'y': 0, 'confidence': 1}}},
+        {
+          'landmarks': {'nose': lm(0.2, 0.2, 1.0)},
+        },
+        {
+          'landmarks': {
+            'nose': {'x': 1, 'y': 0, 'confidence': 1},
+          },
+        },
       ],
     });
     await Future<void>.delayed(Duration.zero);
@@ -93,7 +131,9 @@ void main() {
     sink!.success({
       'timestampMicros': 1,
       'poses': [
-        {'landmarks': {'leftEar': lm(0, 0, 1), 'nose': lm(0.1, 0.1, 1)}},
+        {
+          'landmarks': {'leftEar': lm(0, 0, 1), 'nose': lm(0.1, 0.1, 1)},
+        },
       ],
     });
     await Future<void>.delayed(Duration.zero);
@@ -115,13 +155,19 @@ void main() {
     sink!.success({
       'timestampMicros': 1,
       'poses': [
-        {'landmarks': {'nose': {'x': 'bad', 'y': 0, 'confidence': 1}}},
+        {
+          'landmarks': {
+            'nose': {'x': 'bad', 'y': 0, 'confidence': 1},
+          },
+        },
       ],
     });
     sink!.success({
       'timestampMicros': 99,
       'poses': [
-        {'landmarks': {'nose': lm(0.3, 0.3, 0.7)}},
+        {
+          'landmarks': {'nose': lm(0.3, 0.3, 0.7)},
+        },
       ],
     });
     await Future<void>.delayed(Duration.zero);

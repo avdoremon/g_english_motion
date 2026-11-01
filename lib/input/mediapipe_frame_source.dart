@@ -93,7 +93,15 @@ class MediapipeFrameSource implements PoseFrameSource {
         }
         poses.add(Pose(joints));
       }
-      return PoseFrame(poses, Duration(microseconds: ts));
+      final w = event['frameWidth'], h = event['frameHeight'];
+      final aspect = (w is int && h is int && w > 0 && h > 0)
+          ? w / h
+          : PoseFrame.defaultAspectRatio;
+      return PoseFrame(
+        poses,
+        Duration(microseconds: ts),
+        aspectRatio: aspect,
+      );
     } catch (_) {
       return null;
     }

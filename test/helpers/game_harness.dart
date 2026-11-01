@@ -197,7 +197,8 @@ class GameHarness {
 
   /// Hip x that puts the (mirrored) player in [l] of [n] lanes.
   static double hipXForLane(int l, int n) {
-    const width = 0.6 * 0.3;
+    // Torso 0.3 of the height; frames carry the default 16:9 aspect.
+    const width = 0.6 * 0.3 / PoseFrame.defaultAspectRatio;
     final left = 0.5 - n * width / 2;
     return 1 - (left + (l + 0.5) * width);
   }

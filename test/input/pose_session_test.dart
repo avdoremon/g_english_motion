@@ -84,6 +84,20 @@ void main() {
     },
   );
 
+  test('lane width follows the frame aspect ratio carried by frames', () async {
+    List<PoseFrame> still(double aspect) => [
+      for (var i = 0; i < 60; i++)
+        PoseFrame([makePose(hipX: 0.4)], ms(i * 33), aspectRatio: aspect),
+    ];
+    // Mirrored x = 0.6: inside lane 1 for a square frame (width 0.18) but
+    // lane 2 for 16:9 (width 0.101).
+    expect((await run(still(1.0))).whereType<LaneChanged>(), isEmpty);
+    expect(
+      (await run(still(16 / 9))).whereType<LaneChanged>().map((e) => e.lane),
+      [2],
+    );
+  });
+
   test('stepping right yields LaneChanged(2)', () async {
     final frames = motion(ms(3000), hipX: (t) => t < ms(1500) ? 0.5 : 0.3);
     final events = await run(frames);
