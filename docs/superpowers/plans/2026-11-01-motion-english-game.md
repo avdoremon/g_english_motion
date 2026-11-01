@@ -1,3 +1,5 @@
+> Note: Task 6/13 native channel was replaced by the flutter_mp_pose_landmarker plugin (see docs/pose-plugin-evaluation.md)
+
 # Tin Tin English (Motion English Game) Implementation Plan – v2
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
