@@ -1,0 +1,227 @@
+// Test harness for GameController: fake camera, fake audio engines, a manual
+// ticker and a synthetic player standing in a chosen lane.
+import 'dart:async';
+import 'dart:math' as math;
+
+import 'package:flutter_test/flutter_test.dart';
+import 'package:g_english_motion/app/game_controller.dart';
+import 'package:g_english_motion/audio/audio_service.dart';
+import 'package:g_english_motion/content/content_repository.dart';
+import 'package:g_english_motion/content/models.dart';
+import 'package:g_english_motion/input/pose_frame_source.dart';
+import 'package:g_english_motion/input/pose_types.dart';
+import 'package:g_english_motion/levels/level_config.dart';
+import 'package:g_english_motion/content/curriculum.dart';
+import 'package:g_english_motion/progress/progress_store.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'synthetic_poses.dart';
+
+class HarnessTts implements SpeechEngine {
+  HarnessTts(this.log, {this.hang = false});
+  final List<String> log;
+  final bool hang;
+  @override
+  Future<bool> isEnglishAvailable() async => true;
+  @override
+  Future<void> speak(String text) async {
+    log.add('tts:$text');
+    if (hang) await Completer<void>().future;
+  }
+
+  @override
+  Future<void> stop() async {}
+  @override
+  Future<void> dispose() async {}
+}
+
+class HarnessClips implements ClipPlayer {
+  @override
+  Future<bool> play(String assetPath) async => false;
+  @override
+  Future<void> stop() async {}
+  @override
+  Future<void> dispose() async {}
+}
+
+const harnessWords = [
+  'apple',
+  'ball',
+  'cat',
+  'dog',
+  'egg',
+  'fish',
+  'goat',
+  'hat',
+];
+
+Unit harnessUnit({int grade = 1, int index = 1, int count = 8}) {
+  final p = 'g${grade}u$index';
+  return Unit(
+    grade: grade,
+    index: index,
+    id: p,
+    title: p,
+    items: [
+      for (var i = 0; i < count; i++)
+        ContentItem(
+          id: '${p}i$i',
+          word: harnessWords[i % harnessWords.length],
+          ttsText: harnessWords[i % harnessWords.length],
+          distractorIds: ['${p}i${(i + 1) % count}', '${p}i${(i + 2) % count}'],
+          modes: const [ModeKind.laneJump],
+        ),
+    ],
+  );
+}
+
+const harnessLevel = LevelConfig(
+  level: 1,
+  questionCount: 8,
+  baseTime: Duration(seconds: 20),
+  choiceCount: 3,
+  hints: HintMode.full,
+  window: UnitWindow.current,
+);
+
+class GameHarness {
+  GameHarness._(
+    this.store,
+    this.source,
+    this.audio,
+    this.captions,
+    this.controller,
+    this.frames,
+    this.tickCtl,
+  );
+
+  static Future<GameHarness> create({
+    bool withContent = true,
+    PermissionOutcome permission = PermissionOutcome.granted,
+    bool hangTts = false,
+    LevelConfig level = harnessLevel,
+  }) async {
+    SharedPreferences.setMockInitialValues({});
+    final store = ProgressStore(await SharedPreferences.getInstance());
+    final frames = StreamController<PoseFrame>(sync: true);
+    final source = FakePoseFrameSource.fromStream(
+      frames.stream,
+      outcome: permission,
+    );
+    final ttsLog = <String>[];
+    final audio = AudioService(
+      HarnessTts(ttsLog, hang: hangTts),
+      HarnessClips(),
+      assetExists: (_) => false,
+      speechTimeout: const Duration(seconds: 30),
+      clipTimeout: const Duration(seconds: 30),
+    );
+    final captions = <String>[];
+    audio.captions.listen(captions.add);
+    final tickCtl = StreamController<Duration>.broadcast(sync: true);
+    final repo = ContentRepository(withContent ? [harnessUnit()] : []);
+    final controller = GameController(
+      grade: 1,
+      level: level,
+      store: store,
+      repo: repo,
+      audio: audio,
+      ticker: () => tickCtl.stream,
+      rng: math.Random(7),
+    );
+    return GameHarness._(
+      store,
+      source,
+      audio,
+      captions,
+      controller,
+      frames,
+      tickCtl,
+    );
+  }
+
+  final ProgressStore store;
+  final FakePoseFrameSource source;
+  final AudioService audio;
+  final List<String> captions;
+  final GameController controller;
+  final StreamController<PoseFrame> frames;
+  final StreamController<Duration> tickCtl;
+
+  Duration _t = Duration.zero;
+  Duration _elapsed = Duration.zero;
+  int lane = 1;
+
+  static const _step = Duration(milliseconds: 33);
+
+  /// Hip x that puts the (mirrored) player in [l] of [n] lanes.
+  static double hipXForLane(int l, int n) {
+    const width = 0.6 * 0.3;
+    final left = 0.5 - n * width / 2;
+    return 1 - (left + (l + 0.5) * width);
+  }
+
+  Pose standing({double lift = 0}) => makePose(
+    hipX: hipXForLane(lane, controller.level.choiceCount),
+    hipY: 0.6 - lift,
+  );
+
+  /// Advances time by [d]: one synthetic frame (unless [withFrames] is false)
+  /// and one ticker event per step.
+  Future<void> run(
+    Duration d, {
+    bool withFrames = true,
+    Pose Function(Duration since)? pose,
+  }) async {
+    var spent = Duration.zero;
+    while (spent < d) {
+      spent += _step;
+      _t += _step;
+      _elapsed += _step;
+      if (withFrames) {
+        frames.add(PoseFrame([pose != null ? pose(spent) : standing()], _t));
+      }
+      tickCtl.add(_elapsed);
+      await pumpEventQueue(times: 2);
+    }
+  }
+
+  /// Calibration frames (standing in the middle), then lets the flow settle.
+  Future<PermissionOutcome> startAndCalibrate() async {
+    final fut = controller.start(source);
+    await pumpEventQueue();
+    final out = await fut;
+    if (out != PermissionOutcome.granted) return out;
+    lane = 1;
+    for (var i = 0; i < 75; i++) {
+      _t += _step;
+      frames.add(PoseFrame([makePose()], _t));
+      await pumpEventQueue(times: 1);
+    }
+    await pumpEventQueue();
+    return out;
+  }
+
+  /// Walks to [l], stands still, then jumps once.
+  Future<void> answerInLane(int l) async {
+    lane = l;
+    await run(const Duration(milliseconds: 1500));
+    const air = Duration(milliseconds: 500);
+    await run(
+      const Duration(milliseconds: 700),
+      pose: (since) => standing(
+        lift: since < air
+            ? 0.06 *
+                  math.sin(math.pi * since.inMicroseconds / air.inMicroseconds)
+            : 0,
+      ),
+    );
+  }
+
+  Future<void> dispose() async {
+    controller.dispose();
+    await controller.closed;
+    unawaited(frames.close()); // never completes without a listener
+    await tickCtl.close();
+  }
+}
