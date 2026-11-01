@@ -176,5 +176,59 @@ void main() {
         expect(run(d, jump), hasLength(1));
       },
     );
+
+    for (final fps in [30, 60]) {
+      test('persistent +0.05 offset with +/-0.003 jitter @ $fps fps: later '
+          '0.04 jump fires', () {
+        final d = JumpDetector(cal);
+        var i = 0;
+        double jitter() =>
+            0.003 * math.sin(i++ * 12.9898) * math.cos(i * 78.233);
+        run(
+          d,
+          poseSequence(
+            duration: const Duration(seconds: 1),
+            fps: fps,
+            posesAt: (t) => [
+              lifted((t.inMilliseconds < 500 ? 0 : 0.05) + jitter()),
+            ],
+          ),
+        );
+        final settle = poseSequence(
+          duration: const Duration(seconds: 3),
+          fps: fps,
+          start: const Duration(seconds: 1),
+          posesAt: (_) => [lifted(0.05 + jitter())],
+        );
+        expect(run(d, settle), isEmpty);
+        final jump = poseSequence(
+          duration: const Duration(seconds: 1),
+          fps: fps,
+          start: const Duration(seconds: 4),
+          posesAt: (t) {
+            final u = (t - const Duration(seconds: 4)).inMilliseconds / 500;
+            return [
+              lifted(
+                0.05 + jitter() + (u < 1 ? 0.04 * math.sin(math.pi * u) : 0),
+              ),
+            ];
+          },
+        );
+        expect(run(d, jump), hasLength(1));
+      });
+    }
+
+    test(
+      '0.9 s airtime jumps do not re-baseline mid-air: 3 jumps -> 3 events',
+      () {
+        final d = JumpDetector(cal);
+        final frames = jumpSequence(
+          jumps: 3,
+          airtime: const Duration(milliseconds: 900),
+          noise: 0,
+        );
+        expect(run(d, frames), hasLength(3));
+      },
+    );
   });
 }
