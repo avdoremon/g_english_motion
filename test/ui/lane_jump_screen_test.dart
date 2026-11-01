@@ -376,6 +376,29 @@ void main() {
       await finish(tester);
     });
 
+    testWidgets('the hint picture is at least 48 px on 800x360 and 1280x720, '
+        'words stay >= 28 sp', (tester) async {
+      for (final size in const [Size(800, 360), Size(1280, 720)]) {
+        await bootHint(tester, HintMode.full, size: size);
+        await tester.pump();
+        expect(tester.takeException(), isNull, reason: '$size');
+        expect(pictures(), findsNWidgets(3));
+        for (var i = 0; i < 3; i++) {
+          final pic = tester.getSize(pictures().at(i));
+          expect(pic.width, greaterThanOrEqualTo(48), reason: '$size lane $i');
+          expect(pic.height, greaterThanOrEqualTo(48), reason: '$size lane $i');
+          final word = find.descendant(
+            of: lane(i),
+            matching: find.byType(Text),
+          );
+          final style = DefaultTextStyle.of(tester.element(word.first)).style
+              .merge(tester.widget<Text>(word.first).style);
+          expect(style.fontSize, greaterThanOrEqualTo(28));
+        }
+        await finish(tester);
+      }
+    });
+
     testWidgets('all text stays >= 28 sp with hints', (tester) async {
       await bootHint(tester, HintMode.full);
       for (final t in tester.widgetList<Text>(find.byType(Text))) {

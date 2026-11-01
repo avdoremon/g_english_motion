@@ -73,20 +73,40 @@ class _Body extends StatelessWidget {
 
   bool get _feedback => session.phase == SessionPhase.feedback;
 
+  /// Screens shorter than this (small landscape phones, 800x360) use tighter
+  /// paddings and give the lanes more of the height, so the hint picture in a
+  /// word tile stays recognisable while words keep their full size.
+  static const compactBelow = 420.0;
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(24, 12, 24, 16),
-        child: Column(
-          children: [
-            _Header(controller: controller, session: session, onExit: onExit),
-            const SizedBox(height: 12),
-            Expanded(flex: 3, child: _PromptArea(body: this)),
-            const SizedBox(height: 12),
-            Expanded(flex: 5, child: _Lanes(body: this)),
-          ],
-        ),
+      child: LayoutBuilder(
+        builder: (context, box) {
+          final compact = box.maxHeight < compactBelow;
+          final gap = compact ? 6.0 : 12.0;
+          return Padding(
+            padding: compact
+                ? const EdgeInsets.fromLTRB(24, 6, 24, 8)
+                : const EdgeInsets.fromLTRB(24, 12, 24, 16),
+            child: Column(
+              children: [
+                _Header(
+                  controller: controller,
+                  session: session,
+                  onExit: onExit,
+                ),
+                SizedBox(height: gap),
+                Expanded(
+                  flex: compact ? 2 : 3,
+                  child: _PromptArea(body: this),
+                ),
+                SizedBox(height: gap),
+                Expanded(flex: 5, child: _Lanes(body: this)),
+              ],
+            ),
+          );
+        },
       ),
     );
   }
@@ -381,6 +401,16 @@ class LaneTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = Theme.of(context).textTheme;
+    return LayoutBuilder(
+      builder: (context, box) {
+        // Short tile: less padding, so the picture gets the room.
+        final pad = box.maxHeight < 200 ? 6.0 : 12.0;
+        return _frame(t, pad);
+      },
+    );
+  }
+
+  Widget _frame(TextTheme t, double pad) {
     return Semantics(
       selected: selected,
       label: option.showWord ? item.word : 'Hình ${item.word}',
@@ -394,7 +424,7 @@ class LaneTile extends StatelessWidget {
             width: 6,
           ),
         ),
-        padding: const EdgeInsets.all(12),
+        padding: EdgeInsets.all(pad),
         child: Stack(
           children: [
             if (isAnswer)
