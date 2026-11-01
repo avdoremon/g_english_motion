@@ -269,6 +269,81 @@ void main() {
     });
   });
 
+  group('wrong-item cap is hard', () {
+    // 12 items, 7 of them wrong, n = 8: floor(0.3 * 8) = 2 wrong questions.
+    final r = ContentRepository([_unit(3, 2, 12)]);
+    final wrong = [for (var i = 0; i < 7; i++) 'g3u2i$i'];
+
+    Future<List<PlannedQuestion>> planFor(int seed) async {
+      final h = InMemoryHistoryStore();
+      for (final w in wrong) {
+        await h.markWrong(w);
+      }
+      return _gen(r, history: h, seed: seed).plan(
+        level: _level(count: 8, window: UnitWindow.current),
+        pos: _pos3,
+        modes: {ModeKind.laneJump},
+      );
+    }
+
+    test(
+      'at most floor(0.3 n) wrong questions, still not at index 0',
+      () async {
+        for (var s = 0; s < 60; s++) {
+          final plan = await planFor(s);
+          final ids = plan.map((p) => p.question.itemId).toList();
+          expect(plan, hasLength(8));
+          expect(ids.where(wrong.contains).length, 2, reason: 'seed $s');
+          expect(wrong.contains(ids.first), isFalse, reason: 'seed $s');
+          var run = 1;
+          for (var i = 1; i < plan.length; i++) {
+            final a = plan[i - 1].question, b = plan[i].question;
+            run =
+                (a is ChoiceQuestion &&
+                    b is ChoiceQuestion &&
+                    a.correctIndex == b.correctIndex)
+                ? run + 1
+                : 1;
+            expect(run, lessThan(3), reason: 'seed $s');
+          }
+        }
+      },
+    );
+
+    test('is deterministic for a seed', () async {
+      for (final s in [1, 7, 23]) {
+        final a = await planFor(s), b = await planFor(s);
+        expect(
+          [for (final p in a) (p.question.itemId, p.question.form)],
+          [for (final p in b) (p.question.itemId, p.question.form)],
+        );
+      }
+    });
+
+    test('when every non-wrong question is used up, wrong items fill the '
+        'rest (documented exception)', () async {
+      // 2 non-wrong items x 3 forms = 6 non-wrong pairs, n = 10.
+      final small = ContentRepository([_unit(3, 2, 6)]);
+      final h = InMemoryHistoryStore();
+      for (final w in ['g3u2i0', 'g3u2i1', 'g3u2i2', 'g3u2i3']) {
+        await h.markWrong(w);
+      }
+      final plan = _gen(small, history: h).plan(
+        level: _level(count: 10, window: UnitWindow.current),
+        pos: _pos3,
+        modes: {ModeKind.laneJump},
+      );
+      expect(plan, hasLength(10));
+      final nonWrong = plan
+          .where(
+            (p) =>
+                p.question.itemId == 'g3u2i4' || p.question.itemId == 'g3u2i5',
+          )
+          .length;
+      expect(nonWrong, 6, reason: 'all non-wrong pairs used first');
+    });
+  });
+
   test('(h) all three modes appear when requested', () {
     for (var s = 0; s < 30; s++) {
       final plan = _gen(repo, seed: s).plan(

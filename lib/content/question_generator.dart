@@ -50,6 +50,10 @@ class QuestionGenerator {
   /// the 2nd, 3rd... use. A (item, form) pair repeats only once the whole pool
   /// is exhausted.
   ///
+  /// The wrong-item quota is a hard cap of floor(0.3 * n) questions. The one
+  /// exception: when every non-wrong (item, form) pair has been used and
+  /// slots remain, over-quota wrong pairs fill them before any pair repeats.
+  ///
   /// Wrong ids (from the history) that do not belong to an item in the level's
   /// unit window, or whose item cannot be asked in the requested modes, are
   /// ignored: they are neither planned nor counted towards the quota.
@@ -145,10 +149,11 @@ class QuestionGenerator {
       used[m] = 1;
     }
 
-    // Remaining slots: least-used item first; remaining (fresh, then stale)
-    // before the over-quota wrong pairs on ties.
+    // Remaining slots: least-used non-wrong item first. The wrong-item cap is
+    // hard: over-quota wrong pairs are used only once the non-wrong pool (all
+    // its items x forms) is exhausted, never to balance item counts.
     while (picks.length < n) {
-      final p = takeBest([remaining, leftoverWrong]);
+      final p = takeBest([remaining]) ?? takeBest([leftoverWrong]);
       if (p == null) break;
       picks.add(_Pick(p, 0));
     }
