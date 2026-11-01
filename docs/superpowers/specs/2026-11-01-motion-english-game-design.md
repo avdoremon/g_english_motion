@@ -1,125 +1,146 @@
 # Game học tiếng Anh tiểu học bằng chuyển động (Motion English) – Thiết kế
 
-Ngày: 2026-11-01. Trạng thái: chờ người dùng duyệt spec.
+Ngày: 2026-11-01. Phiên bản 2 (đã sửa theo review độc lập). Trạng thái: chờ người dùng duyệt.
 
 ## 1. Mục tiêu và phạm vi
 
 Bản tiếng Anh của game học toán motion: bé đứng trước camera điện thoại, game chiếu lên TV (mirroring/HDMI), bé điều khiển bằng cơ thể và không cần nhìn màn hình điện thoại.
 
-- Đối tượng: học sinh tiểu học lớp 1–5, chơi ở nhà (1 bé), miễn phí, quảng cáo chỉ là banner nhỏ ở góc, không bao giờ chen ngang.
+- Đối tượng: học sinh tiểu học lớp 1–5, chơi ở nhà (1 bé), miễn phí, quảng cáo chỉ là banner nhỏ ở góc, không bao giờ chen ngang. Phát hành trên Google Play theo chương trình Families (mục 10).
 - Nội dung bám Chương trình GDPT 2018, bộ sách **Global Success** (Kết nối tri thức). Cấu trúc dữ liệu cho phép thêm bộ sách khác sau này, nhưng MVP chỉ làm Global Success.
-- Nền tảng: Android trước (máy kiểm thử: Galaxy S24 Ultra, Android 17), hỗ trợ điện thoại khoảng 4 năm gần đây. iOS làm sau.
-- Stack: Flutter + Flame + MediaPipe Pose, cùng stack với game toán.
+- Nền tảng: Android trước. Máy kiểm thử chính Galaxy S24 Ultra (Android 17) **và một máy tầm trung đời 2021–2022**; hỗ trợ điện thoại khoảng 4 năm gần đây. iOS làm sau. Màn hình khóa ngang, giữ sáng màn hình khi đang chơi.
+- Stack: Flutter (bản stable ghim cụ thể khi khởi tạo) + Flame + MediaPipe Pose, cùng stack với game toán.
 - Kế thừa từ game toán: mascot Tin Tin, 100 điểm mỗi câu đúng, sai thì báo sai và giải thích đáp án đúng, không đăng nhập ở MVP, tiến độ lưu cục bộ.
-- Ngoài phạm vi MVP: iOS, đăng nhập và bảng xếp hạng, chế độ trường học, ứng dụng riêng trên TV, chấm phát âm chi tiết theo âm vị (mini-game đọc to ở mục 3.4 chỉ kiểm tra "nói đúng từ", không chấm điểm phát âm), nhận dạng cử chỉ bàn tay (Hand Landmarker).
+- **Quy tắc quyền riêng tư (bắt buộc):** khung hình camera và âm thanh micro chỉ xử lý trên máy, không lưu, không gửi đi. Ngoài SDK quảng cáo, không module nào được gọi mạng.
+- Ngoài phạm vi MVP: iOS, đăng nhập và bảng xếp hạng, chế độ trường học, ứng dụng riêng trên TV, chấm phát âm chi tiết theo âm vị (SayIt chỉ kiểm tra "nói đúng từ"), nhận dạng cử chỉ bàn tay (Hand Landmarker).
 
 ## 2. Điều khiển bằng cơ thể (hướng A: chỉ dùng Pose)
 
-Một model duy nhất: MediaPipe Pose. Lớp Input chỉ phát ra các sự kiện đã chuẩn hóa; các chế độ chơi không bao giờ đụng tới dữ liệu camera thô.
+Một model duy nhất: MediaPipe Pose, theo dõi tối đa 2 người mỗi khung hình để chọn đúng bé. Lớp Input chỉ phát ra các sự kiện đã chuẩn hóa, mỗi sự kiện mang **thời điểm của khung pose** sinh ra nó; các chế độ chơi không đụng tới dữ liệu camera thô.
 
 | Sự kiện | Nguồn | Ghi chú |
 |---|---|---|
-| `lane(x)` | Trục ngang của hông, chia thành 3–4 làn | Làn hiện tại được tô sáng trên TV |
-| `jump` | Hông và vai dịch lên quá ngưỡng 12% chiều cao thân so với chuẩn lúc hiệu chỉnh, rồi hạ xuống | Debounce 600 ms để một cú nhảy không tính hai lần |
-| `cursor(x,y)` | Cổ tay (tay có độ tin cậy cao hơn) | Dùng cho DragSpell |
-| `hold(target)` | Con trỏ ở trong một mục tiêu liên tục đủ thời gian | 1 giây để nhặt/thả chữ và bấm "Kiểm tra" trong DragSpell |
-| `pull` | Cổ tay đi xuống một đoạn tối thiểu rồi trở lên, tính theo từng tay | Dùng để kéo đáp án về trong SkyShoot |
+| `LaneChanged(lane)` | Trung điểm hông theo trục ngang | Bề rộng làn = 0,6 × chiều cao thân (tự co giãn theo khoảng cách đứng); vùng trễ 10% bề rộng làn để không nhấp nháy ở ranh giới; lật trục x cho camera trước |
+| `Confirmed(lane)` | Nhảy (mặc định) hoặc giơ hai tay (chế độ không nhảy) | `lane` là làn ngay trước lúc bật nhảy, không phải làn lúc đang bay |
+| `CursorMoved(x,y)` | Cổ tay của tay đang giơ cao hơn | Đổi tay chỉ khi tay kia cao hơn rõ rệt (vùng trễ); vùng với tới quanh vai được ánh xạ ra toàn màn hình |
+| `Pulled(hand)` | Cổ tay đi xuống rồi lên | Mỗi nhịp kéo một sự kiện; luật "hai tay luân phiên" do SkyShoot kiểm |
+| `PlayerLost` / `PlayerFound` | Mất pose của bé quá 500 ms / có lại | Mọi đồng hồ tạm dừng khi mất người |
 
-**Hiệu chỉnh (Calibration):** đầu mỗi phiên chơi, bé đứng thẳng khoảng 2 giây để đo chiều cao thân và vị trí giữa. Nếu không thấy đủ thân người, game hiện hướng dẫn "lùi ra xa hơn" bằng Tin Tin, kèm hình mẫu.
+**Nhảy:** vượt ngưỡng khi độ nâng trung bình của trung điểm hông và trung điểm vai so với mốc chuẩn ≥ 12% chiều cao thân; sự kiện phát ngay lúc vượt ngưỡng (độ trễ thấp); chỉ nạp lại khi bé hạ xuống dưới nửa ngưỡng và đã qua 600 ms. Mốc chuẩn tự cập nhật chậm khi bé đứng yên (bé tiến/lùi không làm trôi ngưỡng). Landmark được lọc nhiễu trước khi xử lý. Bỏ qua cú nhảy trong 500 ms đầu mỗi câu và ở khung đầu tiên sau `PlayerFound`.
 
-**Rủi ro và cách giảm:** độ trễ nhảy, phòng thiếu sáng, bé đứng lệch. Giảm bằng mũi tên chậm, vùng trúng rộng, hiệu chỉnh đầu phiên, và chỉ báo "đã thấy bạn" luôn hiện ở góc màn hình. Cần một **spike đo đạc** (prototype bỏ đi) trên S24 Ultra để xác nhận độ trễ và độ chính xác phát hiện nhảy trước khi cam kết ngưỡng nêu trên; đây là nhiệm vụ đầu tiên của kế hoạch triển khai.
+**Chế độ không nhảy** (bật trong khu vực phụ huynh): giơ hai tay cao quá đầu 0,5 giây thay cho nhảy. Dành cho nhà chung cư, trẻ khó vận động, hoặc phụ huynh chơi thử.
 
-## 3. Ba chế độ chơi
+**Hiệu chỉnh:** đầu mỗi phiên, bé đứng yên gần giữa khung hình khoảng 2 giây; hệ thống lấy trung bình nhiều khung, kiểm tra thấy đủ đầu, vai, hông, đầu gối (còn khoảng trống phía trên để nhảy). Người được chọn là người đứng yên gần tâm khung nhất trong 2 giây đó; sau đó bám theo người có vị trí và chiều cao thân gần nhất, bỏ qua người khác (ví dụ phụ huynh đi ngang). Thiếu thân người thì Tin Tin hướng dẫn "lùi ra xa hơn" kèm hình mẫu.
+
+**Độ trễ khi cast:** độ trễ từ lúc bé bật nhảy đến lúc hình đổi trên TV (gồm suy luận, vẽ, mirroring) được đo ở spike và lưu thành tham số; SkyShoot chấm trúng/trượt theo vị trí mũi tên tại thời điểm khung pose, không phải lúc sự kiện tới nơi.
+
+**Nguyên tắc "không chắc thì không chấm":** đầu vào không đáng tin (độ tin cậy pose thấp đúng lúc chốt, làn đang dao động, kết quả giọng nói về trễ sang từ khác) thì bỏ qua và chờ, không bao giờ báo "Sai" vì lỗi nhận dạng.
+
+**Spike đo đạc** là việc đầu tiên của kế hoạch: đo độ chính xác, độ trễ đến TV, fps và nhiệt sau 20 phút trên cả hai máy, với trẻ 6–7 tuổi và 9–10 tuổi; quyết định plugin pose; có phương án "giơ hai tay" nếu nhảy không đạt.
+
+## 3. Các chế độ chơi
+
+Mọi chế độ dùng chung một khung câu hỏi: câu hỏi được đọc (TTS) trước, **đồng hồ chỉ chạy sau khi đọc xong**; sai thì Tin Tin báo bằng lời tiếng Việt thu sẵn, nói đáp án đúng và đọc lại từ tiếng Anh.
 
 ### 3.1 LaneJump (lớp 1–2)
-TTS đọc câu hỏi (hoặc hiện hình). Màn hình chia 3–4 làn, mỗi làn một đáp án (hình hoặc từ). Bé bước sang trái/phải để đứng đúng làn, rồi nhảy một cái để chốt. Đúng thì Tin Tin ăn mừng; sai thì Tin Tin nói đáp án đúng và TTS đọc lại.
+TTS đọc câu hỏi (hoặc hiện hình). Màn hình chia 3–4 làn, mỗi làn một đáp án (hình hoặc từ). Bé bước sang trái/phải để đứng đúng làn (làn ban đầu là làn bé đang đứng), rồi nhảy để chốt.
 
 ### 3.2 DragSpell (lớp 3–5): kéo thả ghép từ
-Giữ tay 1 giây trên chữ cái (hoặc từ) để nhặt, di chuyển, giữ 1 giây trên ô trống để thả. Hai biến thể: ghép chữ cái thành từ có hình gợi ý; sắp xếp các từ thành câu. Có thể nhặt lại chữ đã thả. Nút "Kiểm tra" là một ô giữ tay 1 giây.
+Giữ tay 1 giây trên chữ cái (hoặc từ) để nhặt, di chuyển, giữ 1 giây trên ô trống để thả. Giữ trên ô đã có chữ thì nhặt chữ đó lên lại. Rời mục tiêu dưới 200 ms không mất tiến độ giữ. Nút "Kiểm tra" là một ô giữ tay 1 giây. Hai biến thể: ghép chữ cái thành từ; sắp xếp các từ thành câu. Đầu câu, TTS đọc từ (hoặc câu) cần ghép; level 1–3 có thêm hình gợi ý. Chữ hoặc từ lặp (ví dụ hai chữ p trong "apple") đổi chỗ cho nhau vẫn đúng.
 
 ### 3.3 SkyShoot (lớp 3–5): nhảy bắn mũi tên
-Trên trời có 3–4 đáp án trôi chậm. Một mũi tên quét qua lại liên tục. Bé nhảy thì mũi tên bắn đi. Trúng đáp án nào thì đáp án đó bị câu xuống. Bé làm động tác kéo dây hai tay luân phiên, 4 lần kéo, để kéo đáp án về (vừa vận động, vừa là bước xác nhận chống bắn nhầm). Sau đó game kiểm tra: đúng thì có animation chúc mừng (pháo hoa sao, Tin Tin nhảy múa); sai thì Tin Tin giải thích và đáp án rơi lại. Bắn trượt thì mũi tên quay về và tính một lượt, không trừ điểm; có tối đa 3 lượt bắn mỗi câu, hết lượt coi như sai.
+Trên trời có 3–4 đáp án trôi chậm. Một mũi tên quét qua lại liên tục (hướng và tốc độ ngẫu nhiên trong giới hạn của level). Bé nhảy (hoặc giơ hai tay) thì mũi tên bắn đi. Trúng đáp án nào thì đáp án đó bị câu xuống và **đồng hồ dừng**; bé làm động tác kéo dây hai tay luân phiên 4 lần để kéo đáp án về. Sau đó game kiểm tra: đúng thì có animation chúc mừng; sai thì Tin Tin giải thích và câu kết thúc (tính sai). Bắn trượt thì mũi tên quay về và mất một lượt; tối đa 3 lượt bắn mỗi câu, hết lượt coi như sai.
 
-Lớp 3–5 xen kẽ cả ba dạng (cùng một câu hỏi có thể được trình bày theo dạng khác nhau tùy bài).
+### 3.4 SayIt (mini-game đọc to)
 
-### 3.4 SayIt (mini-game đọc to, nhận dạng giọng nói)
+Mini-game riêng trên menu. Mỗi **ván có 3 từ chạy lần lượt**; mỗi từ chạy theo một trong hai kiểu (ngẫu nhiên): **rơi từ trên xuống** hoặc **đi từ phải qua trái**. Bé đọc to từ đang chạy; hệ thống nhận dạng và chấm. Khi có kết quả, từ hiện "Đúng" hoặc "Sai" (kèm biểu tượng và Tin Tin vui/buồn, không chỉ khác màu), rồi **nổ và biến mất**; từ kế tiếp xuất hiện. Từ chạy hết màn hình mà chưa có kết quả thì tính sai, rồi cũng nổ và biến mất. Một level SayIt gồm 3 ván (9 từ).
 
-Mini-game độc lập với ba chế độ trên. Mỗi ván có **3 từ**; mỗi từ chạy trên màn hình theo một trong hai kiểu: **rơi từ trên xuống** hoặc **đi từ phải qua trái** (chọn ngẫu nhiên mỗi từ, tốc độ theo level). Bé đọc to từ đang chạy; hệ thống nhận dạng giọng nói và chấm. Khi có kết quả, từ hiển thị "Đúng" hoặc "Sai" (kèm Tin Tin vui/buồn), sau đó **nổ và biến mất**; từ kế tiếp xuất hiện. Từ chạm đáy màn hình (hoặc mép trái) mà chưa có kết quả thì tính là sai, rồi cũng nổ và biến mất. Hết 3 từ thì hiện kết quả ván (số từ đúng, sao).
-
-- **Nhận dạng:** dùng bộ nhận dạng giọng nói sẵn có của Android (`SpeechRecognizer`, ngôn ngữ `en-US`), lấy danh sách kết quả thay thế và điểm tin cậy nếu máy cung cấp. Ưu tiên bộ nhận dạng trên máy (`createOnDeviceSpeechRecognizer`, API 31+) khi có; nếu không thì dùng bộ mặc định (có thể cần mạng).
-- **Quy tắc chấm:** đúng khi bất kỳ kết quả thay thế nào, sau khi chuẩn hóa (chữ thường, bỏ dấu câu), trùng với từ đích hoặc với một biến thể chấp nhận được trong dữ liệu (`spokenVariants`, ví dụ đồng âm hoặc cách nhận dạng thường gặp); nếu máy cung cấp điểm tin cậy thì phải >= 0,3. Không chấm gần đúng theo khoảng cách chữ cái ở MVP để tránh cho đúng nhầm. Đây là kiểm tra "nói đúng từ", không phải chấm phát âm.
-- **Lớp 1–2:** TTS đọc mẫu từ trước ("nghe rồi đọc theo"); chỉ dùng từ ngắn 1–2 âm tiết. **Lớp 3–5:** không đọc mẫu, từ dài hơn ở level cao.
-- **Cửa sổ nghe:** chỉ nghe khi từ đang chạy; trong lúc nghe, tắt nhạc nền và hiệu ứng âm thanh để micro điện thoại không thu lại tiếng từ TV.
-- **Level:** dùng bảng level ở mục 5: thời gian mỗi câu là thời gian từ chạy hết màn hình; lớp 1–2 chỉ cần 3 từ trong 1 unit ở level thấp.
-- **Rủi ro cần đo trước:** độ chính xác với giọng trẻ em, độ ồn phòng và tiếng TV, phụ thuộc mạng/dịch vụ của Google trên máy, mic ở khoảng cách 2–3 m. Nếu không nhận dạng được (không có dịch vụ, mất mạng, từ chối quyền micro), mini-game bị ẩn khỏi menu và các chế độ khác vẫn chơi bình thường.
+- **Nhận dạng chỉ trên máy:** âm thanh không rời thiết bị. Spike chọn giữa bộ nhận dạng trên máy của Android (API 31+, khi máy có) và một bộ nhận dạng offline nhúng trong app giới hạn từ vựng (từ đích + từ nhiễu). Máy không có bộ nhận dạng trên máy dùng được thì SayIt bị ẩn; các chế độ khác vẫn chơi.
+- **Nghe:** micro mở khi từ bắt đầu chạy và tự mở lại nếu bộ nhận dạng dừng vì im lặng, cho tới khi từ chạy hết. Kết quả gắn với từ đang chạy; kết quả về muộn trong 1 giây sau khi từ chạy hết vẫn tính cho từ đó, muộn hơn thì bỏ. Trong lúc nghe, tắt nhạc nền và hiệu ứng âm thanh để micro không thu tiếng TV. SayIt không cần camera: tắt theo dõi pose, bé có thể đứng gần điện thoại 0,5–1 m.
+- **Chấm:** đúng khi bất kỳ kết quả thay thế nào, sau chuẩn hóa, trùng từ đích hoặc một `spokenVariants`. Chuẩn hóa: chữ thường, bỏ dấu câu, gạch nối thành khoảng trắng, số viết bằng chữ số đổi thành chữ (0–100), bỏ mạo từ a/an/the ở đầu. Điểm tin cậy chỉ xét khi máy cung cấp giá trị > 0, và phải ≥ 0,3. Không chấm gần đúng theo khoảng cách chữ cái.
+- **Lớp 1–2:** TTS đọc mẫu từ trước, từ chỉ bắt đầu chạy (và micro chỉ mở) sau khi đọc xong; chỉ dùng từ ≤ 2 âm tiết. **Lớp 3–5:** không đọc mẫu, từ dài hơn ở level cao.
+- **Sao của level SayIt (9 từ):** 1 sao từ 5 từ đúng, 2 sao từ 7, 3 sao từ 8.
 
 ## 4. Nội dung
 
-- Nguồn: danh sách từ vựng và mẫu câu do ta tự soạn theo chủ đề từng unit của Global Success (từ vựng là dữ kiện; không sao chép văn bản sách). Một giáo viên hoặc chính người dùng rà soát một lần cho khớp sách.
-- Cấu trúc sách đã xác nhận qua nguồn: lớp 1 và lớp 2 mỗi lớp 16 unit (kèm Review/Funtime ở lớp 2); lớp 3 có Starter + Unit 1–20 + 4 bài Review; lớp 4 có Starter + 20 unit + 4 Review; lớp 5 có Starter + Unit 1–20 (10 unit mỗi tập). Danh sách tên unit đầy đủ của từng lớp sẽ được đối chiếu với mục lục chính thức ở bước kế hoạch triển khai (chưa nhập vào đây để tránh ghi sai).
-- Tiếng Anh là môn bắt buộc từ lớp 3; lớp 1–2 là chương trình làm quen, nên nội dung lớp 1–2 chỉ là nghe và nhận biết từ qua hình, không cần đánh vần.
-- Định dạng dữ liệu: file JSON theo `grade/unit`, mỗi mục gồm `word`, `image`, `ttsText`, `sentencePatterns[]`, `distractors[]`, `spokenVariants[]` (cách nhận dạng chấp nhận được cho mini-game đọc to), `modes[]` (gồm cả `sayIt`). Thêm unit chỉ cần thêm dữ liệu, không sửa code.
-- Âm thanh: `flutter_tts` đọc bằng giọng tiếng Anh sẵn có trên máy. Nếu giọng trên máy nào đó quá tệ, dùng file âm thanh thu sẵn cho từ cốt lõi.
+- Nguồn: danh sách từ vựng và mẫu câu tự soạn theo chủ đề từng unit của Global Success (từ vựng là dữ kiện; không sao chép văn bản sách). Một giáo viên hoặc người dùng rà soát một lần cho khớp sách.
+- Cấu trúc sách đã xác nhận qua nguồn: lớp 1 và 2 mỗi lớp 16 unit; lớp 3 có Starter + Unit 1–20 + 4 Review; lớp 4 có Starter + 20 unit + 4 Review; lớp 5 có Starter + Unit 1–20. Tên unit đầy đủ được đối chiếu với mục lục chính thức ở kế hoạch triển khai.
+- **Unit đang học:** phụ huynh chọn unit con đang học cho từng lớp (mặc định Unit 1) trong khu vực phụ huynh. Level lấy nội dung tính từ mốc đó (mục 5).
+- Định dạng dữ liệu: JSON theo `grade/unit`; mỗi mục gồm `id`, `word`, `ttsText`, `image`, `syllables`, `sentencePatterns[]`, `distractorIds[]` (tham chiếu mục khác để dùng được cả hình lẫn chữ), `spokenVariants[]`, `modes[]`. Thêm unit chỉ cần thêm dữ liệu.
+- **Hình ảnh:** vẽ đồng bộ theo phương án đồ họa được chọn; mọi ảnh có nguồn và giấy phép ghi trong `assets/images/LICENSES.md`. MVP chỉ làm 2 unit lớp 1 trước khi mở rộng.
+- **Âm thanh:** từ tiếng Anh đọc bằng TTS `en-US`; các câu hướng dẫn, khen, động viên và giải thích bằng **tiếng Việt thu sẵn** (bộ câu cố định, có chỗ ghép từ tiếng Anh). Lớp 1–2 có file thu sẵn cho từ cốt lõi để không phụ thuộc giọng TTS của máy. Mọi lời đọc có phụ đề.
 
-### Random hóa câu hỏi (chống học vẹt theo thứ tự)
+### Random hóa câu hỏi
 
-Mỗi lần chơi lại một level phải ra bộ câu hỏi khác, để bé không thuộc đáp án theo vị trí hay thứ tự.
-
-- **Ngân hàng câu hỏi lớn hơn số câu cần:** mỗi level có pool tối thiểu gấp 2 lần số câu của level (ví dụ level 1 cần 8 câu thì pool ≥ 16 mục), bốc ngẫu nhiên không lặp trong một lượt chơi.
-- **Xáo trộn mọi thứ có thể xáo:** thứ tự câu hỏi, vị trí đáp án đúng giữa các làn/đáp án (không để đáp án đúng nằm cùng vị trí quá 2 câu liên tiếp), đáp án nhiễu bốc ngẫu nhiên từ cùng unit hoặc các unit đã học, thứ tự chữ cái bị xáo trong DragSpell (luôn kiểm tra không trùng thứ tự đúng), hướng và tốc độ mũi tên trong SkyShoot.
-- **Tránh lặp giữa các lần chơi:** lưu cục bộ danh sách mục vừa được hỏi gần đây; lần chơi sau ưu tiên bốc các mục chưa hỏi hoặc lâu chưa hỏi. Chỉ khi pool cạn mới cho lặp lại.
-- **Ôn lại câu sai:** mục bé trả lời sai được xếp lại vào cuối lượt chơi hiện tại (một lần), và có trọng số cao hơn ở lần chơi sau, nhưng không ở ngay câu kế tiếp.
-- **Đổi cách hỏi cho cùng một từ:** cùng một mục có thể hỏi bằng nghe-chọn-hình, nhìn-hình-chọn-từ hoặc ghép chữ, tùy lớp và mode, để không học thuộc một dạng.
-- **Kiểm thử:** bộ sinh câu hỏi nhận hạt giống ngẫu nhiên (seed) để kiểm thử lặp lại được; test kiểm tra không trùng câu trong một lượt, phân bố vị trí đáp án đúng, và không lặp lại ngay giữa hai lượt khi pool đủ lớn.
+- **Pool:** tính theo cặp (mục × dạng hỏi). Mục tiêu pool ≥ 2 lần số câu của level; unit nhỏ không đủ thì cho lặp lại sau khi đã dùng hết pool, không bao giờ thiếu câu.
+- **Xáo trộn:** thứ tự câu, vị trí đáp án đúng (không cùng vị trí quá 2 câu liên tiếp), đáp án nhiễu (cùng unit trước, thiếu thì lấy unit đã học), thứ tự chữ cái (không trùng thứ tự đúng), hướng và tốc độ mũi tên, kiểu chạy của từ trong SayIt.
+- **Tránh lặp giữa các lần chơi:** ưu tiên mục chưa hỏi gần đây (lưu 200 mục gần nhất).
+- **Ôn câu sai:** trong lượt, câu sai được hỏi lại một lần ở cuối lượt dưới dạng ôn tập (không tính điểm, không tính sao). Giữa các lượt, mục sai gần đây được ưu tiên cao nhất nhưng tối đa 30% số câu và không ở câu đầu; mục được gỡ khỏi danh sách sai khi bé trả lời đúng.
+- **Đổi cách hỏi:** cùng một mục có thể hỏi bằng nghe-chọn-hình, nhìn-hình-chọn-từ, nghe-chọn-từ, điền từ, ghép chữ, tùy lớp và mode. Lớp 3–5 trộn ba mode trong cùng một level.
+- **Kiểm thử:** bộ sinh nhận seed để test lặp lại được.
 
 ## 5. Level, thời gian và độ khó
 
-Mỗi lớp có 5 level; áp dụng cho cả ba chế độ (số lượng làn/đáp án theo bảng).
+Mỗi lớp có 5 level; cấu hình nằm trong file `assets/config/levels.json`.
 
-| Level | Số câu | Thời gian mỗi câu | Số đáp án | Gợi ý hình | Nội dung |
+| Level | Số câu | Thời gian cơ bản mỗi câu | Số đáp án | Gợi ý hình | Unit dùng |
 |---|---|---|---|---|---|
-| 1 Khởi động | 8 | 20 giây | 3 | Có | Từ vựng của 1 unit |
-| 2 | 10 | 18 giây | 3 | Có | 1–2 unit |
-| 3 | 10 | 15 giây | 4 | Ít | 2–3 unit |
-| 4 | 12 | 12 giây | 4 | Không | Ôn các unit đã học |
-| 5 Thử thách | 12 | 10 giây | 4 | Không | Trộn nhiều unit, từ/câu dài |
+| 1 Khởi động | 8 | 20 giây | 3 | Có | Unit đang học |
+| 2 | 10 | 18 giây | 3 | Có | Unit đang học + 1 unit trước |
+| 3 | 10 | 15 giây | 4 | Ít | Unit đang học + 2 unit trước |
+| 4 | 12 | 12 giây | 4 | Không | Ôn mọi unit đã học |
+| 5 Thử thách | 12 | 10 giây | 4 | Không | Trộn mọi unit đã học, từ/câu dài |
 
-- Câu nhiều bước (ghép từ dài, sắp xếp câu, SkyShoot kèm kéo dây) được cộng thêm 50% thời gian.
-- Mỗi level cho 1–3 sao theo tỉ lệ đúng: 1 sao từ 50%, 2 sao từ 75%, 3 sao từ 90%. 100 điểm mỗi câu đúng.
-- Level N+1 mở khóa khi level N được ít nhất 1 sao. Cấu hình level nằm trong file riêng, tách khỏi nội dung.
+- Thời gian thực mỗi câu: chọn đáp án (LaneJump) = cơ bản; SkyShoot = cơ bản × 1,5 và dừng khi đã trúng; DragSpell = cơ bản + 3 giây × số ô; SayIt = thời gian từ chạy hết màn hình = cơ bản.
+- Sao (tính bằng số nguyên): 1 sao từ 50%, 2 sao từ 75%, 3 sao từ 90% số câu đúng (riêng SayIt theo mục 3.4). 100 điểm mỗi câu đúng; câu ôn tập không tính.
+- Level N+1 mở khóa khi level N được ít nhất 1 sao.
 
 ## 6. Kiến trúc
 
-Các khối độc lập, giao tiếp qua giao diện rõ ràng:
+1. `input/` – kiểu pose, bộ lọc nhiễu, hiệu chỉnh, phát hiện nhảy/giơ tay, theo dõi làn, con trỏ, giữ, kéo; `PoseSession` chọn và bám người chơi, phát sự kiện. Nguồn khung hình thật (MediaPipe) nằm sau giao diện, thay được bằng nguồn giả và chuỗi landmark ghi thật từ spike.
+2. `modes/` – mỗi chế độ là một `Round` (nhận sự kiện, đếm giờ, trả kết quả).
+3. `session/` – `LevelSession` điều phối một lượt chơi: hàng đợi câu hỏi, chờ đọc xong mới đếm giờ, tạm dừng, ôn câu sai, tính điểm/sao, ghi lịch sử.
+4. `content/` – nạp JSON, unit theo mốc đang học, sinh câu hỏi có random hóa.
+5. `levels/` – cấu hình level, thời gian, điểm, sao.
+6. `audio/` – TTS, lời Việt thu sẵn, phụ đề, nhạc/hiệu ứng, tắt tiếng khi nghe; `speech/` – nhận dạng trên máy và chấm từ.
+7. `progress/` – tiến độ, unit đang học, lịch sử, cài đặt phụ huynh (lưu cục bộ).
+8. `ui/` – shell (quyền, cảnh báo an toàn, hiệu chỉnh, tạm dừng, giữ màn hình sáng), khu vực phụ huynh, các màn chơi, mascot, theme.
+9. `ads/` – banner góc theo chuẩn Families; module duy nhất được dùng mạng.
 
-1. `input/` – PoseService, Calibration, bộ phát hiện sự kiện (lane, jump, hold, pull). Đầu ra là stream sự kiện chuẩn hóa. Có thể thay bằng nguồn giả (mock) để kiểm thử mà không cần camera.
-2. `modes/` – LaneJump, DragSpell, SkyShoot; mỗi mode nhận một câu hỏi và các sự kiện, trả về kết quả đúng/sai.
-3. `content/` – nạp JSON, sinh câu hỏi và đáp án nhiễu theo level, thực hiện random hóa (mục 4) và đọc/ghi lịch sử câu đã hỏi.
-4. `levels/` – cấu hình level, bộ đếm giờ, tính điểm và sao.
-5. `audio/` – TTS, hiệu ứng âm thanh, nhạc nền; `speech/` – bộ nhận dạng giọng nói (giao diện + bản Android) và bộ chấm từ cho SayIt.
-6. `mascot/` – các trạng thái hoạt hình của Tin Tin và hiệu ứng (nhún nhảy, pháo hoa sao, v.v.).
-7. `progress/` – lưu tiến độ cục bộ.
-
-**Xử lý lỗi:** mất theo dõi người chơi thì tạm dừng đồng hồ và hiện hướng dẫn; camera bị từ chối quyền thì hiện màn hình giải thích; TTS không khả dụng thì chuyển sang văn bản + âm thanh thu sẵn.
-
-**Kiểm thử:** logic chế độ chơi và level kiểm thử bằng nguồn sự kiện giả; bộ phát hiện sự kiện kiểm thử bằng chuỗi landmark ghi sẵn; kiểm thử thủ công trên S24 Ultra cho độ trễ và độ chính xác.
+**Xử lý lỗi:** mất người chơi hoặc app xuống nền thì tạm dừng mọi đồng hồ; quyền camera bị từ chối thì màn giải thích cho phụ huynh, từ chối vĩnh viễn thì nút mở Cài đặt; TTS không có thì phát file thu sẵn và phụ đề; không có nhận dạng giọng nói trên máy hoặc không có quyền micro thì ẩn SayIt.
 
 ## 7. Animation dễ thương
 
-Tin Tin có các trạng thái: chờ, vui, buồn, cổ vũ, nhảy múa. Chữ cái nhún nhảy khi nhặt, ô trống phát sáng nhẹ khi tay tới gần, pháo hoa sao khi trúng đáp án, mây và sao trôi nhẹ ở nền, màn hình kết thúc level có Tin Tin trao sao. Mọi hiệu ứng ngắn (dưới 1,5 giây) để không làm chậm nhịp chơi.
+Tin Tin có các trạng thái: chờ, vui, buồn, cổ vũ, nhảy múa. Chữ cái nhún nhảy khi nhặt, ô trống phát sáng nhẹ khi tay tới gần, pháo hoa sao khi trúng, từ nổ tung trong SayIt, mây và sao trôi nhẹ ở nền, Tin Tin trao sao cuối level. Mọi hiệu ứng ngắn (dưới 1,5 giây); không nhấp nháy quá 3 lần mỗi giây.
 
-## 8. Đồ họa: ba phương án (làm bằng Claude Design)
+## 8. Đồ họa: ba phương án (Claude Design)
 
-Cả ba dùng cùng mascot Tin Tin và cùng bộ 3 màn hình để so sánh công bằng: màn hình chính, màn SkyShoot (lớp 3–5) và màn DragSpell (lớp 3–5). Màn LaneJump (lớp 1–2) và màn kết quả level sẽ được dựng theo phương án được chọn. Bản dựng trên Claude Design: https://claude.ai/artifact/TsnrqbHnzA9aNQkK8ktCo2 . Tin Tin trong bản dựng là hình tạm do ta vẽ; thay bằng mascot Tin Tin thật của game toán khi có tệp gốc.
+Bản dựng: https://claude.ai/artifact/TsnrqbHnzA9aNQkK8ktCo2 (mỗi phương án 3 màn: màn chính, SkyShoot, DragSpell; các màn còn lại dựng theo phương án được chọn). Tin Tin trong bản dựng là hình tạm; thay bằng mascot thật khi có tệp gốc, việc lập trình giao diện không chờ việc này.
 
-- **Phương án A – "Khu vườn mây" (Sky Garden):** pastel mềm, trời xanh nhạt, mây bông, cây cỏ tròn trịa; cảm giác dịu mắt, hợp phụ huynh.
-- **Phương án B – "Phi hành đoàn vũ trụ" (Space Cadets):** nền vũ trụ tím xanh đậm, hành tinh và sao hoạt hình; SkyShoot trở thành bắn sao băng; tương phản mạnh, đọc rõ khi chiếu TV.
-- **Phương án C – "Thị trấn kẹo giấy" (Paper Candy Town):** phong cách giấy cắt dán nhiều lớp, màu kẹo rực rỡ, chuyển động kiểu stop-motion; nổi bật và dễ phân biệt với game toán.
+- **A – Khu vườn mây:** pastel mềm, mây bông, cỏ tròn trịa; dịu mắt.
+- **B – Phi hành đoàn vũ trụ:** nền vũ trụ đậm, planet và tên lửa; tương phản mạnh khi chiếu TV.
+- **C – Thị trấn kẹo giấy:** giấy cắt dán, màu kẹo, máy bay giấy; khác hẳn game toán.
 
-Yêu cầu chung cho mọi phương án: chữ lớn, tương phản cao để đọc từ 2–3 m trên TV; vùng chạm/làn lớn; không đặt chi tiết quan trọng sát viền (an toàn khi cast); banner quảng cáo nhỏ ở một góc, không che gameplay. Nếu không dựng được trực tiếp trong Claude Design, mỗi phương án đi kèm một prompt đầy đủ để người dùng dán vào Design.
+Yêu cầu chung: chữ lớn, tương phản cao để đọc từ 2–3 m; làn và ô lớn; không đặt chi tiết quan trọng sát viền; banner quảng cáo nhỏ ở một góc, không che gameplay.
 
-## 9. Giả định đã chọn
+## 9. An toàn và khả năng truy cập
 
-- Tên tạm: "Tin Tin English"; tên chính thức quyết định sau.
-- Quản lý mã nguồn tại repo `avdoremon/g_english_motion` (riêng, không dùng chung `avdoremon/g_primary_math`); spec và kế hoạch nằm trong `docs/superpowers/` của repo này.
-- Ngưỡng nhảy 12% và 4 lần kéo dây là giá trị khởi đầu, sẽ chỉnh sau spike đo đạc.
+- Màn cảnh báo đầu phiên: dọn khoảng trống trước TV, cố định điện thoại; phụ huynh xác nhận một lần.
+- Nhắc nghỉ sau mỗi 20 phút chơi (gợi ý bài vận động nhẹ của game toán làm sau).
+- Phụ đề cho mọi lời đọc; đúng/sai phân biệt bằng biểu tượng và lời, không chỉ bằng màu.
+- Khu vực phụ huynh có cổng xác nhận người lớn; chứa: chọn unit đang học, chế độ không nhảy, bật/tắt SayIt, chính sách quyền riêng tư.
+
+## 10. Phát hành cho trẻ em (Google Play Families)
+
+- Chính sách quyền riêng tư và khai báo Data safety nêu rõ: camera và micro xử lý trên máy, không thu thập dữ liệu cá nhân.
+- SDK quảng cáo nằm trong danh sách được chứng nhận cho Families; bật chế độ hướng tới trẻ em, quảng cáo không cá nhân hóa, mức nội dung G, không dùng mã quảng cáo.
+- Liên kết ra ngoài và cài đặt nằm sau cổng phụ huynh.
+- Trang Store ghi "bám theo chương trình tiếng Anh tiểu học", không dùng tên bộ sách như nhãn hiệu.
+- Trước khi phát hành, rà lại yêu cầu pháp lý về dữ liệu trẻ em tại các nước phát hành (ít nhất Việt Nam), vì các quy định có thể thay đổi.
+
+## 11. Giả định đã chọn
+
+- Tên tạm: "Tin Tin English".
+- Repo: `avdoremon/g_english_motion`; spec và kế hoạch trong `docs/superpowers/`.
+- Các ngưỡng (12% nhảy, 0,6 × thân cho làn, 4 lần kéo, 0,3 tin cậy, độ trễ cast) là giá trị khởi đầu, chốt lại sau spike.
+- SayIt: ba từ chạy lần lượt (không cùng lúc); chỉ nhận dạng trên máy.
