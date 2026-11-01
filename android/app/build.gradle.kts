@@ -6,7 +6,10 @@ plugins {
 
 android {
     namespace = "vn.avdoremon.g_english_motion"
-    compileSdk = flutter.compileSdkVersion
+    // permission_handler_android 14.x compiles against API 37, Flutter's
+    // default is 36: the app must compile with at least the highest library.
+    // AGP 9.1+ supports API 37 (see docs/android-build-notes.md).
+    compileSdk = maxOf(flutter.compileSdkVersion, 37)
     ndkVersion = flutter.ndkVersion
 
     compileOptions {
