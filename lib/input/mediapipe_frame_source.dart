@@ -41,7 +41,7 @@ class MediapipeFrameSource implements PoseFrameSource {
           ? PermissionOutcome.permanentlyDenied
           : PermissionOutcome.denied;
     } on MissingPluginException {
-      return PermissionOutcome.denied;
+      return PermissionOutcome.unavailable;
     } catch (_) {
       return PermissionOutcome.denied;
     }

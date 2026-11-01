@@ -126,6 +126,17 @@ void main() {
     expect(find.byKey(const ValueKey('play')), findsOneWidget);
   });
 
+  testWidgets('camera unavailable shows the unavailable message', (
+    tester,
+  ) async {
+    await pumpApp(tester, permission: PermissionOutcome.unavailable);
+    await tester.tap(find.byKey(const ValueKey('play')));
+    await tester.pump();
+    await tester.pump();
+    expect(find.text('Camera chưa sẵn sàng trên máy này'), findsOneWidget);
+    expect(find.text('Thử lại'), findsOneWidget);
+  });
+
   testWidgets('parent button opens the gate', (tester) async {
     await pumpApp(tester);
     await tester.tap(find.byKey(const ValueKey('parent-button')));

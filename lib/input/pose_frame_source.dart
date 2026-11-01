@@ -2,7 +2,15 @@ import 'pose_types.dart';
 
 export 'confirm_gesture.dart';
 
-enum PermissionOutcome { granted, denied, permanentlyDenied }
+enum PermissionOutcome {
+  granted,
+  denied,
+  permanentlyDenied,
+
+  /// The native camera/pose side is absent or cannot run on this device
+  /// (e.g. `MissingPluginException`). Not a permission problem.
+  unavailable,
+}
 
 /// Source of pose frames (camera + pose model in production, fake in tests).
 abstract class PoseFrameSource {

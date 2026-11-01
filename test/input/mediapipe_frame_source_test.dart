@@ -185,9 +185,12 @@ void main() {
       });
     }
 
-    test('MissingPluginException -> denied, no throw', () async {
+    test('MissingPluginException -> unavailable, no throw', () async {
       messenger.setMockMethodCallHandler(_method, null);
-      expect(await MediapipeFrameSource().start(), PermissionOutcome.denied);
+      expect(
+        await MediapipeFrameSource().start(),
+        PermissionOutcome.unavailable,
+      );
     });
 
     test('stop invokes stop and swallows errors', () async {

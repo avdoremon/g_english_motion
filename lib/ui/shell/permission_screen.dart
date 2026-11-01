@@ -19,6 +19,27 @@ class PermissionScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final t = Theme.of(context).textTheme;
     final permanent = outcome == PermissionOutcome.permanentlyDenied;
+    if (outcome == PermissionOutcome.unavailable) {
+      return Center(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const TinTin(state: TinTinState.sad, size: 120),
+              const SizedBox(height: 16),
+              Text(
+                'Camera chưa sẵn sàng trên máy này',
+                style: t.bodyLarge,
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 24),
+              FilledButton(onPressed: onRetry, child: const Text('Thử lại')),
+            ],
+          ),
+        ),
+      );
+    }
     return Center(
       child: SingleChildScrollView(
         padding: const EdgeInsets.all(24),

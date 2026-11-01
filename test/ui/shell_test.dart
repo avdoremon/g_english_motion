@@ -136,6 +136,26 @@ void main() {
       expect(settings, 0);
     });
 
+    testWidgets('unavailable shows its own message and retry only', (
+      tester,
+    ) async {
+      var retry = 0, settings = 0;
+      await tester.pumpWidget(
+        _app(
+          PermissionScreen(
+            outcome: PermissionOutcome.unavailable,
+            onRetry: () => retry++,
+            onOpenSettings: () => settings++,
+          ),
+        ),
+      );
+      expect(find.text('Camera chưa sẵn sàng trên máy này'), findsOneWidget);
+      expect(find.text('Mở Cài đặt'), findsNothing);
+      await tester.tap(find.text('Thử lại'));
+      expect(retry, 1);
+      expect(settings, 0);
+    });
+
     testWidgets('permanentlyDenied shows open settings', (tester) async {
       var settings = 0;
       await tester.pumpWidget(

@@ -50,6 +50,14 @@ void main() {
       },
     );
 
+    test('unavailable camera is exposed as such and can be retried', () async {
+      h = await GameHarness.create(permission: PermissionOutcome.unavailable);
+      expect(await h.startAndCalibrate(), PermissionOutcome.unavailable);
+      expect(c().phase, GamePhase.permissionDenied);
+      expect(c().permission, PermissionOutcome.unavailable);
+      expect(c().session, isNull);
+    });
+
     test('permanently denied is exposed as such', () async {
       h = await GameHarness.create(
         permission: PermissionOutcome.permanentlyDenied,
