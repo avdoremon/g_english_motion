@@ -20,7 +20,12 @@ class JumpDetector {
   static const Duration _stillFor = Duration(seconds: 1);
   static const double _emaTauSeconds = 1.0;
 
+  static const double _stillSpeed = 0.12; // ~0.004 per frame at 30 fps
+  static const double _speedTauSeconds = 0.05;
+
   double _baseline;
+  double _speed = 0;
+  double? _lastY;
   bool _armed = true;
   bool _dropped = true;
   Duration? _lastFire;
@@ -38,21 +43,37 @@ class JumpDetector {
     final hip = p.midHipY, shoulder = p.midShoulderY;
     if (hip == null || shoulder == null) return false;
     final current = (hip + shoulder) / 2;
-    final lift = _baseline - current;
+    var lift = _baseline - current;
     final fireAt = threshold * calibration.torsoHeight;
     final half = fireAt / 2;
-    final dt = _lastT == null ? 0.0 : (t - _lastT!).inMicroseconds / 1e6;
+    final prevT = _lastT, prevY = _lastY;
+    final dt = prevT == null ? 0.0 : (t - prevT).inMicroseconds / 1e6;
     _lastT = t;
+    _lastY = current;
 
-    // Baseline follows slow drift, only while standing still for >= 1 s.
-    if (lift.abs() < half) {
+    // Velocity-based stillness: low-passed |dy/dt| below the limit for >= 1 s.
+    // A jump apex passes through ~0 velocity only momentarily, so it never
+    // lasts 1 s; a slow drift or a player settling at a new spot does.
+    if (prevY != null && dt > 0) {
+      final raw = (current - prevY).abs() / dt;
+      _speed += (raw - _speed) * (dt / (_speedTauSeconds + dt));
+    }
+    if (_speed < _stillSpeed) {
       _stillSince ??= t;
       if (t - _stillSince! >= _stillFor && dt > 0) {
-        _baseline += (current - _baseline) * (dt / (_emaTauSeconds + dt));
+        if (lift.abs() >= half) {
+          // Persistent offset (player stepped closer/farther): re-baseline.
+          _baseline = current;
+        } else {
+          _baseline += (current - _baseline) * (dt / (_emaTauSeconds + dt));
+        }
+        _dropped = true; // at rest, so a new jump may start from here
       }
     } else {
       _stillSince = null;
     }
+
+    lift = _baseline - current;
 
     // Re-arm needs both: having dropped below half threshold since the last
     // fire, and the debounce having elapsed.
