@@ -40,6 +40,35 @@ class FakeRound implements Round {
   bool get clockRunning => started && _result == null;
 }
 
+class SlowHistory extends RecordingHistory {
+  final log = <String>[];
+  Future<void> _op(String name, Future<void> Function() f) async {
+    log.add('start $name');
+    await Future<void>.delayed(const Duration(milliseconds: 5));
+    await f();
+    log.add('end $name');
+  }
+
+  @override
+  Future<void> recordAsked(List<String> ids) =>
+      _op('asked', () => super.recordAsked(ids));
+  @override
+  Future<void> markWrong(String id) =>
+      _op('wrong:$id', () => super.markWrong(id));
+  @override
+  Future<void> clearWrong(String id) =>
+      _op('clear:$id', () => super.clearWrong(id));
+}
+
+class ThrowingHistory extends RecordingHistory {
+  @override
+  Future<void> recordAsked(List<String> ids) async => throw StateError('x');
+  @override
+  Future<void> markWrong(String id) async => throw StateError('x');
+  @override
+  Future<void> clearWrong(String id) async => throw StateError('x');
+}
+
 class RecordingHistory extends InMemoryHistoryStore {
   final calls = <String>[];
   @override
@@ -259,7 +288,7 @@ void main() {
 
   test(
     'history: asked 8 ids, markWrong 2, clearWrong 6 (+fixed in review)',
-    () {
+    () async {
       final store = RecordingHistory();
       final h = Harness(8, h: store)..session.begin();
       const results = [
@@ -278,6 +307,7 @@ void main() {
       expect(store.calls, isEmpty, reason: 'history is written only at finish');
       h.answer(RoundResult.correct); // review i1
       h.answer(RoundResult.wrong); // review i4
+      await h.session.historyWritten;
       expect(store.calls.where((c) => c.startsWith('asked:')), [
         'asked:i0,i1,i2,i3,i4,i5,i6,i7',
       ]);
@@ -309,6 +339,7 @@ void main() {
       await store.markWrong('i0');
       final h = Harness(1, h: store)..session.begin();
       h.answer(RoundResult.correct);
+      await h.session.historyWritten;
       expect(store.wrongIds(), isEmpty);
     },
   );
@@ -331,15 +362,118 @@ void main() {
     expect(h.cur.ticks, 1);
   });
 
-  test('pause in prompting resumes to prompting', () {
+  test('pause in prompting without prompt end resumes to prompting', () {
     final h = Harness(2)..session.begin();
     h.session.pause();
     h.session.tick(const Duration(seconds: 10));
-    h.session.onPromptFinished();
     expect(h.session.phase, SessionPhase.paused);
     h.session.resume();
     expect(h.session.phase, SessionPhase.prompting);
     expect(h.cur.started, isFalse);
+  });
+
+  test('onPromptFinished while paused from prompting is latched to resume', () {
+    final h = Harness(2)..session.begin();
+    h.session.pause();
+    h.session.onPromptFinished();
+    expect(h.session.phase, SessionPhase.paused);
+    expect(h.cur.started, isFalse);
+    h.session.resume();
+    expect(h.session.phase, SessionPhase.playing);
+    expect(h.cur.started, isTrue);
+  });
+
+  test('onPromptFinished while paused from another phase is ignored', () {
+    final h = Harness(2)..session.begin();
+    h.session.onPromptFinished();
+    h.session.pause();
+    h.session.onPromptFinished();
+    h.session.resume();
+    expect(h.session.phase, SessionPhase.playing);
+    // Latch must not leak into the next question.
+    h.cur.setResult(RoundResult.correct);
+    h.session.tick(ms);
+    h.session.pause();
+    h.session.onPromptFinished();
+    h.session.resume();
+    h.session.tick(feedback);
+    expect(h.session.phase, SessionPhase.prompting);
+    expect(h.cur.started, isFalse);
+  });
+
+  test('input before begin is ignored', () {
+    final h = Harness(2);
+    h.session.onPromptFinished();
+    h.session.tick(ms);
+    h.session.onEvent(const Confirmed(0, at: Duration.zero));
+    h.session.pause();
+    expect(h.rounds, isEmpty);
+    h.session.begin();
+    expect(h.session.phase, SessionPhase.prompting);
+  });
+
+  test('makeRound throwing once does not skip a question', () {
+    var fail = false;
+    final rounds = <FakeRound>[];
+    final s = LevelSession(
+      level: level,
+      plan: [pqOf('a'), pqOf('b')],
+      history: InMemoryHistoryStore(),
+      makeRound: (pq, {required bool review}) {
+        if (fail) {
+          fail = false;
+          throw StateError('boom');
+        }
+        final r = FakeRound(pq, review);
+        rounds.add(r);
+        return r;
+      },
+    )..begin();
+    s.onPromptFinished();
+    rounds.last.setResult(RoundResult.correct);
+    s.tick(ms);
+    fail = true;
+    expect(() => s.tick(feedback), throwsStateError);
+    expect(s.phase, SessionPhase.feedback);
+    expect(s.current.question.itemId, 'a');
+    s.tick(ms);
+    expect(s.phase, SessionPhase.prompting);
+    expect(s.current.question.itemId, 'b');
+  });
+
+  test(
+    'history writes are sequential and complete after historyWritten',
+    () async {
+      final store = SlowHistory();
+      final h = Harness(3, h: store)..session.begin();
+      h.answer(RoundResult.wrong);
+      h.answer(RoundResult.correct);
+      h.answer(RoundResult.correct);
+      h.answer(RoundResult.correct); // review of i0
+      expect(h.session.phase, SessionPhase.finished);
+      await h.session.historyWritten;
+      expect(store.log, [
+        'start asked',
+        'end asked',
+        'start clear:i0',
+        'end clear:i0',
+        'start clear:i1',
+        'end clear:i1',
+        'start clear:i2',
+        'end clear:i2',
+      ]);
+    },
+  );
+
+  test('failing history store does not break the session', () async {
+    final h = Harness(2, h: ThrowingHistory())..session.begin();
+    h.answer(RoundResult.correct);
+    h.answer(RoundResult.wrong);
+    h.answer(RoundResult.wrong);
+    expect(h.session.phase, SessionPhase.finished);
+    final o = h.session.outcome!;
+    expect((o.correct, o.total, o.stars), (1, 2, 1));
+    await h.session.historyWritten; // completes normally
   });
 
   test('pause in feedback does not burn feedback time', () {
@@ -378,16 +512,20 @@ void main() {
     },
   );
 
-  test('history is written exactly once even when ticked after finish', () {
-    final h = Harness(1)..session.begin();
-    h.answer(RoundResult.correct);
-    final n = h.history.calls.length;
-    h.session.tick(const Duration(seconds: 10));
-    h.session.onEvent(const Confirmed(0, at: Duration.zero));
-    h.session.onPromptFinished();
-    expect(h.history.calls, hasLength(n));
-    expect(h.session.phase, SessionPhase.finished);
-  });
+  test(
+    'history is written exactly once even when ticked after finish',
+    () async {
+      final h = Harness(1)..session.begin();
+      h.answer(RoundResult.correct);
+      await h.session.historyWritten;
+      final n = h.history.calls.length;
+      h.session.tick(const Duration(seconds: 10));
+      h.session.onEvent(const Confirmed(0, at: Duration.zero));
+      h.session.onPromptFinished();
+      expect(h.history.calls, hasLength(n));
+      expect(h.session.phase, SessionPhase.finished);
+    },
+  );
 
   test('empty plan finishes immediately with zero stars', () {
     final h = Harness(0)..session.begin();

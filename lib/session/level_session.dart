@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+
 import '../content/history_store.dart';
 import '../content/question_models.dart';
 import '../input/game_input_event.dart';
@@ -65,19 +67,23 @@ class LevelSession {
   Duration _feedbackElapsed = Duration.zero;
   LevelOutcome? _outcome;
   bool _begun = false;
+  bool _promptLatched = false;
+  Future<void> _historyWritten = Future<void>.value();
 
   int _correct = 0;
   final Set<String> _failedFirst = {};
-  final Set<String> _passedFirst = {};
   final Set<String> _fixedInReview = {};
 
   SessionPhase get phase => _phase;
+
+  /// Throws on an empty plan: the UI must branch on `phase == finished`.
   PlannedQuestion get current => _queue[_pos].pq;
   bool get isReview => _queue[_pos].review;
   RoundResult? get lastResult => _lastResult;
   LevelOutcome? get outcome => _outcome;
 
-  /// The active round (valid after [begin] unless the plan is empty).
+  /// The active round. Throws before [begin] and on an empty plan: the UI
+  /// must branch on `phase == finished`.
   Round get round => _round!;
 
   /// Position among the non-review questions (0-based, capped at the count).
@@ -86,29 +92,42 @@ class LevelSession {
   /// Number of non-review questions.
   int get totalQuestions => plan.length;
 
+  /// Completes when the end-of-level history writes are done (never throws;
+  /// store failures are logged and swallowed).
+  Future<void> get historyWritten => _historyWritten;
+
   void begin() {
     if (_begun) return;
-    _begun = true;
     if (_queue.isEmpty) {
+      _begun = true;
       _finish();
     } else {
       _enter(0);
+      _begun = true;
     }
   }
 
   void onPromptFinished() {
+    if (!_begun) return;
+    if (_phase == SessionPhase.paused &&
+        _phaseBeforePause == SessionPhase.prompting) {
+      // The prompt ended while backgrounded: apply it on resume().
+      _promptLatched = true;
+      return;
+    }
     if (_phase != SessionPhase.prompting) return;
     _round!.start();
     _phase = SessionPhase.playing;
   }
 
   void onEvent(GameInputEvent e) {
-    if (_phase != SessionPhase.playing) return;
+    if (!_begun || _phase != SessionPhase.playing) return;
     _round!.onEvent(e);
     _checkResult();
   }
 
   void tick(Duration dt) {
+    if (!_begun) return;
     switch (_phase) {
       case SessionPhase.playing:
         _round!.tick(dt);
@@ -124,7 +143,9 @@ class LevelSession {
   }
 
   void pause() {
-    if (_phase == SessionPhase.paused || _phase == SessionPhase.finished) {
+    if (!_begun ||
+        _phase == SessionPhase.paused ||
+        _phase == SessionPhase.finished) {
       return;
     }
     _phaseBeforePause = _phase;
@@ -135,12 +156,19 @@ class LevelSession {
     if (_phase != SessionPhase.paused) return;
     _phase = _phaseBeforePause!;
     _phaseBeforePause = null;
+    if (_promptLatched) {
+      _promptLatched = false;
+      onPromptFinished();
+    }
   }
 
   void _enter(int pos) {
-    _pos = pos;
     final entry = _queue[pos];
-    _round = makeRound(entry.pq, review: entry.review);
+    // Build first: if makeRound throws, state is untouched and the call can
+    // be retried (no question is skipped).
+    final round = makeRound(entry.pq, review: entry.review);
+    _pos = pos;
+    _round = round;
     _lastResult = null;
     _feedbackElapsed = Duration.zero;
     _phase = SessionPhase.prompting;
@@ -165,7 +193,6 @@ class LevelSession {
     }
     if (ok) {
       _correct++;
-      _passedFirst.add(id);
     } else {
       _failedFirst.add(id);
       _queue.add(_Entry(entry.pq, review: true));
@@ -191,22 +218,30 @@ class LevelSession {
       stars: stars,
       unlockedNext: Scoring.unlocksNext(stars),
     );
-    _writeHistory();
+    _historyWritten = _writeHistory();
   }
 
-  // Fire-and-forget: the store is the source of truth for later reads, and a
-  // failed write must not break the end-of-level screen.
-  void _writeHistory() {
-    final asked = <String>{for (final p in plan) p.question.itemId};
-    history.recordAsked(asked.toList());
-    for (final id in asked) {
-      final stillWrong =
-          _failedFirst.contains(id) && !_fixedInReview.contains(id);
-      if (stillWrong) {
-        history.markWrong(id);
-      } else {
-        history.clearWrong(id);
+  // Sequential and failure-proof: a broken store must not break the
+  // end-of-level screen.
+  Future<void> _writeHistory() async {
+    try {
+      final asked = <String>{for (final p in plan) p.question.itemId};
+      await history.recordAsked(asked.toList());
+      final wrong = <String>[];
+      final clear = <String>[];
+      for (final id in asked) {
+        final stillWrong =
+            _failedFirst.contains(id) && !_fixedInReview.contains(id);
+        (stillWrong ? wrong : clear).add(id);
       }
+      for (final id in wrong) {
+        await history.markWrong(id);
+      }
+      for (final id in clear) {
+        await history.clearWrong(id);
+      }
+    } catch (e) {
+      debugPrint('LevelSession: history write failed: $e');
     }
   }
 }
