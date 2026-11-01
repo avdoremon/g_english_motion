@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:g_english_motion/app/game_controller.dart';
 import 'package:g_english_motion/audio/voice_lines.dart';
@@ -422,11 +424,14 @@ void main() {
         final f = c().start(h.source);
         await pumpEventQueue();
         c().dispose();
-        await c().closed;
+        var closed = false;
+        unawaited(c().closed.then((_) => closed = true));
+        await pumpEventQueue();
         expect(h.source.stops, 0, reason: 'start has not returned yet');
+        expect(closed, isFalse, reason: 'closed includes the pending start');
         h.source.finishPermission();
         await f;
-        await pumpEventQueue();
+        await c().closed;
         expect(h.source.started, isTrue);
         expect(h.source.stops, 1, reason: 'the orphan camera is released');
         expect(c().phase, isNot(GamePhase.calibrating));

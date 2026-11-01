@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:g_english_motion/app/app.dart';
+import 'package:g_english_motion/app/game_controller.dart';
 import 'package:g_english_motion/audio/audio_service.dart';
 import 'package:g_english_motion/content/content_repository.dart';
 import 'package:g_english_motion/content/curriculum.dart';
@@ -195,10 +196,141 @@ void main() {
       expect(sources.map((x) => x.stops), [1, 1]);
     },
   );
+
+  Future<void> leave(WidgetTester tester) async {
+    await tester.tap(find.byKey(const ValueKey('exit')));
+    await tester.pump();
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 1));
+  }
+
+  Future<(List<String>, List<_RecSource>, Stream<Duration>)> pumpFlow(
+    WidgetTester tester, {
+    Completer<void>? firstGate,
+    String? closedMode,
+    Duration closeTimeout = const Duration(seconds: 3),
+  }) async {
+    SharedPreferences.setMockInitialValues({'progress.safetyAck': true});
+    store = ProgressStore(await SharedPreferences.getInstance());
+    final log = <String>[];
+    final sources = <_RecSource>[];
+    await tester.binding.setSurfaceSize(const Size(1280, 720));
+    addTearDown(() => tester.binding.setSurfaceSize(null));
+    final audio = AudioService(
+      HarnessTts([]),
+      HarnessClips(),
+      assetExists: (_) => false,
+    );
+    await tester.pumpWidget(
+      GEnglishMotionApp(
+        deps: AppDependencies(
+          store: store,
+          audio: audio,
+          repo: ContentRepository([harnessUnit()]),
+          levels: const [harnessLevel],
+          sourceFactory: () {
+            final src = _RecSource(
+              sources.length + 1,
+              log,
+              gate: sources.isEmpty ? firstGate : null,
+            );
+            sources.add(src);
+            return src;
+          },
+          ticker: () => const Stream<Duration>.empty(),
+          wakelock: _NoWakelock(),
+          closeTimeout: closeTimeout,
+          controllerFactory: closedMode == null
+              ? null
+              : (grade, level, d) => _HangingClosed(
+                  grade: grade,
+                  level: level,
+                  store: d.store,
+                  repo: d.repo,
+                  audio: d.audio,
+                  ticker: d.ticker,
+                  mode: closedMode,
+                ),
+        ),
+      ),
+    );
+    return (log, sources, const Stream<Duration>.empty());
+  }
+
+  testWidgets(
+    'dispose during a pending permission start: next camera waits for the orphan stop',
+    (tester) async {
+      final gate = Completer<void>();
+      final (log, sources, _) = await pumpFlow(tester, firstGate: gate);
+      await tester.tap(find.byKey(const ValueKey('play')));
+      await tester.pump();
+      await tester.pump();
+      expect(log, ['start1']);
+      await tester.tap(find.byKey(const ValueKey('exit')));
+      await tester.pump();
+      await tester.pump();
+      await tester.tap(find.byKey(const ValueKey('play')));
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 500));
+      expect(log, ['start1'], reason: 'old start still pending');
+      gate.complete();
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 500));
+      expect(log, ['start1', 'stop1:begin', 'stop1:end', 'start2']);
+      expect(sources.map((x) => x.stops), [1, 0]);
+      await leave(tester);
+    },
+  );
+
+  for (final mode in ['hang', 'throw']) {
+    testWidgets('closed that ${mode}s does not block the next game', (
+      tester,
+    ) async {
+      final (log, _, _) = await pumpFlow(
+        tester,
+        closedMode: mode,
+        closeTimeout: const Duration(milliseconds: 300),
+      );
+      await tester.tap(find.byKey(const ValueKey('play')));
+      await tester.pump();
+      await tester.pump();
+      await tester.tap(find.byKey(const ValueKey('exit')));
+      await tester.pump();
+      await tester.pump();
+      await tester.tap(find.byKey(const ValueKey('play')));
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 100));
+      if (mode == 'hang') {
+        expect(log, isNot(contains('start2')), reason: 'waits for the timeout');
+      }
+      await tester.pump(const Duration(milliseconds: 400));
+      await tester.pump();
+      expect(log.where((e) => e == 'start2'), hasLength(1));
+      await leave(tester);
+    });
+  }
+}
+
+class _HangingClosed extends GameController {
+  _HangingClosed({
+    required super.grade,
+    required super.level,
+    required super.store,
+    required super.repo,
+    required super.audio,
+    required super.ticker,
+    required this.mode,
+  });
+  final String mode;
+  @override
+  Future<void> get closed => mode == 'hang'
+      ? Completer<void>().future
+      : Future<void>.error(StateError('boom'));
 }
 
 class _RecSource implements PoseFrameSource {
-  _RecSource(this.n, this.log);
+  _RecSource(this.n, this.log, {this.gate});
+  final Completer<void>? gate;
   final int n;
   final List<String> log;
   final frames0 = StreamController<PoseFrame>(sync: true);
@@ -212,6 +344,7 @@ class _RecSource implements PoseFrameSource {
   @override
   Future<PermissionOutcome> start() async {
     log.add('start$n');
+    await gate?.future;
     return PermissionOutcome.granted;
   }
 

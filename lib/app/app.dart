@@ -39,6 +39,8 @@ class AppDependencies {
     this.sayItAvailable = false,
     this.openSettings,
     Random? rng,
+    this.closeTimeout = const Duration(seconds: 3),
+    this.controllerFactory,
   }) : sourceFactory = sourceFactory ?? MediapipeFrameSource.new,
        ticker = ticker ?? periodicTicker,
        rng = rng ?? Random();
@@ -57,6 +59,17 @@ class AppDependencies {
   /// Whether on-device speech recognition exists. No recogniser is wired in
   /// this phase, so the SayIt entry stays hidden in production.
   final bool sayItAvailable;
+
+  /// Longest wait for a previous controller to release the camera.
+  final Duration closeTimeout;
+
+  /// Test seam: builds the controller (default: the real one).
+  final GameController Function(
+    int grade,
+    LevelConfig level,
+    AppDependencies d,
+  )?
+  controllerFactory;
 
   /// Opens the OS app-settings page (permanently denied camera). Not wired
   /// yet: needs an app-settings plugin, so the button currently does nothing.
@@ -157,9 +170,6 @@ class _RootState extends State<_Root> {
   (int, int)? _afterSafety;
   Future<void> _closing = Future<void>.value();
 
-  /// Longest wait for a previous controller to release the camera.
-  static const closeTimeout = Duration(seconds: 3);
-
   @override
   void dispose() {
     _ctl?.dispose();
@@ -196,15 +206,17 @@ class _RootState extends State<_Root> {
   void _begin(int grade, int level) {
     final cfg = _d.levels.firstWhere((l) => l.level == level);
     final source = _d.sourceFactory();
-    final ctl = GameController(
-      grade: grade,
-      level: cfg,
-      store: _d.store,
-      repo: _d.repo,
-      audio: _d.audio,
-      ticker: _d.ticker,
-      rng: _d.rng,
-    );
+    final ctl =
+        _d.controllerFactory?.call(grade, cfg, _d) ??
+        GameController(
+          grade: grade,
+          level: cfg,
+          store: _d.store,
+          repo: _d.repo,
+          audio: _d.audio,
+          ticker: _d.ticker,
+          rng: _d.rng,
+        );
     final old = _ctl;
     setState(() {
       _afterSafety = null;
@@ -248,7 +260,11 @@ class _RootState extends State<_Root> {
         .then((_) async {
           await WidgetsBinding.instance.endOfFrame;
           c.dispose();
-          await c.closed.timeout(closeTimeout);
+          await c.closed.timeout(
+            _d.closeTimeout,
+            onTimeout: () =>
+                debugPrint('close timed out — possible camera overlap'),
+          );
         })
         .catchError((Object e) {
           debugPrint('Closing the previous game failed: $e');

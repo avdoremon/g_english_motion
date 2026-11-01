@@ -520,6 +520,14 @@ class GameController extends ChangeNotifier {
     // next screen (not muted).
     _audio.cancelAll();
     await _stopInput();
+    // A permission/camera start still in flight finishes (and releases an
+    // orphan camera) inside `closed`; the app bounds this wait.
+    final pending = _startFuture;
+    if (pending != null) {
+      try {
+        await pending;
+      } catch (_) {}
+    }
     _quiet(_events.close);
     _hud.dispose();
     try {
