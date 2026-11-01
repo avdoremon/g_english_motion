@@ -1,0 +1,256 @@
+import 'package:flutter/material.dart';
+
+import '../../progress/progress_store.dart';
+import '../mascot/tin_tin.dart';
+import '../theme/app_theme.dart';
+
+/// Home: grade picker, level picker (stars + lock) and the Play button.
+///
+/// Only grades 1-2 are playable in this phase; grades 3-5 are shown disabled
+/// with "Sắp có". The SayIt entry is a disabled placeholder and is hidden
+/// unless the device can recognise speech ([sayItAvailable]) and the parent
+/// left it enabled.
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({
+    super.key,
+    required this.store,
+    required this.sayItAvailable,
+    required this.onPlay,
+    required this.onOpenParent,
+  });
+
+  final ProgressStore store;
+  final bool sayItAvailable;
+  final void Function(int grade, int level) onPlay;
+  final VoidCallback onOpenParent;
+
+  static const playableGrades = {1, 2};
+  static const levels = 5;
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  int _grade = 1;
+  int? _level;
+
+  /// Highest unlocked level of [g] unless the child picked another.
+  int _levelFor(int g) {
+    final picked = _level;
+    if (picked != null && widget.store.isUnlocked(g, picked)) return picked;
+    var best = 1;
+    for (var l = 1; l <= HomeScreen.levels; l++) {
+      if (widget.store.isUnlocked(g, l)) best = l;
+    }
+    return best;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final t = Theme.of(context).textTheme;
+    final store = widget.store;
+    final level = _levelFor(_grade);
+    return SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.all(24),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Expanded(child: Text('Tin Tin English', style: t.titleLarge)),
+                SizedBox(
+                  key: const ValueKey('parent-button'),
+                  width: AppTheme.minTarget,
+                  height: AppTheme.minTarget,
+                  child: IconButton(
+                    onPressed: widget.onOpenParent,
+                    tooltip: 'Dành cho bố mẹ',
+                    icon: const Icon(Icons.settings, size: 32),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 8),
+            Expanded(
+              child: Row(
+                children: [
+                  const Expanded(
+                    flex: 2,
+                    child: Center(
+                      child: TinTin(state: TinTinState.idle, size: 200),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 5,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text('Em học lớp mấy?', style: t.bodyLarge),
+                        const SizedBox(height: 8),
+                        Wrap(
+                          alignment: WrapAlignment.center,
+                          spacing: 12,
+                          runSpacing: 12,
+                          children: [
+                            for (var g = 1; g <= 5; g++) _gradeTile(g, t),
+                          ],
+                        ),
+                        const SizedBox(height: 16),
+                        Text('Chọn cấp độ', style: t.bodyLarge),
+                        const SizedBox(height: 8),
+                        Wrap(
+                          alignment: WrapAlignment.center,
+                          spacing: 12,
+                          runSpacing: 12,
+                          children: [
+                            for (var l = 1; l <= HomeScreen.levels; l++)
+                              _levelTile(l, level, t),
+                          ],
+                        ),
+                        const SizedBox(height: 24),
+                        FilledButton.icon(
+                          key: const ValueKey('play'),
+                          onPressed: () => widget.onPlay(_grade, level),
+                          icon: const Icon(Icons.play_arrow, size: 36),
+                          label: const Text('Chơi'),
+                        ),
+                        if (widget.sayItAvailable && store.sayItEnabled) ...[
+                          const SizedBox(height: 12),
+                          _sayItEntry(t),
+                        ],
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _gradeTile(int g, TextTheme t) {
+    final playable = HomeScreen.playableGrades.contains(g);
+    final selected = g == _grade;
+    return Semantics(
+      button: true,
+      enabled: playable,
+      selected: selected,
+      label: playable ? 'Lớp $g' : 'Lớp $g, sắp có',
+      excludeSemantics: true,
+      child: GestureDetector(
+        key: ValueKey('grade-$g'),
+        onTap: playable
+            ? () => setState(() {
+                _grade = g;
+                _level = null;
+              })
+            : null,
+        child: Container(
+          constraints: const BoxConstraints(minWidth: 120, minHeight: 72),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          decoration: BoxDecoration(
+            color: selected ? AppTheme.accent : AppTheme.surface,
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                'Lớp $g',
+                style: t.bodyLarge!.copyWith(
+                  color: selected
+                      ? AppTheme.background
+                      : (playable ? AppTheme.text : AppTheme.muted),
+                ),
+              ),
+              if (!playable)
+                Text('Sắp có', style: t.bodyMedium!.copyWith(fontSize: 28)),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _levelTile(int l, int current, TextTheme t) {
+    final store = widget.store;
+    final unlocked = store.isUnlocked(_grade, l);
+    final stars = store.starsFor(_grade, l);
+    final selected = unlocked && l == current;
+    return Semantics(
+      button: true,
+      enabled: unlocked,
+      selected: selected,
+      label: unlocked ? 'Cấp $l, $stars sao' : 'Cấp $l, chưa mở khóa',
+      excludeSemantics: true,
+      child: GestureDetector(
+        key: ValueKey('level-$l'),
+        onTap: unlocked ? () => setState(() => _level = l) : null,
+        child: Container(
+          width: 96,
+          padding: const EdgeInsets.symmetric(vertical: 8),
+          decoration: BoxDecoration(
+            color: selected ? AppTheme.accent : AppTheme.surface,
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                '$l',
+                style: t.titleLarge!.copyWith(
+                  color: selected ? AppTheme.background : AppTheme.text,
+                ),
+              ),
+              if (unlocked)
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    for (var i = 0; i < 3; i++)
+                      Icon(
+                        i < stars ? Icons.star : Icons.star_border,
+                        size: 22,
+                        color: i < stars
+                            ? AppTheme.yellow
+                            : (selected ? AppTheme.background : AppTheme.muted),
+                      ),
+                  ],
+                )
+              else
+                const Icon(Icons.lock, size: 26, color: AppTheme.muted),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _sayItEntry(TextTheme t) {
+    return Semantics(
+      label: 'Luyện nói, sắp có',
+      enabled: false,
+      excludeSemantics: true,
+      child: Container(
+        key: const ValueKey('sayit-entry'),
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+        decoration: BoxDecoration(
+          color: AppTheme.surface,
+          borderRadius: BorderRadius.circular(28),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Icon(Icons.mic, color: AppTheme.muted, size: 28),
+            const SizedBox(width: 8),
+            Text('Luyện nói', style: t.bodyMedium!.copyWith(fontSize: 28)),
+            const SizedBox(width: 12),
+            Text('Sắp có', style: t.bodyMedium!.copyWith(fontSize: 28)),
+          ],
+        ),
+      ),
+    );
+  }
+}

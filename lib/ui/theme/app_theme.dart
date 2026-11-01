@@ -43,7 +43,7 @@ class AppTheme {
       // Instruction text: readable from 2-3 m.
       bodyLarge: _s(28, w: FontWeight.w600),
       bodyMedium: _s(22, color: muted),
-      labelLarge: _s(24, w: FontWeight.w700, color: background),
+      labelLarge: _s(28, w: FontWeight.w700, color: background),
     );
     return ThemeData(
       useMaterial3: true,
