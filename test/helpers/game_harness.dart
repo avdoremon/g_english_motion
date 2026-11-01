@@ -148,6 +148,7 @@ class GameHarness {
     bool delayPermission = false,
     ConfirmGesture confirm = ConfirmGesture.jump,
     bool withImages = false,
+    int unitSize = 8,
   }) async {
     SharedPreferences.setMockInitialValues({});
     final store = ProgressStore(await SharedPreferences.getInstance());
@@ -170,7 +171,7 @@ class GameHarness {
     audio.captions.listen(captions.add);
     final tickCtl = StreamController<Duration>.broadcast(sync: true);
     final repo = ContentRepository(
-      withContent ? [harnessUnit(withImages: withImages)] : [],
+      withContent ? [harnessUnit(withImages: withImages, count: unitSize)] : [],
     );
     final controller = GameController(
       grade: 1,

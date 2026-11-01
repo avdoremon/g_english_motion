@@ -185,7 +185,7 @@ class GameController extends ChangeNotifier {
   /// Asks for the camera, then (when granted) runs calibration and the level.
   /// May be called again after [GamePhase.permissionDenied].
   ///
-  /// With no lessons for the grade nothing is started and the phase becomes
+  /// With no lessons for the grade (or when planning fails) nothing is started and the phase becomes
   /// [GamePhase.noContent] (the returned outcome is then `granted` only
   /// because the camera was never asked).
   Future<PermissionOutcome> start(PoseFrameSource source) {
@@ -198,14 +198,21 @@ class GameController extends ChangeNotifier {
 
   Future<PermissionOutcome> _start(PoseFrameSource source) async {
     _source = source;
-    _plan = QuestionGenerator(_repo, _store, _rng).plan(
-      level: level,
-      pos: CurriculumPosition(
-        grade: grade,
-        currentUnitIndex: _store.currentUnit(grade),
-      ),
-      modes: {ModeKind.laneJump},
-    );
+    try {
+      _plan = QuestionGenerator(_repo, _store, _rng).plan(
+        level: level,
+        pos: CurriculumPosition(
+          grade: grade,
+          currentUnitIndex: _store.currentUnit(grade),
+        ),
+        modes: {ModeKind.laneJump},
+      );
+    } catch (e, st) {
+      // E.g. not enough distractors in the bundled content: behave like an
+      // empty grade instead of leaving the child at a blank screen.
+      debugPrint('GameController: planning the level failed: $e\n$st');
+      _plan = const [];
+    }
     if (_plan.isEmpty) {
       _setPhase(GamePhase.noContent);
       return PermissionOutcome.granted;

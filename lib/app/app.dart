@@ -248,7 +248,23 @@ class _RootState extends State<_Root> {
     await _closing;
     // Superseded: its successor disposes it.
     if (!mounted || _ctl != ctl) return;
-    await ctl.start(source);
+    try {
+      await ctl.start(source);
+    } catch (e, st) {
+      // The controller handles its known failures itself (noContent); this
+      // is the last resort so the child is never stuck on a blank screen.
+      debugPrint('Starting the game failed: $e\n$st');
+      if (!mounted || _ctl != ctl) return;
+      _goHome();
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (!mounted) return;
+        ScaffoldMessenger.maybeOf(context)?.showSnackBar(
+          const SnackBar(
+            content: Text('Có lỗi rồi, em thử lại sau nhé!'),
+          ),
+        );
+      });
+    }
   }
 
   void _goHome() {

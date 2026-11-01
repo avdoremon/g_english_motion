@@ -25,6 +25,21 @@ class _NoWakelock implements Wakelock {
   Future<void> disable() async {}
 }
 
+class _ThrowingStart extends GameController {
+  _ThrowingStart({
+    required super.grade,
+    required super.level,
+    required super.store,
+    required super.repo,
+    required super.audio,
+    required super.ticker,
+  });
+
+  @override
+  Future<PermissionOutcome> start(PoseFrameSource source) =>
+      Future.error(StateError('boom'));
+}
+
 void main() {
   late ProgressStore store;
   late FakePoseFrameSource source;
@@ -36,6 +51,8 @@ void main() {
     bool safetyAcked = true,
     PermissionOutcome permission = PermissionOutcome.granted,
     VoidCallback? openSettings,
+    GameController Function(int, LevelConfig, AppDependencies)?
+    controllerFactory,
   }) async {
     SharedPreferences.setMockInitialValues({
       if (safetyAcked) 'progress.safetyAck': true,
@@ -63,6 +80,7 @@ void main() {
           ticker: () => const Stream<Duration>.empty(),
           wakelock: _NoWakelock(),
           openSettings: openSettings,
+          controllerFactory: controllerFactory,
         ),
       ),
     );
@@ -156,6 +174,46 @@ void main() {
       levels: const [],
     );
     expect(d.openSettings, isNotNull);
+  });
+
+  testWidgets('too few distractors: friendly "no lessons", not a dead end', (
+    tester,
+  ) async {
+    await pumpApp(tester, repo: ContentRepository([harnessUnit(count: 2)]));
+    await tester.tap(find.byKey(const ValueKey('play')));
+    await tester.pump();
+    await tester.pump();
+    await tester.pump();
+    expect(tester.takeException(), isNull);
+    expect(find.text('Chưa có bài học'), findsOneWidget);
+    expect(source.started, isFalse);
+    await tester.tap(find.text('Đóng'));
+    await tester.pump();
+    expect(find.byKey(const ValueKey('play')), findsOneWidget);
+  });
+
+  testWidgets('a start that throws goes home with a friendly message', (
+    tester,
+  ) async {
+    await pumpApp(
+      tester,
+      controllerFactory: (grade, level, d) => _ThrowingStart(
+        grade: grade,
+        level: level,
+        store: d.store,
+        repo: d.repo,
+        audio: d.audio,
+        ticker: d.ticker,
+      ),
+    );
+    await tester.tap(find.byKey(const ValueKey('play')));
+    await tester.pump();
+    await tester.pump();
+    await tester.pump();
+    await tester.pump();
+    expect(tester.takeException(), isNull);
+    expect(find.byKey(const ValueKey('play')), findsOneWidget);
+    expect(find.text('Có lỗi rồi, em thử lại sau nhé!'), findsOneWidget);
   });
 
   testWidgets('camera unavailable shows the unavailable message', (

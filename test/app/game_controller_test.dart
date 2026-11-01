@@ -1,6 +1,5 @@
 import 'dart:async';
 
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:g_english_motion/app/game_controller.dart';
 import 'package:g_english_motion/audio/voice_lines.dart';
@@ -74,6 +73,21 @@ void main() {
       () async {
         h = await GameHarness.create(withContent: false);
         await h.startAndCalibrate();
+        expect(c().phase, GamePhase.noContent);
+        expect(c().session, isNull);
+        expect(h.source.started, isFalse);
+      },
+    );
+
+    test(
+      'too few distractors: noContent, camera never started, no throw',
+      () async {
+        h = await GameHarness.create(unitSize: 2);
+        Object? error;
+        await runZonedGuarded(() async {
+          await h.startAndCalibrate();
+        }, (e, _) => error = e);
+        expect(error, isNull);
         expect(c().phase, GamePhase.noContent);
         expect(c().session, isNull);
         expect(h.source.started, isFalse);
