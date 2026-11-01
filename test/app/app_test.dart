@@ -35,6 +35,7 @@ void main() {
     ContentRepository? repo,
     bool safetyAcked = true,
     PermissionOutcome permission = PermissionOutcome.granted,
+    VoidCallback? openSettings,
   }) async {
     SharedPreferences.setMockInitialValues({
       if (safetyAcked) 'progress.safetyAck': true,
@@ -61,6 +62,7 @@ void main() {
           sourceFactory: () => source,
           ticker: () => const Stream<Duration>.empty(),
           wakelock: _NoWakelock(),
+          openSettings: openSettings,
         ),
       ),
     );
@@ -124,6 +126,36 @@ void main() {
     await tester.tap(find.byKey(const ValueKey('exit')));
     await tester.pump();
     expect(find.byKey(const ValueKey('play')), findsOneWidget);
+  });
+
+  testWidgets('permanently denied: the settings button opens app settings', (
+    tester,
+  ) async {
+    var opened = 0;
+    await pumpApp(
+      tester,
+      permission: PermissionOutcome.permanentlyDenied,
+      openSettings: () => opened++,
+    );
+    await tester.tap(find.byKey(const ValueKey('play')));
+    await tester.pump();
+    await tester.pump();
+    await tester.tap(find.text('Mở Cài đặt'));
+    expect(opened, 1);
+  });
+
+  test('AppDependencies wires a real app-settings opener by default', () {
+    final d = AppDependencies(
+      store: store,
+      audio: AudioService(
+        HarnessTts([]),
+        HarnessClips(),
+        assetExists: (_) => false,
+      ),
+      repo: ContentRepository([]),
+      levels: const [],
+    );
+    expect(d.openSettings, isNotNull);
   });
 
   testWidgets('camera unavailable shows the unavailable message', (

@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../audio/audio_service.dart';
@@ -37,11 +38,12 @@ class AppDependencies {
     TickerFactory? ticker,
     this.wakelock = const WakelockPlusAdapter(),
     this.sayItAvailable = false,
-    this.openSettings,
+    VoidCallback? openSettings,
     Random? rng,
     this.closeTimeout = const Duration(seconds: 3),
     this.controllerFactory,
   }) : sourceFactory = sourceFactory ?? MediapipeFrameSource.new,
+       openSettings = openSettings ?? _openAppSettings,
        ticker = ticker ?? periodicTicker,
        rng = rng ?? Random();
 
@@ -71,9 +73,18 @@ class AppDependencies {
   )?
   controllerFactory;
 
-  /// Opens the OS app-settings page (permanently denied camera). Not wired
-  /// yet: needs an app-settings plugin, so the button currently does nothing.
-  final VoidCallback? openSettings;
+  /// Opens the OS app-settings page (permanently denied camera). Defaults to
+  /// `permission_handler`'s [openAppSettings] (local OS call, no network).
+  final VoidCallback openSettings;
+
+  static void _openAppSettings() {
+    unawaited(
+      openAppSettings().then<void>(
+        (_) {},
+        onError: (Object e) => debugPrint('Opening app settings failed: $e'),
+      ),
+    );
+  }
 
   /// Real objects: SharedPreferences, flutter_tts + just_audio, bundled
   /// content and level config.
@@ -369,7 +380,7 @@ class _RootState extends State<_Root> {
               final s = _source;
               if (s != null) unawaited(ctl.start(s));
             },
-            onOpenSettings: _d.openSettings ?? () {},
+            onOpenSettings: _d.openSettings,
           ),
         );
       case GamePhase.noContent:
