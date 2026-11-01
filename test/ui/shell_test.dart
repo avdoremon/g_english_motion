@@ -217,7 +217,7 @@ void main() {
     late List<String> captions;
     late List<_FakeTimer> timers;
     late StreamSubscription<String> capSub;
-    var clock = DateTime(2026);
+    var clock = Duration.zero;
     final binding = TestWidgetsFlutterBinding.ensureInitialized();
 
     setUp(() {
@@ -228,7 +228,7 @@ void main() {
       captions = [];
       capSub = audio.captions.listen(captions.add);
       timers = [];
-      clock = DateTime(2026);
+      clock = Duration.zero;
     });
 
     tearDown(() async {
@@ -246,7 +246,7 @@ void main() {
       GameShell(
         session: sess ?? session,
         events: ev ?? events.stream,
-        now: () => clock,
+        elapsed: () => clock,
         audio: audio,
         wakelock: wl ?? wakelock,
         breakAfter: const Duration(minutes: 20),
@@ -341,6 +341,22 @@ void main() {
       await tester.pumpWidget(const SizedBox());
     });
 
+    testWidgets('swapping events while lost resyncs to player present', (
+      tester,
+    ) async {
+      final other = StreamController<GameInputEvent>.broadcast();
+      addTearDown(other.close);
+      await tester.pumpWidget(shell());
+      events.add(const PlayerLost(at: Duration.zero));
+      await _settle(tester);
+      expect(find.byType(PauseOverlay), findsOneWidget);
+      await tester.pumpWidget(shell(ev: other.stream));
+      await _settle(tester);
+      expect(find.byType(PauseOverlay), findsNothing);
+      expect(session.log, ['pause', 'resume']);
+      await tester.pumpWidget(const SizedBox());
+    });
+
     testWidgets('swapped session is paused only when not running', (
       tester,
     ) async {
@@ -363,11 +379,11 @@ void main() {
     testWidgets('break clock counts play time only', (tester) async {
       await tester.pumpWidget(shell());
       expect(timers, hasLength(1));
-      clock = clock.add(const Duration(minutes: 5));
+      clock += const Duration(minutes: 5);
       events.add(const PlayerLost(at: Duration.zero));
       await _settle(tester);
       expect(timers[0].cancelled, isTrue);
-      clock = clock.add(const Duration(minutes: 30));
+      clock += const Duration(minutes: 30);
       events.add(const PlayerFound(at: Duration(seconds: 1)));
       await _settle(tester);
       expect(timers, hasLength(2));

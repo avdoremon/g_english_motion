@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/semantics.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:g_english_motion/input/confirm_gesture.dart';
 import 'package:g_english_motion/progress/progress_store.dart';
@@ -161,8 +162,19 @@ void main() {
       await tester.pumpWidget(
         _app(ParentGate(rng: _FixedRandom(0), child: const Text('S'))),
       );
-      expect(find.bySemanticsLabel('Xóa'), findsOneWidget);
-      expect(find.bySemanticsLabel('Xác nhận'), findsOneWidget);
+      final h = tester.ensureSemantics();
+      await tester.pump();
+      for (final l in ['Xóa', 'Xác nhận']) {
+        expect(find.bySemanticsLabel(l), findsOneWidget);
+        final n = tester.getSemantics(find.bySemanticsLabel(l));
+        expect(n.getSemanticsData().hasAction(SemanticsAction.tap), isTrue);
+      }
+      // Performing the semantic tap on the confirm key submits the answer.
+      tester.semantics.tap(find.semantics.byLabel('Xác nhận'));
+      await tester.pump();
+      expect(find.text('Chưa đúng'), findsOneWidget);
+      await tester.pump(const Duration(seconds: 1));
+      h.dispose();
     });
   });
 
@@ -217,10 +229,22 @@ void main() {
       await tester.pumpAndSettle();
     });
 
-    testWidgets('stepper buttons have semantic labels', (tester) async {
+    testWidgets('stepper nodes are unique, tappable and change the unit', (
+      tester,
+    ) async {
+      final h = tester.ensureSemantics();
       await tester.pumpWidget(settings());
-      expect(find.bySemanticsLabel('Giảm bài'), findsNWidgets(2));
-      expect(find.bySemanticsLabel('Tăng bài'), findsNWidgets(2));
+      expect(find.bySemanticsLabel('Giảm bài lớp 1'), findsOneWidget);
+      expect(find.bySemanticsLabel('Tăng bài lớp 2'), findsOneWidget);
+      final node = tester.getSemantics(find.bySemanticsLabel('Tăng bài lớp 1'));
+      expect(node.getSemanticsData().hasAction(SemanticsAction.tap), isTrue);
+      tester.semantics.tap(find.semantics.byLabel('Tăng bài lớp 1'));
+      await tester.pump();
+      expect(store.currentUnit(1), 2);
+      tester.semantics.tap(find.semantics.byLabel('Giảm bài lớp 1'));
+      await tester.pump();
+      expect(store.currentUnit(1), 1);
+      h.dispose();
     });
 
     testWidgets('shows labels and privacy link text', (tester) async {

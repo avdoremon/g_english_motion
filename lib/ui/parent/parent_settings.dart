@@ -52,26 +52,24 @@ class _ParentSettingsState extends State<ParentSettings> {
                     style: t.titleMedium,
                   ),
                 ),
-                Semantics(
-                  label: 'Giảm bài',
-                  button: true,
-                  excludeSemantics: true,
-                  child: IconButton(
-                    key: ValueKey('unit-dec-$g'),
-                    tooltip: 'Giảm bài',
-                    icon: const Icon(Icons.remove),
-                    onPressed: () => _setUnit(g, _s.currentUnit(g) - 1),
+                MergeSemantics(
+                  child: Semantics(
+                    label: 'Giảm bài lớp $g',
+                    child: IconButton(
+                      key: ValueKey('unit-dec-$g'),
+                      icon: const Icon(Icons.remove),
+                      onPressed: () => _setUnit(g, _s.currentUnit(g) - 1),
+                    ),
                   ),
                 ),
-                Semantics(
-                  label: 'Tăng bài',
-                  button: true,
-                  excludeSemantics: true,
-                  child: IconButton(
-                    key: ValueKey('unit-inc-$g'),
-                    tooltip: 'Tăng bài',
-                    icon: const Icon(Icons.add),
-                    onPressed: () => _setUnit(g, _s.currentUnit(g) + 1),
+                MergeSemantics(
+                  child: Semantics(
+                    label: 'Tăng bài lớp $g',
+                    child: IconButton(
+                      key: ValueKey('unit-inc-$g'),
+                      icon: const Icon(Icons.add),
+                      onPressed: () => _setUnit(g, _s.currentUnit(g) + 1),
+                    ),
                   ),
                 ),
               ],

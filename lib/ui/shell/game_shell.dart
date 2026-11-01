@@ -26,6 +26,9 @@ class WakelockPlusAdapter implements Wakelock {
   Future<void> disable() => WakelockPlus.disable();
 }
 
+final Stopwatch _sw = Stopwatch()..start();
+Duration _monotonic() => _sw.elapsed;
+
 typedef BreakTimerFactory = Timer Function(Duration d, void Function() cb);
 
 /// Wraps the playing area: wakelock, lifecycle + player-lost pausing, and a
@@ -34,6 +37,10 @@ typedef BreakTimerFactory = Timer Function(Duration d, void Function() cb);
 ///
 /// The session is running only while the app is active AND the player is in
 /// frame; pause()/resume() are called only on changes of that state.
+///
+/// [timerFactory] is compared by identity: pass a stable reference (a
+/// tear-off or field), not a fresh closure per build, or the break clock
+/// restarts on every rebuild.
 ///
 /// [events]/[session] may be swapped (didUpdateWidget resubscribes / pauses a
 /// new session if currently not running). Changing [breakAfter] or
@@ -50,7 +57,7 @@ class GameShell extends StatefulWidget {
     this.wakelock = const WakelockPlusAdapter(),
     this.breakAfter = const Duration(minutes: 20),
     this.timerFactory = Timer.new,
-    this.now = DateTime.now,
+    this.elapsed = _monotonic,
     this.showBanner = false,
   });
 
@@ -62,8 +69,8 @@ class GameShell extends StatefulWidget {
   final Duration breakAfter;
   final BreakTimerFactory timerFactory;
 
-  /// Clock used to measure elapsed play time (injectable for tests).
-  final DateTime Function() now;
+  /// Monotonic clock used to measure play time (injectable for tests).
+  final Duration Function() elapsed;
   final bool showBanner;
 
   @override
@@ -73,10 +80,12 @@ class GameShell extends StatefulWidget {
 class _GameShellState extends State<GameShell> with WidgetsBindingObserver {
   StreamSubscription<GameInputEvent>? _sub;
   Timer? _breakTimer;
-  DateTime? _armedAt;
+  Duration? _armedAt;
   late Duration _remaining;
   bool _playerLost = false;
-  bool _appActive = true;
+  bool _appActive =
+      (WidgetsBinding.instance.lifecycleState ?? AppLifecycleState.resumed) ==
+      AppLifecycleState.resumed;
   bool _breakShown = false;
 
   bool get _running => _appActive && !_playerLost;
@@ -103,7 +112,7 @@ class _GameShellState extends State<GameShell> with WidgetsBindingObserver {
     _breakTimer?.cancel();
     _breakTimer = null;
     if (_breakShown) return;
-    _armedAt = widget.now();
+    _armedAt = widget.elapsed();
     _breakTimer = widget.timerFactory(_remaining, _onBreak);
   }
 
@@ -111,7 +120,7 @@ class _GameShellState extends State<GameShell> with WidgetsBindingObserver {
     if (_breakTimer == null) return;
     _breakTimer!.cancel();
     _breakTimer = null;
-    final spent = widget.now().difference(_armedAt!);
+    final spent = widget.elapsed() - _armedAt!;
     _remaining -= spent;
     if (_remaining < Duration.zero) _remaining = Duration.zero;
   }
@@ -161,6 +170,8 @@ class _GameShellState extends State<GameShell> with WidgetsBindingObserver {
     if (old.events != widget.events) {
       _sub?.cancel();
       _sub = widget.events.listen(_onEvent);
+      // A new stream starts with the player assumed present.
+      _update(playerLost: false);
     }
     if (old.session != widget.session && !_running) {
       widget.session?.pause();
