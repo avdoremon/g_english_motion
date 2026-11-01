@@ -142,6 +142,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.0.0"
+  flutter_mp_pose_landmarker:
+    dependency: "direct main"
+    description:
+      name: flutter_mp_pose_landmarker
+      sha256: "4e2b3a6f2b2e658cbc769af033d5e1a4e8c9b0f0b22338ed77a496ec530487de"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.9"
   flutter_test:
     dependency: "direct dev"
     description: flutter
