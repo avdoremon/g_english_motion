@@ -115,10 +115,10 @@ Tin Tin có các trạng thái: chờ, vui, buồn, cổ vũ, nhảy múa. Chữ
 
 ## 8. Đồ họa: ba phương án (Claude Design)
 
-Bản dựng: https://claude.ai/artifact/TsnrqbHnzA9aNQkK8ktCo2 (mỗi phương án 3 màn: màn chính, SkyShoot, DragSpell; các màn còn lại dựng theo phương án được chọn). Tin Tin trong bản dựng là hình tạm; thay bằng mascot thật khi có tệp gốc, việc lập trình giao diện không chờ việc này.
+Bản dựng: https://claude.ai/artifact/TsnrqbHnzA9aNQkK8ktCo2. **Đã chọn phương án B** (2026-11-01); B có đủ 6 màn: màn chính, LaneJump, SkyShoot, DragSpell, SayIt, kết quả level. Tin Tin trong bản dựng là hình tạm; thay bằng mascot thật khi có tệp gốc, việc lập trình giao diện không chờ việc này.
 
 - **A – Khu vườn mây:** pastel mềm, mây bông, cỏ tròn trịa; dịu mắt.
-- **B – Phi hành đoàn vũ trụ:** nền vũ trụ đậm, planet và tên lửa; tương phản mạnh khi chiếu TV.
+- **B – Phi hành đoàn vũ trụ (ĐÃ CHỌN, 2026-11-01):** nền vũ trụ đậm, planet và tên lửa; tương phản mạnh khi chiếu TV.
 - **C – Thị trấn kẹo giấy:** giấy cắt dán, màu kẹo, máy bay giấy; khác hẳn game toán.
 
 Yêu cầu chung: chữ lớn, tương phản cao để đọc từ 2–3 m; làn và ô lớn; không đặt chi tiết quan trọng sát viền; banner quảng cáo nhỏ ở một góc, không che gameplay.

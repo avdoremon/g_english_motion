@@ -274,7 +274,7 @@ test/    phản chiếu lib/; test/fixtures/landmarks/*.json (ghi từ spike)
 
 **Interfaces:**
 - Consumes: `PoseFrameSource`, `Calibrator`, `PoseSession`, `QuestionGenerator`, `LevelSession`, `LaneJumpRound`, `AudioService`, `ProgressStore`.
-- Produces: `class AppTheme` (token của phương án đồ họa được chọn; mặc định phương án B cho tới khi người dùng chọn); `enum TinTinState { idle, happy, sad, cheer, dance }`; `class GameShell` (giữ màn hình sáng khi chơi, tạm dừng `LevelSession` khi `AppLifecycleState.paused` hoặc `PlayerLost`).
+- Produces: `class AppTheme` (token phương án B – Phi hành đoàn vũ trụ: nền #14123A, bề mặt #2A2770, nhấn #4DE1FF, vàng #FFD84D, xanh lá #5CF2A0, hồng #FF5CAA, cam #FF8A5B, tím #7B61FF, chữ #FFFFFF; font Baloo 2); `enum TinTinState { idle, happy, sad, cheer, dance }`; `class GameShell` (giữ màn hình sáng khi chơi, tạm dừng `LevelSession` khi `AppLifecycleState.paused` hoặc `PlayerLost`).
 - Mascot dùng hình tạm từ canvas thiết kế; thay hình thật sau mà không đổi code.
 
 - [ ] **Step 1:** Widget test (nguồn giả): lần đầu mở → `SafetyScreen`, xác nhận xong → không hiện lại; quyền `permanentlyDenied` → `PermissionScreen` có nút "Mở Cài đặt"; `CalibrationScreen` hiện hướng dẫn theo `CalibrationIssue` (`tooClose` → "lùi ra xa hơn"); `ParentGate` chặn vào `ParentSettings` khi trả lời sai phép tính; `HomeScreen` có Play, chọn lớp, và chỉ có mục SayIt khi bật; `LaneJumpScreen` hiện đúng `choiceCount` làn, tô sáng `selectedLane`, `Confirmed` ở làn đúng → `TinTinState.happy` và nhãn "Đúng" có biểu tượng; `PlayerLost` → `PauseOverlay`; app `paused` → `LevelSession.phase == paused`; `ResultScreen` hiện số sao bằng `Scoring.stars`; banner quảng cáo không hiện ở `SafetyScreen`, `CalibrationScreen`, `ParentSettings`.
