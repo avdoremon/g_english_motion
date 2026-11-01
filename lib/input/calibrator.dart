@@ -57,22 +57,30 @@ class _Track {
 /// Tolerances (landmark jitter and kids' stance are noisy):
 /// - still means the mid-hip y moved by less than [stillRatio] x torso
 ///   (peak-to-peak) over the hold;
-/// - up to [maxBadFrames] consecutive frames without a usable person are
-///   absorbed (they count as time but give no sample); one more resets.
+/// - a stretch of up to [maxBadGap] (timestamp-based, so independent of the
+///   frame rate) without a usable person is absorbed (it counts as time but
+///   gives no samples); a longer one resets;
+/// - at least [minSamples] usable frames are required besides the time span,
+///   so a long frame gap cannot calibrate from two frames.
 class Calibrator {
   Calibrator({this.hold = const Duration(seconds: 2)});
 
   final Duration hold;
 
-  /// Frame-interval slack so that N frames at 30 fps spanning (N-1) intervals
-  /// count as a full hold of N/30 s.
+  /// Frame-interval slack so that N frames spanning (N-1) intervals count as
+  /// a full hold (about one interval at the plugin's ~15 fps is 67 ms, so
+  /// this is half of that; the hold is always completed by timestamps).
   static const Duration _frameSlack = Duration(milliseconds: 40);
 
   /// Allowed peak-to-peak hip-y movement over the hold, in torso heights.
   static const double stillRatio = 0.08;
 
-  /// Consecutive frames without a usable person that do not reset the hold.
-  static const int maxBadFrames = 5;
+  /// Longest stretch (by timestamp) without a usable person that does not
+  /// reset the hold.
+  static const Duration maxBadGap = Duration(milliseconds: 250);
+
+  /// Minimum number of usable frames in the hold, besides the time span.
+  static const int minSamples = 8;
 
   /// Largest |dx|+|dy| hip move between frames for the same person.
   static const double _maxTrackJump = 0.15;
@@ -82,13 +90,14 @@ class Calibrator {
 
   Duration? _start;
   int _frames = 0;
-  int _badRun = 0;
+  int _goodFrames = 0;
+  Duration _lastGoodAt = Duration.zero;
   final List<_Track> _tracks = [];
 
   void _reset() {
     _start = null;
     _frames = 0;
-    _badRun = 0;
+    _goodFrames = 0;
     _tracks.clear();
   }
 
@@ -158,10 +167,13 @@ class Calibrator {
       final issue = anyPerson
           ? CalibrationIssue.tooClose
           : CalibrationIssue.noPerson;
-      if (_start == null || ++_badRun > maxBadFrames) return _fail(issue);
+      if (_start == null || f.timestamp - _lastGoodAt > maxBadGap) {
+        return _fail(issue);
+      }
       _frames++;
     } else {
-      _badRun = 0;
+      _lastGoodAt = f.timestamp;
+      _goodFrames++;
       _start ??= f.timestamp;
       _frames++;
       _assign(usable);
@@ -173,6 +185,10 @@ class Calibrator {
       1.0,
     );
     if (progress < 1.0) return CalibrationProgress(progress: progress);
+    if (_goodFrames < minSamples) {
+      // Time is up but there are too few samples: keep collecting.
+      return const CalibrationProgress(progress: 0.99);
+    }
     return _finish();
   }
 
