@@ -53,6 +53,13 @@ class _FakeWakelock implements Wakelock {
   Future<void> disable() async => log.add('disable');
 }
 
+class _ThrowingWakelock implements Wakelock {
+  @override
+  Future<void> enable() async => throw StateError('no wakelock');
+  @override
+  Future<void> disable() async {}
+}
+
 class _FakeTimer implements Timer {
   _FakeTimer(this.duration, this.cb);
   final Duration duration;
@@ -176,6 +183,10 @@ void main() {
         ),
       );
       expect(find.text('Giữ yên nhé…'), findsOneWidget);
+      expect(
+        find.bySemanticsLabel('Đang căn chỉnh, 50 phần trăm'),
+        findsOneWidget,
+      );
       final ind = tester.widget<CircularProgressIndicator>(
         find.byType(CircularProgressIndicator),
       );
@@ -206,6 +217,8 @@ void main() {
     late List<String> captions;
     late List<_FakeTimer> timers;
     late StreamSubscription<String> capSub;
+    var clock = DateTime(2026);
+    final binding = TestWidgetsFlutterBinding.ensureInitialized();
 
     setUp(() {
       session = _FakeSession();
@@ -215,6 +228,7 @@ void main() {
       captions = [];
       capSub = audio.captions.listen(captions.add);
       timers = [];
+      clock = DateTime(2026);
     });
 
     tearDown(() async {
@@ -223,12 +237,18 @@ void main() {
       await events.close();
     });
 
-    Widget shell({bool showBanner = false}) => _app(
+    Widget shell({
+      bool showBanner = false,
+      PausableSession? sess,
+      Stream<GameInputEvent>? ev,
+      Wakelock? wl,
+    }) => _app(
       GameShell(
-        session: session,
-        events: events.stream,
+        session: sess ?? session,
+        events: ev ?? events.stream,
+        now: () => clock,
         audio: audio,
-        wakelock: wakelock,
+        wakelock: wl ?? wakelock,
         breakAfter: const Duration(minutes: 20),
         timerFactory: (d, cb) {
           final t = _FakeTimer(d, cb);
@@ -248,16 +268,112 @@ void main() {
       expect(wakelock.log, ['enable', 'disable']);
     });
 
-    testWidgets('lifecycle pauses and resumes the session', (tester) async {
+    void life(AppLifecycleState st) =>
+        binding.handleAppLifecycleStateChanged(st);
+
+    testWidgets('inactive alone pauses; resumed with player present resumes', (
+      tester,
+    ) async {
       await tester.pumpWidget(shell());
-      tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.inactive);
-      tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.paused);
-      expect(session.log, contains('pause'));
-      session.log.clear();
-      tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.inactive);
-      tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.resumed);
-      expect(session.log.last, 'resume');
+      life(AppLifecycleState.inactive);
+      expect(session.log, ['pause']);
+      life(AppLifecycleState.paused);
+      expect(session.log, ['pause']);
+      life(AppLifecycleState.resumed);
+      expect(session.log, ['pause', 'resume']);
       await tester.pumpWidget(const SizedBox());
+    });
+
+    testWidgets('Lost -> inactive -> resumed does not resume', (tester) async {
+      await tester.pumpWidget(shell());
+      events.add(const PlayerLost(at: Duration.zero));
+      await _settle(tester);
+      life(AppLifecycleState.inactive);
+      life(AppLifecycleState.resumed);
+      expect(session.log, ['pause']);
+      events.add(const PlayerFound(at: Duration(seconds: 1)));
+      await _settle(tester);
+      expect(session.log, ['pause', 'resume']);
+      await tester.pumpWidget(const SizedBox());
+    });
+
+    testWidgets('Lost -> Found while app inactive does not resume', (
+      tester,
+    ) async {
+      await tester.pumpWidget(shell());
+      events.add(const PlayerLost(at: Duration.zero));
+      await _settle(tester);
+      life(AppLifecycleState.inactive);
+      events.add(const PlayerFound(at: Duration(seconds: 1)));
+      await _settle(tester);
+      expect(session.log, ['pause']);
+      expect(find.byType(PauseOverlay), findsNothing);
+      life(AppLifecycleState.resumed);
+      expect(session.log, ['pause', 'resume']);
+      await tester.pumpWidget(const SizedBox());
+    });
+
+    testWidgets('dispose: unsubscribes and ignores lifecycle', (tester) async {
+      await tester.pumpWidget(shell());
+      expect(events.hasListener, isTrue);
+      await tester.pumpWidget(const SizedBox());
+      expect(events.hasListener, isFalse);
+      life(AppLifecycleState.inactive);
+      expect(session.log, isEmpty);
+    });
+
+    testWidgets('wakelock enable failure is swallowed', (tester) async {
+      await tester.pumpWidget(shell(wl: _ThrowingWakelock()));
+      expect(tester.takeException(), isNull);
+      await tester.pumpWidget(const SizedBox());
+    });
+
+    testWidgets('swapped events stream resubscribes', (tester) async {
+      final other = StreamController<GameInputEvent>.broadcast();
+      addTearDown(other.close);
+      await tester.pumpWidget(shell());
+      await tester.pumpWidget(shell(ev: other.stream));
+      expect(events.hasListener, isFalse);
+      expect(other.hasListener, isTrue);
+      other.add(const PlayerLost(at: Duration.zero));
+      await _settle(tester);
+      expect(session.log, ['pause']);
+      await tester.pumpWidget(const SizedBox());
+    });
+
+    testWidgets('swapped session is paused only when not running', (
+      tester,
+    ) async {
+      final next = _FakeSession();
+      await tester.pumpWidget(shell());
+      await tester.pumpWidget(shell(sess: next));
+      expect(next.log, isEmpty);
+      events.add(const PlayerLost(at: Duration.zero));
+      await _settle(tester);
+      final third = _FakeSession();
+      await tester.pumpWidget(shell(sess: third));
+      expect(third.log, ['pause']);
+      expect(next.log, ['pause']);
+      events.add(const PlayerFound(at: Duration(seconds: 1)));
+      await _settle(tester);
+      expect(third.log, ['pause', 'resume']);
+      await tester.pumpWidget(const SizedBox());
+    });
+
+    testWidgets('break clock counts play time only', (tester) async {
+      await tester.pumpWidget(shell());
+      expect(timers, hasLength(1));
+      clock = clock.add(const Duration(minutes: 5));
+      events.add(const PlayerLost(at: Duration.zero));
+      await _settle(tester);
+      expect(timers[0].cancelled, isTrue);
+      clock = clock.add(const Duration(minutes: 30));
+      events.add(const PlayerFound(at: Duration(seconds: 1)));
+      await _settle(tester);
+      expect(timers, hasLength(2));
+      expect(timers[1].duration, const Duration(minutes: 15));
+      await tester.pumpWidget(const SizedBox());
+      expect(timers[1].cancelled, isTrue);
     });
 
     testWidgets('PlayerLost shows overlay and pauses; PlayerFound reverses', (
@@ -304,7 +420,6 @@ void main() {
       expect(captions, hasLength(1));
       expect(timers, hasLength(1));
       await tester.pumpWidget(const SizedBox());
-      expect(timers.single.cancelled, isTrue);
     });
 
     testWidgets('banner slot only when showBanner', (tester) async {

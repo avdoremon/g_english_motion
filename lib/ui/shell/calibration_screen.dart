@@ -24,22 +24,27 @@ class CalibrationScreen extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          SizedBox(
-            width: 200,
-            height: 200,
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                SizedBox.expand(
-                  child: CircularProgressIndicator(
-                    value: progress.progress.clamp(0.0, 1.0),
-                    strokeWidth: 14,
-                    color: AppTheme.accent,
-                    backgroundColor: AppTheme.surface,
+          Semantics(
+            label:
+                'Đang căn chỉnh, ${(progress.progress.clamp(0.0, 1.0) * 100).round()} phần trăm',
+            excludeSemantics: true,
+            child: SizedBox(
+              width: 200,
+              height: 200,
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  SizedBox.expand(
+                    child: CircularProgressIndicator(
+                      value: progress.progress.clamp(0.0, 1.0),
+                      strokeWidth: 14,
+                      color: AppTheme.accent,
+                      backgroundColor: AppTheme.surface,
+                    ),
                   ),
-                ),
-                const TinTin(state: TinTinState.idle, size: 120),
-              ],
+                  const TinTin(state: TinTinState.idle, size: 120),
+                ],
+              ),
             ),
           ),
           const SizedBox(height: 24),

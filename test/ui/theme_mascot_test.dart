@@ -67,4 +67,39 @@ void main() {
     expect(TinTin.cycle, lessThanOrEqualTo(const Duration(milliseconds: 1500)));
     expect(TinTin.cycle, greaterThan(const Duration(milliseconds: 333)));
   });
+
+  testWidgets('disableAnimations renders cheer static (settles at once)', (
+    tester,
+  ) async {
+    await tester.pumpWidget(
+      const MediaQuery(
+        data: MediaQueryData(disableAnimations: true),
+        child: MaterialApp(home: TinTin(state: TinTinState.cheer)),
+      ),
+    );
+    expect(tester.hasRunningAnimations, isFalse);
+    await tester.pumpWidget(const SizedBox());
+  });
+
+  testWidgets('pulse replays cheer; mascot is repaint-isolated', (
+    tester,
+  ) async {
+    Widget app(int p) => MaterialApp(
+      home: TinTin(state: TinTinState.cheer, pulse: p),
+    );
+    await tester.pumpWidget(app(0));
+    await tester.pumpAndSettle();
+    expect(tester.hasRunningAnimations, isFalse);
+    await tester.pumpWidget(app(1));
+    expect(tester.hasRunningAnimations, isTrue);
+    await tester.pumpAndSettle();
+    expect(
+      find.descendant(
+        of: find.byType(TinTin),
+        matching: find.byType(RepaintBoundary),
+      ),
+      findsWidgets,
+    );
+    await tester.pumpWidget(const SizedBox());
+  });
 }

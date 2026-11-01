@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -10,6 +11,31 @@ import 'package:g_english_motion/ui/theme/app_theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// Always returns [v] so the gate question is deterministic.
+class _SeqRandom implements Random {
+  _SeqRandom(this.vs);
+  final List<int> vs;
+  int i = 0;
+  @override
+  int nextInt(int max) => vs[i++ % vs.length] % max;
+  @override
+  double nextDouble() => 0;
+  @override
+  bool nextBool() => false;
+}
+
+class _FakeTimer implements Timer {
+  _FakeTimer(this.cb);
+  final void Function() cb;
+  bool cancelled = false;
+  @override
+  void cancel() => cancelled = true;
+  void fire() => cb();
+  @override
+  bool get isActive => !cancelled;
+  @override
+  int get tick => 0;
+}
+
 class _FixedRandom implements Random {
   _FixedRandom(this.v);
   final int v;
@@ -74,6 +100,72 @@ void main() {
     });
   });
 
+  group('ParentGate extras', () {
+    testWidgets('new question after a wrong answer', (tester) async {
+      // 3x3 first, then 4x4.
+      await tester.pumpWidget(
+        _app(ParentGate(rng: _SeqRandom([0, 0, 1, 1]), child: const Text('S'))),
+      );
+      expect(find.text('3 × 3 = ?'), findsOneWidget);
+      await _tapDigits(tester, '1');
+      await tester.tap(find.byKey(const ValueKey('key-ok')));
+      await tester.pump();
+      expect(find.text('4 × 4 = ?'), findsOneWidget);
+      await tester.pump(const Duration(seconds: 1));
+    });
+
+    testWidgets('3 wrong answers lock the pad until the timer fires', (
+      tester,
+    ) async {
+      final timers = <_FakeTimer>[];
+      await tester.pumpWidget(
+        _app(
+          ParentGate(
+            rng: _FixedRandom(0), // always 3 x 3 = 9
+            timerFactory: (d, cb) {
+              expect(d, const Duration(seconds: 5));
+              final t = _FakeTimer(cb);
+              timers.add(t);
+              return t;
+            },
+            child: const Text('S'),
+          ),
+        ),
+      );
+      for (var i = 0; i < 3; i++) {
+        await _tapDigits(tester, '1');
+        await tester.tap(find.byKey(const ValueKey('key-ok')));
+        await tester.pump(const Duration(seconds: 1));
+      }
+      expect(timers, hasLength(1));
+      expect(find.text('Chờ vài giây rồi thử lại'), findsOneWidget);
+      await tester.tap(
+        find.byKey(const ValueKey('key-9')),
+        warnIfMissed: false,
+      );
+      await tester.tap(
+        find.byKey(const ValueKey('key-ok')),
+        warnIfMissed: false,
+      );
+      await tester.pump();
+      expect(find.text('S'), findsNothing);
+      timers.single.fire();
+      await tester.pump();
+      await _tapDigits(tester, '9');
+      await tester.tap(find.byKey(const ValueKey('key-ok')));
+      await tester.pumpAndSettle();
+      expect(find.text('S'), findsOneWidget);
+    });
+
+    testWidgets('icon keys have semantic labels', (tester) async {
+      await tester.pumpWidget(
+        _app(ParentGate(rng: _FixedRandom(0), child: const Text('S'))),
+      );
+      expect(find.bySemanticsLabel('Xóa'), findsOneWidget);
+      expect(find.bySemanticsLabel('Xác nhận'), findsOneWidget);
+    });
+  });
+
   group('ParentSettings', () {
     late ProgressStore store;
     setUp(() async {
@@ -123,6 +215,12 @@ void main() {
       await tester.pump();
       expect(store.sayItEnabled, isFalse);
       await tester.pumpAndSettle();
+    });
+
+    testWidgets('stepper buttons have semantic labels', (tester) async {
+      await tester.pumpWidget(settings());
+      expect(find.bySemanticsLabel('Giảm bài'), findsNWidgets(2));
+      expect(find.bySemanticsLabel('Tăng bài'), findsNWidgets(2));
     });
 
     testWidgets('shows labels and privacy link text', (tester) async {

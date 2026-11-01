@@ -10,10 +10,18 @@ enum TinTinState { idle, happy, sad, cheer, dance }
 /// (1.2 s, below the 1.5 s cap, ~0.8 Hz so nothing flashes above 3 Hz) and
 /// then rest. Other states are static.
 class TinTin extends StatelessWidget {
-  const TinTin({super.key, required this.state, this.size = 160});
+  const TinTin({
+    super.key,
+    required this.state,
+    this.size = 160,
+    this.pulse = 0,
+  });
 
   final TinTinState state;
   final double size;
+
+  /// Change this to replay cheer/dance when the state stays the same.
+  final int pulse;
 
   static const Duration cycle = Duration(milliseconds: 1200);
   static const int cycles = 3;
@@ -28,19 +36,33 @@ class TinTin extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final reduce = MediaQuery.maybeDisableAnimationsOf(context) ?? false;
     return Semantics(
       label: semanticsLabel(state),
       image: true,
       excludeSemantics: true,
-      child: _TinTinBody(key: ValueKey(state), state: state, size: size),
+      child: RepaintBoundary(
+        child: _TinTinBody(
+          key: ValueKey((state, pulse, reduce)),
+          state: state,
+          size: size,
+          animate: !reduce,
+        ),
+      ),
     );
   }
 }
 
 class _TinTinBody extends StatefulWidget {
-  const _TinTinBody({super.key, required this.state, required this.size});
+  const _TinTinBody({
+    super.key,
+    required this.state,
+    required this.size,
+    required this.animate,
+  });
   final TinTinState state;
   final double size;
+  final bool animate;
 
   @override
   State<_TinTinBody> createState() => _TinTinBodyState();
@@ -54,7 +76,8 @@ class _TinTinBodyState extends State<_TinTinBody>
   );
 
   bool get _animated =>
-      widget.state == TinTinState.cheer || widget.state == TinTinState.dance;
+      widget.animate &&
+      (widget.state == TinTinState.cheer || widget.state == TinTinState.dance);
 
   @override
   void initState() {

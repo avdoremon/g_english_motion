@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -13,7 +14,19 @@ class GateQuestion {
 
 /// Adult-only gate: a multiplication question answered on a number pad.
 class ParentGate extends StatefulWidget {
-  const ParentGate({super.key, required this.child, this.rng});
+  const ParentGate({
+    super.key,
+    required this.child,
+    this.rng,
+    this.timerFactory = Timer.new,
+  });
+
+  /// Wrong answers allowed before a [lockout].
+  static const maxWrong = 3;
+  static const lockout = Duration(seconds: 5);
+
+  /// Injectable for tests (lockout timer).
+  final Timer Function(Duration, void Function()) timerFactory;
 
   final Widget child;
   final Random? rng;
@@ -28,7 +41,11 @@ class ParentGate extends StatefulWidget {
 
 class _ParentGateState extends State<ParentGate>
     with SingleTickerProviderStateMixin {
-  late final GateQuestion _q = ParentGate.questionFor(widget.rng ?? Random());
+  late final Random _rng = widget.rng ?? Random();
+  late GateQuestion _q = ParentGate.questionFor(_rng);
+  Timer? _lockTimer;
+  int _wrongCount = 0;
+  bool _locked = false;
   late final AnimationController _shake = AnimationController(
     vsync: this,
     duration: const Duration(milliseconds: 600), // 1.5 cycles: < 3 Hz
@@ -39,6 +56,7 @@ class _ParentGateState extends State<ParentGate>
 
   @override
   void dispose() {
+    _lockTimer?.cancel();
     _shake.dispose();
     super.dispose();
   }
@@ -47,9 +65,18 @@ class _ParentGateState extends State<ParentGate>
     if (_entry == '${_q.answer}') {
       setState(() => _open = true);
     } else {
+      _wrongCount++;
       setState(() {
         _wrong = true;
         _entry = '';
+        _q = ParentGate.questionFor(_rng);
+        if (_wrongCount >= ParentGate.maxWrong) {
+          _locked = true;
+          _wrongCount = 0;
+          _lockTimer = widget.timerFactory(ParentGate.lockout, () {
+            if (mounted) setState(() => _locked = false);
+          });
+        }
       });
       _shake.forward(from: 0);
     }
@@ -67,8 +94,9 @@ class _ParentGateState extends State<ParentGate>
           padding: EdgeInsets.zero,
           backgroundColor: AppTheme.surface,
           foregroundColor: AppTheme.text,
+          side: const BorderSide(color: AppTheme.accent, width: 2),
         ),
-        onPressed: onTap,
+        onPressed: _locked ? null : onTap,
         child: label,
       ),
     ),
@@ -103,7 +131,11 @@ class _ParentGateState extends State<ParentGate>
               child: SizedBox(
                 height: 48,
                 child: Text(
-                  _wrong ? 'Chưa đúng' : (_entry.isEmpty ? ' ' : _entry),
+                  _locked
+                      ? 'Chờ vài giây rồi thử lại'
+                      : _wrong
+                      ? 'Chưa đúng'
+                      : (_entry.isEmpty ? ' ' : _entry),
                   style: t.titleMedium?.copyWith(
                     color: _wrong ? AppTheme.pink : AppTheme.text,
                   ),
@@ -122,15 +154,23 @@ class _ParentGateState extends State<ParentGate>
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                _key('back', const Icon(Icons.backspace_outlined), () {
-                  if (_entry.isNotEmpty) {
-                    setState(
-                      () => _entry = _entry.substring(0, _entry.length - 1),
-                    );
-                  }
-                }),
+                _key(
+                  'back',
+                  const Icon(Icons.backspace_outlined, semanticLabel: 'Xóa'),
+                  () {
+                    if (_entry.isNotEmpty) {
+                      setState(
+                        () => _entry = _entry.substring(0, _entry.length - 1),
+                      );
+                    }
+                  },
+                ),
                 digit('0'),
-                _key('ok', const Icon(Icons.check), _submit),
+                _key(
+                  'ok',
+                  const Icon(Icons.check, semanticLabel: 'Xác nhận'),
+                  _submit,
+                ),
               ],
             ),
           ],
