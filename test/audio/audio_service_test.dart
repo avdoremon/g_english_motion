@@ -215,6 +215,26 @@ void main() {
     },
   );
 
+  test(
+    'cancelAll during the first leg of explainAnswer: no second leg',
+    () async {
+      existing.add(VoiceLine.theAnswerIs.assetPath);
+      clips.hang = true;
+      final f = svc.explainAnswer(ball);
+      await Future<void>.delayed(Duration.zero);
+      expect(captions, [VoiceLine.theAnswerIs.caption]);
+      svc.cancelAll();
+      await f;
+      await Future<void>.delayed(Duration.zero);
+      expect(captions, [VoiceLine.theAnswerIs.caption]);
+      expect(log, isNot(contains('tts:ball')));
+      // The service is still usable afterwards.
+      clips.hang = false;
+      await svc.explainAnswer(ball);
+      expect(log, contains('tts:ball'));
+    },
+  );
+
   test('caption is emitted BEFORE the audio call', () async {
     existing.add('assets/audio/en/g1u01-ball.m4a');
     svc.captions.listen((c) => log.add('cap:$c'));

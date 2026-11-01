@@ -117,8 +117,13 @@ class AudioService {
     });
   }
 
+  /// Two legs ("the answer is", then the word). If the service is cancelled,
+  /// muted or disposed during the first leg, the second never starts
+  /// (otherwise it would play under the new epoch, e.g. on the next screen).
   Future<void> explainAnswer(ContentItem correct) async {
+    final epoch = _epoch;
     await playLine(VoiceLine.theAnswerIs);
+    if (_disposed || _epoch != epoch) return;
     await sayEnglish(correct.ttsText, itemId: correct.id);
   }
 
