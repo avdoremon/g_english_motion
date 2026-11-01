@@ -42,6 +42,17 @@ class QuestionGenerator {
   final HistoryStore _history;
   final Random _rng;
 
+  /// Plans [level.questionCount] questions.
+  ///
+  /// Selection is item-first: every eligible item is used once (wrong items
+  /// within their 30% quota, then not-recently-asked items, then recent ones;
+  /// shuffled) before any item is asked again in another form, and so on for
+  /// the 2nd, 3rd... use. A (item, form) pair repeats only once the whole pool
+  /// is exhausted.
+  ///
+  /// Wrong ids (from the history) that do not belong to an item in the level's
+  /// unit window, or whose item cannot be asked in the requested modes, are
+  /// ignored: they are neither planned nor counted towards the quota.
   List<PlannedQuestion> plan({
     required LevelConfig level,
     required CurriculumPosition pos,
@@ -88,6 +99,33 @@ class QuestionGenerator {
     ]..shuffle(_rng);
     final remaining = [...fresh, ...stale];
 
+    // How often each item has been picked so far: picks are balanced by it
+    // (item-first), ties keep the priority order of the lists.
+    final itemCount = <String, int>{};
+    for (final k in picks) {
+      itemCount.update(k.pair.item.id, (c) => c + 1, ifAbsent: () => 1);
+    }
+    _Pair? takeBest(List<List<_Pair>> lists, [ModeKind? mode]) {
+      List<_Pair>? bestList;
+      var bestIdx = -1, bestCount = 1 << 30;
+      for (final list in lists) {
+        for (var i = 0; i < list.length; i++) {
+          final p = list[i];
+          if (mode != null && !p.modes.contains(mode)) continue;
+          final c = itemCount[p.item.id] ?? 0;
+          if (c < bestCount) {
+            bestCount = c;
+            bestList = list;
+            bestIdx = i;
+          }
+        }
+      }
+      if (bestList == null) return null;
+      final p = bestList.removeAt(bestIdx);
+      itemCount.update(p.item.id, (c) => c + 1, ifAbsent: () => 1);
+      return p;
+    }
+
     // Seed one question per requested mode that cannot otherwise be missed.
     final used = <ModeKind, int>{};
     for (final k in picks) {
@@ -101,17 +139,18 @@ class QuestionGenerator {
     for (final m in wanted) {
       if (picks.length >= n) break;
       if ((used[m] ?? 0) > 0) continue;
-      final i = remaining.indexWhere((p) => p.modes.contains(m));
-      if (i < 0) continue;
-      picks.add(_Pick(remaining.removeAt(i), 0, m));
+      final p = takeBest([remaining], m);
+      if (p == null) continue;
+      picks.add(_Pick(p, 0, m));
       used[m] = 1;
     }
 
-    while (picks.length < n && remaining.isNotEmpty) {
-      picks.add(_Pick(remaining.removeAt(0), 0));
-    }
-    while (picks.length < n && leftoverWrong.isNotEmpty) {
-      picks.add(_Pick(leftoverWrong.removeAt(0), 0));
+    // Remaining slots: least-used item first; remaining (fresh, then stale)
+    // before the over-quota wrong pairs on ties.
+    while (picks.length < n) {
+      final p = takeBest([remaining, leftoverWrong]);
+      if (p == null) break;
+      picks.add(_Pick(p, 0));
     }
     // Pool exhausted: cycle through a freshly shuffled pool again.
     var cycle = 0;
@@ -200,7 +239,7 @@ class QuestionGenerator {
             itemId: item.id,
             ttsText: item.ttsText,
             word: item.word,
-            tiles: _scramble(item.word.split('')),
+            tiles: _scramble(_letters(item.word)),
             imageItemId: item.image != null ? item.id : null,
           );
         case QuestionForm.orderSentence:
@@ -256,8 +295,21 @@ class QuestionGenerator {
   String _blank(_Pair p, String repl) =>
       p.sentence!.replaceFirst(_wordRe(p.item.word), repl);
 
-  static RegExp _wordRe(String w) =>
-      RegExp(r'\b' + RegExp.escape(w) + r'\b', caseSensitive: false);
+  /// Whole-word, case-insensitive match of [w]. `\b` is ASCII-only and fails
+  /// next to non-word characters, so the boundaries are Unicode lookarounds
+  /// (not preceded / followed by a letter, digit or underscore) and [w] is
+  /// escaped (it may contain spaces, hyphens, dots...).
+  static RegExp _wordRe(String w) => RegExp(
+    r'(?<![\p{L}\p{N}_])' + RegExp.escape(w) + r'(?![\p{L}\p{N}_])',
+    caseSensitive: false,
+    unicode: true,
+  );
+
+  static final RegExp _lettersOnly = RegExp(r'^\p{L}+$', unicode: true);
+
+  static List<String> _letters(String w) => [
+    for (final r in w.runes) String.fromCharCode(r),
+  ];
 
   /// A permutation of [xs] that differs from [xs] (callers guarantee that one
   /// exists).
@@ -370,9 +422,10 @@ class QuestionGenerator {
         return c.isEmpty ? null : c[_rng.nextInt(c.length)];
       case QuestionForm.spellWord:
         final w = item.word;
-        if (!upper || w.length < 3 || w.split('').toSet().length < 2) {
-          return null;
-        }
+        // Letters only: spaces, hyphens, digits... cannot be tile-spelled.
+        if (!upper || !_lettersOnly.hasMatch(w)) return null;
+        final letters = _letters(w);
+        if (letters.length < 3 || letters.toSet().length < 2) return null;
         return '';
       case QuestionForm.orderSentence:
         if (!upper) return null;

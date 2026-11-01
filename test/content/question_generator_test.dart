@@ -358,4 +358,343 @@ void main() {
       expect(h.wrongIds(), isEmpty);
     },
   );
+
+  group('determinism and purity', () {
+    String describe(PlannedQuestion p) {
+      final q = p.question;
+      return switch (q) {
+        ChoiceQuestion() =>
+          '${p.mode.name}|${q.form.name}|${q.itemId}|${q.promptText}|'
+              '${q.choices.map((c) => c.itemId).join(",")}|${q.correctIndex}',
+        SpellQuestion() => '${p.mode.name}|spell|${q.itemId}|${q.tiles.join()}',
+        OrderQuestion() =>
+          '${p.mode.name}|order|${q.itemId}|${q.words.join(" ")}',
+      };
+    }
+
+    test('the same seed gives the same plan', () {
+      for (final modes in [
+        {ModeKind.laneJump},
+        {ModeKind.laneJump, ModeKind.dragSpell, ModeKind.skyShoot},
+      ]) {
+        for (var s = 0; s < 10; s++) {
+          List<String> once() => [
+            for (final p in _gen(
+              repo,
+              seed: s,
+            ).plan(level: _level(), pos: _pos3, modes: modes))
+              describe(p),
+          ];
+          expect(once(), once(), reason: 'seed $s $modes');
+        }
+      }
+    });
+
+    test('different seeds give different plans', () {
+      List<String> at(int s) => [
+        for (final p in _gen(
+          repo,
+          seed: s,
+        ).plan(level: _level(), pos: _pos3, modes: {ModeKind.laneJump}))
+          describe(p),
+      ];
+      expect(
+        {for (var s = 0; s < 10; s++) at(s).join(';')}.length,
+        greaterThan(5),
+      );
+    });
+
+    test('plan() does not mutate the history', () async {
+      final h = InMemoryHistoryStore();
+      await h.recordAsked(['g3u1i1', 'g3u1i2', 'g3u2i0']);
+      await h.markWrong('g3u1i3');
+      final g = _gen(repo, history: h);
+      for (var n = 0; n < 5; n++) {
+        g.plan(level: _level(), pos: _pos3, modes: {ModeKind.laneJump});
+      }
+      expect(h.recentIds(), ['g3u1i1', 'g3u1i2', 'g3u2i0']);
+      expect(h.wrongIds(), {'g3u1i3'});
+    });
+  });
+
+  group('question content', () {
+    test('fillBlank: promptText has ____ and ttsText says "blank"', () {
+      var seen = 0;
+      for (var s = 0; s < 20; s++) {
+        final plan = _gen(
+          repo,
+          seed: s,
+        ).plan(level: _level(), pos: _pos3, modes: {ModeKind.skyShoot});
+        for (final p in plan) {
+          final q = p.question;
+          if (q is! ChoiceQuestion || q.form != QuestionForm.fillBlank) {
+            continue;
+          }
+          seen++;
+          final word = repo.byId(q.itemId).word;
+          expect(q.promptText, contains('____'));
+          expect(q.promptText, isNot(contains(word)));
+          expect(q.ttsText, contains('blank'));
+          expect(q.ttsText, isNot(contains('____')));
+          expect(q.ttsText, isNot(contains(word)));
+        }
+      }
+      expect(seen, greaterThan(0));
+    });
+
+    test('OrderQuestion.answer equals the (normalised) sentence', () {
+      var seen = 0;
+      for (var s = 0; s < 20; s++) {
+        final plan = _gen(
+          repo,
+          seed: s,
+        ).plan(level: _level(), pos: _pos3, modes: {ModeKind.dragSpell});
+        for (final p in plan) {
+          final q = p.question;
+          if (q is! OrderQuestion) continue;
+          seen++;
+          final sentences = repo
+              .byId(q.itemId)
+              .sentencePatterns
+              .map((x) => x.trim().split(RegExp(r'\s+')).join(' '));
+          expect(sentences, contains(q.answer.join(' ')));
+          expect(q.ttsText.trim().split(RegExp(r'\s+')), q.answer);
+        }
+      }
+      expect(seen, greaterThan(0));
+    });
+
+    ContentItem word(String w, {List<String> sentences = const []}) =>
+        ContentItem(
+          id: 'w-$w'.replaceAll(RegExp(r'[^a-z0-9-]'), '_'),
+          word: w,
+          ttsText: w,
+          sentencePatterns: sentences,
+          modes: const [ModeKind.dragSpell, ModeKind.skyShoot],
+        );
+
+    Unit unitOf(List<ContentItem> items) =>
+        Unit(grade: 3, index: 1, id: 'u01', title: 't', items: items);
+
+    Set<QuestionForm> formsFor(
+      List<ContentItem> items,
+      ModeKind mode, {
+      int n = 20,
+    }) {
+      final r = ContentRepository([unitOf(items)]);
+      final forms = <QuestionForm>{};
+      for (var s = 0; s < 10; s++) {
+        final plan = _gen(r, seed: s).plan(
+          level: _level(count: n, window: UnitWindow.current),
+          pos: const CurriculumPosition(grade: 3, currentUnitIndex: 1),
+          modes: {mode},
+        );
+        for (final p in plan) {
+          forms.add(p.question.form);
+        }
+      }
+      return forms;
+    }
+
+    test(
+      'spell eligibility edges: length 2 and identical letters excluded',
+      () {
+        bool spells(String w) => formsFor([
+          word(w),
+        ], ModeKind.dragSpell).contains(QuestionForm.spellWord);
+        expect(spells('at'), isFalse); // length 2
+        expect(spells('aaa'), isFalse); // identical letters
+        expect(spells('aab'), isTrue); // length 3, two distinct letters
+        expect(spells('cat'), isTrue);
+      },
+    );
+
+    test('spellWord skips words with spaces and non-letters', () {
+      for (final w in ['ice cream', 'T-shirt', "don't", 'a.b.c', 'tv2']) {
+        expect(
+          formsFor([word(w)], ModeKind.dragSpell),
+          isNot(contains(QuestionForm.spellWord)),
+          reason: w,
+        );
+      }
+      expect(
+        formsFor([word('café')], ModeKind.dragSpell),
+        contains(QuestionForm.spellWord),
+      );
+    });
+
+    test('items lacking the mode are excluded from plan()', () {
+      final items = [
+        for (var i = 0; i < 6; i++)
+          ContentItem(
+            id: 'lj$i',
+            word: 'lj$i',
+            ttsText: 'lj$i',
+            modes: const [ModeKind.laneJump],
+          ),
+        for (var i = 0; i < 6; i++)
+          ContentItem(
+            id: 'ds$i',
+            word: 'ds$i',
+            ttsText: 'ds$i',
+            modes: const [ModeKind.dragSpell],
+          ),
+      ];
+      final r = ContentRepository([
+        Unit(grade: 1, index: 1, id: 'u01', title: 't', items: items),
+      ]);
+      for (var s = 0; s < 10; s++) {
+        final plan = _gen(r, seed: s).plan(
+          level: _level(count: 6),
+          pos: const CurriculumPosition(grade: 1, currentUnitIndex: 1),
+          modes: {ModeKind.laneJump},
+        );
+        expect(plan, hasLength(6));
+        for (final p in plan) {
+          expect(p.question.itemId, startsWith('lj'));
+        }
+      }
+    });
+
+    test('fillBlank uses a Unicode-safe, escaped word-boundary match', () {
+      final items = [
+        word('ice cream', sentences: ['I like ice cream a lot.']),
+        word('café', sentences: ['We eat at the café today.']),
+        word('t-shirt', sentences: ['My t-shirt is red.']),
+        word('a.b', sentences: ['Say a.b now, not axb.']),
+        // Substring of a longer word must not match.
+        word('cat', sentences: ['The cats sleep.']),
+        word('hat', sentences: ['My hat is big.']),
+        word('dog', sentences: ['The dog runs fast.']),
+      ];
+      final r = ContentRepository([unitOf(items)]);
+      final blanks = <String, String>{};
+      for (var s = 0; s < 30; s++) {
+        final plan = _gen(r, seed: s).plan(
+          level: _level(count: 12, window: UnitWindow.current),
+          pos: const CurriculumPosition(grade: 3, currentUnitIndex: 1),
+          modes: {ModeKind.skyShoot},
+        );
+        for (final p in plan) {
+          final q = p.question;
+          if (q is ChoiceQuestion && q.form == QuestionForm.fillBlank) {
+            blanks[r.byId(q.itemId).word] = q.promptText!;
+          }
+        }
+      }
+      expect(blanks['ice cream'], 'I like ____ a lot.');
+      expect(blanks['café'], 'We eat at the ____ today.');
+      expect(blanks['t-shirt'], 'My ____ is red.');
+      expect(blanks['a.b'], 'Say ____ now, not axb.');
+      expect(blanks['hat'], 'My ____ is big.');
+      expect(blanks.containsKey('cat'), isFalse); // "cats" is not "cat"
+    });
+  });
+
+  group('item diversity', () {
+    ContentRepository pool(int items) => ContentRepository([
+      _unit(1, 1, items, modes: const [ModeKind.laneJump]),
+    ]);
+    const pos = CurriculumPosition(grade: 1, currentUnitIndex: 1);
+
+    test('12 items x 3 forms, 8 questions -> 8 distinct items', () {
+      final r = pool(12);
+      for (var s = 0; s < 50; s++) {
+        final plan = _gen(r, seed: s).plan(
+          level: _level(count: 8, window: UnitWindow.current),
+          pos: pos,
+          modes: {ModeKind.laneJump},
+        );
+        expect(plan, hasLength(8));
+        expect(
+          {for (final p in plan) p.question.itemId},
+          hasLength(8),
+          reason: 'seed $s',
+        );
+      }
+    });
+
+    test('all items are used once before any repeats (n > items)', () {
+      final r = pool(5);
+      for (var s = 0; s < 30; s++) {
+        final plan = _gen(r, seed: s).plan(
+          level: _level(count: 8, window: UnitWindow.current),
+          pos: pos,
+          modes: {ModeKind.laneJump},
+        );
+        final counts = <String, int>{};
+        for (final p in plan) {
+          counts.update(p.question.itemId, (c) => c + 1, ifAbsent: () => 1);
+        }
+        expect(counts, hasLength(5), reason: 'seed $s');
+        expect(counts.values.where((c) => c > 2), isEmpty, reason: 'seed $s');
+        // (itemId, form) pairs are still unique while the pool allows.
+        expect(_keys(plan), hasLength(8), reason: 'seed $s');
+      }
+    });
+
+    test(
+      'fresh items beat recently asked ones in the item-first pass',
+      () async {
+        final r = pool(12);
+        final h = InMemoryHistoryStore();
+        final recent = [for (var i = 0; i < 6; i++) 'g1u1i$i'];
+        await h.recordAsked(recent);
+        for (var s = 0; s < 30; s++) {
+          final plan = _gen(r, history: h, seed: s).plan(
+            level: _level(count: 6, window: UnitWindow.current),
+            pos: pos,
+            modes: {ModeKind.laneJump},
+          );
+          expect(
+            plan
+                .map((p) => p.question.itemId)
+                .toSet()
+                .intersection(recent.toSet()),
+            isEmpty,
+            reason: 'seed $s',
+          );
+        }
+      },
+    );
+
+    test('no adjacent plan entries share an item when the pool allows', () {
+      final r = pool(4);
+      for (var s = 0; s < 50; s++) {
+        final plan = _gen(r, seed: s).plan(
+          level: _level(count: 10, window: UnitWindow.current),
+          pos: pos,
+          modes: {ModeKind.laneJump},
+        );
+        for (var i = 1; i < plan.length; i++) {
+          expect(
+            plan[i].question.itemId,
+            isNot(plan[i - 1].question.itemId),
+            reason: 'seed $s index $i',
+          );
+        }
+      }
+    });
+  });
+
+  group('wrong ids outside the level window', () {
+    test('are ignored: never planned and no effect on the quota', () async {
+      final h = InMemoryHistoryStore();
+      // Window = unit 2 only; wrong ids live in unit 1 and in another grade.
+      for (final w in ['g3u1i0', 'g3u1i1', 'g1u1i0', 'unknown-id']) {
+        await h.markWrong(w);
+      }
+      for (var s = 0; s < 20; s++) {
+        final plan = _gen(repo, history: h, seed: s).plan(
+          level: _level(count: 8, window: UnitWindow.current),
+          pos: _pos3,
+          modes: {ModeKind.laneJump},
+        );
+        expect(plan, hasLength(8));
+        for (final p in plan) {
+          expect(p.question.itemId, startsWith('g3u2'));
+        }
+      }
+    });
+  });
 }
