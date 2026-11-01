@@ -70,6 +70,8 @@ flutter:
     - assets/content/grade3/
     - assets/content/grade4/
     - assets/content/grade5/
+    - assets/audio/vi/
+    - assets/audio/en/
 
   # To add assets to your application, add an assets section, like this:
   # assets:
