@@ -5,12 +5,16 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:g_english_motion/app/app.dart';
 import 'package:g_english_motion/audio/audio_service.dart';
 import 'package:g_english_motion/content/content_repository.dart';
+import 'package:g_english_motion/content/curriculum.dart';
 import 'package:g_english_motion/input/pose_frame_source.dart';
+import 'package:g_english_motion/input/pose_types.dart';
+import 'package:g_english_motion/levels/level_config.dart';
 import 'package:g_english_motion/progress/progress_store.dart';
 import 'package:g_english_motion/ui/shell/game_shell.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../helpers/game_harness.dart';
+import '../helpers/synthetic_poses.dart';
 
 class _NoWakelock implements Wakelock {
   @override
@@ -112,4 +116,110 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.byKey(const ValueKey('play')), findsOneWidget);
   });
+
+  testWidgets(
+    'Play again starts the new camera only after the old one stopped',
+    (tester) async {
+      SharedPreferences.setMockInitialValues({'progress.safetyAck': true});
+      store = ProgressStore(await SharedPreferences.getInstance());
+      final log = <String>[];
+      final sources = <_RecSource>[];
+      final ticks = StreamController<Duration>.broadcast(sync: true);
+      addTearDown(ticks.close);
+      await tester.binding.setSurfaceSize(const Size(1280, 720));
+      addTearDown(() => tester.binding.setSurfaceSize(null));
+      await tester.pumpWidget(
+        GEnglishMotionApp(
+          deps: AppDependencies(
+            store: store,
+            audio: AudioService(
+              HarnessTts([]),
+              HarnessClips(),
+              assetExists: (_) => false,
+            ),
+            repo: ContentRepository([harnessUnit()]),
+            levels: const [
+              LevelConfig(
+                level: 1,
+                questionCount: 1,
+                baseTime: Duration(seconds: 1),
+                choiceCount: 3,
+                hints: HintMode.full,
+                window: UnitWindow.current,
+              ),
+            ],
+            sourceFactory: () {
+              final src = _RecSource(sources.length + 1, log);
+              sources.add(src);
+              return src;
+            },
+            ticker: () => ticks.stream,
+            wakelock: _NoWakelock(),
+          ),
+        ),
+      );
+      await tester.tap(find.byKey(const ValueKey('play')));
+      await tester.pump();
+      await tester.pump();
+      var t = Duration.zero;
+      Future<void> step() async {
+        t += const Duration(milliseconds: 33);
+        sources.last.framesCtl.add(PoseFrame([makePose()], t));
+        ticks.add(t);
+        await tester.pump(const Duration(milliseconds: 33));
+      }
+
+      for (
+        var i = 0;
+        i < 400 && find.text('Chơi lại').evaluate().isEmpty;
+        i++
+      ) {
+        await step();
+      }
+      expect(find.text('Chơi lại'), findsOneWidget);
+      await tester.pump(const Duration(milliseconds: 10));
+      // Finished: the camera is already being stopped (slowly).
+      expect(log, ['start1', 'stop1:begin']);
+      await tester.tap(find.text('Chơi lại'));
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 50));
+      expect(log, isNot(contains('start2')), reason: 'old stop still running');
+      await tester.pump(const Duration(milliseconds: 500));
+      expect(log, ['start1', 'stop1:begin', 'stop1:end', 'start2']);
+      // Leave: the second camera is stopped too.
+      await tester.tap(find.byKey(const ValueKey('exit')));
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 100));
+      await tester.pump(const Duration(milliseconds: 600));
+      expect(log.last, 'stop2:end');
+    },
+  );
+}
+
+class _RecSource implements PoseFrameSource {
+  _RecSource(this.n, this.log);
+  final int n;
+  final List<String> log;
+  final frames0 = StreamController<PoseFrame>(sync: true);
+  bool _stopped = false;
+
+  @override
+  Stream<PoseFrame> get frames => frames0.stream;
+
+  StreamController<PoseFrame> get framesCtl => frames0;
+
+  @override
+  Future<PermissionOutcome> start() async {
+    log.add('start$n');
+    return PermissionOutcome.granted;
+  }
+
+  @override
+  Future<void> stop() async {
+    if (_stopped) return;
+    _stopped = true;
+    log.add('stop$n:begin');
+    await Future<void>.delayed(const Duration(milliseconds: 200));
+    log.add('stop$n:end');
+  }
 }

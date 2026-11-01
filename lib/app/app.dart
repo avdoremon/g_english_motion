@@ -155,6 +155,7 @@ class _RootState extends State<_Root> {
   GameController? _ctl;
   PoseFrameSource? _source;
   (int, int)? _afterSafety;
+  Future<void> _closing = Future<void>.value();
 
   @override
   void dispose() {
@@ -208,7 +209,20 @@ class _RootState extends State<_Root> {
       _source = source;
     });
     _release(old);
-    unawaited(ctl.start(source));
+    unawaited(_startWhenFree(ctl, source));
+  }
+
+  /// The camera channel is a singleton: the new flow may only start after
+  /// every earlier controller finished shutting down (its camera stop would
+  /// otherwise release the new camera).
+  Future<void> _startWhenFree(
+    GameController ctl,
+    PoseFrameSource source,
+  ) async {
+    await _closing;
+    // Superseded: its successor disposes it.
+    if (!mounted || _ctl != ctl) return;
+    await ctl.start(source);
   }
 
   void _goHome() {
@@ -221,9 +235,15 @@ class _RootState extends State<_Root> {
     _release(old);
   }
 
+  /// Disposes [c] after the frame (so listeners detach first); [_closing]
+  /// completes when it is fully closed.
   void _release(GameController? c) {
     if (c == null) return;
-    WidgetsBinding.instance.addPostFrameCallback((_) => c.dispose());
+    _closing = _closing.then((_) async {
+      await WidgetsBinding.instance.endOfFrame;
+      c.dispose();
+      await c.closed;
+    });
   }
 
   void _openParent() {
@@ -341,8 +361,10 @@ class _RootState extends State<_Root> {
       case GamePhase.finished:
         final o = ctl.outcome!;
         final grade = ctl.grade, level = ctl.level.level;
+        final hasNext = _d.levels.any((l) => l.level == level + 1);
         return ResultScreen(
           outcome: o,
+          hasNext: hasNext,
           onPlayAgain: () => _begin(grade, level),
           onNext: () {
             if (o.unlockedNext && _d.levels.any((l) => l.level == level + 1)) {
