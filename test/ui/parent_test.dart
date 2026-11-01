@@ -53,6 +53,13 @@ Widget _app(Widget child) => MaterialApp(
   home: Scaffold(body: child),
 );
 
+/// WCAG 2.x contrast ratio of two opaque colours.
+double _contrast(Color a, Color b) {
+  final la = a.computeLuminance(), lb = b.computeLuminance();
+  final hi = la > lb ? la : lb, lo = la > lb ? lb : la;
+  return (hi + 0.05) / (lo + 0.05);
+}
+
 Future<void> _tapDigits(WidgetTester t, String digits) async {
   for (final d in digits.split('')) {
     await t.tap(find.byKey(ValueKey('key-$d')));
@@ -158,6 +165,85 @@ void main() {
       expect(find.text('S'), findsOneWidget);
     });
 
+    testWidgets('wrong count and lockout survive leaving and re-entering', (
+      tester,
+    ) async {
+      final timers = <_FakeTimer>[];
+      final lockout = GateLockout(
+        timerFactory: (d, cb) {
+          final t = _FakeTimer(cb);
+          timers.add(t);
+          return t;
+        },
+      );
+      addTearDown(lockout.dispose);
+      Widget gate() => _app(
+        ParentGate(
+          rng: _FixedRandom(0), // 3 x 3 = 9
+          lockout: lockout,
+          child: const Text('S'),
+        ),
+      );
+      Future<void> wrong() async {
+        await _tapDigits(tester, '1');
+        await tester.tap(find.byKey(const ValueKey('key-ok')));
+        await tester.pump(const Duration(seconds: 1));
+      }
+
+      await tester.pumpWidget(gate());
+      await wrong();
+      await wrong();
+      expect(lockout.wrongCount, 2);
+      // Leave (new tree), come back: the third wrong answer still locks.
+      await tester.pumpWidget(const SizedBox());
+      await tester.pumpWidget(gate());
+      expect(find.text('Chờ vài giây rồi thử lại'), findsNothing);
+      await wrong();
+      expect(timers, hasLength(1));
+      expect(find.text('Chờ vài giây rồi thử lại'), findsOneWidget);
+
+      // Leave and come back while locked: still locked, even for 9.
+      await tester.pumpWidget(const SizedBox());
+      await tester.pumpWidget(gate());
+      expect(find.text('Chờ vài giây rồi thử lại'), findsOneWidget);
+      await tester.tap(
+        find.byKey(const ValueKey('key-9')),
+        warnIfMissed: false,
+      );
+      await tester.tap(
+        find.byKey(const ValueKey('key-ok')),
+        warnIfMissed: false,
+      );
+      await tester.pump();
+      expect(find.text('S'), findsNothing);
+
+      timers.single.fire();
+      await tester.pump();
+      expect(find.text('Chờ vài giây rồi thử lại'), findsNothing);
+      await _tapDigits(tester, '9');
+      await tester.tap(find.byKey(const ValueKey('key-ok')));
+      await tester.pumpAndSettle();
+      expect(find.text('S'), findsOneWidget);
+      expect(lockout.wrongCount, 0);
+    });
+
+    testWidgets('key border has at least 3:1 contrast with surface and '
+        'background', (tester) async {
+      await tester.pumpWidget(
+        _app(ParentGate(rng: _FixedRandom(0), child: const Text('S'))),
+      );
+      final key = tester.widget<FilledButton>(
+        find.byKey(const ValueKey('key-5')),
+      );
+      final side = key.style!.side!.resolve(<WidgetState>{})!;
+      final fill = key.style!.backgroundColor!.resolve(<WidgetState>{})!;
+      final theme = AppTheme.dark();
+      final page = theme.scaffoldBackgroundColor;
+      expect(fill, theme.colorScheme.surface);
+      expect(_contrast(side.color, fill), greaterThanOrEqualTo(3));
+      expect(_contrast(side.color, page), greaterThanOrEqualTo(3));
+    });
+
     testWidgets('icon keys have semantic labels', (tester) async {
       await tester.pumpWidget(
         _app(ParentGate(rng: _FixedRandom(0), child: const Text('S'))),
@@ -244,6 +330,23 @@ void main() {
       tester.semantics.tap(find.semantics.byLabel('Giảm bài lớp 1'));
       await tester.pump();
       expect(store.currentUnit(1), 1);
+      h.dispose();
+    });
+
+    testWidgets('stepper buttons show a tooltip yet stay one semantic node', (
+      tester,
+    ) async {
+      final h = tester.ensureSemantics();
+      await tester.pumpWidget(settings());
+      expect(find.byTooltip('Tăng bài lớp 1'), findsOneWidget);
+      expect(find.byTooltip('Giảm bài lớp 2'), findsOneWidget);
+      // The label is announced once (the tooltip adds no second node)...
+      expect(find.bySemanticsLabel('Tăng bài lớp 1'), findsOneWidget);
+      // ...and a long press shows the visible tooltip text.
+      await tester.longPress(find.byKey(const ValueKey('unit-inc-1')));
+      await tester.pump(const Duration(milliseconds: 100));
+      expect(find.text('Tăng bài lớp 1'), findsOneWidget);
+      await tester.pump(const Duration(seconds: 3));
       h.dispose();
     });
 

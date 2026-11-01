@@ -12,20 +12,75 @@ class GateQuestion {
   int get answer => a * b;
 }
 
+/// Wrong-answer count and lockout of the [ParentGate]. Owned by whoever opens
+/// the gate (the app), not by the widget State, so leaving and re-entering the
+/// gate cannot be used to reset the count or skip a running lockout.
+class GateLockout extends ChangeNotifier {
+  GateLockout({this.timerFactory = Timer.new});
+
+  /// Wrong answers allowed before a lockout.
+  static const maxWrong = 3;
+  static const duration = Duration(seconds: 5);
+
+  /// Injectable for tests.
+  final Timer Function(Duration, void Function()) timerFactory;
+
+  int _wrongCount = 0;
+  bool _locked = false;
+  Timer? _timer;
+  bool _disposed = false;
+
+  int get wrongCount => _wrongCount;
+  bool get locked => _locked;
+
+  /// Registers a wrong answer; the [maxWrong]th starts the lockout.
+  void recordWrong() {
+    if (_disposed || _locked) return;
+    _wrongCount++;
+    if (_wrongCount >= maxWrong) {
+      _locked = true;
+      _wrongCount = 0;
+      _timer = timerFactory(duration, () {
+        _timer = null;
+        if (_disposed) return;
+        _locked = false;
+        notifyListeners();
+      });
+    }
+    notifyListeners();
+  }
+
+  /// A right answer clears the count (never an active lockout).
+  void recordSuccess() {
+    if (_disposed || _locked) return;
+    _wrongCount = 0;
+  }
+
+  @override
+  void dispose() {
+    _disposed = true;
+    _timer?.cancel();
+    super.dispose();
+  }
+}
+
 /// Adult-only gate: a multiplication question answered on a number pad.
 class ParentGate extends StatefulWidget {
   const ParentGate({
     super.key,
     required this.child,
     this.rng,
+    this.lockout,
     this.timerFactory = Timer.new,
   });
 
-  /// Wrong answers allowed before a [lockout].
-  static const maxWrong = 3;
-  static const lockout = Duration(seconds: 5);
+  static const maxWrong = GateLockout.maxWrong;
 
-  /// Injectable for tests (lockout timer).
+  /// Count and lockout shared across visits to the gate. When null the gate
+  /// keeps its own for its lifetime only (built with [timerFactory]).
+  final GateLockout? lockout;
+
+  /// Lockout timer of the gate's own [GateLockout] (tests).
   final Timer Function(Duration, void Function()) timerFactory;
 
   final Widget child;
@@ -43,9 +98,11 @@ class _ParentGateState extends State<ParentGate>
     with SingleTickerProviderStateMixin {
   late final Random _rng = widget.rng ?? Random();
   late GateQuestion _q = ParentGate.questionFor(_rng);
-  Timer? _lockTimer;
-  int _wrongCount = 0;
-  bool _locked = false;
+  GateLockout? _ownLockout;
+  GateLockout get _lock =>
+      widget.lockout ??
+      (_ownLockout ??= GateLockout(timerFactory: widget.timerFactory));
+  bool get _locked => _lock.locked;
   late final AnimationController _shake = AnimationController(
     vsync: this,
     duration: const Duration(milliseconds: 600), // 1.5 cycles: < 3 Hz
@@ -55,28 +112,43 @@ class _ParentGateState extends State<ParentGate>
   bool _wrong = false;
 
   @override
+  void initState() {
+    super.initState();
+    _lock.addListener(_onLock);
+  }
+
+  @override
+  void didUpdateWidget(ParentGate old) {
+    super.didUpdateWidget(old);
+    if (old.lockout != widget.lockout) {
+      (old.lockout ?? _ownLockout)?.removeListener(_onLock);
+      _lock.addListener(_onLock);
+    }
+  }
+
+  void _onLock() {
+    if (mounted) setState(() {});
+  }
+
+  @override
   void dispose() {
-    _lockTimer?.cancel();
+    _lock.removeListener(_onLock);
+    _ownLockout?.dispose();
     _shake.dispose();
     super.dispose();
   }
 
   void _submit() {
+    if (_locked) return;
     if (_entry == '${_q.answer}') {
+      _lock.recordSuccess();
       setState(() => _open = true);
     } else {
-      _wrongCount++;
+      _lock.recordWrong();
       setState(() {
         _wrong = true;
         _entry = '';
         _q = ParentGate.questionFor(_rng);
-        if (_wrongCount >= ParentGate.maxWrong) {
-          _locked = true;
-          _wrongCount = 0;
-          _lockTimer = widget.timerFactory(ParentGate.lockout, () {
-            if (mounted) setState(() => _locked = false);
-          });
-        }
       });
       _shake.forward(from: 0);
     }

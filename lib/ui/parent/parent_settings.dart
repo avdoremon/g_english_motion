@@ -32,6 +32,26 @@ class _ParentSettingsState extends State<ParentSettings> {
     setState(() {});
   }
 
+  /// One semantics node (label + tap) with a visible tooltip: the Tooltip's
+  /// own semantics are excluded so the label is not announced twice.
+  Widget _stepper({
+    required String label,
+    required Key key,
+    required IconData icon,
+    required VoidCallback onPressed,
+  }) {
+    return MergeSemantics(
+      child: Semantics(
+        label: label,
+        child: Tooltip(
+          message: label,
+          excludeFromSemantics: true,
+          child: IconButton(key: key, icon: Icon(icon), onPressed: onPressed),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final t = Theme.of(context).textTheme;
@@ -52,25 +72,17 @@ class _ParentSettingsState extends State<ParentSettings> {
                     style: t.titleMedium,
                   ),
                 ),
-                MergeSemantics(
-                  child: Semantics(
-                    label: 'Giảm bài lớp $g',
-                    child: IconButton(
-                      key: ValueKey('unit-dec-$g'),
-                      icon: const Icon(Icons.remove),
-                      onPressed: () => _setUnit(g, _s.currentUnit(g) - 1),
-                    ),
-                  ),
+                _stepper(
+                  label: 'Giảm bài lớp $g',
+                  key: ValueKey('unit-dec-$g'),
+                  icon: Icons.remove,
+                  onPressed: () => _setUnit(g, _s.currentUnit(g) - 1),
                 ),
-                MergeSemantics(
-                  child: Semantics(
-                    label: 'Tăng bài lớp $g',
-                    child: IconButton(
-                      key: ValueKey('unit-inc-$g'),
-                      icon: const Icon(Icons.add),
-                      onPressed: () => _setUnit(g, _s.currentUnit(g) + 1),
-                    ),
-                  ),
+                _stepper(
+                  label: 'Tăng bài lớp $g',
+                  key: ValueKey('unit-inc-$g'),
+                  icon: Icons.add,
+                  onPressed: () => _setUnit(g, _s.currentUnit(g) + 1),
                 ),
               ],
             ),

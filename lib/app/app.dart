@@ -192,8 +192,13 @@ class _RootState extends State<_Root> {
   (int, int)? _afterSafety;
   Future<void> _closing = Future<void>.value();
 
+  /// Owned by the app session so re-entering the parent area cannot reset
+  /// the wrong-answer count or skip a running lockout.
+  final GateLockout _gateLockout = GateLockout();
+
   @override
   void dispose() {
+    _gateLockout.dispose();
     _ctl?.dispose();
     super.dispose();
   }
@@ -320,6 +325,7 @@ class _RootState extends State<_Root> {
           ),
           body: SafeArea(
             child: ParentGate(
+              lockout: _gateLockout,
               child: ParentSettings(
                 store: _d.store,
                 grades: const [1, 2],
