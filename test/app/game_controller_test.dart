@@ -3,7 +3,9 @@ import 'package:g_english_motion/app/game_controller.dart';
 import 'package:g_english_motion/audio/voice_lines.dart';
 import 'package:g_english_motion/content/question_models.dart';
 import 'package:g_english_motion/input/game_input_event.dart';
+import 'package:g_english_motion/content/curriculum.dart';
 import 'package:g_english_motion/input/pose_frame_source.dart';
+import 'package:g_english_motion/levels/level_config.dart';
 import 'package:g_english_motion/modes/round.dart';
 import 'package:g_english_motion/session/level_session.dart';
 
@@ -252,5 +254,149 @@ void main() {
       expect(done, isTrue);
       await h.run(const Duration(seconds: 1));
     });
+  });
+
+  group('fix round 1', () {
+    Future<void> lostFound() async {
+      final sub = c().events.listen((e) {
+        if (e is PlayerLost) c().session!.pause();
+        if (e is PlayerFound) c().session!.resume();
+      });
+      addTearDown(sub.cancel);
+      await inject(const PlayerLost(at: Duration.zero));
+      await inject(const PlayerFound(at: Duration.zero));
+    }
+
+    test(
+      'pause/resume during correct feedback: no second score or line',
+      () async {
+        await playing();
+        await h.answerInLane(correctIndex());
+        expect(c().session!.phase, SessionPhase.feedback);
+        await lostFound();
+        expect(c().session!.phase, SessionPhase.feedback);
+        expect(c().score, 100);
+        expect(c().session!.correctCount, 1);
+        expect(h.captions.where(_correctLines.contains), hasLength(1));
+      },
+    );
+
+    test(
+      'pause/resume during wrong feedback: tryAgain and explain once',
+      () async {
+        await playing();
+        await h.answerInLane((correctIndex() + 1) % 3);
+        await lostFound();
+        expect(
+          h.captions.where((x) => x == VoiceLine.tryAgain.caption),
+          hasLength(1),
+        );
+        expect(
+          h.captions.where((x) => x == VoiceLine.theAnswerIs.caption),
+          hasLength(1),
+        );
+        expect(c().score, 0);
+      },
+    );
+
+    test('score is derived from the session (first attempts only)', () async {
+      await playing();
+      await inject(Confirmed(correctIndex(), at: Duration.zero));
+      expect(c().session!.correctCount, 1);
+      expect(c().score, 100);
+    });
+
+    test(
+      'finishing stops the camera and pose session before dispose',
+      () async {
+        await playing();
+        for (var i = 0; i < 8; i++) {
+          await inject(Confirmed(correctIndex(), at: Duration.zero));
+          await h.run(const Duration(milliseconds: 2700));
+        }
+        await pumpEventQueue();
+        expect(c().phase, GamePhase.finished);
+        expect(h.source.stopped, isTrue);
+        expect(h.frames.hasListener, isFalse);
+      },
+    );
+
+    test('dispose during a long tryAgain never explains the answer', () async {
+      h = await GameHarness.create(hangClip: VoiceLine.tryAgain.assetPath);
+      await h.startAndCalibrate();
+      await h.answerInLane((correctIndex() + 1) % 3);
+      expect(h.captions, contains(VoiceLine.tryAgain.caption));
+      c().dispose();
+      await c().closed;
+      await pumpEventQueue();
+      expect(h.captions, isNot(contains(VoiceLine.theAnswerIs.caption)));
+    });
+
+    test('start twice does not leak a second frame subscription', () async {
+      h = await GameHarness.create();
+      final a = c().start(h.source);
+      final b = c().start(h.source);
+      await pumpEventQueue();
+      expect(await b, await a);
+      await h.startAndCalibrate();
+      expect(await c().start(h.source), PermissionOutcome.granted);
+      expect(c().phase, GamePhase.playing);
+    });
+
+    test(
+      'ticks only ping the HUD listenable, not the main listeners',
+      () async {
+        await playing();
+        var main = 0, hud = 0;
+        c().addListener(() => main++);
+        c().hudTick.addListener(() => hud++);
+        await h.run(const Duration(seconds: 1));
+        expect(main, 0);
+        expect(hud, greaterThan(20));
+      },
+    );
+
+    test('a jump 200 ms into a question is ignored (first 500 ms)', () async {
+      await playing();
+      await h.jump();
+      expect(c().session!.lastResult, isNull);
+      expect(c().session!.phase, SessionPhase.playing);
+      // After the grace period and a rest, a jump counts.
+      await h.run(const Duration(seconds: 2));
+      await h.jump();
+      expect(c().session!.lastResult, isNotNull);
+    });
+
+    test(
+      'events of a frame are applied before the tick that follows it',
+      () async {
+        // Dry run: how much round time passes until the jump confirms?
+        await playing();
+        await h.answerInLane(
+          correctIndex(),
+          stopWhen: () => c().session!.lastResult != null,
+        );
+        final r = c().session!.round;
+        final used = const Duration(seconds: 20) - r.remaining;
+        expect(c().session!.lastResult, RoundResult.correct);
+        await h.dispose();
+
+        // Same run with a time limit that expires at the tick right after the
+        // confirming frame: the answer must win over the timeout.
+        h = await GameHarness.create(
+          level: LevelConfig(
+            level: 1,
+            questionCount: 8,
+            baseTime: used + const Duration(milliseconds: 33),
+            choiceCount: 3,
+            hints: HintMode.full,
+            window: UnitWindow.current,
+          ),
+        );
+        await h.startAndCalibrate();
+        await h.answerInLane(correctIndex());
+        expect(c().session!.lastResult, RoundResult.correct);
+      },
+    );
   });
 }

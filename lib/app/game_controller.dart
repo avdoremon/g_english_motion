@@ -117,7 +117,6 @@ class GameController extends ChangeNotifier {
   StreamController<PoseFrame>? _poseFrames;
   List<PlannedQuestion> _plan = const [];
 
-  int _score = 0;
   int _selectedLane = 0;
   Duration _now = Duration.zero;
   Duration? _lastTick;
@@ -131,11 +130,27 @@ class GameController extends ChangeNotifier {
   bool _promptPending = false;
   Duration _promptStartedAt = Duration.zero;
 
+  PlannedQuestion? _fedBack;
+  bool _fedBackReview = false;
+  PlannedQuestion? _roundStarted;
+  bool _roundStartedReview = false;
+  Duration _lastFrameTs = Duration.zero;
+  Future<PermissionOutcome>? _startFuture;
+  Future<void>? _inputStopped;
+
+  /// First moments of each question: jumps are ignored (spec: 500 ms).
+  static const confirmGrace = Duration(milliseconds: 500);
+
   SessionPhase? _lastSessionPhase;
   bool _disposed = false;
   bool _finishHandled = false;
   Future<void> _persisted = Future<void>.value();
   Future<void> _closed = Future<void>.value();
+
+  /// Pinged on every ticker event while playing (timer ring only), so the
+  /// 60 Hz tick does not rebuild the whole screen.
+  final _Pulse _hud = _Pulse();
+  ChangeNotifier get hudTick => _hud;
 
   GamePhase get phase => _phase;
 
@@ -147,8 +162,9 @@ class GameController extends ChangeNotifier {
   /// Result of the finished level (null while playing).
   LevelOutcome? get outcome => _outcome;
 
-  /// Points earned so far (first-attempt correct answers only).
-  int get score => _score;
+  /// Points earned so far: derived from the session's first-attempt correct
+  /// count, so pause/resume or reviews can never double count.
+  int get score => Scoring.points(_session?.correctCount ?? 0);
 
   /// Lane the player currently stands in (live, also while the question is
   /// being read aloud).
@@ -171,8 +187,15 @@ class GameController extends ChangeNotifier {
   /// With no lessons for the grade nothing is started and the phase becomes
   /// [GamePhase.noContent] (the returned outcome is then `granted` only
   /// because the camera was never asked).
-  Future<PermissionOutcome> start(PoseFrameSource source) async {
-    if (_disposed) return PermissionOutcome.denied;
+  Future<PermissionOutcome> start(PoseFrameSource source) {
+    if (_disposed) return Future.value(PermissionOutcome.denied);
+    // Already starting/running: never subscribe to the frames twice.
+    return _startFuture ??= _start(source).whenComplete(() {
+      if (_phase == GamePhase.permissionDenied) _startFuture = null;
+    });
+  }
+
+  Future<PermissionOutcome> _start(PoseFrameSource source) async {
     _source = source;
     _plan = QuestionGenerator(_repo, _store, _rng).plan(
       level: level,
@@ -209,6 +232,7 @@ class GameController extends ChangeNotifier {
   void _onFrame(PoseFrame f) {
     if (_disposed) return;
     _lastFrameAt = _now;
+    _lastFrameTs = f.timestamp;
     if (_phase == GamePhase.calibrating) {
       final p = _calibrator!.add(f);
       _calibrationProgress = p;
@@ -317,7 +341,9 @@ class GameController extends ChangeNotifier {
     }
     s.tick(dt);
     _afterSessionChange();
-    if (s.phase == SessionPhase.playing) notifyListeners();
+    if (s.phase == SessionPhase.playing && !_disposed) {
+      _hud.ping();
+    }
   }
 
   // ---- session reactions ----
@@ -329,11 +355,28 @@ class GameController extends ChangeNotifier {
     final now = s.phase;
     _lastSessionPhase = now;
     if (now == SessionPhase.prompting) _maybePrompt(s);
-    if (now == SessionPhase.feedback && before != SessionPhase.feedback) {
+    if (now == SessionPhase.playing) _maybeStartRound(s);
+    // Once per question: feedback -> paused -> feedback (player lost, app
+    // backgrounded) must not award or speak a second time.
+    if (now == SessionPhase.feedback &&
+        !(identical(_fedBack, s.current) && _fedBackReview == s.isReview)) {
+      _fedBack = s.current;
+      _fedBackReview = s.isReview;
       _onFeedback(s);
     }
     if (now == SessionPhase.finished && !_finishHandled) _onFinished(s);
     if (before != now) notifyListeners();
+  }
+
+  void _maybeStartRound(LevelSession s) {
+    if (identical(_roundStarted, s.current) &&
+        _roundStartedReview == s.isReview) {
+      return;
+    }
+    _roundStarted = s.current;
+    _roundStartedReview = s.isReview;
+    // PoseSession compares against frame timestamps.
+    _pose?.suppressConfirmUntil(_lastFrameTs + confirmGrace);
   }
 
   void _maybePrompt(LevelSession s) {
@@ -363,7 +406,6 @@ class GameController extends ChangeNotifier {
   void _onFeedback(LevelSession s) {
     final result = s.lastResult;
     if (result == RoundResult.correct) {
-      if (!s.isReview) _score += Scoring.points(1);
       final line = [
         VoiceLine.correct1,
         VoiceLine.correct2,
@@ -377,10 +419,11 @@ class GameController extends ChangeNotifier {
 
   Future<void> _explain(Question q) async {
     await _audio.playLine(VoiceLine.tryAgain);
-    if (q is! ChoiceQuestion) return;
+    // Left the screen meanwhile: never speak on the next one.
+    if (_disposed || q is! ChoiceQuestion) return;
     try {
       final correct = _repo.byId(q.choices[q.correctIndex].itemId);
-      await _audio.explainAnswer(correct);
+      if (!_disposed) await _audio.explainAnswer(correct);
     } on StateError {
       // Unknown id: the tryAgain line alone is fine.
     }
@@ -403,7 +446,27 @@ class GameController extends ChangeNotifier {
       await s.historyWritten;
     }();
     _setPhase(GamePhase.finished);
+    // Nothing more to see: release the camera (privacy, battery).
+    unawaited(_stopInput());
   }
+
+  /// Stops frames, pose tracking and the camera, once.
+  Future<void> _stopInput() => _inputStopped ??= () async {
+    // Release the camera first; the local clean-up runs alongside.
+    final camera = () async {
+      try {
+        await _source?.stop();
+      } catch (_) {}
+    }();
+    // Cancelling/closing takes effect synchronously; the returned futures are
+    // deliberately not awaited (they add nothing and can stall under
+    // FakeAsync).
+    unawaited(_frameSub?.cancel());
+    unawaited(_poseSub?.cancel());
+    unawaited(_pose?.dispose());
+    unawaited(_poseFrames?.close());
+    await camera;
+  }();
 
   void _setPhase(GamePhase p) {
     _phase = p;
@@ -420,20 +483,19 @@ class GameController extends ChangeNotifier {
   }
 
   Future<void> _shutdown(LevelSession? session) async {
-    await _tickSub?.cancel();
-    await _frameSub?.cancel();
-    await _poseSub?.cancel();
-    await _pose?.dispose();
-    await _poseFrames?.close();
-    // Drop whatever is still being said and let the next screen speak.
-    _audio.muteForListening();
-    _audio.restoreAfterListening();
-    try {
-      await _source?.stop();
-    } catch (_) {}
-    await _events.close();
+    unawaited(_tickSub?.cancel());
+    // Drop whatever is still being said; the audio stays usable for the
+    // next screen (not muted).
+    _audio.cancelAll();
+    await _stopInput();
+    unawaited(_events.close());
+    _hud.dispose();
     try {
       await _persisted;
     } catch (_) {}
   }
+}
+
+class _Pulse extends ChangeNotifier {
+  void ping() => notifyListeners();
 }

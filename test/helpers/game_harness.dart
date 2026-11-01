@@ -36,8 +36,17 @@ class HarnessTts implements SpeechEngine {
 }
 
 class HarnessClips implements ClipPlayer {
+  HarnessClips({this.hangPath});
+
+  /// Playing this asset never completes on its own (only stop() ends it).
+  final String? hangPath;
+  final _gate = Completer<bool>();
   @override
-  Future<bool> play(String assetPath) async => false;
+  Future<bool> play(String assetPath) async {
+    if (assetPath == hangPath) return _gate.future;
+    return false;
+  }
+
   @override
   Future<void> stop() async {}
   @override
@@ -99,20 +108,21 @@ class GameHarness {
     bool withContent = true,
     PermissionOutcome permission = PermissionOutcome.granted,
     bool hangTts = false,
+    String? hangClip,
     LevelConfig level = harnessLevel,
+    FakePoseFrameSource Function(Stream<PoseFrame>)? sourceFor,
   }) async {
     SharedPreferences.setMockInitialValues({});
     final store = ProgressStore(await SharedPreferences.getInstance());
     final frames = StreamController<PoseFrame>(sync: true);
-    final source = FakePoseFrameSource.fromStream(
-      frames.stream,
-      outcome: permission,
-    );
+    final source =
+        sourceFor?.call(frames.stream) ??
+        FakePoseFrameSource.fromStream(frames.stream, outcome: permission);
     final ttsLog = <String>[];
     final audio = AudioService(
       HarnessTts(ttsLog, hang: hangTts),
-      HarnessClips(),
-      assetExists: (_) => false,
+      HarnessClips(hangPath: hangClip),
+      assetExists: (p) => p == hangClip,
       speechTimeout: const Duration(seconds: 30),
       clipTimeout: const Duration(seconds: 30),
     );
@@ -172,6 +182,7 @@ class GameHarness {
     Duration d, {
     bool withFrames = true,
     Pose Function(Duration since)? pose,
+    bool Function()? stopWhen,
   }) async {
     var spent = Duration.zero;
     while (spent < d) {
@@ -180,6 +191,10 @@ class GameHarness {
       _elapsed += _step;
       if (withFrames) {
         frames.add(PoseFrame([pose != null ? pose(spent) : standing()], _t));
+        // Like production: a frame's events are delivered (microtask)
+        // before the ticker's next event.
+        await pumpEventQueue(times: 1);
+        if (stopWhen?.call() ?? false) return;
       }
       tickCtl.add(_elapsed);
       await pumpEventQueue(times: 2);
@@ -193,7 +208,7 @@ class GameHarness {
     final out = await fut;
     if (out != PermissionOutcome.granted) return out;
     lane = 1;
-    for (var i = 0; i < 75; i++) {
+    for (var i = 0; i < 75 && controller.phase == GamePhase.calibrating; i++) {
       _t += _step;
       frames.add(PoseFrame([makePose()], _t));
       await pumpEventQueue(times: 1);
@@ -202,20 +217,27 @@ class GameHarness {
     return out;
   }
 
-  /// Walks to [l], stands still, then jumps once.
-  Future<void> answerInLane(int l) async {
-    lane = l;
-    await run(const Duration(milliseconds: 1500));
+  Pose jumpPose(Duration since) {
     const air = Duration(milliseconds: 500);
-    await run(
-      const Duration(milliseconds: 700),
-      pose: (since) => standing(
-        lift: since < air
-            ? 0.06 *
-                  math.sin(math.pi * since.inMicroseconds / air.inMicroseconds)
-            : 0,
-      ),
+    return standing(
+      lift: since < air
+          ? 0.06 * math.sin(math.pi * since.inMicroseconds / air.inMicroseconds)
+          : 0,
     );
+  }
+
+  /// Jumps in place (no walking).
+  Future<void> jump({bool Function()? stopWhen}) => run(
+    const Duration(milliseconds: 700),
+    pose: jumpPose,
+    stopWhen: stopWhen,
+  );
+
+  /// Walks to [l], stands still, then jumps once.
+  Future<void> answerInLane(int l, {bool Function()? stopWhen}) async {
+    lane = l;
+    await run(const Duration(milliseconds: 1500), stopWhen: stopWhen);
+    await jump(stopWhen: stopWhen);
   }
 
   Future<void> dispose() async {
