@@ -28,7 +28,7 @@ Unit _unit(
   return Unit(
     grade: grade,
     index: index,
-    id: p,
+    id: 'u${index.toString().padLeft(2, '0')}',
     title: p,
     items: [
       for (var i = 0; i < count; i++)
@@ -308,7 +308,7 @@ void main() {
         Unit(
           grade: 1,
           index: 2,
-          id: 'g1u2',
+          id: 'u02',
           title: 'g1u2',
           items: [
             for (var i = 0; i < 10; i++)

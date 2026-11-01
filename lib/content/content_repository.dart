@@ -12,8 +12,12 @@ typedef AssetLister = Future<List<String>> Function(AssetBundle bundle);
 Future<List<String>> _manifestAssets(AssetBundle b) async =>
     (await AssetManifest.loadFromAssetBundle(b)).listAssets();
 
+/// All shipped content. Item `image` values are paths relative to
+/// `assets/images/` (e.g. `grade1/ball.png` is `assets/images/grade1/ball.png`).
 class ContentRepository {
-  /// Validates global id uniqueness and that every distractor id exists.
+  /// Validates that (grade, index) pairs are unique, that each unit id
+  /// matches its index (`u` + index padded to 2 digits, e.g. `u03` for 3),
+  /// global item id uniqueness, and that every distractor id exists.
   ContentRepository(List<Unit> units, {Map<Unit, String> sources = const {}})
     : _units = List.unmodifiable(units),
       _byId = _index(units, sources);
@@ -27,8 +31,25 @@ class ContentRepository {
   ) {
     final map = <String, ContentItem>{};
     final origin = <String, String>{};
+    final unitOrigin = <(int, int), String>{};
     for (final u in units) {
       final src = sources[u] ?? 'unit ${u.id} (grade ${u.grade})';
+      final expectedId = 'u${u.index.toString().padLeft(2, '0')}';
+      if (u.id != expectedId) {
+        throw ArgumentError(
+          'Unit id "${u.id}" in $src does not match its index ${u.index} '
+          '(grade ${u.grade}); expected "$expectedId"',
+        );
+      }
+      final key = (u.grade, u.index);
+      final first = unitOrigin[key];
+      if (first != null) {
+        throw ArgumentError(
+          'Duplicate unit (grade ${u.grade}, index ${u.index}) in $src '
+          '(first in $first)',
+        );
+      }
+      unitOrigin[key] = src;
       for (final it in u.items) {
         if (map.containsKey(it.id)) {
           throw ArgumentError(

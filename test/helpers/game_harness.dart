@@ -105,7 +105,7 @@ Unit harnessUnit({
   return Unit(
     grade: grade,
     index: index,
-    id: p,
+    id: 'u${index.toString().padLeft(2, '0')}',
     title: p,
     items: [
       for (var i = 0; i < count; i++)
