@@ -265,7 +265,9 @@ class GameController extends ChangeNotifier {
       return;
     }
     if (_phase != GamePhase.playing) return;
-    if (_watchdogLost) {
+    // After a watchdog Lost, only a frame that actually shows someone ends
+    // it: an empty frame would make PoseSession report Lost right after.
+    if (_watchdogLost && f.poses.any((p) => p.midHipX != null)) {
       _watchdogLost = false;
       _setLost(false, PlayerFound(at: f.timestamp));
     }
@@ -353,6 +355,11 @@ class GameController extends ChangeNotifier {
 
   void _onPoseEvent(GameInputEvent e) {
     if (_disposed) return;
+    // The watchdog and PoseSession can both report presence changes: only
+    // real changes of the shared state get through (never Lost twice, never
+    // Found while present).
+    if (e is PlayerLost && _lost) return;
+    if (e is PlayerFound && !_lost) return;
     _dispatch(e);
   }
 
@@ -407,7 +414,7 @@ class GameController extends ChangeNotifier {
         !_lost &&
         _now - _lastFrameAt >= frameWatchdog) {
       _watchdogLost = true;
-      _setLost(true, PlayerLost(at: elapsed));
+      _setLost(true, PlayerLost(at: _lastFrameTs));
     }
     s.tick(dt);
     _afterSessionChange();

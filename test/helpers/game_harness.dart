@@ -207,6 +207,9 @@ class GameHarness {
   Duration _elapsed = Duration.zero;
   int lane = 1;
 
+  /// Timestamp of the most recent synthetic frame.
+  Duration get lastFrameAt => _t;
+
   static const _step = Duration(milliseconds: 33);
 
   /// Hip x that puts the (mirrored) player in [l] of [n] lanes.
@@ -228,6 +231,7 @@ class GameHarness {
     Duration d, {
     bool withFrames = true,
     Pose Function(Duration since)? pose,
+    List<Pose> Function(Duration since)? poses,
     bool Function()? stopWhen,
   }) async {
     var spent = Duration.zero;
@@ -236,7 +240,14 @@ class GameHarness {
       _t += _step;
       _elapsed += _step;
       if (withFrames) {
-        frames.add(PoseFrame([pose != null ? pose(spent) : standing()], _t));
+        frames.add(
+          PoseFrame(
+            poses != null
+                ? poses(spent)
+                : [pose != null ? pose(spent) : standing()],
+            _t,
+          ),
+        );
         // Like production: a frame's events are delivered (microtask)
         // before the ticker's next event.
         await pumpEventQueue(times: 1);

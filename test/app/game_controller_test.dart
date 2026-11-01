@@ -251,6 +251,39 @@ void main() {
     );
   });
 
+  group('frame watchdog', () {
+    test(
+      'synthetic Lost/Found carry pose-frame timestamps, never contradict',
+      () async {
+        await playing();
+        final seen = <GameInputEvent>[];
+        final sub = c().events.listen((e) {
+          if (e is PlayerLost || e is PlayerFound) seen.add(e);
+        });
+        addTearDown(sub.cancel);
+        await h.run(const Duration(milliseconds: 500));
+        final lastFrame = h.lastFrameAt;
+
+        // Camera stalls: no frames, the ticker keeps going.
+        await h.run(const Duration(seconds: 4), withFrames: false);
+        expect(seen.map((e) => e.runtimeType), [PlayerLost]);
+        expect(seen.single.at, lastFrame, reason: 'frame clock, not ticker');
+
+        // Frames resume but nobody is in them: still lost, no Found, and the
+        // pose session's own Lost (same frame) is not repeated.
+        await h.run(const Duration(seconds: 1), poses: (_) => const []);
+        expect(seen.map((e) => e.runtimeType), [PlayerLost]);
+
+        // The player returns: exactly one Found, stamped with that frame.
+        await h.run(const Duration(milliseconds: 100));
+        expect(seen.map((e) => e.runtimeType), [PlayerLost, PlayerFound]);
+        expect(seen.last.at, lessThanOrEqualTo(h.lastFrameAt));
+        expect(seen.last.at, greaterThan(lastFrame));
+        expect(c().session!.phase, isNot(SessionPhase.finished));
+      },
+    );
+  });
+
   group('answers', () {
     test('correct lane + jump: correct line, score 100, no tryAgain', () async {
       await playing();
