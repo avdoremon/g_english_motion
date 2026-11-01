@@ -235,6 +235,27 @@ void main() {
     },
   );
 
+  test('cancelAll with nothing in flight does not block later audio', () async {
+    existing.add(VoiceLine.welcome.assetPath);
+    svc.cancelAll();
+    await svc.sayEnglish('ball');
+    await svc.playLine(VoiceLine.welcome);
+    expect(log, [
+      'tts.stop',
+      'clip.stop',
+      'tts:ball',
+      'tts-end:ball',
+      'clip:${VoiceLine.welcome.assetPath}',
+    ]);
+    // Same after a mute/restore cycle with nothing playing.
+    svc.muteForListening();
+    svc.restoreAfterListening();
+    log.clear();
+    await svc.sayEnglish('ball');
+    expect(log, contains('tts:ball'));
+    expect(log, contains('tts-end:ball'));
+  });
+
   test('caption is emitted BEFORE the audio call', () async {
     existing.add('assets/audio/en/g1u01-ball.m4a');
     svc.captions.listen((c) => log.add('cap:$c'));
