@@ -231,4 +231,98 @@ void main() {
       },
     );
   });
+
+  group('time-based behaviour at 15 fps (single-pose plugin)', () {
+    List<int> run(JumpDetector d, List<PoseFrame> frames) => [
+      for (final f in frames)
+        if (d.update(f.poses.first, f.timestamp)) f.timestamp.inMilliseconds,
+    ];
+
+    /// Lift(t) in seconds -> frames at [fps].
+    List<PoseFrame> lifts(
+      double seconds,
+      double Function(double t) lift, {
+      int fps = 15,
+      Duration start = Duration.zero,
+    }) => poseSequence(
+      duration: Duration(milliseconds: (seconds * 1000).round()),
+      fps: fps,
+      start: start,
+      posesAt: (t) => [lifted(lift((t - start).inMicroseconds / 1e6))],
+    );
+
+    for (final fps in [15, 30]) {
+      test('rise 0.04 in 0.15 s fires exactly once @ $fps fps', () {
+        final d = JumpDetector(cal);
+        double lift(double t) {
+          if (t < 1.5) return 0;
+          if (t < 1.65) return 0.04 * (t - 1.5) / 0.15;
+          if (t < 2.0) return 0.04;
+          return 0;
+        }
+
+        expect(run(d, lifts(3.5, lift, fps: fps)), hasLength(1));
+      });
+
+      test('slow walk toward the camera (0.02/s for 3 s), then standing, '
+          'never fires @ $fps fps', () {
+        final d = JumpDetector(cal);
+        // 1 s rest, 3 s drift (total 0.06 > threshold 0.036), 4 s standing.
+        double drift(double t) => t < 1 ? 0 : (t < 4 ? 0.02 * (t - 1) : 0.06);
+        expect(run(d, lifts(8, drift, fps: fps)), isEmpty);
+      });
+
+      test('slow walk away (-0.02/s) never fires @ $fps fps', () {
+        final d = JumpDetector(cal);
+        double drift(double t) => t < 1 ? 0 : (t < 4 ? -0.02 * (t - 1) : -0.06);
+        expect(run(d, lifts(8, drift, fps: fps)), isEmpty);
+      });
+
+      test('real jump after a slow walk still fires exactly once '
+          '@ $fps fps', () {
+        final d = JumpDetector(cal);
+        double drift(double t) => t < 1 ? 0 : (t < 4 ? 0.02 * (t - 1) : 0.06);
+        expect(run(d, lifts(7, drift, fps: fps)), isEmpty);
+        final jump = lifts(
+          2,
+          (t) => 0.06 + (t < 0.15 ? 0.04 * t / 0.15 : (t < 0.5 ? 0.04 : 0)),
+          fps: fps,
+          start: const Duration(seconds: 7),
+        );
+        expect(run(d, jump), hasLength(1));
+      });
+    }
+
+    test('10 jumps of rise 0.04 (0.5 s airtime) @ 15 fps -> 10 +/- 1', () {
+      final d = JumpDetector(cal);
+      final frames = jumpSequence(jumps: 10, rise: 0.04, fps: 15, noise: 0);
+      expect(run(d, frames).length, inInclusiveRange(9, 11));
+    });
+
+    test('standing with jitter @ 15 fps never fires', () {
+      final d = JumpDetector(cal);
+      final frames = standingSequence(
+        duration: const Duration(seconds: 10),
+        fps: 15,
+        noise: 0.004,
+      );
+      expect(run(d, frames), isEmpty);
+    });
+
+    test('a persistent +0.05 step @ 15 fps re-baselines and a later 0.04 '
+        'jump fires', () {
+      final d = JumpDetector(cal);
+      run(d, lifts(1, (t) => t < 0.5 ? 0 : 0.05));
+      expect(
+        run(d, lifts(3, (_) => 0.05, start: const Duration(seconds: 1))),
+        isEmpty,
+      );
+      final jump = lifts(
+        1,
+        (t) => 0.05 + (t < 0.15 ? 0.04 * t / 0.15 : 0.04),
+        start: const Duration(seconds: 4),
+      );
+      expect(run(d, jump), hasLength(1));
+    });
+  });
 }

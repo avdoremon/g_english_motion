@@ -20,8 +20,23 @@ class JumpDetector {
   static const Duration _stillFor = Duration(seconds: 1);
   static const double _emaTauSeconds = 1.0;
 
-  static const double _stillRangeRatio = 0.35; // of the firing threshold
-  static const Duration _windowSlack = Duration(milliseconds: 50);
+  /// 1 s window range below this fraction of the firing threshold = still:
+  /// full adaptation (EMA tau 1 s, or an immediate re-baseline on a step).
+  static const double _stillRangeRatio = 0.35;
+
+  /// 1 s window range below this fraction = slow drift (e.g. a child walking
+  /// slowly toward the camera, 0.0126..0.025 per second at the default
+  /// threshold). The baseline follows with a faster EMA, but only while the
+  /// lift is below half the threshold, so a real jump's rise is never
+  /// absorbed (a jump moves several times the threshold within a second).
+  static const double _driftRangeRatio = 0.7;
+  static const double _driftTauSeconds = 0.5;
+
+  /// The 1 s window is judged spanned when its oldest sample is at least
+  /// 1 s - slack old. Must exceed the longest expected frame interval
+  /// (the pose plugin delivers ~15 fps, i.e. ~67 ms) so the check does not
+  /// flicker with frame timing.
+  static const Duration _windowSlack = Duration(milliseconds: 100);
 
   double _baseline;
   final List<(Duration, double)> _recent = [];
@@ -50,8 +65,9 @@ class JumpDetector {
 
     // Range-based stillness (independent of frame rate and jitter): over the
     // last ~1 s the peak-to-peak y of the mean (hip, shoulder) stays below a
-    // quarter of the firing threshold. A jump's takeoff/apex moves far more
-    // than that within any 1 s window, so it never counts as still.
+    // 0.35 x the firing threshold. A jump's takeoff/apex moves far more than
+    // that within any 1 s window, so it never counts as still. All windows are
+    // timestamp-based, so the behaviour does not depend on the frame rate.
     _recent.add((t, current));
     while (t - _recent.first.$1 > _stillFor) {
       _recent.removeAt(0);
@@ -62,7 +78,8 @@ class JumpDetector {
       if (e.$2 > hi) hi = e.$2;
     }
     final spansWindow = t - _recent.first.$1 >= _stillFor - _windowSlack;
-    if (spansWindow && hi - lo < _stillRangeRatio * fireAt) {
+    final range = hi - lo;
+    if (spansWindow && range < _stillRangeRatio * fireAt) {
       if (lift.abs() >= half) {
         // Persistent offset (player stepped closer/farther): re-baseline.
         _baseline = current;
@@ -70,6 +87,12 @@ class JumpDetector {
         _baseline += (current - _baseline) * (dt / (_emaTauSeconds + dt));
       }
       _dropped = true; // at rest, so a new jump may start from here
+    } else if (spansWindow &&
+        range < _driftRangeRatio * fireAt &&
+        lift.abs() < half &&
+        dt > 0) {
+      // Slow drift: track it with a faster EMA (sub-half lift only).
+      _baseline += (current - _baseline) * (dt / (_driftTauSeconds + dt));
     }
 
     lift = _baseline - current;
