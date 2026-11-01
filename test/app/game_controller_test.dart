@@ -12,6 +12,7 @@ import 'package:g_english_motion/levels/level_config.dart';
 import 'package:g_english_motion/modes/round.dart';
 import 'package:g_english_motion/session/level_session.dart';
 
+import '../helpers/capture_print.dart';
 import '../helpers/game_harness.dart';
 import '../helpers/synthetic_poses.dart';
 
@@ -84,10 +85,17 @@ void main() {
       () async {
         h = await GameHarness.create(unitSize: 2);
         Object? error;
-        await runZonedGuarded(() async {
-          await h.startAndCalibrate();
-        }, (e, _) => error = e);
+        final printed = <String>[];
+        await captureDebugPrint(printed, () async {
+          await runZonedGuarded(() async {
+            await h.startAndCalibrate();
+          }, (e, _) => error = e);
+        });
         expect(error, isNull);
+        expect(
+          printed.single,
+          startsWith('GameController: planning the level failed'),
+        );
         expect(c().phase, GamePhase.noContent);
         expect(c().session, isNull);
         expect(h.source.started, isFalse);

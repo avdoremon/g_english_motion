@@ -17,6 +17,7 @@ import 'package:g_english_motion/ui/shell/game_shell.dart';
 import 'package:g_english_motion/ui/shell/pose_camera_host.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../helpers/capture_print.dart';
 import '../helpers/game_harness.dart';
 import '../helpers/synthetic_poses.dart';
 
@@ -245,10 +246,17 @@ void main() {
     tester,
   ) async {
     await pumpApp(tester, repo: ContentRepository([harnessUnit(count: 2)]));
-    await tester.tap(find.byKey(const ValueKey('play')));
-    await tester.pump();
-    await tester.pump();
-    await tester.pump();
+    final printed = <String>[];
+    await captureDebugPrint(printed, () async {
+      await tester.tap(find.byKey(const ValueKey('play')));
+      await tester.pump();
+      await tester.pump();
+      await tester.pump();
+    });
+    expect(
+      printed.first,
+      startsWith('GameController: planning the level failed'),
+    );
     expect(tester.takeException(), isNull);
     expect(find.text('Chưa có bài học'), findsOneWidget);
     expect(source.started, isFalse);
@@ -271,11 +279,15 @@ void main() {
         ticker: d.ticker,
       ),
     );
-    await tester.tap(find.byKey(const ValueKey('play')));
-    await tester.pump();
-    await tester.pump();
-    await tester.pump();
-    await tester.pump();
+    final printed = <String>[];
+    await captureDebugPrint(printed, () async {
+      await tester.tap(find.byKey(const ValueKey('play')));
+      await tester.pump();
+      await tester.pump();
+      await tester.pump();
+      await tester.pump();
+    });
+    expect(printed.first, startsWith('Starting the game failed: Bad state'));
     expect(tester.takeException(), isNull);
     expect(find.byKey(const ValueKey('play')), findsOneWidget);
     expect(find.text('Có lỗi rồi, em thử lại sau nhé!'), findsOneWidget);
@@ -526,31 +538,34 @@ void main() {
       tester,
     ) async {
       final printed = <String>[];
-      final oldPrint = debugPrint;
-      debugPrint = (String? m, {int? wrapWidth}) => printed.add(m ?? '');
       final (log, _) = await pumpFlow(
         tester,
         closedMode: mode,
         closeTimeout: const Duration(milliseconds: 300),
       );
-      await tester.tap(find.byKey(const ValueKey('play')));
-      await tester.pump();
-      await tester.pump();
-      await tester.tap(find.byKey(const ValueKey('exit')));
-      await tester.pump();
-      await tester.pump();
-      await tester.tap(find.byKey(const ValueKey('play')));
-      await tester.pump();
-      await tester.pump(const Duration(milliseconds: 100));
-      if (mode == 'hang') {
-        expect(log, isNot(contains('start2')), reason: 'waits for the timeout');
-      }
-      await tester.pump(const Duration(milliseconds: 400));
-      await tester.pump();
-      expect(log.where((e) => e == 'start2'), hasLength(1));
-      // Restored in the body: the binding checks the override at test end,
-      // before tearDown callbacks run.
-      debugPrint = oldPrint;
+      await captureDebugPrint(printed, () async {
+        await tester.tap(find.byKey(const ValueKey('play')));
+        await tester.pump();
+        await tester.pump();
+        await tester.tap(find.byKey(const ValueKey('exit')));
+        await tester.pump();
+        await tester.pump();
+        await tester.tap(find.byKey(const ValueKey('play')));
+        await tester.pump();
+        await tester.pump(const Duration(milliseconds: 100));
+        if (mode == 'hang') {
+          expect(
+            log,
+            isNot(contains('start2')),
+            reason: 'waits for the timeout',
+          );
+        }
+        await tester.pump(const Duration(milliseconds: 400));
+        await tester.pump();
+        expect(log.where((e) => e == 'start2'), hasLength(1));
+        await leave(tester);
+        await tester.pump(const Duration(seconds: 1));
+      });
       if (mode == 'hang') {
         expect(printed, contains('close timed out — possible camera overlap'));
       } else {
@@ -558,10 +573,9 @@ void main() {
           printed.where(
             (m) => m.startsWith('Closing the previous game failed'),
           ),
-          hasLength(1),
+          isNotEmpty,
         );
       }
-      await leave(tester);
     });
   }
 }

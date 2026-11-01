@@ -8,6 +8,8 @@ import 'package:g_english_motion/levels/level_config.dart';
 import 'package:g_english_motion/modes/round.dart';
 import 'package:g_english_motion/session/level_session.dart';
 
+import '../helpers/capture_print.dart';
+
 class FakeRound implements Round {
   FakeRound(this.pq, this.review);
   final PlannedQuestion pq;
@@ -479,14 +481,18 @@ void main() {
   );
 
   test('failing history store does not break the session', () async {
-    final h = Harness(2, h: ThrowingHistory())..session.begin();
-    h.answer(RoundResult.correct);
-    h.answer(RoundResult.wrong);
-    h.answer(RoundResult.wrong);
-    expect(h.session.phase, SessionPhase.finished);
-    final o = h.session.outcome!;
-    expect((o.correct, o.total, o.stars), (1, 2, 1));
-    await h.session.historyWritten; // completes normally
+    final printed = <String>[];
+    await captureDebugPrint(printed, () async {
+      final h = Harness(2, h: ThrowingHistory())..session.begin();
+      h.answer(RoundResult.correct);
+      h.answer(RoundResult.wrong);
+      h.answer(RoundResult.wrong);
+      expect(h.session.phase, SessionPhase.finished);
+      final o = h.session.outcome!;
+      expect((o.correct, o.total, o.stars), (1, 2, 1));
+      await h.session.historyWritten; // completes normally
+    });
+    expect(printed, ['LevelSession: history write failed: Bad state: x']);
   });
 
   test('pause in feedback does not burn feedback time', () {
