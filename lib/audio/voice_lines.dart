@@ -1,15 +1,15 @@
 /// Vietnamese voice lines. Each has a recorded clip (when present) and a
 /// caption that is always shown.
 enum VoiceLine {
-  welcome('Chào mừng bạn! Hãy đứng trước camera nhé'),
+  welcome('Chào mừng em! Hãy đứng trước camera nhé'),
   standStill('Đứng yên một chút nhé'),
   stepBack('Lùi ra xa hơn một chút'),
   correct1('Giỏi quá!'),
   correct2('Đúng rồi, tuyệt vời!'),
-  correct3('Chính xác! Bạn làm tốt lắm!'),
+  correct3('Chính xác! Em làm tốt lắm!'),
   tryAgain('Chưa đúng rồi, thử lại nhé!'),
   theAnswerIs('Đáp án đúng là'),
-  jumpToChoose('Bước vào làn đúng rồi nhảy lên nhé'),
+  jumpToChoose('Đứng vào làn em chọn rồi nhảy lên nhé'),
   raiseHandsToChoose('Giơ hai tay lên để chọn'),
   pullTheRope('Kéo dây thật mạnh nào!'),
   sayTheWord('Hãy đọc to từ này'),
