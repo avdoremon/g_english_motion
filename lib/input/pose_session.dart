@@ -15,6 +15,19 @@ import 'raise_hands_detector.dart';
 /// each frame the pose minimizing |midHipX - lastX| + |torso - lastTorso| is
 /// chosen; frames whose best distance exceeds [_maxTrackDistance] are ignored,
 /// so bystanders (even nearer ones with a larger torso) never steal tracking.
+/// The nearest pose is chosen first; if it is not reliable (e.g. low hip
+/// confidence at takeoff) the frame is doubtful and nobody else is picked.
+/// After [PlayerLost] tracking is re-seeded from the calibration and a wide
+/// gate is used until the player is found again.
+///
+/// Notes for the owner:
+/// - [events] is a broadcast stream: subscribe synchronously after
+///   construction or early events are dropped. It closes when the frame
+///   stream ends or on [dispose]. Errors from the frame stream or from frame
+///   processing are forwarded to it as stream errors.
+/// - [PlayerLost] is frame-driven (500 ms without a valid pose, measured on
+///   frame timestamps). If the source stalls and emits no frames at all, the
+///   owner needs its own watchdog.
 class PoseSession {
   PoseSession(
     Stream<PoseFrame> frames,
@@ -24,15 +37,18 @@ class PoseSession {
     this.minConfidence = 0.5,
   }) : _laneTracker = LaneTracker(calibration, laneCount: laneCount),
        _jump = JumpDetector(calibration),
+       _seedX = calibration.centerX,
+       _seedTorso = calibration.torsoHeight,
        _lastX = calibration.centerX,
        _lastTorso = calibration.torsoHeight {
-    _sub = frames.listen(_onFrame, onDone: _onDone);
+    _sub = frames.listen(_onFrameSafe, onError: _onError, onDone: _onDone);
   }
 
   final ConfirmGesture confirm;
   final double minConfidence;
 
   static const double _maxTrackDistance = 0.25;
+  static const double _maxReacquireDistance = 0.6;
   static const Duration _lostAfter = Duration(milliseconds: 500);
 
   /// Look-back from the threshold-crossing frame to (approximately) takeoff.
@@ -55,12 +71,14 @@ class PoseSession {
 
   final LaneTracker _laneTracker;
   final JumpDetector _jump;
-  final RaiseHandsDetector _raise = RaiseHandsDetector();
+  RaiseHandsDetector _raise = RaiseHandsDetector();
   final StreamController<GameInputEvent> _events =
       StreamController<GameInputEvent>.broadcast();
   late final StreamSubscription<PoseFrame> _sub;
   final Map<String, OneEuroFilter> _filters = {};
 
+  final double _seedX;
+  final double _seedTorso;
   double _lastX;
   double _lastTorso;
   Duration? _lastValidAt;
@@ -98,20 +116,38 @@ class PoseSession {
     return p.midHipX != null && p.torsoHeight != null;
   }
 
+  static double? _rawHipX(Pose p) {
+    final l = p.joints[PoseJoint.leftHip], r = p.joints[PoseJoint.rightHip];
+    if (l == null || r == null) return null;
+    return (l.x + r.x) / 2;
+  }
+
+  static double? _rawTorso(Pose p) {
+    final lh = p.joints[PoseJoint.leftHip], rh = p.joints[PoseJoint.rightHip];
+    final ls = p.joints[PoseJoint.leftShoulder],
+        rs = p.joints[PoseJoint.rightShoulder];
+    if (lh == null || rh == null || ls == null || rs == null) return null;
+    return (lh.y + rh.y) / 2 - (ls.y + rs.y) / 2;
+  }
+
+  /// Nearest pose by raw position first (ignoring confidence); only then is
+  /// reliability checked. An unreliable nearest pose yields null: the frame
+  /// is doubtful and no other person is considered.
   Pose? _pickPlayer(List<Pose> poses) {
     Pose? best;
     var bestDist = double.infinity;
     for (final p in poses) {
-      if (!_reliable(p)) continue;
-      final d =
-          (p.midHipX! - _lastX).abs() + (p.torsoHeight! - _lastTorso).abs();
+      final x = _rawHipX(p), torso = _rawTorso(p);
+      if (x == null || torso == null) continue;
+      final d = (x - _lastX).abs() + (torso - _lastTorso).abs();
       if (d < bestDist) {
         bestDist = d;
         best = p;
       }
     }
-    if (best == null || bestDist > _maxTrackDistance) return null;
-    return best;
+    final gate = _lost ? _maxReacquireDistance : _maxTrackDistance;
+    if (best == null || bestDist > gate) return null;
+    return _reliable(best) ? best : null;
   }
 
   Pose _smooth(Pose p, Duration t) {
@@ -136,6 +172,18 @@ class PoseSession {
     if (!_disposed) _events.add(e);
   }
 
+  void _onError(Object error, StackTrace stack) {
+    if (!_disposed) _events.addError(error, stack);
+  }
+
+  void _onFrameSafe(PoseFrame f) {
+    try {
+      _onFrame(f);
+    } catch (e, st) {
+      _onError(e, st);
+    }
+  }
+
   void _onFrame(PoseFrame f) {
     final t = f.timestamp;
     _lastValidAt ??= t;
@@ -144,9 +192,12 @@ class PoseSession {
     if (player == null) {
       // Not sure who/where the player is: never score through this frame.
       _jump.suppressUntil(t + _uncertainHold);
+      _raise = RaiseHandsDetector();
       if (!_lost && t - _lastValidAt! >= _lostAfter) {
         _lost = true;
         _filters.clear();
+        _lastX = _seedX;
+        _lastTorso = _seedTorso;
         _emit(PlayerLost(at: t));
       }
       return;
@@ -158,6 +209,7 @@ class PoseSession {
     if (_lost) {
       _lost = false;
       _filters.clear();
+      _raise = RaiseHandsDetector();
       // The first frame back must not confirm anything.
       _jump.suppressUntil(t + const Duration(milliseconds: 1));
       _emit(PlayerFound(at: t));

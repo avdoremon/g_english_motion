@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter_test/flutter_test.dart';
@@ -267,4 +268,117 @@ void main() {
     await session.events.toList();
     await session.dispose();
   });
+
+  test('re-acquires a player who returns far from the last position', () async {
+    final frames = motion(
+      ms(6000),
+      hipX: (t) => t < ms(1000) ? 0.5 : (t < ms(2000) ? 0.5 : 0.9),
+      lift: jumpAt(ms(4000)),
+    );
+    // Gap: nobody between 1000 and 2000 ms.
+    final gapped = [
+      for (final f in frames)
+        if (f.timestamp >= ms(1000) && f.timestamp < ms(2000))
+          PoseFrame(const [], f.timestamp)
+        else
+          f,
+    ];
+    final events = await run(gapped);
+    expect(events.whereType<PlayerLost>(), hasLength(1));
+    expect(events.whereType<PlayerFound>(), hasLength(1));
+    expect(events.whereType<LaneChanged>().map((e) => e.lane), [0]);
+    final confirmed = events.whereType<Confirmed>().toList();
+    expect(confirmed, hasLength(1));
+    expect(confirmed.single.lane, 0);
+  });
+
+  test(
+    'frame-stream errors and handler exceptions reach events as errors',
+    () async {
+      final c = StreamController<PoseFrame>();
+      final session = PoseSession(c.stream, calibration, laneCount: 3);
+      final received = <Object>[];
+      final done = Completer<void>();
+      session.events.listen(
+        received.add,
+        onError: received.add,
+        onDone: done.complete,
+      );
+      final stand = standingSequence(duration: ms(300));
+      c.add(stand.first);
+      c.addError(StateError('stream boom'));
+      c.add(PoseFrame([_ThrowingPose()], ms(400)));
+      // Session keeps working: a full jump afterwards still confirms.
+      final jump = jumpSequence(jumps: 1);
+      for (final f in jump) {
+        c.add(PoseFrame(f.poses, f.timestamp + ms(500)));
+      }
+      await c.close();
+      await done.future;
+      await session.dispose();
+      expect(received.whereType<StateError>(), hasLength(1));
+      expect(received.whereType<UnimplementedError>(), hasLength(1));
+      expect(received.whereType<Confirmed>(), hasLength(1));
+    },
+  );
+
+  test(
+    'child hip confidence dip does not hand tracking to a bystander',
+    () async {
+      final frames = poseSequence(
+        duration: ms(4000),
+        posesAt: (t) {
+          final dip = t >= ms(1500) && t < ms(1700);
+          return [
+            makePose(
+              hipY: 0.6 - jumpAt(ms(1500))(t),
+              confidence: dip ? 0.3 : 1.0,
+            ),
+            // Bystander inside the gate, hips reliable, lifted differently.
+            makePose(hipX: 0.62, hipY: 0.6 - jumpAt(ms(2500))(t) * 2),
+          ];
+        },
+      );
+      final events = await run(frames);
+      // Bystander's jump (at 2500) must produce nothing, and no loss/found.
+      expect(
+        events.whereType<Confirmed>().where((e) => e.at > ms(2400)),
+        isEmpty,
+      );
+      expect(events.whereType<LaneChanged>(), isEmpty);
+      expect(events.whereType<PlayerLost>(), isEmpty);
+      expect(events.whereType<PlayerFound>(), isEmpty);
+    },
+  );
+
+  test(
+    'hands raised before a gap cannot confirm on the first frame back',
+    () async {
+      final frames = poseSequence(
+        duration: ms(3000),
+        posesAt: (t) {
+          if (t >= ms(1400) && t < ms(2000)) return [];
+          final up = t >= ms(1000) && t < ms(2300);
+          return [
+            up
+                ? makePose(
+                    leftWrist: const Offset(0.4, 0.1),
+                    rightWrist: const Offset(0.6, 0.1),
+                  )
+                : makePose(),
+          ];
+        },
+      );
+      final events = await run(frames, confirm: ConfirmGesture.raiseHands);
+      expect(events.whereType<PlayerFound>(), hasLength(1));
+      expect(events.whereType<Confirmed>(), isEmpty);
+    },
+  );
+}
+
+class _ThrowingPose extends Pose {
+  _ThrowingPose() : super(const {});
+
+  @override
+  Map<PoseJoint, Landmark> get joints => throw UnimplementedError('boom');
 }
