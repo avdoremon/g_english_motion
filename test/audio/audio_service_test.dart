@@ -194,6 +194,27 @@ void main() {
     expect(log, ['tts:ball', 'tts-end:ball']);
   });
 
+  test(
+    'cancelAll stops the current clip, drops the queue, stays unmuted',
+    () async {
+      existing.add('assets/audio/en/g1u01-ball.m4a');
+      clips.hang = true;
+      final first = svc.sayEnglish('ball', itemId: 'g1u01-ball');
+      final queued = svc.sayEnglish('later');
+      await Future<void>.delayed(Duration.zero);
+      svc.cancelAll();
+      expect(svc.muted, isFalse);
+      await first;
+      await queued;
+      expect(log, isNot(contains('tts:later')));
+      expect(log, contains('clip.stop'));
+      log.clear();
+      clips.hang = false;
+      await svc.sayEnglish('hello');
+      expect(log, ['tts:hello', 'tts-end:hello']);
+    },
+  );
+
   test('caption is emitted BEFORE the audio call', () async {
     existing.add('assets/audio/en/g1u01-ball.m4a');
     svc.captions.listen((c) => log.add('cap:$c'));

@@ -146,6 +146,19 @@ class Harness {
 }
 
 void main() {
+  test('correctCount counts first-attempt correct answers only', () {
+    final h = Harness(3)..session.begin();
+    expect(h.session.correctCount, 0);
+    h.answer(RoundResult.correct);
+    expect(h.session.correctCount, 1);
+    h.answer(RoundResult.wrong);
+    expect(h.session.correctCount, 1);
+    h.answer(RoundResult.correct);
+    h.answer(RoundResult.correct); // review of the wrong one
+    expect(h.session.correctCount, 2);
+    expect(h.session.outcome!.correct, 2);
+  });
+
   test('begin enters prompting with a non-review round', () {
     final h = Harness(3)..session.begin();
     expect(h.session.phase, SessionPhase.prompting);

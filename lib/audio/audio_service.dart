@@ -73,6 +73,13 @@ class AudioService {
   void muteForListening() {
     if (_disposed) return;
     _muted = true;
+    cancelAll();
+  }
+
+  /// Stops anything playing, completes the in-flight call promptly and drops
+  /// queued items, WITHOUT muting: later calls play normally.
+  void cancelAll() {
+    if (_disposed) return;
     _epoch++;
     if (!_cancel.isCompleted) _cancel.complete();
     _cancel = Completer<void>();

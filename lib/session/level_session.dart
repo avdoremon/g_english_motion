@@ -83,6 +83,11 @@ class LevelSession implements PausableSession {
   RoundResult? get lastResult => _lastResult;
   LevelOutcome? get outcome => _outcome;
 
+  /// First-attempt correct answers so far (reviews never count); the live
+  /// basis for the score shown during play. [outcome] stays the source of
+  /// truth for stars.
+  int get correctCount => _correct;
+
   /// The active round. Throws before [begin] and on an empty plan: the UI
   /// must branch on `phase == finished`.
   Round get round => _round!;
