@@ -12,7 +12,9 @@ class LaneTracker {
     double aspectRatio = PoseFrame.defaultAspectRatio,
   }) : _laneCount = laneCount < 1 ? 1 : laneCount,
        _aspect = aspectRatio > 0 ? aspectRatio : PoseFrame.defaultAspectRatio {
-    _current = _rawLane(_center);
+    // Explicit middle lane (the upper middle one for even counts): the
+    // calibrated spot is the layout centre, so no float comparison is needed.
+    _current = _laneCount ~/ 2;
     _baseline = _current;
   }
 
@@ -27,6 +29,9 @@ class LaneTracker {
   int _laneCount;
   double _aspect;
   late int _current;
+
+  /// Set by [setLaneCount]: the next usable pose picks the lane directly.
+  bool _resync = false;
 
   /// Lane that was current before the oldest retained change.
   late int _baseline;
@@ -61,7 +66,10 @@ class LaneTracker {
       final h = hysteresis * _width;
       final raw = _rawLane(x);
       var next = _current;
-      if (raw > _current) {
+      if (_resync) {
+        _resync = false;
+        next = raw;
+      } else if (raw > _current) {
         final shifted = _rawLane(x - h);
         if (shifted > _current) next = shifted;
       } else if (raw < _current) {
@@ -85,6 +93,10 @@ class LaneTracker {
   }
 
   /// Lane that was current at time [t] (history of the last ~1.5 s).
+  ///
+  /// Assumes [update] timestamps are non-decreasing. A query older than the
+  /// retained history answers with the lane at the start of that history; a
+  /// query before any update answers with the initial lane.
   int laneAt(Duration t) {
     var lane = _baseline;
     for (final c in _changes) {
@@ -94,14 +106,16 @@ class LaneTracker {
     return lane;
   }
 
+  /// Changes the lane count. History entries are lane indices of the old
+  /// layout, so they are discarded, and the next usable pose resyncs the lane
+  /// to the player's actual x (without hysteresis).
   void setLaneCount(int n) {
     if (n < 1) n = 1;
+    if (n == _laneCount) return;
     _laneCount = n;
-    int clamp(int l) => l.clamp(0, n - 1);
-    _current = clamp(_current);
-    _baseline = clamp(_baseline);
-    for (var i = 0; i < _changes.length; i++) {
-      _changes[i] = (t: _changes[i].t, lane: clamp(_changes[i].lane));
-    }
+    _current = _current.clamp(0, n - 1);
+    _baseline = _current;
+    _changes.clear();
+    _resync = true;
   }
 }
