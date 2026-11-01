@@ -31,6 +31,38 @@ void main() {
     expect(Scoring.stars(8, 8), 3);
   });
 
+  test('star boundaries (integer percentages)', () {
+    for (final (correct, total, stars) in [
+      (90, 100, 3),
+      (89, 100, 2),
+      (75, 100, 2),
+      (74, 100, 1),
+      (50, 100, 1),
+      (49, 100, 0),
+      (18, 20, 3),
+      (17, 20, 2),
+    ]) {
+      expect(Scoring.stars(correct, total), stars, reason: '$correct/$total');
+    }
+  });
+
+  test('out-of-range inputs are clamped, never negative or above 3 stars', () {
+    // More correct than questions counts as all correct.
+    expect(Scoring.stars(11, 10), 3);
+    // Negative counts are 0; a non-positive total has nothing to grade.
+    expect(Scoring.stars(-4, 10), 0);
+    expect(Scoring.stars(5, -3), 0);
+    expect(Scoring.stars(-5, -3), 0);
+    expect(Scoring.points(-2), 0);
+  });
+
+  test('negative slots count as zero', () {
+    expect(
+      Scoring.timeFor(levels[4], ModeKind.dragSpell, slots: -2),
+      Scoring.timeFor(levels[4], ModeKind.dragSpell),
+    );
+  });
+
   test('sayItStars', () {
     expect(Scoring.sayItStars(4), 0);
     expect(Scoring.sayItStars(5), 1);

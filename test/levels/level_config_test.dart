@@ -57,4 +57,40 @@ void main() {
       ),
     );
   });
+
+  group('load enforces exactly 5 levels, unique and ascending', () {
+    String entry(int level) =>
+        '{"level":$level,"questionCount":8,"baseTimeSeconds":20,'
+        '"choiceCount":3,"hints":"full","window":"current"}';
+
+    Future<List<LevelConfig>> load(List<int> numbers) => LevelConfig.load(
+      MapAssetBundle({
+        'assets/config/levels.json': '[${numbers.map(entry).join(',')}]',
+      }),
+    );
+
+    Matcher rejects(String part) => throwsA(
+      isA<FormatException>().having(
+        (e) => e.message,
+        'message',
+        allOf(contains('levels.json'), contains(part)),
+      ),
+    );
+
+    test('accepts 1..5', () async {
+      expect((await load([1, 2, 3, 4, 5])).length, 5);
+    });
+    test('rejects fewer than 5', () {
+      expect(load([1, 2, 3, 4]), rejects('5 levels'));
+    });
+    test('rejects more than 5', () {
+      expect(load([1, 2, 3, 4, 5, 6]), rejects('5 levels'));
+    });
+    test('rejects duplicate level numbers', () {
+      expect(load([1, 2, 2, 4, 5]), rejects('ascending'));
+    });
+    test('rejects descending level numbers', () {
+      expect(load([1, 3, 2, 4, 5]), rejects('ascending'));
+    });
+  });
 }

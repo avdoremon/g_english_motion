@@ -23,6 +23,9 @@ class LevelConfig {
 
   static const assetPath = 'assets/config/levels.json';
 
+  /// The game has exactly this many levels (Home shows five).
+  static const count = 5;
+
   static Future<List<LevelConfig>> load(AssetBundle b) async {
     try {
       final decoded = jsonDecode(await b.loadString(assetPath));
@@ -34,7 +37,19 @@ class LevelConfig {
           else
             throw const FormatException('entry must be an object'),
       ];
-      if (out.isEmpty) throw const FormatException('no levels');
+      if (out.length != count) {
+        throw FormatException(
+          'expected exactly $count levels, got ${out.length}',
+        );
+      }
+      for (var i = 1; i < out.length; i++) {
+        if (out[i].level <= out[i - 1].level) {
+          throw FormatException(
+            'level numbers must be unique and ascending '
+            '(${out[i - 1].level} then ${out[i].level})',
+          );
+        }
+      }
       return List.unmodifiable(out);
     } on FormatException catch (e) {
       throw FormatException('$assetPath: ${e.message}');

@@ -5,7 +5,7 @@ Source of truth for content tasks. `TBC` = title not confirmed from a source yet
 Only 11 titles could be confirmed (search-result page titles plus S5); all others are `TBC`.
 
 
-**Vocabulary note:** Grade 1 u01/u02 vocabulary in `assets/content/grade1/` is author-written for these unit topics and is NOT teacher-reviewed (`reviewed: false`). The printed book's word list could not be verified; check it against the printed textbook before release.
+**Vocabulary note:** Grade 1 u01/u02 vocabulary in `assets/content/grade1/` is author-written for these unit topics and is NOT teacher-reviewed. The printed book's word list could not be verified; check it against the printed textbook before release.
 
 ## Grade 1
 
