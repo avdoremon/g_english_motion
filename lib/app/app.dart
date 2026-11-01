@@ -157,6 +157,9 @@ class _RootState extends State<_Root> {
   (int, int)? _afterSafety;
   Future<void> _closing = Future<void>.value();
 
+  /// Longest wait for a previous controller to release the camera.
+  static const closeTimeout = Duration(seconds: 3);
+
   @override
   void dispose() {
     _ctl?.dispose();
@@ -239,11 +242,17 @@ class _RootState extends State<_Root> {
   /// completes when it is fully closed.
   void _release(GameController? c) {
     if (c == null) return;
-    _closing = _closing.then((_) async {
-      await WidgetsBinding.instance.endOfFrame;
-      c.dispose();
-      await c.closed;
-    });
+    // Isolated and bounded: one hung native stop or failed write must not
+    // block every later start.
+    _closing = _closing
+        .then((_) async {
+          await WidgetsBinding.instance.endOfFrame;
+          c.dispose();
+          await c.closed.timeout(closeTimeout);
+        })
+        .catchError((Object e) {
+          debugPrint('Closing the previous game failed: $e');
+        });
   }
 
   void _openParent() {

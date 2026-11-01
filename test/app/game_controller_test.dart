@@ -398,5 +398,85 @@ void main() {
         expect(c().session!.lastResult, RoundResult.correct);
       },
     );
+
+    test('dispose during the theAnswerIs clip: the word never plays', () async {
+      h = await GameHarness.create(hangClip: VoiceLine.theAnswerIs.assetPath);
+      await h.startAndCalibrate();
+      final answer = c().session!.current.question.ttsText;
+      await h.answerInLane((correctIndex() + 1) % 3);
+      expect(h.captions.last, VoiceLine.theAnswerIs.caption);
+      final captionsBefore = h.captions.length;
+      final spokenBefore = h.ttsLog.length;
+      expect(answer, isNotEmpty);
+      c().dispose();
+      await c().closed;
+      await pumpEventQueue();
+      expect(h.captions.length, captionsBefore);
+      expect(h.ttsLog.length, spokenBefore);
+    });
+
+    test(
+      'disposed while the permission request is pending: camera stopped',
+      () async {
+        h = await GameHarness.create(delayPermission: true);
+        final f = c().start(h.source);
+        await pumpEventQueue();
+        c().dispose();
+        await c().closed;
+        expect(h.source.stops, 0, reason: 'start has not returned yet');
+        h.source.finishPermission();
+        await f;
+        await pumpEventQueue();
+        expect(h.source.started, isTrue);
+        expect(h.source.stops, 1, reason: 'the orphan camera is released');
+        expect(c().phase, isNot(GamePhase.calibrating));
+      },
+    );
+
+    test('exactly one camera stop per source over a full level', () async {
+      await playing();
+      for (var i = 0; i < 8; i++) {
+        await inject(Confirmed(correctIndex(), at: Duration.zero));
+        await h.run(const Duration(milliseconds: 2700));
+      }
+      await pumpEventQueue();
+      expect(h.source.stops, 1);
+      c().dispose();
+      await c().closed;
+      expect(h.source.stops, 1);
+    });
+
+    test(
+      'review question: feedback once each, no points for the review',
+      () async {
+        await playing();
+        final sub = c().events.listen((e) {
+          if (e is PlayerLost) c().session!.pause();
+          if (e is PlayerFound) c().session!.resume();
+        });
+        addTearDown(sub.cancel);
+        // Q1 wrong (queues a review at the end), the other 7 correct.
+        await inject(Confirmed((correctIndex() + 1) % 3, at: Duration.zero));
+        await h.run(const Duration(milliseconds: 2700));
+        for (var i = 1; i < 8; i++) {
+          await inject(Confirmed(correctIndex(), at: Duration.zero));
+          await h.run(const Duration(milliseconds: 2700));
+        }
+        expect(c().session!.isReview, isTrue);
+        await inject(Confirmed(correctIndex(), at: Duration.zero));
+        // Pause/resume during the review's feedback must not repeat anything.
+        await inject(const PlayerLost(at: Duration.zero));
+        await inject(const PlayerFound(at: Duration.zero));
+        await h.run(const Duration(milliseconds: 2700));
+        expect(c().phase, GamePhase.finished);
+        expect(
+          h.captions.where((x) => x == VoiceLine.tryAgain.caption),
+          hasLength(1),
+        );
+        expect(h.captions.where(_correctLines.contains), hasLength(8));
+        expect(c().outcome!.correct, 7);
+        expect(c().score, 700);
+      },
+    );
   });
 }

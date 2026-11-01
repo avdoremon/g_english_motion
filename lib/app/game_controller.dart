@@ -137,6 +137,7 @@ class GameController extends ChangeNotifier {
   Duration _lastFrameTs = Duration.zero;
   Future<PermissionOutcome>? _startFuture;
   Future<void>? _inputStopped;
+  bool _cameraStarting = false;
 
   /// First moments of each question: jumps are ignored (spec: 500 ms).
   static const confirmGrace = Duration(milliseconds: 500);
@@ -211,12 +212,23 @@ class GameController extends ChangeNotifier {
     }
     _setPhase(GamePhase.requestingPermission);
     PermissionOutcome outcome;
+    _cameraStarting = true;
     try {
       outcome = await source.start();
     } catch (_) {
       outcome = PermissionOutcome.denied;
     }
-    if (_disposed) return outcome;
+    _cameraStarting = false;
+    if (_disposed) {
+      // Disposed while the camera was starting: dispose could not stop it
+      // yet, so release the orphan now.
+      if (outcome == PermissionOutcome.granted) {
+        try {
+          await source.stop();
+        } catch (_) {}
+      }
+      return outcome;
+    }
     _permission = outcome;
     if (outcome != PermissionOutcome.granted) {
       _setPhase(GamePhase.permissionDenied);
@@ -454,6 +466,8 @@ class GameController extends ChangeNotifier {
   Future<void> _stopInput() => _inputStopped ??= () async {
     // Release the camera first; the local clean-up runs alongside.
     final camera = () async {
+      // A start still in flight stops the camera itself when it returns.
+      if (_cameraStarting) return;
       try {
         await _source?.stop();
       } catch (_) {}
@@ -461,12 +475,30 @@ class GameController extends ChangeNotifier {
     // Cancelling/closing takes effect synchronously; the returned futures are
     // deliberately not awaited (they add nothing and can stall under
     // FakeAsync).
-    unawaited(_frameSub?.cancel());
-    unawaited(_poseSub?.cancel());
-    unawaited(_pose?.dispose());
-    unawaited(_poseFrames?.close());
+    _quiet(() => _frameSub?.cancel());
+    _quiet(() => _poseSub?.cancel());
+    _quiet(() => _pose?.dispose());
+    _quiet(() => _poseFrames?.close());
     await camera;
   }();
+
+  /// Fire-and-forget clean-up whose failure must never surface as an
+  /// uncaught zone error.
+  void _quiet(Future<Object?>? Function() f) {
+    try {
+      final r = f();
+      if (r != null) {
+        unawaited(
+          r.then<void>(
+            (_) {},
+            onError: (Object e) => debugPrint('GameController: cleanup: $e'),
+          ),
+        );
+      }
+    } catch (e) {
+      debugPrint('GameController: cleanup: $e');
+    }
+  }
 
   void _setPhase(GamePhase p) {
     _phase = p;
@@ -483,12 +515,12 @@ class GameController extends ChangeNotifier {
   }
 
   Future<void> _shutdown(LevelSession? session) async {
-    unawaited(_tickSub?.cancel());
+    _quiet(() => _tickSub?.cancel());
     // Drop whatever is still being said; the audio stays usable for the
     // next screen (not muted).
     _audio.cancelAll();
     await _stopInput();
-    unawaited(_events.close());
+    _quiet(_events.close);
     _hud.dispose();
     try {
       await _persisted;

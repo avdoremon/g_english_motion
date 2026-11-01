@@ -17,6 +17,32 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'synthetic_poses.dart';
 
+/// Counts stop() calls; can hold back the permission answer.
+class CountingSource extends FakePoseFrameSource {
+  CountingSource.fromStream(
+    super.frames, {
+    super.outcome,
+    bool delayPermission = false,
+  }) : _gate = delayPermission ? Completer<void>() : null,
+       super.fromStream();
+  final Completer<void>? _gate;
+  int stops = 0;
+
+  void finishPermission() => _gate?.complete();
+
+  @override
+  Future<PermissionOutcome> start() async {
+    await _gate?.future;
+    return super.start();
+  }
+
+  @override
+  Future<void> stop() async {
+    stops++;
+    await super.stop();
+  }
+}
+
 class HarnessTts implements SpeechEngine {
   HarnessTts(this.log, {this.hang = false});
   final List<String> log;
@@ -98,6 +124,7 @@ class GameHarness {
     this.store,
     this.source,
     this.audio,
+    this.ttsLog,
     this.captions,
     this.controller,
     this.frames,
@@ -110,14 +137,16 @@ class GameHarness {
     bool hangTts = false,
     String? hangClip,
     LevelConfig level = harnessLevel,
-    FakePoseFrameSource Function(Stream<PoseFrame>)? sourceFor,
+    bool delayPermission = false,
   }) async {
     SharedPreferences.setMockInitialValues({});
     final store = ProgressStore(await SharedPreferences.getInstance());
     final frames = StreamController<PoseFrame>(sync: true);
-    final source =
-        sourceFor?.call(frames.stream) ??
-        FakePoseFrameSource.fromStream(frames.stream, outcome: permission);
+    final source = CountingSource.fromStream(
+      frames.stream,
+      outcome: permission,
+      delayPermission: delayPermission,
+    );
     final ttsLog = <String>[];
     final audio = AudioService(
       HarnessTts(ttsLog, hang: hangTts),
@@ -143,6 +172,7 @@ class GameHarness {
       store,
       source,
       audio,
+      ttsLog,
       captions,
       controller,
       frames,
@@ -151,8 +181,9 @@ class GameHarness {
   }
 
   final ProgressStore store;
-  final FakePoseFrameSource source;
+  final CountingSource source;
   final AudioService audio;
+  final List<String> ttsLog;
   final List<String> captions;
   final GameController controller;
   final StreamController<PoseFrame> frames;

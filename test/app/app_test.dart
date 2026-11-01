@@ -192,6 +192,7 @@ void main() {
       await tester.pump(const Duration(milliseconds: 100));
       await tester.pump(const Duration(milliseconds: 600));
       expect(log.last, 'stop2:end');
+      expect(sources.map((x) => x.stops), [1, 1]);
     },
   );
 }
@@ -201,7 +202,7 @@ class _RecSource implements PoseFrameSource {
   final int n;
   final List<String> log;
   final frames0 = StreamController<PoseFrame>(sync: true);
-  bool _stopped = false;
+  int stops = 0;
 
   @override
   Stream<PoseFrame> get frames => frames0.stream;
@@ -216,8 +217,7 @@ class _RecSource implements PoseFrameSource {
 
   @override
   Future<void> stop() async {
-    if (_stopped) return;
-    _stopped = true;
+    stops++;
     log.add('stop$n:begin');
     await Future<void>.delayed(const Duration(milliseconds: 200));
     log.add('stop$n:end');
