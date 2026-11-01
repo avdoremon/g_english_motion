@@ -185,7 +185,7 @@ class _Root extends StatefulWidget {
   State<_Root> createState() => _RootState();
 }
 
-class _RootState extends State<_Root> {
+class _RootState extends State<_Root> with WidgetsBindingObserver {
   AppDependencies get _d => widget.deps;
 
   GameController? _ctl;
@@ -198,7 +198,21 @@ class _RootState extends State<_Root> {
   final GateLockout _gateLockout = GateLockout();
 
   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  /// The camera timeouts of the running game stand still while the app is
+  /// not in the foreground (same signal as GameShell: only `resumed` counts).
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    _ctl?.setAppActive(state == AppLifecycleState.resumed);
+  }
+
+  @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     _gateLockout.dispose();
     _ctl?.dispose();
     super.dispose();

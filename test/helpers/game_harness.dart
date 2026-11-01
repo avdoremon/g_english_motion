@@ -215,6 +215,13 @@ class GameHarness {
   Duration _elapsed = Duration.zero;
   int lane = 1;
 
+  /// Moves both clocks forward without delivering any tick or frame (the app
+  /// was suspended: Dart timers and the camera did not run).
+  void jumpClock(Duration d) {
+    _t += d;
+    _elapsed += d;
+  }
+
   /// Timestamp of the most recent synthetic frame.
   Duration get lastFrameAt => _t;
 

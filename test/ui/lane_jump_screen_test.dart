@@ -174,6 +174,37 @@ void main() {
     await finish(tester);
   });
 
+  testWidgets('the see-picture prompt picture is at least 72 px on 800x360 '
+      'and 1280x720', (tester) async {
+    for (final size in const [Size(800, 360), Size(1280, 720)]) {
+      await tester.binding.setSurfaceSize(size);
+      addTearDown(() => tester.binding.setSurfaceSize(null));
+      await tester.runAsync(() async {
+        for (var seed = 0; seed < 80; seed++) {
+          h = await GameHarness.create(withImages: true, seed: seed);
+          await h.startAndCalibrate();
+          if (h.controller.session!.current.question.form ==
+              QuestionForm.seePicturePickWord) {
+            return;
+          }
+          await h.dispose();
+        }
+        fail('no seed starts with a seePicturePickWord question');
+      });
+      await tester.pumpWidget(
+        MaterialApp(
+          theme: AppTheme.dark(),
+          home: Scaffold(body: LaneJumpScreen(controller: h.controller)),
+        ),
+      );
+      final pic = tester.getSize(find.byKey(const ValueKey('prompt-picture')));
+      expect(pic.width, greaterThanOrEqualTo(72), reason: '$size');
+      expect(pic.height, greaterThanOrEqualTo(72), reason: '$size');
+      expect(tester.takeException(), isNull);
+      await finish(tester);
+    }
+  });
+
   testWidgets('lane words render at full size (no shrinking)', (tester) async {
     for (final (size, min) in const [
       (Size(1280, 720), 28.0),

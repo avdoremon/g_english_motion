@@ -464,6 +464,32 @@ void main() {
     },
   );
 
+  testWidgets('app lifecycle changes reach the running controller', (
+    tester,
+  ) async {
+    late GameController made;
+    await pumpApp(
+      tester,
+      controllerFactory: (grade, level, d) => made = GameController(
+        grade: grade,
+        level: level,
+        store: d.store,
+        repo: d.repo,
+        audio: d.audio,
+        ticker: d.ticker,
+      ),
+    );
+    await tester.tap(find.byKey(const ValueKey('play')));
+    await tester.pump();
+    await tester.pump();
+    expect(made.appActive, isTrue);
+    final binding = TestWidgetsFlutterBinding.ensureInitialized();
+    binding.handleAppLifecycleStateChanged(AppLifecycleState.inactive);
+    expect(made.appActive, isFalse);
+    binding.handleAppLifecycleStateChanged(AppLifecycleState.resumed);
+    expect(made.appActive, isTrue);
+  });
+
   Future<void> leave(WidgetTester tester) async {
     await tester.tap(find.byKey(const ValueKey('exit')));
     await tester.pump();

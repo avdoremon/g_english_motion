@@ -547,6 +547,79 @@ void main() {
     );
   });
 
+  group('camera timeouts while the app is in the background', () {
+    // Worst case for ticks: they keep coming (background = true) or do not
+    // come at all (jumpClock) while the app is away.
+    Future<void> away(Duration d, {required bool ticking}) async {
+      c().setAppActive(false);
+      if (ticking) {
+        await h.run(d, withFrames: false);
+      } else {
+        h.jumpClock(d);
+      }
+    }
+
+    for (final ticking in [true, false]) {
+      final how = ticking ? 'ticks keep coming' : 'no ticks at all';
+      test('20 s in the background during calibration ($how): resume does '
+          'not show the camera problem and calibration continues', () async {
+        h = await GameHarness.create();
+        await c().start(h.source);
+        await h.run(const Duration(seconds: 2), withFrames: false);
+        await away(const Duration(seconds: 20), ticking: ticking);
+        expect(c().phase, GamePhase.calibrating);
+        c().setAppActive(true);
+        await h.run(const Duration(seconds: 1), withFrames: false);
+        expect(c().phase, GamePhase.calibrating);
+        await h.run(const Duration(seconds: 3)); // the camera is back
+        expect(c().phase, isNot(GamePhase.cameraProblem));
+        expect(c().phase, isNot(GamePhase.calibrating));
+        expect(h.source.stops, 0);
+      });
+    }
+
+    test('background, then no frame for 5 s after resume: the problem shows '
+        '5 s after the resume, not earlier', () async {
+      h = await GameHarness.create();
+      await c().start(h.source);
+      await h.run(const Duration(seconds: 3), withFrames: false);
+      await away(const Duration(seconds: 20), ticking: false);
+      c().setAppActive(true);
+      await h.run(const Duration(milliseconds: 4500), withFrames: false);
+      expect(c().phase, GamePhase.calibrating);
+      await h.run(const Duration(milliseconds: 1000), withFrames: false);
+      expect(c().phase, GamePhase.cameraProblem);
+      expect(h.source.stops, 1);
+    });
+
+    test('the 30 s overall limit counts foreground time only', () async {
+      h = await GameHarness.create();
+      await c().start(h.source);
+      await h.run(const Duration(seconds: 20), poses: (_) => const []);
+      await away(const Duration(seconds: 60), ticking: true);
+      c().setAppActive(true);
+      await h.run(const Duration(seconds: 8), poses: (_) => const []);
+      expect(c().phase, GamePhase.calibrating, reason: '28 s in foreground');
+      await h.run(const Duration(seconds: 4), poses: (_) => const []);
+      expect(c().phase, GamePhase.cameraProblem);
+    });
+
+    test('persistent errors during play: background time does not count and '
+        'the 5 s restart at the resume', () async {
+      await playing();
+      await h.run(const Duration(seconds: 1));
+      h.source.emitFailure(StateError('CAMERA_ERROR'));
+      await h.run(const Duration(seconds: 3), withFrames: false);
+      await away(const Duration(seconds: 20), ticking: false);
+      c().setAppActive(true);
+      await h.run(const Duration(seconds: 4), withFrames: false);
+      expect(c().phase, GamePhase.playing);
+      await h.run(const Duration(seconds: 2), withFrames: false);
+      expect(c().phase, GamePhase.cameraProblem);
+      expect(h.source.stops, 1);
+    });
+  });
+
   group('prompt watchdog', () {
     test('hung speech: round starts after 12 s anyway', () async {
       await playing(hangTts: true);

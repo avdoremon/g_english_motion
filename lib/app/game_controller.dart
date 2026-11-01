@@ -68,7 +68,8 @@ typedef TickerFactory = Stream<Duration> Function();
 ///   for [failureTimeout] (calibration or play), or a calibration that does
 ///   not finish within [calibrationTimeout] end in [GamePhase.cameraProblem]:
 ///   the session is paused, the camera released, and the app offers a retry
-///   (a new controller + source, started after this one closed).
+///   (a new controller + source, started after this one closed). The timers
+///   stand still while the app is in the background ([setAppActive]).
 /// - Prompt watchdog: if the spoken question does not complete within
 ///   [promptWatchdog] the round is started anyway.
 /// - Presence events: PlayerLost is given to the session first and then
@@ -306,6 +307,41 @@ class GameController extends ChangeNotifier {
     return outcome;
   }
 
+  /// Whether the app is in the foreground (lifecycle `resumed`). While it is
+  /// not, the camera delivers nothing, so the calibration/failure timeouts
+  /// must not run (see [_resyncTimers]).
+  bool get appActive => _appActive;
+  bool _appActive = true;
+
+  Duration? _inactiveFrom;
+  bool _resyncPending = false;
+
+  /// Told by the app on every lifecycle change (`true` only for `resumed`).
+  /// While inactive the calibration/failure timeouts stand still; the first
+  /// tick after the resume restarts the no-frame and error timers and moves
+  /// the 30 s calibration clock forward by the time spent away.
+  void setAppActive(bool active) {
+    if (_disposed || active == _appActive) return;
+    _appActive = active;
+    if (active) {
+      _resyncPending = true;
+    } else {
+      _inactiveFrom = _lastTick ?? _now;
+    }
+  }
+
+  /// Run on the first tick after a resume (or after a tick gap larger than
+  /// [maxTickStep], e.g. a suspended process whose lifecycle callback was
+  /// missed): background time is not camera silence.
+  void _resyncTimers(Duration now, Duration from) {
+    final away = now - from;
+    if (away > Duration.zero && _calibAnchor != null) {
+      _calibAnchor = _calibAnchor! + away;
+    }
+    if (_phase == GamePhase.calibrating) _calibLastFrame = now;
+    if (_failedSince != null) _failedSince = now;
+  }
+
   void _onSourceFailure(Object e) {
     if (_disposed ||
         (_phase != GamePhase.calibrating && _phase != GamePhase.playing)) {
@@ -507,8 +543,16 @@ class GameController extends ChangeNotifier {
     final prev = _lastTick;
     _lastTick = elapsed;
     _now = elapsed;
+    if (_appActive && _resyncPending) {
+      _resyncPending = false;
+      _resyncTimers(elapsed, _inactiveFrom ?? prev ?? elapsed);
+      _inactiveFrom = null;
+    } else if (_appActive && prev != null && elapsed - prev > maxTickStep) {
+      _resyncTimers(elapsed, prev);
+    }
+    // Camera timeouts stand still in the background (no camera, no frames).
     if (_phase == GamePhase.calibrating) {
-      _checkCalibrationTimeouts(elapsed);
+      if (_appActive) _checkCalibrationTimeouts(elapsed);
       return;
     }
     final s = _session;
@@ -526,7 +570,8 @@ class GameController extends ChangeNotifier {
       _watchdogLost = true;
       _setLost(true, PlayerLost(at: _lastFrameTs));
     }
-    if (_phase == GamePhase.playing &&
+    if (_appActive &&
+        _phase == GamePhase.playing &&
         _failedSince != null &&
         _now - _failedSince! >= failureTimeout) {
       _enterCameraProblem('camera errors during play');

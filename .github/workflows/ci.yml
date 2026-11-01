@@ -49,14 +49,15 @@ jobs:
           channel: stable
           cache: true
       # compileSdk is max(flutter's, 37) because permission_handler_android
-      # needs 37. Gradle would also fetch missing parts (build tools, NDK) once
-      # the licences are accepted, but installing the platform up front gives
-      # a clear error if API 37 is not available.
-      - name: Install Android SDK platform 37
+      # needs 37. Best effort only: once the licences are accepted Gradle
+      # fetches any missing platform / build tools itself, so none of these
+      # installs may fail the job.
+      - name: Install Android SDK parts (best effort)
         run: |
           SDKMANAGER="$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager"
           yes | "$SDKMANAGER" --licenses > /dev/null || true
-          "$SDKMANAGER" "platforms;android-37" "platform-tools"
+          "$SDKMANAGER" "platforms;android-37" || "$SDKMANAGER" "platforms;android-37.0" || true
+          "$SDKMANAGER" "build-tools;36.0.0" || true
       - run: flutter pub get
       - run: flutter doctor -v
       - run: flutter build apk --debug
