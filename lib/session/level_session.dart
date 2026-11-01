@@ -6,6 +6,7 @@ import '../input/game_input_event.dart';
 import '../levels/level_config.dart';
 import '../levels/scoring.dart';
 import '../modes/round.dart';
+import 'pausable_session.dart';
 
 enum SessionPhase { prompting, playing, feedback, paused, finished }
 
@@ -42,7 +43,7 @@ class _Entry {
 /// A question answered wrong / timed out on its first attempt is appended
 /// once to the end of the queue as a review question. Reviews never affect
 /// points, correct or total, and never spawn further reviews.
-class LevelSession {
+class LevelSession implements PausableSession {
   LevelSession({
     required this.level,
     required List<PlannedQuestion> plan,
@@ -142,6 +143,7 @@ class LevelSession {
     }
   }
 
+  @override
   void pause() {
     if (!_begun ||
         _phase == SessionPhase.paused ||
@@ -152,6 +154,7 @@ class LevelSession {
     _phase = SessionPhase.paused;
   }
 
+  @override
   void resume() {
     if (_phase != SessionPhase.paused) return;
     _phase = _phaseBeforePause!;
