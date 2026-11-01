@@ -113,4 +113,50 @@ void main() {
     r.onEvent(const Confirmed(2, at: _t0));
     expect(r.result, RoundResult.correct);
   });
+
+  test('overshooting tick clamps remaining at zero and times out', () {
+    final r = _round()..start();
+    r.tick(const Duration(seconds: 15)); // limit is 10 s
+    expect(r.remaining, Duration.zero);
+    expect(r.result, RoundResult.timeout);
+    expect(r.clockRunning, isFalse);
+  });
+
+  test('zero and negative dt are ignored', () {
+    final r = _round()..start();
+    r.tick(const Duration(seconds: 3));
+    r.tick(Duration.zero);
+    r.tick(const Duration(seconds: -5));
+    expect(r.remaining, const Duration(seconds: 7));
+    expect(r.result, isNull);
+  });
+
+  test('a Confirmed applied before the tick of the same frame wins', () {
+    // Contract (see Round): the caller applies a frame's events first, then
+    // ticks, so an answer given on the last frame is not a timeout.
+    final r = _round()..start();
+    r.tick(const Duration(milliseconds: 9990));
+    r.onEvent(const Confirmed(2, at: _t0));
+    r.tick(const Duration(milliseconds: 100));
+    expect(r.result, RoundResult.correct);
+    expect(r.remaining, const Duration(milliseconds: 10));
+  });
+
+  test('a question without choices is rejected', () {
+    const empty = ChoiceQuestion(
+      itemId: 'cat',
+      form: QuestionForm.listenPickWord,
+      ttsText: 'cat',
+      choices: [],
+      correctIndex: 0,
+    );
+    expect(
+      () => LaneJumpRound(
+        empty,
+        timeLimit: const Duration(seconds: 10),
+        initialLane: 0,
+      ),
+      throwsA(isA<AssertionError>()),
+    );
+  });
 }

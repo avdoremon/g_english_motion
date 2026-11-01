@@ -7,7 +7,8 @@ class LaneJumpRound implements Round {
     this.question, {
     required Duration timeLimit,
     required int initialLane,
-  }) : _remaining = timeLimit,
+  }) : assert(question.choices.isNotEmpty, 'a question needs choices'),
+       _remaining = timeLimit,
        _selectedLane = initialLane.clamp(0, question.choices.length - 1);
 
   final ChoiceQuestion question;
@@ -60,7 +61,8 @@ class LaneJumpRound implements Round {
 
   @override
   void tick(Duration dt) {
-    if (!clockRunning) return;
+    // Time never runs backwards (a negative dt would add time back).
+    if (dt <= Duration.zero || !clockRunning) return;
     _remaining -= dt;
     if (_remaining <= Duration.zero) {
       _remaining = Duration.zero;
