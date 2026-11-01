@@ -1,0 +1,400 @@
+import 'package:flutter_test/flutter_test.dart';
+import 'package:g_english_motion/content/history_store.dart';
+import 'package:g_english_motion/content/models.dart';
+import 'package:g_english_motion/content/curriculum.dart';
+import 'package:g_english_motion/content/question_models.dart';
+import 'package:g_english_motion/input/game_input_event.dart';
+import 'package:g_english_motion/levels/level_config.dart';
+import 'package:g_english_motion/modes/round.dart';
+import 'package:g_english_motion/session/level_session.dart';
+
+class FakeRound implements Round {
+  FakeRound(this.pq, this.review);
+  final PlannedQuestion pq;
+  final bool review;
+  bool started = false;
+  int ticks = 0;
+  final events = <GameInputEvent>[];
+  RoundResult? _result;
+  Duration _remaining = const Duration(seconds: 10);
+
+  void setResult(RoundResult r) => _result = r;
+
+  @override
+  void start() => started = true;
+  @override
+  void onEvent(GameInputEvent e) => events.add(e);
+  @override
+  void tick(Duration dt) {
+    ticks++;
+    if (started && _result == null) _remaining -= dt;
+  }
+
+  @override
+  RoundResult? get result => _result;
+  @override
+  int? get chosenIndex => null;
+  @override
+  Duration get remaining => _remaining;
+  @override
+  bool get clockRunning => started && _result == null;
+}
+
+class RecordingHistory extends InMemoryHistoryStore {
+  final calls = <String>[];
+  @override
+  Future<void> recordAsked(List<String> ids) {
+    calls.add('asked:${ids.join(",")}');
+    return super.recordAsked(ids);
+  }
+
+  @override
+  Future<void> markWrong(String id) {
+    calls.add('wrong:$id');
+    return super.markWrong(id);
+  }
+
+  @override
+  Future<void> clearWrong(String id) {
+    calls.add('clear:$id');
+    return super.clearWrong(id);
+  }
+}
+
+PlannedQuestion pqOf(String id) => PlannedQuestion(
+  mode: ModeKind.laneJump,
+  question: ChoiceQuestion(
+    itemId: id,
+    form: QuestionForm.listenPickWord,
+    ttsText: id,
+    choices: const [],
+    correctIndex: 0,
+  ),
+);
+
+const level = LevelConfig(
+  level: 1,
+  questionCount: 8,
+  baseTime: Duration(seconds: 10),
+  choiceCount: 3,
+  hints: HintMode.full,
+  window: UnitWindow.current,
+);
+
+const ms = Duration(milliseconds: 16);
+const feedback = Duration(milliseconds: 2500);
+
+class Harness {
+  Harness(int n, {Duration? feedbackTime, RecordingHistory? h})
+    : history = h ?? RecordingHistory(),
+      plan = [for (var i = 0; i < n; i++) pqOf('i$i')] {
+    session = LevelSession(
+      level: level,
+      plan: plan,
+      history: history,
+      feedbackTime: feedbackTime ?? feedback,
+      makeRound: (pq, {required bool review}) {
+        final r = FakeRound(pq, review);
+        rounds.add(r);
+        return r;
+      },
+    );
+  }
+  final RecordingHistory history;
+  final List<PlannedQuestion> plan;
+  final rounds = <FakeRound>[];
+  late final LevelSession session;
+  FakeRound get cur => rounds.last;
+
+  /// prompt -> result -> feedback elapsed.
+  void answer(RoundResult r) {
+    session.onPromptFinished();
+    cur.setResult(r);
+    session.tick(ms);
+    expect(session.phase, SessionPhase.feedback);
+    session.tick(feedback);
+  }
+}
+
+void main() {
+  test('begin enters prompting with a non-review round', () {
+    final h = Harness(3)..session.begin();
+    expect(h.session.phase, SessionPhase.prompting);
+    expect(h.session.isReview, isFalse);
+    expect(h.session.current, same(h.plan[0]));
+    expect(h.session.outcome, isNull);
+    expect(h.cur.started, isFalse);
+    expect(h.session.totalQuestions, 3);
+    expect(h.session.index, 0);
+  });
+
+  test('onPromptFinished starts the round; ignored outside prompting', () {
+    final h = Harness(2)..session.begin();
+    h.session.onPromptFinished();
+    expect(h.session.phase, SessionPhase.playing);
+    expect(h.cur.started, isTrue);
+    h.session.onPromptFinished();
+    expect(h.session.phase, SessionPhase.playing);
+  });
+
+  test('tick in prompting does not reduce remaining', () {
+    final h = Harness(2)..session.begin();
+    final before = h.session.round.remaining;
+    h.session.tick(const Duration(seconds: 5));
+    expect(h.session.round.remaining, before);
+    expect(h.cur.ticks, 0);
+  });
+
+  test('events forwarded only in playing, incl. PlayerLost/Found', () {
+    final h = Harness(2)..session.begin();
+    const c = Confirmed(0, at: Duration.zero);
+    h.session.onEvent(c);
+    expect(h.cur.events, isEmpty);
+    h.session.onPromptFinished();
+    h.session.onEvent(const PlayerLost(at: Duration.zero));
+    h.session.onEvent(c);
+    h.session.onEvent(const PlayerFound(at: Duration.zero));
+    expect(h.cur.events, hasLength(3));
+    expect(h.cur.events.first, isA<PlayerLost>());
+  });
+
+  test('result after onEvent enters feedback and later input is dropped', () {
+    final h = Harness(2)..session.begin();
+    h.session.onPromptFinished();
+    h.cur.setResult(RoundResult.wrong);
+    h.session.onEvent(const Confirmed(1, at: Duration.zero));
+    expect(h.session.phase, SessionPhase.feedback);
+    expect(h.session.lastResult, RoundResult.wrong);
+    h.session.onEvent(const Confirmed(2, at: Duration.zero));
+    expect(h.cur.events, hasLength(1));
+    h.session.tick(ms);
+    expect(h.cur.ticks, 0);
+  });
+
+  test('feedback counts down then advances to next prompting', () {
+    final h = Harness(2)..session.begin();
+    h.session.onPromptFinished();
+    h.cur.setResult(RoundResult.correct);
+    h.session.tick(ms);
+    h.session.tick(const Duration(milliseconds: 2499));
+    expect(h.session.phase, SessionPhase.feedback);
+    h.session.tick(const Duration(milliseconds: 1));
+    expect(h.session.phase, SessionPhase.prompting);
+    expect(h.rounds, hasLength(2));
+    expect(h.session.current, same(h.plan[1]));
+    expect(h.session.index, 1);
+    expect(h.session.lastResult, isNull);
+  });
+
+  test('8 questions, 6 correct: outcome and review round-trip', () {
+    final h = Harness(8)..session.begin();
+    const results = [
+      RoundResult.correct,
+      RoundResult.wrong,
+      RoundResult.correct,
+      RoundResult.correct,
+      RoundResult.timeout,
+      RoundResult.correct,
+      RoundResult.correct,
+      RoundResult.correct,
+    ];
+    for (final r in results) {
+      expect(h.session.isReview, isFalse);
+      h.answer(r);
+    }
+    // The 2 failed questions come back at the end, in order, as reviews.
+    expect(h.session.phase, SessionPhase.prompting);
+    expect(h.session.isReview, isTrue);
+    expect(h.session.current, same(h.plan[1]));
+    expect(h.session.totalQuestions, 8);
+    h.answer(RoundResult.correct);
+    expect(h.session.isReview, isTrue);
+    expect(h.session.current, same(h.plan[4]));
+    expect(h.session.outcome, isNull);
+    h.answer(RoundResult.correct);
+
+    expect(h.session.phase, SessionPhase.finished);
+    final o = h.session.outcome!;
+    expect(o.correct, 6);
+    expect(o.total, 8);
+    expect(o.points, 600);
+    expect(o.stars, 2);
+    expect(o.unlockedNext, isTrue);
+    expect(h.rounds.map((r) => r.review), [
+      ...List.filled(8, false),
+      true,
+      true,
+    ]);
+  });
+
+  test('wrong answers in review do not add reviews or points', () {
+    final h = Harness(2)..session.begin();
+    h.answer(RoundResult.wrong);
+    h.answer(RoundResult.correct);
+    h.answer(RoundResult.wrong); // review of i0, wrong again
+    expect(h.session.phase, SessionPhase.finished);
+    expect(h.rounds, hasLength(3));
+    final o = h.session.outcome!;
+    expect((o.correct, o.total, o.points, o.stars), (1, 2, 100, 1));
+    expect(o.unlockedNext, isTrue);
+  });
+
+  test('timeout in review ends the level too (no re-review)', () {
+    final h = Harness(1)..session.begin();
+    h.answer(RoundResult.timeout);
+    h.answer(RoundResult.timeout);
+    expect(h.session.phase, SessionPhase.finished);
+    expect(h.rounds, hasLength(2));
+  });
+
+  test('all wrong: stars 0, unlockedNext false', () {
+    final h = Harness(2)..session.begin();
+    for (var i = 0; i < 4; i++) {
+      h.answer(RoundResult.wrong);
+    }
+    final o = h.session.outcome!;
+    expect((o.correct, o.stars, o.points), (0, 0, 0));
+    expect(o.unlockedNext, isFalse);
+  });
+
+  test(
+    'history: asked 8 ids, markWrong 2, clearWrong 6 (+fixed in review)',
+    () {
+      final store = RecordingHistory();
+      final h = Harness(8, h: store)..session.begin();
+      const results = [
+        RoundResult.correct,
+        RoundResult.wrong, // i1: fixed in review
+        RoundResult.correct,
+        RoundResult.correct,
+        RoundResult.timeout, // i4: wrong again in review
+        RoundResult.correct,
+        RoundResult.correct,
+        RoundResult.correct,
+      ];
+      for (final r in results) {
+        h.answer(r);
+      }
+      expect(store.calls, isEmpty, reason: 'history is written only at finish');
+      h.answer(RoundResult.correct); // review i1
+      h.answer(RoundResult.wrong); // review i4
+      expect(store.calls.where((c) => c.startsWith('asked:')), [
+        'asked:i0,i1,i2,i3,i4,i5,i6,i7',
+      ]);
+      expect(store.calls.where((c) => c.startsWith('wrong:')), ['wrong:i4']);
+      expect(
+        store.calls.where((c) => c.startsWith('clear:')).toSet(),
+        {
+          'i0',
+          'i1',
+          'i2',
+          'i3',
+          'i5',
+          'i6',
+          'i7',
+        }.map((i) => 'clear:$i').toSet(),
+      );
+      // Never both mark and clear for one item.
+      expect(store.calls.contains('clear:i4'), isFalse);
+      expect(store.calls.contains('wrong:i1'), isFalse);
+      expect(store.wrongIds(), {'i4'});
+      expect(store.recentIds(), hasLength(8));
+    },
+  );
+
+  test(
+    'history seeded with a wrong id is cleared when answered correctly',
+    () async {
+      final store = RecordingHistory();
+      await store.markWrong('i0');
+      final h = Harness(1, h: store)..session.begin();
+      h.answer(RoundResult.correct);
+      expect(store.wrongIds(), isEmpty);
+    },
+  );
+
+  test('pause in playing: tick does nothing, resume restores playing', () {
+    final h = Harness(2)..session.begin();
+    h.session.onPromptFinished();
+    final before = h.session.round.remaining;
+    h.session.pause();
+    expect(h.session.phase, SessionPhase.paused);
+    h.session.tick(const Duration(seconds: 10));
+    h.session.onEvent(const Confirmed(0, at: Duration.zero));
+    expect(h.session.round.remaining, before);
+    expect(h.cur.ticks, 0);
+    expect(h.cur.events, isEmpty);
+    h.session.resume();
+    expect(h.session.phase, SessionPhase.playing);
+    expect(h.session.round.remaining, before);
+    h.session.tick(ms);
+    expect(h.cur.ticks, 1);
+  });
+
+  test('pause in prompting resumes to prompting', () {
+    final h = Harness(2)..session.begin();
+    h.session.pause();
+    h.session.tick(const Duration(seconds: 10));
+    h.session.onPromptFinished();
+    expect(h.session.phase, SessionPhase.paused);
+    h.session.resume();
+    expect(h.session.phase, SessionPhase.prompting);
+    expect(h.cur.started, isFalse);
+  });
+
+  test('pause in feedback does not burn feedback time', () {
+    final h = Harness(2)..session.begin();
+    h.session.onPromptFinished();
+    h.cur.setResult(RoundResult.correct);
+    h.session.tick(ms);
+    h.session.pause();
+    h.session.tick(const Duration(seconds: 10));
+    expect(h.session.phase, SessionPhase.paused);
+    expect(h.rounds, hasLength(1));
+    h.session.resume();
+    expect(h.session.phase, SessionPhase.feedback);
+    h.session.tick(const Duration(milliseconds: 2499));
+    expect(h.session.phase, SessionPhase.feedback);
+    h.session.tick(const Duration(milliseconds: 1));
+    expect(h.session.phase, SessionPhase.prompting);
+  });
+
+  test(
+    'pause when finished or already paused is a no-op; resume w/o pause too',
+    () {
+      final h = Harness(1)..session.begin();
+      h.session.resume();
+      expect(h.session.phase, SessionPhase.prompting);
+      h.answer(RoundResult.correct);
+      expect(h.session.phase, SessionPhase.finished);
+      h.session.pause();
+      expect(h.session.phase, SessionPhase.finished);
+
+      final g = Harness(1)..session.begin();
+      g.session.pause();
+      g.session.pause();
+      g.session.resume();
+      expect(g.session.phase, SessionPhase.prompting);
+    },
+  );
+
+  test('history is written exactly once even when ticked after finish', () {
+    final h = Harness(1)..session.begin();
+    h.answer(RoundResult.correct);
+    final n = h.history.calls.length;
+    h.session.tick(const Duration(seconds: 10));
+    h.session.onEvent(const Confirmed(0, at: Duration.zero));
+    h.session.onPromptFinished();
+    expect(h.history.calls, hasLength(n));
+    expect(h.session.phase, SessionPhase.finished);
+  });
+
+  test('empty plan finishes immediately with zero stars', () {
+    final h = Harness(0)..session.begin();
+    expect(h.session.phase, SessionPhase.finished);
+    final o = h.session.outcome!;
+    expect((o.correct, o.total, o.points, o.stars), (0, 0, 0, 0));
+    expect(o.unlockedNext, isFalse);
+    expect(h.rounds, isEmpty);
+  });
+}
