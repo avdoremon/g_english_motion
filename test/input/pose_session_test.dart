@@ -42,9 +42,11 @@ List<PoseFrame> motion(
   Duration duration, {
   double Function(Duration t)? hipX,
   double Function(Duration t)? lift,
+  int fps = 30,
 }) {
   return poseSequence(
     duration: duration,
+    fps: fps,
     posesAt: (t) => [
       makePose(hipX: hipX?.call(t) ?? 0.5, hipY: 0.6 - (lift?.call(t) ?? 0)),
     ],
@@ -388,6 +390,216 @@ void main() {
       expect(events.whereType<Confirmed>(), isEmpty);
     },
   );
+
+  group('persistent frame errors', () {
+    // Collects events and errors from a manually fed session.
+    Future<({List<GameInputEvent> events, List<Object> errors})> feed(
+      List<PoseFrame> frames,
+    ) async {
+      final c = StreamController<PoseFrame>();
+      final session = PoseSession(c.stream, calibration, laneCount: 3);
+      final events = <GameInputEvent>[];
+      final errors = <Object>[];
+      final done = Completer<void>();
+      session.events.listen(
+        events.add,
+        onError: errors.add,
+        onDone: done.complete,
+      );
+      frames.forEach(c.add);
+      await c.close();
+      await done.future;
+      await session.dispose();
+      return (events: events, errors: errors);
+    }
+
+    PoseFrame boom(int t) => PoseFrame([_ThrowingPose()], ms(t));
+
+    test('frames that keep throwing for >= 500 ms yield PlayerLost, then '
+        'PlayerFound when a good frame returns', () async {
+      final stand = standingSequence(duration: ms(1000), fps: 15);
+      final r = await feed([
+        ...stand,
+        for (var t = 1000; t <= 1800; t += 67) boom(t),
+        ...standingSequence(duration: ms(600), fps: 15, start: ms(1867)),
+      ]);
+      expect(r.errors, isNotEmpty);
+      expect(r.events.whereType<PlayerLost>(), hasLength(1));
+      expect(r.events.whereType<PlayerFound>(), hasLength(1));
+      expect(
+        r.events.whereType<PlayerLost>().single.at,
+        greaterThanOrEqualTo(ms(1500)),
+      );
+    });
+
+    test('a few throwing frames (< 500 ms) do not yield PlayerLost', () async {
+      final r = await feed([
+        ...standingSequence(duration: ms(1000), fps: 15),
+        boom(1000),
+        boom(1067),
+        boom(1134),
+        ...standingSequence(duration: ms(600), fps: 15, start: ms(1200)),
+      ]);
+      expect(r.errors, hasLength(3));
+      expect(r.events.whereType<PlayerLost>(), isEmpty);
+    });
+
+    test('a good frame between throwing ones restarts the count', () async {
+      final r = await feed([
+        ...standingSequence(duration: ms(1000), fps: 15),
+        for (var t = 1000; t <= 1400; t += 67) boom(t),
+        PoseFrame([makePose()], ms(1467)),
+        for (var t = 1534; t <= 1934; t += 67) boom(t),
+      ]);
+      expect(r.events.whereType<PlayerLost>(), isEmpty);
+    });
+  });
+
+  group('re-acquisition while lost', () {
+    // Child present 0..1000, nobody 1000..1700 (lost), then [after].
+    List<PoseFrame> scene(List<Pose> Function(Duration t) after) => [
+      ...standingSequence(duration: ms(1000), fps: 15),
+      ...poseSequence(
+        duration: ms(700),
+        fps: 15,
+        start: ms(1000),
+        posesAt: (_) => const [],
+      ),
+      ...poseSequence(
+        duration: ms(1400),
+        fps: 15,
+        start: ms(1700),
+        posesAt: after,
+      ),
+    ];
+
+    test('a much larger bystander near the centre is not adopted', () async {
+      final events = await run(
+        scene((_) => [makePose(hipX: 0.55, hipY: 0.7, torso: 0.5)]),
+      );
+      expect(events.whereType<PlayerLost>(), hasLength(1));
+      expect(events.whereType<PlayerFound>(), isEmpty);
+      expect(events.whereType<Confirmed>(), isEmpty);
+      expect(events.whereType<LaneChanged>(), isEmpty);
+    });
+
+    test('a much smaller bystander is not adopted either', () async {
+      final events = await run(
+        scene((_) => [makePose(hipX: 0.45, hipY: 0.6, torso: 0.15)]),
+      );
+      expect(events.whereType<PlayerFound>(), isEmpty);
+    });
+
+    test(
+      'the child (torso within 35%) is re-adopted next to a bystander',
+      () async {
+        final events = await run(
+          scene(
+            (_) => [
+              makePose(hipX: 0.5, hipY: 0.7, torso: 0.5),
+              makePose(hipX: 0.62, torso: 0.36), // 20% larger: accepted
+            ],
+          ),
+        );
+        expect(events.whereType<PlayerFound>(), hasLength(1));
+      },
+    );
+
+    test('a torso 40% off the calibrated one is rejected', () async {
+      final events = await run(
+        scene((_) => [makePose(hipX: 0.5, torso: 0.3 * 1.4)]),
+      );
+      expect(events.whereType<PlayerFound>(), isEmpty);
+    });
+  });
+
+  group('15 fps (single-pose plugin)', () {
+    test('a jump of rise 0.04 confirms exactly once with lane 1', () async {
+      final frames = jumpSequence(jumps: 1, rise: 0.04, fps: 15, noise: 0);
+      final events = await run(frames);
+      final confirmed = events.whereType<Confirmed>().toList();
+      expect(confirmed, hasLength(1));
+      expect(confirmed.single.lane, 1);
+      expect(events.whereType<LaneChanged>(), isEmpty);
+    });
+
+    test('three jumps of rise 0.04 -> three Confirmed', () async {
+      final frames = jumpSequence(jumps: 3, rise: 0.04, fps: 15, noise: 0);
+      expect((await run(frames)).whereType<Confirmed>(), hasLength(3));
+    });
+
+    test('stepping to another lane and jumping confirms that lane', () async {
+      final frames = motion(
+        ms(5000),
+        fps: 15,
+        hipX: (t) => t < ms(1500) ? 0.5 : 0.3,
+        lift: (t) {
+          final s = (t - ms(3000)).inMilliseconds;
+          return s < 0 || s > 500 ? 0 : 0.04 * math.sin(math.pi * s / 500);
+        },
+      );
+      final events = await run(frames);
+      expect(events.whereType<LaneChanged>().map((e) => e.lane), [2]);
+      final confirmed = events.whereType<Confirmed>().toList();
+      expect(confirmed, hasLength(1));
+      expect(confirmed.single.lane, 2);
+    });
+
+    test('a slow walk toward the camera never confirms', () async {
+      final frames = motion(
+        ms(8000),
+        fps: 15,
+        lift: (t) {
+          final s = t.inMilliseconds / 1000;
+          return s < 1 ? 0 : (s < 4 ? 0.02 * (s - 1) : 0.06);
+        },
+      );
+      expect((await run(frames)).whereType<Confirmed>(), isEmpty);
+    });
+  });
+
+  group('raise-hands confidence', () {
+    // Wrists detected with confidence 0.6, everything else 1.0.
+    List<PoseFrame> hands() => poseSequence(
+      duration: ms(3000),
+      fps: 15,
+      posesAt: (t) {
+        final base = makePose(
+          leftWrist: const Offset(0.4, 0.1),
+          rightWrist: const Offset(0.6, 0.1),
+        );
+        if (t < ms(1000) || t >= ms(2500)) return [makePose()];
+        return [
+          Pose({
+            ...base.joints,
+            PoseJoint.leftWrist: const Landmark(0.4, 0.1, 0.6),
+            PoseJoint.rightWrist: const Landmark(0.6, 0.1, 0.6),
+          }),
+        ];
+      },
+    );
+
+    Future<List<GameInputEvent>> withMin(double minConfidence) async {
+      final session = PoseSession(
+        FakePoseFrameSource(hands()).frames,
+        calibration,
+        laneCount: 3,
+        confirm: ConfirmGesture.raiseHands,
+        minConfidence: minConfidence,
+      );
+      final events = await session.events.toList();
+      await session.dispose();
+      return events;
+    }
+
+    test(
+      'the session minConfidence is used by the raise-hands detector',
+      () async {
+        expect((await withMin(0.5)).whereType<Confirmed>(), hasLength(1));
+        expect((await withMin(0.7)).whereType<Confirmed>(), isEmpty);
+      },
+    );
+  });
 }
 
 class _ThrowingPose extends Pose {

@@ -18,7 +18,12 @@ import 'raise_hands_detector.dart';
 /// The nearest pose is chosen first; if it is not reliable (e.g. low hip
 /// confidence at takeoff) the frame is doubtful and nobody else is picked.
 /// After [PlayerLost] tracking is re-seeded from the calibration and a wide
-/// gate is used until the player is found again.
+/// gate is used until the player is found again; while lost, a candidate must
+/// also have a torso within [_maxLostTorsoDeviation] of the calibrated torso,
+/// so a bystander of a different size is not adopted.
+///
+/// Frames whose processing keeps throwing for [_lostAfter] (frame timestamps)
+/// also yield [PlayerLost]: the player cannot be followed.
 ///
 /// Notes for the owner:
 /// - [events] is a broadcast stream: subscribe synchronously after
@@ -51,6 +56,10 @@ class PoseSession {
   static const double _maxReacquireDistance = 0.6;
   static const Duration _lostAfter = Duration(milliseconds: 500);
 
+  /// While lost, |torso - calibrated torso| must be at most this fraction of
+  /// the calibrated torso.
+  static const double _maxLostTorsoDeviation = 0.35;
+
   /// Look-back from the threshold-crossing frame to (approximately) takeoff.
   static const Duration _takeoffLookback = Duration(milliseconds: 250);
 
@@ -71,7 +80,7 @@ class PoseSession {
 
   final LaneTracker _laneTracker;
   final JumpDetector _jump;
-  RaiseHandsDetector _raise = RaiseHandsDetector();
+  late RaiseHandsDetector _raise = _newRaise();
   final StreamController<GameInputEvent> _events =
       StreamController<GameInputEvent>.broadcast();
   late final StreamSubscription<PoseFrame> _sub;
@@ -82,6 +91,9 @@ class PoseSession {
   double _lastX;
   double _lastTorso;
   Duration? _lastValidAt;
+
+  /// Timestamp of the first frame of the current run of throwing frames.
+  Duration? _throwingSince;
   bool _lost = false;
   Duration _suppressConfirmUntil = Duration.zero;
   bool _disposed = false;
@@ -107,6 +119,9 @@ class PoseSession {
   void _onDone() {
     if (!_disposed) dispose();
   }
+
+  RaiseHandsDetector _newRaise() =>
+      RaiseHandsDetector(minConfidence: minConfidence);
 
   bool _reliable(Pose p) {
     for (final j in [PoseJoint.leftHip, PoseJoint.rightHip]) {
@@ -139,6 +154,10 @@ class PoseSession {
     for (final p in poses) {
       final x = _rawHipX(p), torso = _rawTorso(p);
       if (x == null || torso == null) continue;
+      if (_lost &&
+          (torso - _seedTorso).abs() > _maxLostTorsoDeviation * _seedTorso) {
+        continue;
+      }
       final d = (x - _lastX).abs() + (torso - _lastTorso).abs();
       if (d < bestDist) {
         bestDist = d;
@@ -179,9 +198,28 @@ class PoseSession {
   void _onFrameSafe(PoseFrame f) {
     try {
       _onFrame(f);
+      _throwingSince = null;
     } catch (e, st) {
       _onError(e, st);
+      _onFrameFailed(f.timestamp);
     }
+  }
+
+  /// A frame could not be processed: never score through it, and after a
+  /// sustained run of failures report the player as lost.
+  void _onFrameFailed(Duration t) {
+    _jump.suppressUntil(t + _uncertainHold);
+    _raise = _newRaise();
+    _throwingSince ??= t;
+    if (!_lost && t - _throwingSince! >= _lostAfter) _enterLost(t);
+  }
+
+  void _enterLost(Duration t) {
+    _lost = true;
+    _filters.clear();
+    _lastX = _seedX;
+    _lastTorso = _seedTorso;
+    _emit(PlayerLost(at: t));
   }
 
   void _onFrame(PoseFrame f) {
@@ -193,14 +231,8 @@ class PoseSession {
     if (player == null) {
       // Not sure who/where the player is: never score through this frame.
       _jump.suppressUntil(t + _uncertainHold);
-      _raise = RaiseHandsDetector();
-      if (!_lost && t - _lastValidAt! >= _lostAfter) {
-        _lost = true;
-        _filters.clear();
-        _lastX = _seedX;
-        _lastTorso = _seedTorso;
-        _emit(PlayerLost(at: t));
-      }
+      _raise = _newRaise();
+      if (!_lost && t - _lastValidAt! >= _lostAfter) _enterLost(t);
       return;
     }
 
@@ -210,7 +242,7 @@ class PoseSession {
     if (_lost) {
       _lost = false;
       _filters.clear();
-      _raise = RaiseHandsDetector();
+      _raise = _newRaise();
       // The first frame back must not confirm anything.
       _jump.suppressUntil(t + const Duration(milliseconds: 1));
       _emit(PlayerFound(at: t));
