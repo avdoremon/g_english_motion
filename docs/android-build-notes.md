@@ -66,3 +66,27 @@ are switched off. Removing either line breaks the build with errors about
    `PoseLandmarkerBackend`, so swapping it is one small file).
 6. Duplicate-class or R8 errors in release: build debug first, then add keep
    rules for MediaPipe (`com.google.mediapipe.**`) if only release fails.
+
+## Optional release size trim (NOT applied)
+
+The plugin ships three MediaPipe models as assets (lite 5.8 MB, full 9.4 MB,
+heavy 30.7 MB, about 46 MB); the app selects only the lite one. If the APK
+size matters for a release, an asset exclude in `android/app/build.gradle.kts`
+could drop the other two. UNVERIFIED, so deliberately not part of the build:
+
+```kotlin
+android {
+    androidResources {
+        // aapt2 --ignore-assets list; keep AGP's defaults and append the models
+        // the app never loads. Only safe while the adapter stays on lite.
+        ignoreAssetsPattern =
+            "!.svn:!.git:!.ds_store:!*.scc:.*:<dir>_*:CVS:thumbs.db:picasa.ini:*~:" +
+            "pose_landmarker_full.task:pose_landmarker_heavy.task"
+    }
+}
+```
+
+If it does not take effect, check the built APK with `unzip -l` for the
+`.task` files; with `android.newDsl=false` the older spelling is
+`aaptOptions { ignoreAssetsPattern = ... }`. Re-check `MpPoseLandmarkerBackend`
+(`setConfig` model index) before shipping with fewer models.
