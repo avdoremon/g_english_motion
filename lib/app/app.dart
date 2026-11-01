@@ -328,6 +328,7 @@ class _RootState extends State<_Root> {
           session: ctl.session,
           audio: _d.audio,
           wakelock: _d.wakelock,
+          captionFilter: ctl.shouldShowCaption,
           child: _stage(ctl),
         ),
       ),

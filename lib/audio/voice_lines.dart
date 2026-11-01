@@ -20,5 +20,9 @@ enum VoiceLine {
 
   final String caption;
 
+  /// Whether [text] is the caption of a Vietnamese voice line (as opposed to
+  /// an English word that is being spoken).
+  static bool isCaption(String text) => values.any((l) => l.caption == text);
+
   String get assetPath => 'assets/audio/vi/$name.m4a';
 }

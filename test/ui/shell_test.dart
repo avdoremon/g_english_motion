@@ -280,6 +280,34 @@ void main() {
       ),
     );
 
+    testWidgets('shows what the voice says in a caption strip', (tester) async {
+      await tester.pumpWidget(
+        _app(
+          GameShell(
+            session: session,
+            events: events.stream,
+            elapsed: () => clock,
+            audio: audio,
+            wakelock: wakelock,
+            captionFilter: (c) => c != 'ball',
+            child: const Text('PLAYFIELD'),
+          ),
+        ),
+      );
+      // AudioService chains real futures: let them run on the real clock.
+      await tester.runAsync(() async {
+        await audio.playLine(VoiceLine.welcome);
+        await audio.sayEnglish('ball');
+      });
+      await tester.pump();
+      expect(captions, [VoiceLine.welcome.caption, 'ball']);
+      expect(find.text(VoiceLine.welcome.caption), findsOneWidget);
+      // The filtered English word neither shows nor replaces the line.
+      expect(find.text('ball'), findsNothing);
+      // Dispose (cancels the strip's hide timer).
+      await tester.pumpWidget(const SizedBox());
+    });
+
     testWidgets('wakelock on init, off on dispose', (tester) async {
       await tester.pumpWidget(shell());
       expect(find.text('PLAYFIELD'), findsOneWidget);

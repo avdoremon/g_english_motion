@@ -90,7 +90,12 @@ const harnessWords = [
   'hat',
 ];
 
-Unit harnessUnit({int grade = 1, int index = 1, int count = 8}) {
+Unit harnessUnit({
+  int grade = 1,
+  int index = 1,
+  int count = 8,
+  bool withImages = false,
+}) {
   final p = 'g${grade}u$index';
   return Unit(
     grade: grade,
@@ -103,6 +108,9 @@ Unit harnessUnit({int grade = 1, int index = 1, int count = 8}) {
           id: '${p}i$i',
           word: harnessWords[i % harnessWords.length],
           ttsText: harnessWords[i % harnessWords.length],
+          image: withImages
+              ? 'grade1/${harnessWords[i % harnessWords.length]}.png'
+              : null,
           distractorIds: ['${p}i${(i + 1) % count}', '${p}i${(i + 2) % count}'],
           modes: const [ModeKind.laneJump],
         ),
@@ -138,9 +146,12 @@ class GameHarness {
     String? hangClip,
     LevelConfig level = harnessLevel,
     bool delayPermission = false,
+    ConfirmGesture confirm = ConfirmGesture.jump,
+    bool withImages = false,
   }) async {
     SharedPreferences.setMockInitialValues({});
     final store = ProgressStore(await SharedPreferences.getInstance());
+    await store.setConfirmGesture(confirm);
     final frames = StreamController<PoseFrame>(sync: true);
     final source = CountingSource.fromStream(
       frames.stream,
@@ -158,7 +169,9 @@ class GameHarness {
     final captions = <String>[];
     audio.captions.listen(captions.add);
     final tickCtl = StreamController<Duration>.broadcast(sync: true);
-    final repo = ContentRepository(withContent ? [harnessUnit()] : []);
+    final repo = ContentRepository(
+      withContent ? [harnessUnit(withImages: withImages)] : [],
+    );
     final controller = GameController(
       grade: 1,
       level: level,

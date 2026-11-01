@@ -8,6 +8,7 @@ import '../../audio/voice_lines.dart';
 import '../../input/game_input_event.dart';
 import '../../session/pausable_session.dart';
 import 'banner_slot.dart';
+import 'caption_strip.dart';
 import 'pause_overlay.dart';
 
 export '../../session/pausable_session.dart';
@@ -31,7 +32,7 @@ Duration _monotonic() => _sw.elapsed;
 
 typedef BreakTimerFactory = Timer Function(Duration d, void Function() cb);
 
-/// Wraps the playing area: wakelock, lifecycle + player-lost pausing, and a
+/// Wraps the playing area: wakelock, a caption strip (what the voice says), lifecycle + player-lost pausing, and a
 /// single "take a break" reminder after [breakAfter] of PLAY time (the clock
 /// stops while the session is paused and resumes with the remaining time).
 ///
@@ -59,6 +60,7 @@ class GameShell extends StatefulWidget {
     this.timerFactory = Timer.new,
     this.elapsed = _monotonic,
     this.showBanner = false,
+    this.captionFilter,
   });
 
   final Widget child;
@@ -72,6 +74,9 @@ class GameShell extends StatefulWidget {
   /// Monotonic clock used to measure play time (injectable for tests).
   final Duration Function() elapsed;
   final bool showBanner;
+
+  /// Captions for which this returns false are not shown in the strip.
+  final bool Function(String caption)? captionFilter;
 
   @override
   State<GameShell> createState() => _GameShellState();
@@ -202,6 +207,10 @@ class _GameShellState extends State<GameShell> with WidgetsBindingObserver {
           child: Column(
             children: [
               Expanded(child: widget.child),
+              CaptionStrip(
+                captions: widget.audio.captions,
+                filter: widget.captionFilter,
+              ),
               if (widget.showBanner) const BannerSlot(),
             ],
           ),

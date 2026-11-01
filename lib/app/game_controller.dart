@@ -211,6 +211,7 @@ class GameController extends ChangeNotifier {
       return PermissionOutcome.granted;
     }
     _setPhase(GamePhase.requestingPermission);
+    unawaited(_audio.playLine(VoiceLine.welcome));
     PermissionOutcome outcome;
     _cameraStarting = true;
     try {
@@ -248,6 +249,7 @@ class GameController extends ChangeNotifier {
     if (_phase == GamePhase.calibrating) {
       final p = _calibrator!.add(f);
       _calibrationProgress = p;
+      _speakCalibrationIssue(p.issue, f.timestamp);
       if (p.result != null) {
         _beginPlay(p.result!);
       } else {
@@ -263,10 +265,51 @@ class GameController extends ChangeNotifier {
     _poseFrames?.add(f);
   }
 
+  /// Spoken hints while calibrating, each at most once per
+  /// [issueLineEvery] (frame time), so a persistent issue is not nagged.
+  static const issueLineEvery = Duration(seconds: 5);
+  final Map<VoiceLine, Duration> _issueSpokenAt = {};
+
+  void _speakCalibrationIssue(CalibrationIssue? issue, Duration at) {
+    final line = switch (issue) {
+      CalibrationIssue.notStill => VoiceLine.standStill,
+      CalibrationIssue.tooClose => VoiceLine.stepBack,
+      _ => null,
+    };
+    if (line == null) return;
+    final last = _issueSpokenAt[line];
+    if (last != null && at - last < issueLineEvery) return;
+    _issueSpokenAt[line] = at;
+    unawaited(_audio.playLine(line));
+  }
+
+  /// Whether a caption may be displayed now. Vietnamese lines always are; the
+  /// English word of a picture question is held back until the child has
+  /// answered (it would reveal the answer).
+  bool shouldShowCaption(String text) {
+    if (VoiceLine.isCaption(text)) return true;
+    final s = _session;
+    if (s == null ||
+        s.phase == SessionPhase.finished ||
+        s.phase == SessionPhase.feedback) {
+      return true;
+    }
+    final q = s.current.question;
+    return !(q is ChoiceQuestion &&
+        (q.form == QuestionForm.listenPickPicture ||
+            q.form == QuestionForm.seePicturePickWord));
+  }
+
   void _beginPlay(Calibration cal) {
     final frames = StreamController<PoseFrame>.broadcast(sync: true);
     _poseFrames = frames;
-    final pose = PoseSession(frames.stream, cal, laneCount: level.choiceCount);
+    final confirm = _store.confirmGesture;
+    final pose = PoseSession(
+      frames.stream,
+      cal,
+      laneCount: level.choiceCount,
+      confirm: confirm,
+    );
     _pose = pose;
     _selectedLane = pose.currentLane;
     _poseSub = pose.events.listen(_onPoseEvent, onError: (Object _) {});
@@ -287,6 +330,14 @@ class GameController extends ChangeNotifier {
     _lastTick = null;
     _tickSub = _tickerFactory().listen(_onTick);
     _setPhase(GamePhase.playing);
+    // Before the first question; the audio queue keeps the order.
+    unawaited(
+      _audio.playLine(
+        confirm == ConfirmGesture.raiseHands
+            ? VoiceLine.raiseHandsToChoose
+            : VoiceLine.jumpToChoose,
+      ),
+    );
     s.begin();
     _afterSessionChange();
   }

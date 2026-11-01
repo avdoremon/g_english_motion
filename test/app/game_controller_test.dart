@@ -1,5 +1,6 @@
 import 'dart:async';
 
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:g_english_motion/app/game_controller.dart';
 import 'package:g_english_motion/audio/voice_lines.dart';
@@ -7,11 +8,13 @@ import 'package:g_english_motion/content/question_models.dart';
 import 'package:g_english_motion/input/game_input_event.dart';
 import 'package:g_english_motion/content/curriculum.dart';
 import 'package:g_english_motion/input/pose_frame_source.dart';
+import 'package:g_english_motion/input/pose_types.dart';
 import 'package:g_english_motion/levels/level_config.dart';
 import 'package:g_english_motion/modes/round.dart';
 import 'package:g_english_motion/session/level_session.dart';
 
 import '../helpers/game_harness.dart';
+import '../helpers/synthetic_poses.dart';
 
 const _correctLines = [
   'Giỏi quá!',
@@ -102,6 +105,134 @@ void main() {
           harnessLevel.choiceCount,
         );
         expect(h.captions, contains(s.current.question.ttsText));
+      },
+    );
+  });
+
+  group('voice lines and confirm gesture', () {
+    test(
+      'welcome, then the jump instruction, then the first question',
+      () async {
+        await playing();
+        final q = c().session!.current.question.ttsText;
+        final welcome = h.captions.indexOf(VoiceLine.welcome.caption);
+        final how = h.captions.indexOf(VoiceLine.jumpToChoose.caption);
+        final first = h.captions.indexOf(q);
+        expect(welcome, 0);
+        expect(how, greaterThan(welcome));
+        expect(first, greaterThan(how));
+        expect(
+          h.captions,
+          isNot(contains(VoiceLine.raiseHandsToChoose.caption)),
+        );
+        expect(
+          h.captions.where((x) => x == VoiceLine.jumpToChoose.caption),
+          hasLength(1),
+        );
+      },
+    );
+
+    test(
+      'raiseHands setting: instruction, jumps ignored, hands confirm',
+      () async {
+        h = await GameHarness.create(confirm: ConfirmGesture.raiseHands);
+        await h.startAndCalibrate();
+        expect(h.captions, contains(VoiceLine.raiseHandsToChoose.caption));
+        expect(h.captions, isNot(contains(VoiceLine.jumpToChoose.caption)));
+        h.lane = correctIndex();
+        await h.run(const Duration(milliseconds: 1500));
+        await h.jump();
+        await h.jump();
+        expect(c().session!.phase, SessionPhase.playing);
+        expect(c().session!.lastResult, isNull);
+
+        Pose handsUp(Duration _) => makePose(
+          hipX: GameHarness.hipXForLane(h.lane, 3),
+          leftWrist: const Offset(0.4, 0.05),
+          rightWrist: const Offset(0.6, 0.05),
+        );
+        await h.run(
+          const Duration(milliseconds: 900),
+          pose: handsUp,
+          stopWhen: () => c().session!.phase == SessionPhase.feedback,
+        );
+        expect(c().session!.phase, SessionPhase.feedback);
+        expect(c().session!.lastResult, RoundResult.correct);
+      },
+    );
+
+    test('calibration hints are throttled to once per 5 s per issue', () async {
+      h = await GameHarness.create();
+      final f = c().start(h.source);
+      await pumpEventQueue();
+      await f;
+      Pose noKnees(Duration _) => makePose(knees: false);
+      int stepBacks() =>
+          h.captions.where((x) => x == VoiceLine.stepBack.caption).length;
+      await h.run(const Duration(seconds: 3), pose: noKnees);
+      expect(stepBacks(), 1);
+      await h.run(const Duration(seconds: 1), pose: noKnees);
+      expect(stepBacks(), 1);
+      await h.run(const Duration(seconds: 3), pose: noKnees);
+      expect(stepBacks(), 2);
+      expect(c().phase, GamePhase.calibrating);
+      expect(h.captions, isNot(contains(VoiceLine.standStill.caption)));
+    });
+
+    test('a swaying player is told to stand still', () async {
+      h = await GameHarness.create();
+      final f = c().start(h.source);
+      await pumpEventQueue();
+      await f;
+      await h.run(
+        const Duration(seconds: 3),
+        pose: (since) => makePose(
+          hipY: 0.6 + (since.inMilliseconds ~/ 100 % 2 == 0 ? 0.05 : -0.05),
+        ),
+      );
+      expect(
+        h.captions.where((x) => x == VoiceLine.standStill.caption),
+        hasLength(1),
+      );
+    });
+
+    test(
+      'English captions are held back for picture questions until answered',
+      () async {
+        h = await GameHarness.create(withImages: true);
+        await h.startAndCalibrate();
+        final seen = <QuestionForm>{};
+        for (var i = 0; i < 8 && c().phase == GamePhase.playing; i++) {
+          final q = c().session!.current.question as ChoiceQuestion;
+          seen.add(q.form);
+          final picture =
+              q.form == QuestionForm.listenPickPicture ||
+              q.form == QuestionForm.seePicturePickWord;
+          expect(c().shouldShowCaption('Giỏi quá!'), isTrue);
+          expect(
+            c().shouldShowCaption(q.ttsText),
+            !picture,
+            reason: '${q.form} before answering',
+          );
+          await h.run(
+            const Duration(seconds: 21),
+            withFrames: true,
+            stopWhen: () => c().session!.phase == SessionPhase.feedback,
+          );
+          if (c().session!.phase == SessionPhase.feedback) {
+            expect(
+              c().shouldShowCaption(q.ttsText),
+              isTrue,
+              reason: 'feedback',
+            );
+          }
+          await h.run(
+            const Duration(seconds: 3),
+            stopWhen: () => c().session!.phase == SessionPhase.playing,
+          );
+        }
+        expect(seen, contains(QuestionForm.seePicturePickWord));
+        expect(seen, contains(QuestionForm.listenPickWord));
       },
     );
   });
