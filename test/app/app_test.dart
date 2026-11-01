@@ -8,11 +8,13 @@ import 'package:g_english_motion/app/game_controller.dart';
 import 'package:g_english_motion/audio/audio_service.dart';
 import 'package:g_english_motion/content/content_repository.dart';
 import 'package:g_english_motion/content/curriculum.dart';
+import 'package:g_english_motion/input/plugin_pose_frame_source.dart';
 import 'package:g_english_motion/input/pose_frame_source.dart';
 import 'package:g_english_motion/input/pose_types.dart';
 import 'package:g_english_motion/levels/level_config.dart';
 import 'package:g_english_motion/progress/progress_store.dart';
 import 'package:g_english_motion/ui/shell/game_shell.dart';
+import 'package:g_english_motion/ui/shell/pose_camera_host.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../helpers/game_harness.dart';
@@ -174,6 +176,31 @@ void main() {
       levels: const [],
     );
     expect(d.openSettings, isNotNull);
+  });
+
+  test('default pose source is the plugin adapter, with its camera host', () {
+    final audio = AudioService(
+      HarnessTts([]),
+      HarnessClips(),
+      assetExists: (_) => false,
+    );
+    final d = AppDependencies(
+      store: store,
+      audio: audio,
+      repo: ContentRepository([]),
+      levels: const [],
+    );
+    expect(d.sourceFactory(), isA<PluginPoseFrameSource>());
+    expect(d.cameraHost, isA<PoseCameraHost>());
+
+    final injected = AppDependencies(
+      store: store,
+      audio: audio,
+      repo: ContentRepository([]),
+      levels: const [],
+      sourceFactory: () => FakePoseFrameSource(const []),
+    );
+    expect(injected.cameraHost, isNull);
   });
 
   testWidgets('too few distractors: friendly "no lessons", not a dead end', (

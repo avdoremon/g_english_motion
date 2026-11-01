@@ -9,7 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../audio/audio_service.dart';
 import '../content/content_repository.dart';
 import '../input/calibrator.dart';
-import '../input/mediapipe_frame_source.dart';
+import '../input/plugin_pose_frame_source.dart';
 import '../input/pose_frame_source.dart';
 import '../levels/level_config.dart';
 import '../progress/progress_store.dart';
@@ -22,6 +22,7 @@ import '../ui/screens/result_screen.dart';
 import '../ui/shell/calibration_screen.dart';
 import '../ui/shell/game_shell.dart';
 import '../ui/shell/permission_screen.dart';
+import '../ui/shell/pose_camera_host.dart';
 import '../ui/shell/safety_screen.dart';
 import '../ui/theme/app_theme.dart';
 import 'game_controller.dart';
@@ -42,7 +43,13 @@ class AppDependencies {
     Random? rng,
     this.closeTimeout = const Duration(seconds: 3),
     this.controllerFactory,
-  }) : sourceFactory = sourceFactory ?? MediapipeFrameSource.new,
+    Widget? cameraHost,
+  }) : sourceFactory = sourceFactory ?? PluginPoseFrameSource.new,
+       // The real plugin source needs its preview view in the tree; an
+       // injected (fake) source does not.
+       cameraHost =
+           cameraHost ??
+           (sourceFactory == null ? const PoseCameraHost() : null),
        openSettings = openSettings ?? _openAppSettings,
        ticker = ticker ?? periodicTicker,
        rng = rng ?? Random();
@@ -54,6 +61,10 @@ class AppDependencies {
 
   /// A fresh camera/pose source for each play flow.
   final PoseFrameSource Function() sourceFactory;
+
+  /// Invisible platform view the pose plugin needs while its camera runs
+  /// (see [PoseCameraHost]); placed once in the [GameShell] of a play flow.
+  final Widget? cameraHost;
   final TickerFactory ticker;
   final Wakelock wakelock;
   final Random rng;
@@ -259,9 +270,7 @@ class _RootState extends State<_Root> {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (!mounted) return;
         ScaffoldMessenger.maybeOf(context)?.showSnackBar(
-          const SnackBar(
-            content: Text('Có lỗi rồi, em thử lại sau nhé!'),
-          ),
+          const SnackBar(content: Text('Có lỗi rồi, em thử lại sau nhé!')),
         );
       });
     }
@@ -371,6 +380,7 @@ class _RootState extends State<_Root> {
             audio: _d.audio,
             wakelock: _d.wakelock,
             captionFilter: ctl.shouldShowCaption,
+            cameraHost: _d.cameraHost,
             child: _stage(ctl),
           ),
         ),

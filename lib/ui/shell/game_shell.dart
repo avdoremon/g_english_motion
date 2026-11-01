@@ -61,6 +61,7 @@ class GameShell extends StatefulWidget {
     this.elapsed = _monotonic,
     this.showBanner = false,
     this.captionFilter,
+    this.cameraHost,
   });
 
   final Widget child;
@@ -77,6 +78,11 @@ class GameShell extends StatefulWidget {
 
   /// Captions for which this returns false are not shown in the strip.
   final bool Function(String caption)? captionFilter;
+
+  /// The pose plugin's invisible camera host ([PoseCameraHost] in
+  /// production, null in tests). Kept for the shell's whole life so the
+  /// platform view is created once per play session.
+  final Widget? cameraHost;
 
   @override
   State<GameShell> createState() => _GameShellState();
@@ -219,6 +225,8 @@ class _GameShellState extends State<GameShell> with WidgetsBindingObserver {
           const Positioned.fill(
             child: PauseOverlay(message: 'Em đâu rồi? Quay lại khung hình nhé'),
           ),
+        if (widget.cameraHost case final host?)
+          Positioned(left: 0, bottom: 0, child: host),
       ],
     );
   }
