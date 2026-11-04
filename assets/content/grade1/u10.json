@@ -5,46 +5,6 @@
   "title": "At the zoo",
   "items": [
     {
-      "id": "g1u10-lion",
-      "word": "lion",
-      "ttsText": "lion",
-      "image": "grade1/lion.png",
-      "syllables": 2,
-      "sentencePatterns": [],
-      "distractorIds": [
-        "g1u10-tiger",
-        "g1u10-zebra",
-        "g1u10-snake"
-      ],
-      "spokenVariants": [
-        "line"
-      ],
-      "modes": [
-        "laneJump",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g1u10-tiger",
-      "word": "tiger",
-      "ttsText": "tiger",
-      "image": "grade1/tiger.png",
-      "syllables": 2,
-      "sentencePatterns": [],
-      "distractorIds": [
-        "g1u10-monkey",
-        "g1u10-giraffe",
-        "g1u10-bird"
-      ],
-      "spokenVariants": [
-        "tigger"
-      ],
-      "modes": [
-        "laneJump",
-        "sayIt"
-      ]
-    },
-    {
       "id": "g1u10-monkey",
       "word": "monkey",
       "ttsText": "monkey",
@@ -52,9 +12,9 @@
       "syllables": 2,
       "sentencePatterns": [],
       "distractorIds": [
-        "g1u10-elephant",
-        "g1u10-bear",
-        "g1u10-fish"
+        "g1u10-mango",
+        "g1u10-mouse",
+        "g1u10-lion"
       ],
       "spokenVariants": [
         "mucky"
@@ -65,36 +25,19 @@
       ]
     },
     {
-      "id": "g1u10-elephant",
-      "word": "elephant",
-      "ttsText": "elephant",
-      "image": "grade1/elephant.png",
-      "syllables": 3,
-      "sentencePatterns": [],
-      "distractorIds": [
-        "g1u10-zebra",
-        "g1u10-snake",
-        "g1u10-parrot"
-      ],
-      "spokenVariants": [],
-      "modes": [
-        "laneJump"
-      ]
-    },
-    {
-      "id": "g1u10-zebra",
-      "word": "zebra",
-      "ttsText": "zebra",
-      "image": "grade1/zebra.png",
+      "id": "g1u10-mango",
+      "word": "mango",
+      "ttsText": "mango",
+      "image": "grade1/mango.png",
       "syllables": 2,
       "sentencePatterns": [],
       "distractorIds": [
-        "g1u10-giraffe",
-        "g1u10-bird",
+        "g1u10-mother",
+        "g1u10-zoo",
         "g1u10-panda"
       ],
       "spokenVariants": [
-        "zeebra"
+        "mongo"
       ],
       "modes": [
         "laneJump",
@@ -102,39 +45,19 @@
       ]
     },
     {
-      "id": "g1u10-giraffe",
-      "word": "giraffe",
-      "ttsText": "giraffe",
-      "image": "grade1/giraffe.png",
+      "id": "g1u10-mother",
+      "word": "mother",
+      "ttsText": "mother",
+      "image": "grade1/mother.png",
       "syllables": 2,
       "sentencePatterns": [],
       "distractorIds": [
-        "g1u10-bear",
-        "g1u10-fish",
-        "g1u10-lion"
-      ],
-      "spokenVariants": [
-        "draft"
-      ],
-      "modes": [
-        "laneJump",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g1u10-bear",
-      "word": "bear",
-      "ttsText": "bear",
-      "image": "grade1/bear.png",
-      "syllables": 1,
-      "sentencePatterns": [],
-      "distractorIds": [
-        "g1u10-snake",
-        "g1u10-parrot",
+        "g1u10-mouse",
+        "g1u10-lion",
         "g1u10-tiger"
       ],
       "spokenVariants": [
-        "bare"
+        "mudder"
       ],
       "modes": [
         "laneJump",
@@ -142,59 +65,19 @@
       ]
     },
     {
-      "id": "g1u10-snake",
-      "word": "snake",
-      "ttsText": "snake",
-      "image": "grade1/snake.png",
+      "id": "g1u10-mouse",
+      "word": "mouse",
+      "ttsText": "mouse",
+      "image": "grade1/mouse.png",
       "syllables": 1,
       "sentencePatterns": [],
       "distractorIds": [
-        "g1u10-bird",
+        "g1u10-zoo",
         "g1u10-panda",
-        "g1u10-monkey"
-      ],
-      "spokenVariants": [
-        "snack"
-      ],
-      "modes": [
-        "laneJump",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g1u10-bird",
-      "word": "bird",
-      "ttsText": "bird",
-      "image": "grade1/bird.png",
-      "syllables": 1,
-      "sentencePatterns": [],
-      "distractorIds": [
-        "g1u10-fish",
-        "g1u10-lion",
-        "g1u10-elephant"
-      ],
-      "spokenVariants": [
-        "bud"
-      ],
-      "modes": [
-        "laneJump",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g1u10-fish",
-      "word": "fish",
-      "ttsText": "fish",
-      "image": "grade1/fish.png",
-      "syllables": 1,
-      "sentencePatterns": [],
-      "distractorIds": [
-        "g1u10-parrot",
-        "g1u10-tiger",
         "g1u10-zebra"
       ],
       "spokenVariants": [
-        "fist"
+        "mouth"
       ],
       "modes": [
         "laneJump",
@@ -202,19 +85,39 @@
       ]
     },
     {
-      "id": "g1u10-parrot",
-      "word": "parrot",
-      "ttsText": "parrot",
-      "image": "grade1/parrot.png",
+      "id": "g1u10-zoo",
+      "word": "zoo",
+      "ttsText": "zoo",
+      "image": "grade1/zoo.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u10-lion",
+        "g1u10-tiger",
+        "g1u10-bear"
+      ],
+      "spokenVariants": [
+        "sue"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u10-lion",
+      "word": "lion",
+      "ttsText": "lion",
+      "image": "grade1/lion.png",
       "syllables": 2,
       "sentencePatterns": [],
       "distractorIds": [
         "g1u10-panda",
-        "g1u10-monkey",
-        "g1u10-giraffe"
+        "g1u10-zebra",
+        "g1u10-monkey"
       ],
       "spokenVariants": [
-        "pirate"
+        "line"
       ],
       "modes": [
         "laneJump",
@@ -229,12 +132,72 @@
       "syllables": 2,
       "sentencePatterns": [],
       "distractorIds": [
-        "g1u10-lion",
-        "g1u10-elephant",
-        "g1u10-bear"
+        "g1u10-tiger",
+        "g1u10-bear",
+        "g1u10-mango"
       ],
       "spokenVariants": [
         "pander"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u10-tiger",
+      "word": "tiger",
+      "ttsText": "tiger",
+      "image": "grade1/tiger.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u10-zebra",
+        "g1u10-monkey",
+        "g1u10-mother"
+      ],
+      "spokenVariants": [
+        "tigger"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u10-zebra",
+      "word": "zebra",
+      "ttsText": "zebra",
+      "image": "grade1/zebra.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u10-bear",
+        "g1u10-mango",
+        "g1u10-mouse"
+      ],
+      "spokenVariants": [
+        "zeebra"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u10-bear",
+      "word": "bear",
+      "ttsText": "bear",
+      "image": "grade1/bear.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u10-monkey",
+        "g1u10-mother",
+        "g1u10-zoo"
+      ],
+      "spokenVariants": [
+        "bare"
       ],
       "modes": [
         "laneJump",

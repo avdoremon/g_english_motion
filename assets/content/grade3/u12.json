@@ -5,6 +5,31 @@
   "title": "Jobs",
   "items": [
     {
+      "id": "g3u12-job",
+      "word": "job",
+      "ttsText": "job",
+      "image": "grade3/job.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "What is his job",
+        "Teaching is a good job"
+      ],
+      "distractorIds": [
+        "g3u12-doctor",
+        "g3u12-teacher",
+        "g3u12-cook"
+      ],
+      "spokenVariants": [
+        "jab",
+        "jog"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
       "id": "g3u12-doctor",
       "word": "doctor",
       "ttsText": "doctor",
@@ -15,63 +40,13 @@
         "My uncle is a doctor"
       ],
       "distractorIds": [
-        "g3u12-nurse",
-        "g3u12-farmer",
-        "g3u12-driver"
+        "g3u12-driver",
+        "g3u12-worker",
+        "g3u12-farmer"
       ],
       "spokenVariants": [
         "docter",
         "docta"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g3u12-nurse",
-      "word": "nurse",
-      "ttsText": "nurse",
-      "image": "grade3/nurse.png",
-      "syllables": 1,
-      "sentencePatterns": [
-        "She is a nurse",
-        "My aunt is a nurse"
-      ],
-      "distractorIds": [
-        "g3u12-farmer",
-        "g3u12-driver",
-        "g3u12-worker"
-      ],
-      "spokenVariants": [
-        "nurs",
-        "nuss"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g3u12-farmer",
-      "word": "farmer",
-      "ttsText": "farmer",
-      "image": "grade3/farmer.png",
-      "syllables": 2,
-      "sentencePatterns": [
-        "He is a farmer",
-        "My father is a farmer"
-      ],
-      "distractorIds": [
-        "g3u12-driver",
-        "g3u12-worker",
-        "g3u12-singer"
-      ],
-      "spokenVariants": [
-        "farma",
-        "framer"
       ],
       "modes": [
         "dragSpell",
@@ -90,88 +65,13 @@
         "My uncle is a driver"
       ],
       "distractorIds": [
-        "g3u12-worker",
-        "g3u12-singer",
-        "g3u12-pilot"
+        "g3u12-teacher",
+        "g3u12-cook",
+        "g3u12-singer"
       ],
       "spokenVariants": [
         "drivar",
         "dryver"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g3u12-worker",
-      "word": "worker",
-      "ttsText": "worker",
-      "image": "grade3/worker.png",
-      "syllables": 2,
-      "sentencePatterns": [
-        "He is a worker",
-        "My father is a worker"
-      ],
-      "distractorIds": [
-        "g3u12-singer",
-        "g3u12-pilot",
-        "g3u12-teacher"
-      ],
-      "spokenVariants": [
-        "walker",
-        "workar"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g3u12-singer",
-      "word": "singer",
-      "ttsText": "singer",
-      "image": "grade3/singer.png",
-      "syllables": 2,
-      "sentencePatterns": [
-        "She is a singer",
-        "My aunt is a singer"
-      ],
-      "distractorIds": [
-        "g3u12-pilot",
-        "g3u12-teacher",
-        "g3u12-cook"
-      ],
-      "spokenVariants": [
-        "singa",
-        "sinner"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g3u12-pilot",
-      "word": "pilot",
-      "ttsText": "pilot",
-      "image": "grade3/pilot.png",
-      "syllables": 2,
-      "sentencePatterns": [
-        "He is a pilot",
-        "My uncle is a pilot"
-      ],
-      "distractorIds": [
-        "g3u12-teacher",
-        "g3u12-cook",
-        "g3u12-dancer"
-      ],
-      "spokenVariants": [
-        "pilat",
-        "pylot"
       ],
       "modes": [
         "dragSpell",
@@ -190,13 +90,38 @@
         "My mother is a teacher"
       ],
       "distractorIds": [
-        "g3u12-cook",
-        "g3u12-dancer",
-        "g3u12-artist"
+        "g3u12-worker",
+        "g3u12-farmer",
+        "g3u12-nurse"
       ],
       "spokenVariants": [
         "tester",
         "teachah"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u12-worker",
+      "word": "worker",
+      "ttsText": "worker",
+      "image": "grade3/worker.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "He is a worker",
+        "My father is a worker"
+      ],
+      "distractorIds": [
+        "g3u12-cook",
+        "g3u12-singer",
+        "g3u12-pilot"
+      ],
+      "spokenVariants": [
+        "walker",
+        "workar"
       ],
       "modes": [
         "dragSpell",
@@ -215,9 +140,9 @@
         "My father is a cook"
       ],
       "distractorIds": [
-        "g3u12-dancer",
-        "g3u12-artist",
-        "g3u12-doctor"
+        "g3u12-farmer",
+        "g3u12-nurse",
+        "g3u12-job"
       ],
       "spokenVariants": [
         "cock",
@@ -230,23 +155,23 @@
       ]
     },
     {
-      "id": "g3u12-dancer",
-      "word": "dancer",
-      "ttsText": "dancer",
-      "image": "grade3/dancer.png",
+      "id": "g3u12-farmer",
+      "word": "farmer",
+      "ttsText": "farmer",
+      "image": "grade3/farmer.png",
       "syllables": 2,
       "sentencePatterns": [
-        "She is a dancer",
-        "My sister is a dancer"
+        "He is a farmer",
+        "My father is a farmer"
       ],
       "distractorIds": [
-        "g3u12-artist",
-        "g3u12-doctor",
-        "g3u12-nurse"
+        "g3u12-singer",
+        "g3u12-pilot",
+        "g3u12-doctor"
       ],
       "spokenVariants": [
-        "dansa",
-        "dancah"
+        "farma",
+        "framer"
       ],
       "modes": [
         "dragSpell",
@@ -255,23 +180,73 @@
       ]
     },
     {
-      "id": "g3u12-artist",
-      "word": "artist",
-      "ttsText": "artist",
-      "image": "grade3/artist.png",
+      "id": "g3u12-singer",
+      "word": "singer",
+      "ttsText": "singer",
+      "image": "grade3/singer.png",
       "syllables": 2,
       "sentencePatterns": [
-        "She is an artist",
-        "My brother is an artist"
+        "She is a singer",
+        "My aunt is a singer"
       ],
       "distractorIds": [
-        "g3u12-doctor",
         "g3u12-nurse",
-        "g3u12-farmer"
+        "g3u12-job",
+        "g3u12-driver"
       ],
       "spokenVariants": [
-        "artis",
-        "artest"
+        "singa",
+        "sinner"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u12-nurse",
+      "word": "nurse",
+      "ttsText": "nurse",
+      "image": "grade3/nurse.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "She is a nurse",
+        "My aunt is a nurse"
+      ],
+      "distractorIds": [
+        "g3u12-pilot",
+        "g3u12-doctor",
+        "g3u12-teacher"
+      ],
+      "spokenVariants": [
+        "nurs",
+        "nuss"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u12-pilot",
+      "word": "pilot",
+      "ttsText": "pilot",
+      "image": "grade3/pilot.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "He is a pilot",
+        "My uncle is a pilot"
+      ],
+      "distractorIds": [
+        "g3u12-job",
+        "g3u12-driver",
+        "g3u12-worker"
+      ],
+      "spokenVariants": [
+        "pilat",
+        "pylot"
       ],
       "modes": [
         "dragSpell",

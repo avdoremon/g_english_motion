@@ -7,7 +7,7 @@ import '../theme/app_theme.dart';
 
 /// Home: grade picker, level picker (stars + lock) and the Play button.
 ///
-/// Grades 1-3 are playable (grade 3 has content for units 1-2); grades 4-5 are shown disabled
+/// All five grades have content; a grade without content would be shown disabled
 /// with "Sắp có". The SayIt entry is hidden unless the device can recognise
 /// speech on the device ([sayItAvailability] is `available`) and the parent
 /// left it enabled.
@@ -29,7 +29,7 @@ class HomeScreen extends StatefulWidget {
   final void Function(int grade, int level) onSayIt;
   final VoidCallback onOpenParent;
 
-  static const playableGrades = {1, 2, 3};
+  static const playableGrades = {1, 2, 3, 4, 5};
   static const levels = 5;
 
   @override

@@ -16,8 +16,8 @@
       ],
       "distractorIds": [
         "g4u08-music",
-        "g4u08-art",
-        "g4u08-sport"
+        "g4u08-teacher",
+        "g4u08-english"
       ],
       "spokenVariants": [
         "sigh ence",
@@ -41,8 +41,8 @@
       ],
       "distractorIds": [
         "g4u08-art",
-        "g4u08-sport",
-        "g4u08-computer"
+        "g4u08-maths",
+        "g4u08-artist"
       ],
       "spokenVariants": [
         "musik",
@@ -65,137 +65,13 @@
         "We paint in art"
       ],
       "distractorIds": [
-        "g4u08-sport",
-        "g4u08-computer",
-        "g4u08-drawing"
+        "g4u08-teacher",
+        "g4u08-english",
+        "g4u08-singer"
       ],
       "spokenVariants": [
         "heart",
         "are"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g4u08-sport",
-      "word": "sport",
-      "ttsText": "sport",
-      "image": "grade4/sport.png",
-      "syllables": 1,
-      "sentencePatterns": [
-        "My favourite sport is football",
-        "I like sport at school"
-      ],
-      "distractorIds": [
-        "g4u08-computer",
-        "g4u08-drawing",
-        "g4u08-story"
-      ],
-      "spokenVariants": [
-        "spot",
-        "support"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g4u08-computer",
-      "word": "computer",
-      "ttsText": "computer",
-      "image": "grade4/computer.png",
-      "syllables": 3,
-      "sentencePatterns": [
-        "I learn on the computer",
-        "We use a computer"
-      ],
-      "distractorIds": [
-        "g4u08-drawing",
-        "g4u08-story",
-        "g4u08-game"
-      ],
-      "spokenVariants": [
-        "compute er",
-        "computa"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot"
-      ]
-    },
-    {
-      "id": "g4u08-drawing",
-      "word": "drawing",
-      "ttsText": "drawing",
-      "image": "grade4/drawing.png",
-      "syllables": 2,
-      "sentencePatterns": [
-        "I like drawing pictures",
-        "This drawing is nice"
-      ],
-      "distractorIds": [
-        "g4u08-story",
-        "g4u08-game",
-        "g4u08-teacher"
-      ],
-      "spokenVariants": [
-        "drawin",
-        "drawling"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g4u08-story",
-      "word": "story",
-      "ttsText": "story",
-      "image": "grade4/story.png",
-      "syllables": 2,
-      "sentencePatterns": [
-        "I read a story",
-        "Tell me a story"
-      ],
-      "distractorIds": [
-        "g4u08-game",
-        "g4u08-teacher",
-        "g4u08-learn"
-      ],
-      "spokenVariants": [
-        "storey",
-        "stori"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g4u08-game",
-      "word": "game",
-      "ttsText": "game",
-      "image": "grade4/game.png",
-      "syllables": 1,
-      "sentencePatterns": [
-        "We play a game",
-        "This game is fun"
-      ],
-      "distractorIds": [
-        "g4u08-teacher",
-        "g4u08-learn",
-        "g4u08-science"
-      ],
-      "spokenVariants": [
-        "gain",
-        "gaim"
       ],
       "modes": [
         "dragSpell",
@@ -214,9 +90,9 @@
         "The teacher likes music"
       ],
       "distractorIds": [
-        "g4u08-learn",
-        "g4u08-science",
-        "g4u08-music"
+        "g4u08-maths",
+        "g4u08-artist",
+        "g4u08-scientist"
       ],
       "spokenVariants": [
         "teach her",
@@ -229,23 +105,171 @@
       ]
     },
     {
-      "id": "g4u08-learn",
-      "word": "learn",
-      "ttsText": "learn",
-      "image": "grade4/learn.png",
+      "id": "g4u08-maths",
+      "word": "maths",
+      "ttsText": "maths",
+      "image": "grade4/maths.png",
       "syllables": 1,
       "sentencePatterns": [
-        "We learn new words",
-        "I learn English every day"
+        "I like maths",
+        "Maths is my favourite subject"
       ],
       "distractorIds": [
+        "g4u08-english",
+        "g4u08-singer",
+        "g4u08-programmer"
+      ],
+      "spokenVariants": [
+        "mass",
+        "math"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u08-english",
+      "word": "english",
+      "ttsText": "english",
+      "image": "grade4/english.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I like English",
+        "English is my favourite"
+      ],
+      "distractorIds": [
+        "g4u08-artist",
+        "g4u08-scientist",
+        "g4u08-athlete"
+      ],
+      "spokenVariants": [
+        "inglish",
+        "ingrish"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u08-artist",
+      "word": "artist",
+      "ttsText": "artist",
+      "image": "grade4/artist.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I want to be an artist",
+        "An artist can draw"
+      ],
+      "distractorIds": [
+        "g4u08-singer",
+        "g4u08-programmer",
+        "g4u08-science"
+      ],
+      "spokenVariants": [
+        "our tist",
+        "artis"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u08-singer",
+      "word": "singer",
+      "ttsText": "singer",
+      "image": "grade4/singer.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "The singer loves music",
+        "I like that singer"
+      ],
+      "distractorIds": [
+        "g4u08-scientist",
+        "g4u08-athlete",
+        "g4u08-music"
+      ],
+      "spokenVariants": [
+        "sing her",
+        "singa"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u08-scientist",
+      "word": "scientist",
+      "ttsText": "scientist",
+      "image": "grade4/scientist.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "She is a scientist",
+        "He is a scientist"
+      ],
+      "distractorIds": [
+        "g4u08-programmer",
         "g4u08-science",
-        "g4u08-music",
         "g4u08-art"
       ],
       "spokenVariants": [
-        "lean",
-        "lern"
+        "sigh intist",
+        "scientists"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot"
+      ]
+    },
+    {
+      "id": "g4u08-programmer",
+      "word": "programmer",
+      "ttsText": "programmer",
+      "image": "grade4/programmer.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "He is a programmer",
+        "A programmer uses computers"
+      ],
+      "distractorIds": [
+        "g4u08-athlete",
+        "g4u08-music",
+        "g4u08-teacher"
+      ],
+      "spokenVariants": [
+        "program her",
+        "programa"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot"
+      ]
+    },
+    {
+      "id": "g4u08-athlete",
+      "word": "athlete",
+      "ttsText": "athlete",
+      "image": "grade4/athlete.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "She is an athlete",
+        "An athlete runs fast"
+      ],
+      "distractorIds": [
+        "g4u08-science",
+        "g4u08-art",
+        "g4u08-maths"
+      ],
+      "spokenVariants": [
+        "at leet",
+        "athlet"
       ],
       "modes": [
         "dragSpell",

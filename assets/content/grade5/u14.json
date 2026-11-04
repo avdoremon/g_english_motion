@@ -5,221 +5,73 @@
   "title": "Staying healthy",
   "items": [
     {
-      "id": "g5u14-vegetables",
-      "word": "vegetables",
-      "ttsText": "vegetables",
-      "image": "grade5/vegetables.png",
-      "syllables": 3,
-      "sentencePatterns": [
-        "I eat a lot of vegetables",
-        "Vegetables are good for you"
-      ],
-      "distractorIds": [
-        "g5u14-fruit",
-        "g5u14-water",
-        "g5u14-milk"
-      ],
-      "spokenVariants": [
-        "vegtables",
-        "vegetable"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g5u14-fruit",
-      "word": "fruit",
-      "ttsText": "fruit",
-      "image": "grade5/fruit.png",
-      "syllables": 1,
-      "sentencePatterns": [
-        "I eat fruit every day",
-        "Fruit is good for you"
-      ],
-      "distractorIds": [
-        "g5u14-water",
-        "g5u14-milk",
-        "g5u14-fish"
-      ],
-      "spokenVariants": [
-        "froot"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g5u14-water",
-      "word": "water",
-      "ttsText": "water",
-      "image": "grade5/water.png",
-      "syllables": 2,
-      "sentencePatterns": [
-        "I drink a lot of water",
-        "Water is good for you"
-      ],
-      "distractorIds": [
-        "g5u14-milk",
-        "g5u14-fish",
-        "g5u14-meat"
-      ],
-      "spokenVariants": [
-        "wata",
-        "wader"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g5u14-milk",
-      "word": "milk",
-      "ttsText": "milk",
-      "image": "grade5/milk.png",
-      "syllables": 1,
-      "sentencePatterns": [
-        "I drink milk every morning",
-        "Milk is good for you"
-      ],
-      "distractorIds": [
-        "g5u14-fish",
-        "g5u14-meat",
-        "g5u14-noodles"
-      ],
-      "spokenVariants": [
-        "mik",
-        "melk"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g5u14-fish",
-      "word": "fish",
-      "ttsText": "fish",
-      "image": "grade5/fish.png",
-      "syllables": 1,
-      "sentencePatterns": [
-        "We eat fish twice a week",
-        "Fish is good for you"
-      ],
-      "distractorIds": [
-        "g5u14-meat",
-        "g5u14-noodles",
-        "g5u14-egg"
-      ],
-      "spokenVariants": [
-        "fich",
-        "fis"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g5u14-meat",
-      "word": "meat",
-      "ttsText": "meat",
-      "image": "grade5/meat.png",
-      "syllables": 1,
-      "sentencePatterns": [
-        "I do not eat much meat",
-        "We eat meat on Sundays"
-      ],
-      "distractorIds": [
-        "g5u14-noodles",
-        "g5u14-egg",
-        "g5u14-exercise"
-      ],
-      "spokenVariants": [
-        "meet",
-        "mit"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g5u14-noodles",
-      "word": "noodles",
-      "ttsText": "noodles",
-      "image": "grade5/noodles.png",
-      "syllables": 2,
-      "sentencePatterns": [
-        "I have noodles for breakfast",
-        "The noodles are delicious"
-      ],
-      "distractorIds": [
-        "g5u14-egg",
-        "g5u14-exercise",
-        "g5u14-healthy"
-      ],
-      "spokenVariants": [
-        "nudels",
-        "noodels"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g5u14-egg",
-      "word": "egg",
-      "ttsText": "egg",
-      "image": "grade5/egg.png",
-      "syllables": 1,
-      "sentencePatterns": [
-        "I eat an egg every day",
-        "An egg is good for you"
-      ],
-      "distractorIds": [
-        "g5u14-exercise",
-        "g5u14-healthy",
-        "g5u14-sweets"
-      ],
-      "spokenVariants": [
-        "eg"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
       "id": "g5u14-exercise",
       "word": "exercise",
       "ttsText": "exercise",
       "image": "grade5/exercise.png",
       "syllables": 3,
       "sentencePatterns": [
-        "I do exercise every morning",
-        "Exercise keeps you healthy"
+        "He does morning exercise",
+        "Exercise is good for you"
       ],
       "distractorIds": [
+        "g5u14-sports",
+        "g5u14-juice",
+        "g5u14-healthy"
+      ],
+      "spokenVariants": [
+        "exersise",
+        "exercize"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u14-sports",
+      "word": "sports",
+      "ttsText": "sports",
+      "image": "grade5/sports.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "She plays sports every day",
+        "He likes playing sports"
+      ],
+      "distractorIds": [
+        "g5u14-juice",
         "g5u14-healthy",
-        "g5u14-sweets",
         "g5u14-vegetables"
       ],
       "spokenVariants": [
-        "exercize",
-        "exersise"
+        "sport",
+        "spots"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u14-juice",
+      "word": "juice",
+      "ttsText": "juice",
+      "image": "grade5/juice.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "He drinks fresh juice",
+        "I drink orange juice"
+      ],
+      "distractorIds": [
+        "g5u14-healthy",
+        "g5u14-vegetables",
+        "g5u14-yoga"
+      ],
+      "spokenVariants": [
+        "jus",
+        "juce"
       ],
       "modes": [
         "dragSpell",
@@ -234,13 +86,13 @@
       "image": "grade5/healthy.png",
       "syllables": 2,
       "sentencePatterns": [
-        "I want to stay healthy",
-        "Healthy food is good for you"
+        "She eats healthy food",
+        "Fruit is healthy food"
       ],
       "distractorIds": [
-        "g5u14-sweets",
         "g5u14-vegetables",
-        "g5u14-fruit"
+        "g5u14-yoga",
+        "g5u14-badminton"
       ],
       "spokenVariants": [
         "helthy",
@@ -253,23 +105,198 @@
       ]
     },
     {
-      "id": "g5u14-sweets",
-      "word": "sweets",
-      "ttsText": "sweets",
-      "image": "grade5/sweets.png",
-      "syllables": 1,
+      "id": "g5u14-vegetables",
+      "word": "vegetables",
+      "ttsText": "vegetables",
+      "image": "grade5/vegetables.png",
+      "syllables": 3,
       "sentencePatterns": [
-        "I do not eat many sweets",
-        "Sweets are bad for your teeth"
+        "She eats vegetables every day",
+        "I like vegetables very much"
       ],
       "distractorIds": [
-        "g5u14-vegetables",
-        "g5u14-fruit",
+        "g5u14-yoga",
+        "g5u14-badminton",
+        "g5u14-swim"
+      ],
+      "spokenVariants": [
+        "vegetabels",
+        "vegtables"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u14-yoga",
+      "word": "yoga",
+      "ttsText": "yoga",
+      "image": "grade5/yoga.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "She does yoga",
+        "He does yoga twice a week"
+      ],
+      "distractorIds": [
+        "g5u14-badminton",
+        "g5u14-swim",
+        "g5u14-jogging"
+      ],
+      "spokenVariants": [
+        "yoger",
+        "yogha"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u14-badminton",
+      "word": "badminton",
+      "ttsText": "badminton",
+      "image": "grade5/badminton.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "He plays badminton",
+        "I play badminton once a week"
+      ],
+      "distractorIds": [
+        "g5u14-swim",
+        "g5u14-jogging",
         "g5u14-water"
       ],
       "spokenVariants": [
-        "sweats",
-        "sweet"
+        "badmington",
+        "batminton"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u14-swim",
+      "word": "swim",
+      "ttsText": "swim",
+      "image": "grade5/swim.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "He likes to swim",
+        "I swim three times a week"
+      ],
+      "distractorIds": [
+        "g5u14-jogging",
+        "g5u14-water",
+        "g5u14-orange"
+      ],
+      "spokenVariants": [
+        "swin",
+        "swimm"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u14-jogging",
+      "word": "jogging",
+      "ttsText": "jogging",
+      "image": "grade5/jogging.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "He goes jogging in the park",
+        "I like jogging every day"
+      ],
+      "distractorIds": [
+        "g5u14-water",
+        "g5u14-orange",
+        "g5u14-morning"
+      ],
+      "spokenVariants": [
+        "joging",
+        "jogin"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u14-water",
+      "word": "water",
+      "ttsText": "water",
+      "image": "grade5/water.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "He drinks a lot of water",
+        "Water is good for you"
+      ],
+      "distractorIds": [
+        "g5u14-orange",
+        "g5u14-morning",
+        "g5u14-exercise"
+      ],
+      "spokenVariants": [
+        "wotter",
+        "wata"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u14-orange",
+      "word": "orange",
+      "ttsText": "orange",
+      "image": "grade5/orange.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I drink orange juice",
+        "The orange is sweet"
+      ],
+      "distractorIds": [
+        "g5u14-morning",
+        "g5u14-exercise",
+        "g5u14-sports"
+      ],
+      "spokenVariants": [
+        "oringe",
+        "orenj"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u14-morning",
+      "word": "morning",
+      "ttsText": "morning",
+      "image": "grade5/morning.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "He does exercise every morning",
+        "I get up in the morning"
+      ],
+      "distractorIds": [
+        "g5u14-exercise",
+        "g5u14-sports",
+        "g5u14-juice"
+      ],
+      "spokenVariants": [
+        "mourning",
+        "morn"
       ],
       "modes": [
         "dragSpell",

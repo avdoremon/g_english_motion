@@ -5,37 +5,145 @@
   "title": "At the café",
   "items": [
     {
-      "id": "g2u12-coffee",
-      "word": "coffee",
-      "ttsText": "coffee",
-      "image": "grade2/coffee.png",
-      "syllables": 2,
+      "id": "g2u12-cake",
+      "word": "cake",
+      "ttsText": "cake",
+      "image": "grade2/cake.png",
+      "syllables": 1,
       "sentencePatterns": [],
       "distractorIds": [
-        "g2u12-cake",
-        "g2u12-sandwich",
-        "g2u12-soup"
+        "g2u12-grape",
+        "g2u12-yogurt",
+        "g2u12-juice"
       ],
-      "spokenVariants": [],
+      "spokenVariants": [
+        "kake"
+      ],
       "modes": [
         "laneJump",
         "sayIt"
       ]
     },
     {
-      "id": "g2u12-tea",
-      "word": "tea",
-      "ttsText": "tea",
-      "image": "grade2/tea.png",
+      "id": "g2u12-table",
+      "word": "table",
+      "ttsText": "table",
+      "image": "grade2/table.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u12-water",
+        "g2u12-icecream",
+        "g2u12-tea"
+      ],
+      "spokenVariants": [
+        "tayble",
+        "tabel"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u12-fruit",
+      "word": "fruit",
+      "ttsText": "fruit",
+      "image": "grade2/fruit.png",
       "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u12-yogurt",
+        "g2u12-juice",
+        "g2u12-cookie"
+      ],
+      "spokenVariants": [
+        "frut",
+        "froot"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u12-grape",
+      "word": "grape",
+      "ttsText": "grape",
+      "image": "grade2/grape.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u12-icecream",
+        "g2u12-tea",
+        "g2u12-sandwich"
+      ],
+      "spokenVariants": [
+        "grapes",
+        "greip"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u12-water",
+      "word": "water",
+      "ttsText": "water",
+      "image": "grade2/water.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u12-juice",
+        "g2u12-cookie",
+        "g2u12-pizza"
+      ],
+      "spokenVariants": [
+        "wata",
+        "wader"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u12-yogurt",
+      "word": "yogurt",
+      "ttsText": "yogurt",
+      "image": "grade2/yogurt.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u12-tea",
+        "g2u12-sandwich",
+        "g2u12-cake"
+      ],
+      "spokenVariants": [
+        "yoghurt",
+        "yogert"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u12-icecream",
+      "word": "icecream",
+      "ttsText": "ice cream",
+      "image": "grade2/icecream.png",
+      "syllables": 2,
       "sentencePatterns": [],
       "distractorIds": [
         "g2u12-cookie",
         "g2u12-pizza",
-        "g2u12-straw"
+        "g2u12-table"
       ],
       "spokenVariants": [
-        "tee"
+        "ice cream",
+        "i scream"
       ],
       "modes": [
         "laneJump",
@@ -51,11 +159,12 @@
       "sentencePatterns": [],
       "distractorIds": [
         "g2u12-sandwich",
-        "g2u12-soup",
-        "g2u12-menu"
+        "g2u12-cake",
+        "g2u12-fruit"
       ],
       "spokenVariants": [
-        "deuce"
+        "joose",
+        "juse"
       ],
       "modes": [
         "laneJump",
@@ -63,19 +172,19 @@
       ]
     },
     {
-      "id": "g2u12-cake",
-      "word": "cake",
-      "ttsText": "cake",
-      "image": "grade2/cake.png",
+      "id": "g2u12-tea",
+      "word": "tea",
+      "ttsText": "tea",
+      "image": "grade2/tea.png",
       "syllables": 1,
       "sentencePatterns": [],
       "distractorIds": [
         "g2u12-pizza",
-        "g2u12-straw",
-        "g2u12-waiter"
+        "g2u12-table",
+        "g2u12-grape"
       ],
       "spokenVariants": [
-        "kake"
+        "tee"
       ],
       "modes": [
         "laneJump",
@@ -90,9 +199,9 @@
       "syllables": 2,
       "sentencePatterns": [],
       "distractorIds": [
-        "g2u12-soup",
-        "g2u12-menu",
-        "g2u12-napkin"
+        "g2u12-cake",
+        "g2u12-fruit",
+        "g2u12-water"
       ],
       "spokenVariants": [],
       "modes": [
@@ -108,9 +217,9 @@
       "syllables": 2,
       "sentencePatterns": [],
       "distractorIds": [
-        "g2u12-straw",
-        "g2u12-waiter",
-        "g2u12-coffee"
+        "g2u12-table",
+        "g2u12-grape",
+        "g2u12-yogurt"
       ],
       "spokenVariants": [],
       "modes": [
@@ -126,105 +235,14 @@
       "syllables": 2,
       "sentencePatterns": [],
       "distractorIds": [
-        "g2u12-menu",
-        "g2u12-napkin",
-        "g2u12-tea"
-      ],
-      "spokenVariants": [],
-      "modes": [
-        "laneJump",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g2u12-soup",
-      "word": "soup",
-      "ttsText": "soup",
-      "image": "grade2/soup.png",
-      "syllables": 1,
-      "sentencePatterns": [],
-      "distractorIds": [
-        "g2u12-waiter",
-        "g2u12-coffee",
-        "g2u12-juice"
+        "g2u12-fruit",
+        "g2u12-water",
+        "g2u12-icecream"
       ],
       "spokenVariants": [
-        "soap"
+        "pitza",
+        "peetsa"
       ],
-      "modes": [
-        "laneJump",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g2u12-straw",
-      "word": "straw",
-      "ttsText": "straw",
-      "image": "grade2/straw.png",
-      "syllables": 1,
-      "sentencePatterns": [],
-      "distractorIds": [
-        "g2u12-napkin",
-        "g2u12-tea",
-        "g2u12-cake"
-      ],
-      "spokenVariants": [],
-      "modes": [
-        "laneJump",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g2u12-menu",
-      "word": "menu",
-      "ttsText": "menu",
-      "image": "grade2/menu.png",
-      "syllables": 2,
-      "sentencePatterns": [],
-      "distractorIds": [
-        "g2u12-coffee",
-        "g2u12-juice",
-        "g2u12-cookie"
-      ],
-      "spokenVariants": [
-        "many you"
-      ],
-      "modes": [
-        "laneJump",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g2u12-waiter",
-      "word": "waiter",
-      "ttsText": "waiter",
-      "image": "grade2/waiter.png",
-      "syllables": 2,
-      "sentencePatterns": [],
-      "distractorIds": [
-        "g2u12-tea",
-        "g2u12-cake",
-        "g2u12-sandwich"
-      ],
-      "spokenVariants": [],
-      "modes": [
-        "laneJump",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g2u12-napkin",
-      "word": "napkin",
-      "ttsText": "napkin",
-      "image": "grade2/napkin.png",
-      "syllables": 2,
-      "sentencePatterns": [],
-      "distractorIds": [
-        "g2u12-juice",
-        "g2u12-cookie",
-        "g2u12-pizza"
-      ],
-      "spokenVariants": [],
       "modes": [
         "laneJump",
         "sayIt"

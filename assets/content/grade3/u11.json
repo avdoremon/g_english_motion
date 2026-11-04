@@ -5,6 +5,31 @@
   "title": "My family",
   "items": [
     {
+      "id": "g3u11-family",
+      "word": "family",
+      "ttsText": "family",
+      "image": "grade3/family.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "This is my family",
+        "I love my family"
+      ],
+      "distractorIds": [
+        "g3u11-father",
+        "g3u11-sister",
+        "g3u11-photo"
+      ],
+      "spokenVariants": [
+        "famly",
+        "fambly"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
       "id": "g3u11-father",
       "word": "father",
       "ttsText": "father",
@@ -17,7 +42,7 @@
       "distractorIds": [
         "g3u11-mother",
         "g3u11-brother",
-        "g3u11-sister"
+        "g3u11-eleven"
       ],
       "spokenVariants": [
         "farther",
@@ -40,38 +65,13 @@
         "My mother is kind"
       ],
       "distractorIds": [
-        "g3u11-brother",
         "g3u11-sister",
-        "g3u11-grandmother"
+        "g3u11-photo",
+        "g3u11-twelve"
       ],
       "spokenVariants": [
         "mudder",
         "mothar"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g3u11-brother",
-      "word": "brother",
-      "ttsText": "brother",
-      "image": "grade3/brother.png",
-      "syllables": 2,
-      "sentencePatterns": [
-        "This is my brother",
-        "My brother is young"
-      ],
-      "distractorIds": [
-        "g3u11-sister",
-        "g3u11-grandmother",
-        "g3u11-grandfather"
-      ],
-      "spokenVariants": [
-        "brudder",
-        "brothar"
       ],
       "modes": [
         "dragSpell",
@@ -90,9 +90,9 @@
         "My sister is nice"
       ],
       "distractorIds": [
-        "g3u11-grandmother",
-        "g3u11-grandfather",
-        "g3u11-family"
+        "g3u11-brother",
+        "g3u11-eleven",
+        "g3u11-fourteen"
       ],
       "spokenVariants": [
         "sista",
@@ -105,98 +105,23 @@
       ]
     },
     {
-      "id": "g3u11-grandmother",
-      "word": "grandmother",
-      "ttsText": "grandmother",
-      "image": "grade3/grandmother.png",
-      "syllables": 3,
-      "sentencePatterns": [
-        "This is my grandmother",
-        "My grandmother is old"
-      ],
-      "distractorIds": [
-        "g3u11-grandfather",
-        "g3u11-family",
-        "g3u11-baby"
-      ],
-      "spokenVariants": [
-        "grand mother",
-        "grandma"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g3u11-grandfather",
-      "word": "grandfather",
-      "ttsText": "grandfather",
-      "image": "grade3/grandfather.png",
-      "syllables": 3,
-      "sentencePatterns": [
-        "This is my grandfather",
-        "My grandfather is old"
-      ],
-      "distractorIds": [
-        "g3u11-family",
-        "g3u11-baby",
-        "g3u11-uncle"
-      ],
-      "spokenVariants": [
-        "grand father",
-        "grandpa"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g3u11-family",
-      "word": "family",
-      "ttsText": "family",
-      "image": "grade3/family.png",
-      "syllables": 3,
-      "sentencePatterns": [
-        "This is my family",
-        "I love my family"
-      ],
-      "distractorIds": [
-        "g3u11-baby",
-        "g3u11-uncle",
-        "g3u11-aunt"
-      ],
-      "spokenVariants": [
-        "famly",
-        "fambly"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g3u11-baby",
-      "word": "baby",
-      "ttsText": "baby",
-      "image": "grade3/baby.png",
+      "id": "g3u11-brother",
+      "word": "brother",
+      "ttsText": "brother",
+      "image": "grade3/brother.png",
       "syllables": 2,
       "sentencePatterns": [
-        "This is my baby sister",
-        "The baby is small"
+        "This is my brother",
+        "My brother is young"
       ],
       "distractorIds": [
-        "g3u11-uncle",
-        "g3u11-aunt",
-        "g3u11-parents"
+        "g3u11-photo",
+        "g3u11-twelve",
+        "g3u11-eighteen"
       ],
       "spokenVariants": [
-        "babe",
-        "babi"
+        "brudder",
+        "brothar"
       ],
       "modes": [
         "dragSpell",
@@ -205,23 +130,73 @@
       ]
     },
     {
-      "id": "g3u11-uncle",
-      "word": "uncle",
-      "ttsText": "uncle",
-      "image": "grade3/uncle.png",
+      "id": "g3u11-photo",
+      "word": "photo",
+      "ttsText": "photo",
+      "image": "grade3/photo.png",
       "syllables": 2,
       "sentencePatterns": [
-        "This is my uncle",
-        "My uncle is tall"
+        "This is my family photo",
+        "Look at the photo"
       ],
       "distractorIds": [
-        "g3u11-aunt",
-        "g3u11-parents",
+        "g3u11-eleven",
+        "g3u11-fourteen",
+        "g3u11-nineteen"
+      ],
+      "spokenVariants": [
+        "foto",
+        "photto"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u11-eleven",
+      "word": "eleven",
+      "ttsText": "eleven",
+      "image": "grade3/eleven.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "I am eleven years old",
+        "Eleven pens are here"
+      ],
+      "distractorIds": [
+        "g3u11-twelve",
+        "g3u11-eighteen",
+        "g3u11-family"
+      ],
+      "spokenVariants": [
+        "eleben",
+        "eleaven"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u11-twelve",
+      "word": "twelve",
+      "ttsText": "twelve",
+      "image": "grade3/twelve.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I am twelve years old",
+        "Twelve books are here"
+      ],
+      "distractorIds": [
+        "g3u11-fourteen",
+        "g3u11-nineteen",
         "g3u11-father"
       ],
       "spokenVariants": [
-        "uncel",
-        "unkle"
+        "twelf",
+        "tweve"
       ],
       "modes": [
         "dragSpell",
@@ -230,23 +205,23 @@
       ]
     },
     {
-      "id": "g3u11-aunt",
-      "word": "aunt",
-      "ttsText": "aunt",
-      "image": "grade3/aunt.png",
-      "syllables": 1,
+      "id": "g3u11-fourteen",
+      "word": "fourteen",
+      "ttsText": "fourteen",
+      "image": "grade3/fourteen.png",
+      "syllables": 2,
       "sentencePatterns": [
-        "This is my aunt",
-        "My aunt is kind"
+        "My sister is fourteen",
+        "Fourteen pens are here"
       ],
       "distractorIds": [
-        "g3u11-parents",
-        "g3u11-father",
+        "g3u11-eighteen",
+        "g3u11-family",
         "g3u11-mother"
       ],
       "spokenVariants": [
-        "ant",
-        "arnt"
+        "forteen",
+        "for teen"
       ],
       "modes": [
         "dragSpell",
@@ -255,23 +230,48 @@
       ]
     },
     {
-      "id": "g3u11-parents",
-      "word": "parents",
-      "ttsText": "parents",
-      "image": "grade3/parents.png",
+      "id": "g3u11-eighteen",
+      "word": "eighteen",
+      "ttsText": "eighteen",
+      "image": "grade3/eighteen.png",
       "syllables": 2,
       "sentencePatterns": [
-        "These are my parents",
-        "My parents are kind"
+        "My brother is eighteen",
+        "Eighteen books are here"
       ],
       "distractorIds": [
+        "g3u11-nineteen",
         "g3u11-father",
+        "g3u11-sister"
+      ],
+      "spokenVariants": [
+        "eight teen",
+        "ateen"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u11-nineteen",
+      "word": "nineteen",
+      "ttsText": "nineteen",
+      "image": "grade3/nineteen.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "My sister is nineteen",
+        "Nineteen pens are here"
+      ],
+      "distractorIds": [
+        "g3u11-family",
         "g3u11-mother",
         "g3u11-brother"
       ],
       "spokenVariants": [
-        "parent",
-        "paren"
+        "nine teen",
+        "ninteen"
       ],
       "modes": [
         "dragSpell",

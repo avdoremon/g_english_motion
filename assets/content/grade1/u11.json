@@ -12,12 +12,92 @@
       "syllables": 1,
       "sentencePatterns": [],
       "distractorIds": [
-        "g1u11-car",
         "g1u11-truck",
-        "g1u11-plane"
+        "g1u11-sun",
+        "g1u11-car"
       ],
       "spokenVariants": [
         "boss"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u11-truck",
+      "word": "truck",
+      "ttsText": "truck",
+      "image": "grade1/truck.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u11-boy",
+        "g1u11-run",
+        "g1u11-bike"
+      ],
+      "spokenVariants": [
+        "track"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u11-boy",
+      "word": "boy",
+      "ttsText": "boy",
+      "image": "grade1/boy.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u11-sun",
+        "g1u11-car",
+        "g1u11-taxi"
+      ],
+      "spokenVariants": [
+        "buy"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u11-sun",
+      "word": "sun",
+      "ttsText": "sun",
+      "image": "grade1/sun.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u11-run",
+        "g1u11-bike",
+        "g1u11-train"
+      ],
+      "spokenVariants": [
+        "son"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u11-run",
+      "word": "run",
+      "ttsText": "run",
+      "image": "grade1/run.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u11-car",
+        "g1u11-taxi",
+        "g1u11-boat"
+      ],
+      "spokenVariants": [
+        "ron"
       ],
       "modes": [
         "laneJump",
@@ -34,7 +114,7 @@
       "distractorIds": [
         "g1u11-bike",
         "g1u11-train",
-        "g1u11-road"
+        "g1u11-bus"
       ],
       "spokenVariants": [
         "card"
@@ -54,7 +134,7 @@
       "distractorIds": [
         "g1u11-taxi",
         "g1u11-boat",
-        "g1u11-sign"
+        "g1u11-truck"
       ],
       "spokenVariants": [
         "bite"
@@ -69,35 +149,15 @@
       "word": "taxi",
       "ttsText": "taxi",
       "image": "grade1/taxi.png",
-      "syllables": 2,
-      "sentencePatterns": [],
-      "distractorIds": [
-        "g1u11-truck",
-        "g1u11-plane",
-        "g1u11-man"
-      ],
-      "spokenVariants": [
-        "tacsi"
-      ],
-      "modes": [
-        "laneJump",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g1u11-truck",
-      "word": "truck",
-      "ttsText": "truck",
-      "image": "grade1/truck.png",
       "syllables": 1,
       "sentencePatterns": [],
       "distractorIds": [
         "g1u11-train",
-        "g1u11-road",
-        "g1u11-woman"
+        "g1u11-bus",
+        "g1u11-boy"
       ],
       "spokenVariants": [
-        "track"
+        "tacsi"
       ],
       "modes": [
         "laneJump",
@@ -113,8 +173,8 @@
       "sentencePatterns": [],
       "distractorIds": [
         "g1u11-boat",
-        "g1u11-sign",
-        "g1u11-bus"
+        "g1u11-truck",
+        "g1u11-sun"
       ],
       "spokenVariants": [
         "trane"
@@ -132,112 +192,12 @@
       "syllables": 1,
       "sentencePatterns": [],
       "distractorIds": [
-        "g1u11-plane",
-        "g1u11-man",
-        "g1u11-car"
+        "g1u11-bus",
+        "g1u11-boy",
+        "g1u11-run"
       ],
       "spokenVariants": [
         "boot"
-      ],
-      "modes": [
-        "laneJump",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g1u11-plane",
-      "word": "plane",
-      "ttsText": "plane",
-      "image": "grade1/plane.png",
-      "syllables": 1,
-      "sentencePatterns": [],
-      "distractorIds": [
-        "g1u11-road",
-        "g1u11-woman",
-        "g1u11-bike"
-      ],
-      "spokenVariants": [
-        "plan"
-      ],
-      "modes": [
-        "laneJump",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g1u11-road",
-      "word": "road",
-      "ttsText": "road",
-      "image": "grade1/road.png",
-      "syllables": 1,
-      "sentencePatterns": [],
-      "distractorIds": [
-        "g1u11-sign",
-        "g1u11-bus",
-        "g1u11-taxi"
-      ],
-      "spokenVariants": [
-        "rode"
-      ],
-      "modes": [
-        "laneJump",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g1u11-sign",
-      "word": "sign",
-      "ttsText": "sign",
-      "image": "grade1/sign.png",
-      "syllables": 1,
-      "sentencePatterns": [],
-      "distractorIds": [
-        "g1u11-man",
-        "g1u11-car",
-        "g1u11-truck"
-      ],
-      "spokenVariants": [
-        "sine"
-      ],
-      "modes": [
-        "laneJump",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g1u11-man",
-      "word": "man",
-      "ttsText": "man",
-      "image": "grade1/man.png",
-      "syllables": 1,
-      "sentencePatterns": [],
-      "distractorIds": [
-        "g1u11-woman",
-        "g1u11-bike",
-        "g1u11-train"
-      ],
-      "spokenVariants": [
-        "men"
-      ],
-      "modes": [
-        "laneJump",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g1u11-woman",
-      "word": "woman",
-      "ttsText": "woman",
-      "image": "grade1/woman.png",
-      "syllables": 2,
-      "sentencePatterns": [],
-      "distractorIds": [
-        "g1u11-bus",
-        "g1u11-taxi",
-        "g1u11-boat"
-      ],
-      "spokenVariants": [
-        "women"
       ],
       "modes": [
         "laneJump",

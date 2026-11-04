@@ -15,38 +15,13 @@
         "The city is big"
       ],
       "distractorIds": [
-        "g4u17-street",
         "g4u17-bridge",
-        "g4u17-market"
+        "g4u17-right",
+        "g4u17-bookshop"
       ],
       "spokenVariants": [
         "citi",
         "sity"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g4u17-street",
-      "word": "street",
-      "ttsText": "street",
-      "image": "grade4/street.png",
-      "syllables": 1,
-      "sentencePatterns": [
-        "The street is busy",
-        "I walk along the street"
-      ],
-      "distractorIds": [
-        "g4u17-bridge",
-        "g4u17-market",
-        "g4u17-hospital"
-      ],
-      "spokenVariants": [
-        "streets",
-        "strit"
       ],
       "modes": [
         "dragSpell",
@@ -65,9 +40,9 @@
         "The bridge is long"
       ],
       "distractorIds": [
-        "g4u17-market",
-        "g4u17-hospital",
-        "g4u17-bank"
+        "g4u17-left",
+        "g4u17-straight",
+        "g4u17-campsite"
       ],
       "spokenVariants": [
         "brig",
@@ -80,23 +55,23 @@
       ]
     },
     {
-      "id": "g4u17-market",
-      "word": "market",
-      "ttsText": "market",
-      "image": "grade4/market.png",
-      "syllables": 2,
+      "id": "g4u17-left",
+      "word": "left",
+      "ttsText": "left",
+      "image": "grade4/left.png",
+      "syllables": 1,
       "sentencePatterns": [
-        "Mum goes to the market",
-        "The market is noisy"
+        "Turn left at the corner",
+        "Turn left here"
       ],
       "distractorIds": [
-        "g4u17-hospital",
-        "g4u17-bank",
-        "g4u17-station"
+        "g4u17-right",
+        "g4u17-bookshop",
+        "g4u17-bakery"
       ],
       "spokenVariants": [
-        "marked",
-        "markit"
+        "lift",
+        "laughed"
       ],
       "modes": [
         "dragSpell",
@@ -105,23 +80,123 @@
       ]
     },
     {
-      "id": "g4u17-hospital",
-      "word": "hospital",
-      "ttsText": "hospital",
-      "image": "grade4/hospital.png",
-      "syllables": 3,
+      "id": "g4u17-right",
+      "word": "right",
+      "ttsText": "right",
+      "image": "grade4/right.png",
+      "syllables": 1,
       "sentencePatterns": [
-        "The hospital is near",
-        "My aunt works at a hospital"
+        "Turn right at the bank",
+        "Turn right here"
       ],
       "distractorIds": [
-        "g4u17-bank",
-        "g4u17-station",
-        "g4u17-taxi"
+        "g4u17-straight",
+        "g4u17-campsite",
+        "g4u17-library"
       ],
       "spokenVariants": [
-        "hospitel",
-        "hospitle"
+        "write",
+        "light"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u17-straight",
+      "word": "straight",
+      "ttsText": "straight",
+      "image": "grade4/straight.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "Go straight ahead",
+        "Go straight on"
+      ],
+      "distractorIds": [
+        "g4u17-bookshop",
+        "g4u17-bakery",
+        "g4u17-stall"
+      ],
+      "spokenVariants": [
+        "strait",
+        "street"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u17-bookshop",
+      "word": "bookshop",
+      "ttsText": "bookshop",
+      "image": "grade4/bookshop.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "Go to the bookshop",
+        "The bookshop is near"
+      ],
+      "distractorIds": [
+        "g4u17-campsite",
+        "g4u17-library",
+        "g4u17-city"
+      ],
+      "spokenVariants": [
+        "book shop",
+        "bookshops"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u17-campsite",
+      "word": "campsite",
+      "ttsText": "campsite",
+      "image": "grade4/campsite.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "Go to the campsite",
+        "The campsite is far"
+      ],
+      "distractorIds": [
+        "g4u17-bakery",
+        "g4u17-stall",
+        "g4u17-bridge"
+      ],
+      "spokenVariants": [
+        "camp site",
+        "campside"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u17-bakery",
+      "word": "bakery",
+      "ttsText": "bakery",
+      "image": "grade4/bakery.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "Turn left at the bakery",
+        "The bakery is near"
+      ],
+      "distractorIds": [
+        "g4u17-library",
+        "g4u17-city",
+        "g4u17-left"
+      ],
+      "spokenVariants": [
+        "bake ery",
+        "baker"
       ],
       "modes": [
         "dragSpell",
@@ -129,123 +204,47 @@
       ]
     },
     {
-      "id": "g4u17-bank",
-      "word": "bank",
-      "ttsText": "bank",
-      "image": "grade4/bank.png",
+      "id": "g4u17-library",
+      "word": "library",
+      "ttsText": "library",
+      "image": "grade4/library.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "Go to the library",
+        "The library is big"
+      ],
+      "distractorIds": [
+        "g4u17-stall",
+        "g4u17-bridge",
+        "g4u17-right"
+      ],
+      "spokenVariants": [
+        "liberry",
+        "lie bary"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot"
+      ]
+    },
+    {
+      "id": "g4u17-stall",
+      "word": "stall",
+      "ttsText": "stall",
+      "image": "grade4/stall.png",
       "syllables": 1,
       "sentencePatterns": [
-        "The bank is open",
-        "Dad is at the bank"
-      ],
-      "distractorIds": [
-        "g4u17-station",
-        "g4u17-taxi",
-        "g4u17-traffic"
-      ],
-      "spokenVariants": [
-        "bang",
-        "bunk"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g4u17-station",
-      "word": "station",
-      "ttsText": "station",
-      "image": "grade4/station.png",
-      "syllables": 2,
-      "sentencePatterns": [
-        "The station is near",
-        "We wait at the station"
-      ],
-      "distractorIds": [
-        "g4u17-taxi",
-        "g4u17-traffic",
-        "g4u17-temple"
-      ],
-      "spokenVariants": [
-        "stations",
-        "stasion"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g4u17-taxi",
-      "word": "taxi",
-      "ttsText": "taxi",
-      "image": "grade4/taxi.png",
-      "syllables": 2,
-      "sentencePatterns": [
-        "We take a taxi",
-        "The taxi is yellow"
-      ],
-      "distractorIds": [
-        "g4u17-traffic",
-        "g4u17-temple",
-        "g4u17-city"
-      ],
-      "spokenVariants": [
-        "tacsi",
-        "tax e"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g4u17-traffic",
-      "word": "traffic",
-      "ttsText": "traffic",
-      "image": "grade4/traffic.png",
-      "syllables": 2,
-      "sentencePatterns": [
-        "The traffic is heavy",
-        "I see a lot of traffic"
-      ],
-      "distractorIds": [
-        "g4u17-temple",
-        "g4u17-city",
-        "g4u17-street"
-      ],
-      "spokenVariants": [
-        "trafic",
-        "traffick"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g4u17-temple",
-      "word": "temple",
-      "ttsText": "temple",
-      "image": "grade4/temple.png",
-      "syllables": 2,
-      "sentencePatterns": [
-        "We visit a temple",
-        "The temple is old"
+        "Go to the food stall",
+        "The stall is busy"
       ],
       "distractorIds": [
         "g4u17-city",
-        "g4u17-street",
-        "g4u17-bridge"
+        "g4u17-left",
+        "g4u17-straight"
       ],
       "spokenVariants": [
-        "tempel",
-        "tempo"
+        "stole",
+        "stal"
       ],
       "modes": [
         "dragSpell",

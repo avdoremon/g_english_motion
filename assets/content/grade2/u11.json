@@ -5,6 +5,48 @@
   "title": "In the playground",
   "items": [
     {
+      "id": "g2u11-playground",
+      "word": "playground",
+      "ttsText": "playground",
+      "image": "grade2/playground.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u11-bike",
+        "g2u11-swing",
+        "g2u11-seesaw"
+      ],
+      "spokenVariants": [
+        "play ground",
+        "playgrown"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u11-play",
+      "word": "play",
+      "ttsText": "play",
+      "image": "grade2/play.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u11-car",
+        "g2u11-football",
+        "g2u11-ball"
+      ],
+      "spokenVariants": [
+        "pray",
+        "plea"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
       "id": "g2u11-slide",
       "word": "slide",
       "ttsText": "slide",
@@ -12,12 +54,54 @@
       "syllables": 1,
       "sentencePatterns": [],
       "distractorIds": [
-        "g2u11-sandbox",
-        "g2u11-rope",
-        "g2u11-bike"
+        "g2u11-swing",
+        "g2u11-seesaw",
+        "g2u11-rope"
       ],
       "spokenVariants": [
         "slight"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u11-bike",
+      "word": "bike",
+      "ttsText": "bike",
+      "image": "grade2/bike.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u11-football",
+        "g2u11-ball",
+        "g2u11-kite"
+      ],
+      "spokenVariants": [
+        "bake",
+        "bite"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u11-car",
+      "word": "car",
+      "ttsText": "car",
+      "image": "grade2/car.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u11-seesaw",
+        "g2u11-rope",
+        "g2u11-sandbox"
+      ],
+      "spokenVariants": [
+        "cah",
+        "card"
       ],
       "modes": [
         "laneJump",
@@ -34,10 +118,31 @@
       "distractorIds": [
         "g2u11-ball",
         "g2u11-kite",
-        "g2u11-hoop"
+        "g2u11-playground"
       ],
       "spokenVariants": [
         "sing"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u11-football",
+      "word": "football",
+      "ttsText": "football",
+      "image": "grade2/football.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u11-rope",
+        "g2u11-sandbox",
+        "g2u11-play"
+      ],
+      "spokenVariants": [
+        "foot ball",
+        "futball"
       ],
       "modes": [
         "laneJump",
@@ -52,27 +157,9 @@
       "syllables": 2,
       "sentencePatterns": [],
       "distractorIds": [
-        "g2u11-rope",
-        "g2u11-bike",
-        "g2u11-scooter"
-      ],
-      "spokenVariants": [],
-      "modes": [
-        "laneJump",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g2u11-sandbox",
-      "word": "sandbox",
-      "ttsText": "sandbox",
-      "image": "grade2/sandbox.png",
-      "syllables": 2,
-      "sentencePatterns": [],
-      "distractorIds": [
         "g2u11-kite",
-        "g2u11-hoop",
-        "g2u11-bench"
+        "g2u11-playground",
+        "g2u11-slide"
       ],
       "spokenVariants": [],
       "modes": [
@@ -88,9 +175,9 @@
       "syllables": 1,
       "sentencePatterns": [],
       "distractorIds": [
-        "g2u11-bike",
-        "g2u11-scooter",
-        "g2u11-puddle"
+        "g2u11-sandbox",
+        "g2u11-play",
+        "g2u11-bike"
       ],
       "spokenVariants": [
         "bowl"
@@ -108,9 +195,9 @@
       "syllables": 1,
       "sentencePatterns": [],
       "distractorIds": [
-        "g2u11-hoop",
-        "g2u11-bench",
-        "g2u11-slide"
+        "g2u11-playground",
+        "g2u11-slide",
+        "g2u11-car"
       ],
       "spokenVariants": [
         "robe"
@@ -128,11 +215,12 @@
       "syllables": 1,
       "sentencePatterns": [],
       "distractorIds": [
-        "g2u11-scooter",
-        "g2u11-puddle",
+        "g2u11-play",
+        "g2u11-bike",
         "g2u11-swing"
       ],
       "spokenVariants": [
+        "kight",
         "kate"
       ],
       "modes": [
@@ -141,94 +229,16 @@
       ]
     },
     {
-      "id": "g2u11-bike",
-      "word": "bike",
-      "ttsText": "bike",
-      "image": "grade2/bike.png",
-      "syllables": 1,
-      "sentencePatterns": [],
-      "distractorIds": [
-        "g2u11-bench",
-        "g2u11-slide",
-        "g2u11-seesaw"
-      ],
-      "spokenVariants": [
-        "bite"
-      ],
-      "modes": [
-        "laneJump",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g2u11-hoop",
-      "word": "hoop",
-      "ttsText": "hoop",
-      "image": "grade2/hoop.png",
-      "syllables": 1,
-      "sentencePatterns": [],
-      "distractorIds": [
-        "g2u11-puddle",
-        "g2u11-swing",
-        "g2u11-sandbox"
-      ],
-      "spokenVariants": [
-        "whoop"
-      ],
-      "modes": [
-        "laneJump",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g2u11-scooter",
-      "word": "scooter",
-      "ttsText": "scooter",
-      "image": "grade2/scooter.png",
+      "id": "g2u11-sandbox",
+      "word": "sandbox",
+      "ttsText": "sandbox",
+      "image": "grade2/sandbox.png",
       "syllables": 2,
       "sentencePatterns": [],
       "distractorIds": [
         "g2u11-slide",
-        "g2u11-seesaw",
-        "g2u11-ball"
-      ],
-      "spokenVariants": [],
-      "modes": [
-        "laneJump",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g2u11-bench",
-      "word": "bench",
-      "ttsText": "bench",
-      "image": "grade2/bench.png",
-      "syllables": 1,
-      "sentencePatterns": [],
-      "distractorIds": [
-        "g2u11-swing",
-        "g2u11-sandbox",
-        "g2u11-rope"
-      ],
-      "spokenVariants": [
-        "bunch"
-      ],
-      "modes": [
-        "laneJump",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g2u11-puddle",
-      "word": "puddle",
-      "ttsText": "puddle",
-      "image": "grade2/puddle.png",
-      "syllables": 2,
-      "sentencePatterns": [],
-      "distractorIds": [
-        "g2u11-seesaw",
-        "g2u11-ball",
-        "g2u11-kite"
+        "g2u11-car",
+        "g2u11-football"
       ],
       "spokenVariants": [],
       "modes": [

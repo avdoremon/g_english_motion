@@ -5,11 +5,91 @@
   "title": "In the classroom",
   "items": [
     {
-      "id": "g2u05-desk",
-      "word": "desk",
-      "ttsText": "desk",
-      "image": "grade2/desk.png",
+      "id": "g2u05-classroom",
+      "word": "classroom",
+      "ttsText": "classroom",
+      "image": "grade2/classroom.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u05-teacher",
+        "g2u05-square",
+        "g2u05-pen"
+      ],
+      "spokenVariants": [
+        "class room",
+        "clasroom"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u05-board",
+      "word": "board",
+      "ttsText": "board",
+      "image": "grade2/board.png",
       "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u05-question",
+        "g2u05-quiz",
+        "g2u05-pencil"
+      ],
+      "spokenVariants": [
+        "bored"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u05-table",
+      "word": "table",
+      "ttsText": "table",
+      "image": "grade2/table.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u05-square",
+        "g2u05-pen",
+        "g2u05-ruler"
+      ],
+      "spokenVariants": [
+        "tayble",
+        "tabel"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u05-teacher",
+      "word": "teacher",
+      "ttsText": "teacher",
+      "image": "grade2/teacher.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u05-quiz",
+        "g2u05-pencil",
+        "g2u05-book"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u05-question",
+      "word": "question",
+      "ttsText": "question",
+      "image": "grade2/question.png",
+      "syllables": 2,
       "sentencePatterns": [],
       "distractorIds": [
         "g2u05-pen",
@@ -17,7 +97,8 @@
         "g2u05-bag"
       ],
       "spokenVariants": [
-        "disk"
+        "questin",
+        "quession"
       ],
       "modes": [
         "laneJump",
@@ -25,16 +106,16 @@
       ]
     },
     {
-      "id": "g2u05-chair",
-      "word": "chair",
-      "ttsText": "chair",
-      "image": "grade2/chair.png",
+      "id": "g2u05-square",
+      "word": "square",
+      "ttsText": "square",
+      "image": "grade2/square.png",
       "syllables": 1,
       "sentencePatterns": [],
       "distractorIds": [
         "g2u05-pencil",
-        "g2u05-eraser",
-        "g2u05-board"
+        "g2u05-book",
+        "g2u05-classroom"
       ],
       "spokenVariants": [],
       "modes": [
@@ -43,18 +124,21 @@
       ]
     },
     {
-      "id": "g2u05-book",
-      "word": "book",
-      "ttsText": "book",
-      "image": "grade2/book.png",
+      "id": "g2u05-quiz",
+      "word": "quiz",
+      "ttsText": "quiz",
+      "image": "grade2/quiz.png",
       "syllables": 1,
       "sentencePatterns": [],
       "distractorIds": [
         "g2u05-ruler",
         "g2u05-bag",
-        "g2u05-teacher"
+        "g2u05-board"
       ],
-      "spokenVariants": [],
+      "spokenVariants": [
+        "kwiz",
+        "quis"
+      ],
       "modes": [
         "laneJump",
         "sayIt"
@@ -68,9 +152,9 @@
       "syllables": 1,
       "sentencePatterns": [],
       "distractorIds": [
-        "g2u05-eraser",
-        "g2u05-board",
-        "g2u05-clock"
+        "g2u05-book",
+        "g2u05-classroom",
+        "g2u05-table"
       ],
       "spokenVariants": [
         "pan"
@@ -89,8 +173,8 @@
       "sentencePatterns": [],
       "distractorIds": [
         "g2u05-bag",
-        "g2u05-teacher",
-        "g2u05-crayon"
+        "g2u05-board",
+        "g2u05-teacher"
       ],
       "spokenVariants": [],
       "modes": [
@@ -106,9 +190,9 @@
       "syllables": 2,
       "sentencePatterns": [],
       "distractorIds": [
-        "g2u05-board",
-        "g2u05-clock",
-        "g2u05-desk"
+        "g2u05-classroom",
+        "g2u05-table",
+        "g2u05-question"
       ],
       "spokenVariants": [
         "roller"
@@ -119,20 +203,21 @@
       ]
     },
     {
-      "id": "g2u05-eraser",
-      "word": "eraser",
-      "ttsText": "eraser",
-      "image": "grade2/eraser.png",
-      "syllables": 3,
+      "id": "g2u05-book",
+      "word": "book",
+      "ttsText": "book",
+      "image": "grade2/book.png",
+      "syllables": 1,
       "sentencePatterns": [],
       "distractorIds": [
+        "g2u05-board",
         "g2u05-teacher",
-        "g2u05-crayon",
-        "g2u05-chair"
+        "g2u05-square"
       ],
       "spokenVariants": [],
       "modes": [
-        "laneJump"
+        "laneJump",
+        "sayIt"
       ]
     },
     {
@@ -143,87 +228,13 @@
       "syllables": 1,
       "sentencePatterns": [],
       "distractorIds": [
-        "g2u05-clock",
-        "g2u05-desk",
-        "g2u05-book"
+        "g2u05-table",
+        "g2u05-question",
+        "g2u05-quiz"
       ],
       "spokenVariants": [
         "back"
       ],
-      "modes": [
-        "laneJump",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g2u05-board",
-      "word": "board",
-      "ttsText": "board",
-      "image": "grade2/board.png",
-      "syllables": 1,
-      "sentencePatterns": [],
-      "distractorIds": [
-        "g2u05-crayon",
-        "g2u05-chair",
-        "g2u05-pen"
-      ],
-      "spokenVariants": [
-        "bored"
-      ],
-      "modes": [
-        "laneJump",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g2u05-teacher",
-      "word": "teacher",
-      "ttsText": "teacher",
-      "image": "grade2/teacher.png",
-      "syllables": 2,
-      "sentencePatterns": [],
-      "distractorIds": [
-        "g2u05-desk",
-        "g2u05-book",
-        "g2u05-pencil"
-      ],
-      "spokenVariants": [],
-      "modes": [
-        "laneJump",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g2u05-clock",
-      "word": "clock",
-      "ttsText": "clock",
-      "image": "grade2/clock.png",
-      "syllables": 1,
-      "sentencePatterns": [],
-      "distractorIds": [
-        "g2u05-chair",
-        "g2u05-pen",
-        "g2u05-ruler"
-      ],
-      "spokenVariants": [],
-      "modes": [
-        "laneJump",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g2u05-crayon",
-      "word": "crayon",
-      "ttsText": "crayon",
-      "image": "grade2/crayon.png",
-      "syllables": 2,
-      "sentencePatterns": [],
-      "distractorIds": [
-        "g2u05-book",
-        "g2u05-pencil",
-        "g2u05-eraser"
-      ],
-      "spokenVariants": [],
       "modes": [
         "laneJump",
         "sayIt"

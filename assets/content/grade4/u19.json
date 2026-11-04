@@ -5,6 +5,30 @@
   "title": "The animal world",
   "items": [
     {
+      "id": "g4u19-crocodile",
+      "word": "crocodile",
+      "ttsText": "crocodile",
+      "image": "grade4/crocodile.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "The crocodile can swim",
+        "I see a crocodile"
+      ],
+      "distractorIds": [
+        "g4u19-giraffe",
+        "g4u19-zebra",
+        "g4u19-hippo"
+      ],
+      "spokenVariants": [
+        "crocodial",
+        "crocodil"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot"
+      ]
+    },
+    {
       "id": "g4u19-giraffe",
       "word": "giraffe",
       "ttsText": "giraffe",
@@ -15,38 +39,13 @@
         "I see a giraffe"
       ],
       "distractorIds": [
-        "g4u19-tiger",
         "g4u19-monkey",
-        "g4u19-elephant"
+        "g4u19-lion",
+        "g4u19-peacock"
       ],
       "spokenVariants": [
         "giraf",
         "jiraffe"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g4u19-tiger",
-      "word": "tiger",
-      "ttsText": "tiger",
-      "image": "grade4/tiger.png",
-      "syllables": 2,
-      "sentencePatterns": [
-        "The tiger is big",
-        "I see a tiger"
-      ],
-      "distractorIds": [
-        "g4u19-monkey",
-        "g4u19-elephant",
-        "g4u19-crocodile"
-      ],
-      "spokenVariants": [
-        "tigger",
-        "tiga"
       ],
       "modes": [
         "dragSpell",
@@ -65,9 +64,9 @@
         "I like the monkey"
       ],
       "distractorIds": [
-        "g4u19-elephant",
-        "g4u19-crocodile",
-        "g4u19-kangaroo"
+        "g4u19-zebra",
+        "g4u19-hippo",
+        "g4u19-rhino"
       ],
       "spokenVariants": [
         "munkey",
@@ -77,78 +76,6 @@
         "dragSpell",
         "skyShoot",
         "sayIt"
-      ]
-    },
-    {
-      "id": "g4u19-elephant",
-      "word": "elephant",
-      "ttsText": "elephant",
-      "image": "grade4/elephant.png",
-      "syllables": 3,
-      "sentencePatterns": [
-        "The elephant is huge",
-        "I see an elephant"
-      ],
-      "distractorIds": [
-        "g4u19-crocodile",
-        "g4u19-kangaroo",
-        "g4u19-zebra"
-      ],
-      "spokenVariants": [
-        "elefant",
-        "elephent"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot"
-      ]
-    },
-    {
-      "id": "g4u19-crocodile",
-      "word": "crocodile",
-      "ttsText": "crocodile",
-      "image": "grade4/crocodile.png",
-      "syllables": 3,
-      "sentencePatterns": [
-        "The crocodile can swim",
-        "I see a crocodile"
-      ],
-      "distractorIds": [
-        "g4u19-kangaroo",
-        "g4u19-zebra",
-        "g4u19-lion"
-      ],
-      "spokenVariants": [
-        "crocodial",
-        "crocodil"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot"
-      ]
-    },
-    {
-      "id": "g4u19-kangaroo",
-      "word": "kangaroo",
-      "ttsText": "kangaroo",
-      "image": "grade4/kangaroo.png",
-      "syllables": 3,
-      "sentencePatterns": [
-        "The kangaroo can jump",
-        "I see a kangaroo"
-      ],
-      "distractorIds": [
-        "g4u19-zebra",
-        "g4u19-lion",
-        "g4u19-panda"
-      ],
-      "spokenVariants": [
-        "kangeroo",
-        "kangaru"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot"
       ]
     },
     {
@@ -163,8 +90,8 @@
       ],
       "distractorIds": [
         "g4u19-lion",
-        "g4u19-panda",
-        "g4u19-parrot"
+        "g4u19-peacock",
+        "g4u19-python"
       ],
       "spokenVariants": [
         "zebbra",
@@ -187,9 +114,9 @@
         "I see a lion"
       ],
       "distractorIds": [
-        "g4u19-panda",
-        "g4u19-parrot",
-        "g4u19-giraffe"
+        "g4u19-hippo",
+        "g4u19-rhino",
+        "g4u19-bird"
       ],
       "spokenVariants": [
         "lying",
@@ -202,23 +129,23 @@
       ]
     },
     {
-      "id": "g4u19-panda",
-      "word": "panda",
-      "ttsText": "panda",
-      "image": "grade4/panda.png",
+      "id": "g4u19-hippo",
+      "word": "hippo",
+      "ttsText": "hippo",
+      "image": "grade4/hippo.png",
       "syllables": 2,
       "sentencePatterns": [
-        "The panda eats bamboo",
-        "I like the panda"
+        "The hippo is big",
+        "Look at the hippo"
       ],
       "distractorIds": [
-        "g4u19-parrot",
-        "g4u19-giraffe",
-        "g4u19-tiger"
+        "g4u19-peacock",
+        "g4u19-python",
+        "g4u19-scary"
       ],
       "spokenVariants": [
-        "pander",
-        "pandah"
+        "hippie",
+        "hippos"
       ],
       "modes": [
         "dragSpell",
@@ -227,28 +154,152 @@
       ]
     },
     {
-      "id": "g4u19-parrot",
-      "word": "parrot",
-      "ttsText": "parrot",
-      "image": "grade4/parrot.png",
+      "id": "g4u19-peacock",
+      "word": "peacock",
+      "ttsText": "peacock",
+      "image": "grade4/peacock.png",
       "syllables": 2,
       "sentencePatterns": [
-        "The parrot can talk",
-        "I see a parrot"
+        "The peacock is beautiful",
+        "Look at the peacock"
       ],
       "distractorIds": [
-        "g4u19-giraffe",
-        "g4u19-tiger",
-        "g4u19-monkey"
+        "g4u19-rhino",
+        "g4u19-bird",
+        "g4u19-beautiful"
       ],
       "spokenVariants": [
-        "parrott",
-        "paret"
+        "pea cock",
+        "peacocks"
       ],
       "modes": [
         "dragSpell",
         "skyShoot",
         "sayIt"
+      ]
+    },
+    {
+      "id": "g4u19-rhino",
+      "word": "rhino",
+      "ttsText": "rhino",
+      "image": "grade4/rhino.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "The rhino is big",
+        "I can see a rhino"
+      ],
+      "distractorIds": [
+        "g4u19-python",
+        "g4u19-scary",
+        "g4u19-crocodile"
+      ],
+      "spokenVariants": [
+        "rino",
+        "rhyno"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u19-python",
+      "word": "python",
+      "ttsText": "python",
+      "image": "grade4/python.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "The python is long",
+        "I see a python"
+      ],
+      "distractorIds": [
+        "g4u19-bird",
+        "g4u19-beautiful",
+        "g4u19-giraffe"
+      ],
+      "spokenVariants": [
+        "pie thon",
+        "pythons"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u19-bird",
+      "word": "bird",
+      "ttsText": "bird",
+      "image": "grade4/bird.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "The bird can fly",
+        "Look at that bird"
+      ],
+      "distractorIds": [
+        "g4u19-scary",
+        "g4u19-crocodile",
+        "g4u19-monkey"
+      ],
+      "spokenVariants": [
+        "bed",
+        "bud"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u19-scary",
+      "word": "scary",
+      "ttsText": "scary",
+      "image": "grade4/scary.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "The lion is scary",
+        "It looks scary"
+      ],
+      "distractorIds": [
+        "g4u19-beautiful",
+        "g4u19-giraffe",
+        "g4u19-zebra"
+      ],
+      "spokenVariants": [
+        "scarey",
+        "scary ee"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u19-beautiful",
+      "word": "beautiful",
+      "ttsText": "beautiful",
+      "image": "grade4/beautiful.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "The peacock is beautiful",
+        "They are beautiful"
+      ],
+      "distractorIds": [
+        "g4u19-crocodile",
+        "g4u19-monkey",
+        "g4u19-lion"
+      ],
+      "spokenVariants": [
+        "beauty full",
+        "beautifull"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot"
       ]
     }
   ]

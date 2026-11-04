@@ -12,91 +12,40 @@
       "syllables": 2,
       "sentencePatterns": [
         "I like this story",
-        "Tell me a story"
+        "This story is very interesting"
       ],
       "distractorIds": [
-        "g5u17-prince",
-        "g5u17-princess",
-        "g5u17-giant"
-      ],
-      "spokenVariants": [
-        "storey",
-        "stori"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g5u17-prince",
-      "word": "prince",
-      "ttsText": "prince",
-      "image": "grade5/prince.png",
-      "syllables": 1,
-      "sentencePatterns": [
-        "The prince is very brave",
-        "The prince met a princess"
-      ],
-      "distractorIds": [
-        "g5u17-princess",
-        "g5u17-giant",
-        "g5u17-fairy"
-      ],
-      "spokenVariants": [
-        "prints",
-        "prinz"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g5u17-princess",
-      "word": "princess",
-      "ttsText": "princess",
-      "image": "grade5/princess.png",
-      "syllables": 2,
-      "sentencePatterns": [
-        "The princess is very kind",
-        "She is a beautiful princess"
-      ],
-      "distractorIds": [
-        "g5u17-giant",
+        "g5u17-storybook",
         "g5u17-fairy",
-        "g5u17-wolf"
-      ],
-      "spokenVariants": [
-        "princes",
-        "prin cess"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g5u17-giant",
-      "word": "giant",
-      "ttsText": "giant",
-      "image": "grade5/giant.png",
-      "syllables": 2,
-      "sentencePatterns": [
-        "The giant is very tall",
-        "A giant lives in the castle"
-      ],
-      "distractorIds": [
-        "g5u17-fairy",
-        "g5u17-wolf",
         "g5u17-fox"
       ],
       "spokenVariants": [
-        "jiant",
-        "gyant"
+        "stori",
+        "storey"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u17-storybook",
+      "word": "storybook",
+      "ttsText": "storybook",
+      "image": "grade5/storybook.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "I am reading a storybook",
+        "This storybook is very interesting"
+      ],
+      "distractorIds": [
+        "g5u17-fairy",
+        "g5u17-fox",
+        "g5u17-crow"
+      ],
+      "spokenVariants": [
+        "storybuk"
       ],
       "modes": [
         "dragSpell",
@@ -111,42 +60,17 @@
       "image": "grade5/fairy.png",
       "syllables": 2,
       "sentencePatterns": [
-        "The fairy has a magic wand",
-        "A fairy helps the girl"
-      ],
-      "distractorIds": [
-        "g5u17-wolf",
-        "g5u17-fox",
-        "g5u17-crow"
-      ],
-      "spokenVariants": [
-        "ferry",
-        "fairee"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g5u17-wolf",
-      "word": "wolf",
-      "ttsText": "wolf",
-      "image": "grade5/wolf.png",
-      "syllables": 1,
-      "sentencePatterns": [
-        "The wolf is very hungry",
-        "The wolf lives in the forest"
+        "I am reading a fairy tale",
+        "The fairy has a wand"
       ],
       "distractorIds": [
         "g5u17-fox",
         "g5u17-crow",
-        "g5u17-rabbit"
+        "g5u17-ant"
       ],
       "spokenVariants": [
-        "wulf",
-        "woof"
+        "ferry",
+        "fairey"
       ],
       "modes": [
         "dragSpell",
@@ -162,16 +86,16 @@
       "syllables": 1,
       "sentencePatterns": [
         "The fox is very clever",
-        "The fox met a crow"
+        "I like the fox"
       ],
       "distractorIds": [
         "g5u17-crow",
-        "g5u17-rabbit",
-        "g5u17-castle"
+        "g5u17-ant",
+        "g5u17-grasshopper"
       ],
       "spokenVariants": [
         "focks",
-        "fawx"
+        "fax"
       ],
       "modes": [
         "dragSpell",
@@ -187,15 +111,16 @@
       "syllables": 1,
       "sentencePatterns": [
         "The crow is on the tree",
-        "The crow has some cheese"
+        "I like the crow"
       ],
       "distractorIds": [
-        "g5u17-rabbit",
-        "g5u17-castle",
-        "g5u17-king"
+        "g5u17-ant",
+        "g5u17-grasshopper",
+        "g5u17-tortoise"
       ],
       "spokenVariants": [
-        "crowe"
+        "crowe",
+        "crou"
       ],
       "modes": [
         "dragSpell",
@@ -204,23 +129,97 @@
       ]
     },
     {
-      "id": "g5u17-rabbit",
-      "word": "rabbit",
-      "ttsText": "rabbit",
-      "image": "grade5/rabbit.png",
-      "syllables": 2,
+      "id": "g5u17-ant",
+      "word": "ant",
+      "ttsText": "ant",
+      "image": "grade5/ant.png",
+      "syllables": 1,
       "sentencePatterns": [
-        "The rabbit runs very fast",
-        "The rabbit eats a carrot"
+        "The ant is very small",
+        "The ant works hard"
       ],
       "distractorIds": [
-        "g5u17-castle",
-        "g5u17-king",
+        "g5u17-grasshopper",
+        "g5u17-tortoise",
+        "g5u17-hare"
+      ],
+      "spokenVariants": [
+        "aunt",
+        "unt"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u17-grasshopper",
+      "word": "grasshopper",
+      "ttsText": "grasshopper",
+      "image": "grade5/grasshopper.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "The grasshopper likes to sing",
+        "I like the grasshopper"
+      ],
+      "distractorIds": [
+        "g5u17-tortoise",
+        "g5u17-hare",
+        "g5u17-dwarf"
+      ],
+      "spokenVariants": [
+        "grasshoper"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u17-tortoise",
+      "word": "tortoise",
+      "ttsText": "tortoise",
+      "image": "grade5/tortoise.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "The tortoise is very slow",
+        "I like the tortoise"
+      ],
+      "distractorIds": [
+        "g5u17-hare",
+        "g5u17-dwarf",
+        "g5u17-comic"
+      ],
+      "spokenVariants": [
+        "tortis",
+        "tortoice"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u17-hare",
+      "word": "hare",
+      "ttsText": "hare",
+      "image": "grade5/hare.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "The hare runs very fast",
+        "I like the hare"
+      ],
+      "distractorIds": [
+        "g5u17-dwarf",
+        "g5u17-comic",
         "g5u17-story"
       ],
       "spokenVariants": [
-        "rabit",
-        "rabbet"
+        "hair",
+        "hear"
       ],
       "modes": [
         "dragSpell",
@@ -229,48 +228,48 @@
       ]
     },
     {
-      "id": "g5u17-castle",
-      "word": "castle",
-      "ttsText": "castle",
-      "image": "grade5/castle.png",
-      "syllables": 2,
-      "sentencePatterns": [
-        "The castle is on the hill",
-        "The prince lives in a castle"
-      ],
-      "distractorIds": [
-        "g5u17-king",
-        "g5u17-story",
-        "g5u17-prince"
-      ],
-      "spokenVariants": [
-        "cassel",
-        "casel"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g5u17-king",
-      "word": "king",
-      "ttsText": "king",
-      "image": "grade5/king.png",
+      "id": "g5u17-dwarf",
+      "word": "dwarf",
+      "ttsText": "dwarf",
+      "image": "grade5/dwarf.png",
       "syllables": 1,
       "sentencePatterns": [
-        "The king is very kind",
-        "The king has a big castle"
+        "The dwarf is very small",
+        "Snow White meets a dwarf"
+      ],
+      "distractorIds": [
+        "g5u17-comic",
+        "g5u17-story",
+        "g5u17-storybook"
+      ],
+      "spokenVariants": [
+        "dwarff",
+        "dwarv"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u17-comic",
+      "word": "comic",
+      "ttsText": "comic",
+      "image": "grade5/comic.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I like reading a comic",
+        "This comic is very funny"
       ],
       "distractorIds": [
         "g5u17-story",
-        "g5u17-prince",
-        "g5u17-princess"
+        "g5u17-storybook",
+        "g5u17-fairy"
       ],
       "spokenVariants": [
-        "keen",
-        "kinng"
+        "comick",
+        "komic"
       ],
       "modes": [
         "dragSpell",

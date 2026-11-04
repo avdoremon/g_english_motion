@@ -5,48 +5,22 @@
   "title": "Places of interest",
   "items": [
     {
-      "id": "g5u19-bay",
-      "word": "bay",
-      "ttsText": "bay",
-      "image": "grade5/bay.png",
-      "syllables": 1,
-      "sentencePatterns": [
-        "We visited Ha Long Bay",
-        "The bay is very beautiful"
-      ],
-      "distractorIds": [
-        "g5u19-citadel",
-        "g5u19-palace",
-        "g5u19-bridge"
-      ],
-      "spokenVariants": [
-        "bae",
-        "bey"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g5u19-citadel",
-      "word": "citadel",
-      "ttsText": "citadel",
-      "image": "grade5/citadel.png",
+      "id": "g5u19-waterfall",
+      "word": "waterfall",
+      "ttsText": "waterfall",
+      "image": "grade5/waterfall.png",
       "syllables": 3,
       "sentencePatterns": [
-        "We visited the old citadel",
-        "The citadel is in Hue"
+        "I think the waterfall is peaceful",
+        "The waterfall is very high"
       ],
       "distractorIds": [
-        "g5u19-palace",
-        "g5u19-bridge",
+        "g5u19-town",
+        "g5u19-opera",
         "g5u19-tower"
       ],
       "spokenVariants": [
-        "citadal",
-        "sitadel"
+        "waterfal"
       ],
       "modes": [
         "dragSpell",
@@ -55,48 +29,47 @@
       ]
     },
     {
-      "id": "g5u19-palace",
-      "word": "palace",
-      "ttsText": "palace",
-      "image": "grade5/palace.png",
-      "syllables": 2,
-      "sentencePatterns": [
-        "The palace is very old",
-        "We visited the king palace"
-      ],
-      "distractorIds": [
-        "g5u19-bridge",
-        "g5u19-tower",
-        "g5u19-pagoda"
-      ],
-      "spokenVariants": [
-        "palis",
-        "palas"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g5u19-bridge",
-      "word": "bridge",
-      "ttsText": "bridge",
-      "image": "grade5/bridge.png",
+      "id": "g5u19-town",
+      "word": "town",
+      "ttsText": "town",
+      "image": "grade5/town.png",
       "syllables": 1,
       "sentencePatterns": [
-        "The bridge is very long",
-        "We walk across the bridge"
+        "The old town is exciting",
+        "The town is very old"
+      ],
+      "distractorIds": [
+        "g5u19-opera",
+        "g5u19-tower",
+        "g5u19-bridge"
+      ],
+      "spokenVariants": [
+        "toun"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u19-opera",
+      "word": "opera",
+      "ttsText": "opera",
+      "image": "grade5/opera.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "The opera house is beautiful",
+        "The opera house is very big"
       ],
       "distractorIds": [
         "g5u19-tower",
-        "g5u19-pagoda",
-        "g5u19-market"
+        "g5u19-bridge",
+        "g5u19-square"
       ],
       "spokenVariants": [
-        "brige",
-        "bridg"
+        "oprah",
+        "oppera"
       ],
       "modes": [
         "dragSpell",
@@ -111,17 +84,17 @@
       "image": "grade5/tower.png",
       "syllables": 2,
       "sentencePatterns": [
-        "The tower is very tall",
-        "We climbed the tower"
+        "I think the tower is fantastic",
+        "The tower is very tall"
       ],
       "distractorIds": [
-        "g5u19-pagoda",
-        "g5u19-market",
-        "g5u19-statue"
+        "g5u19-bridge",
+        "g5u19-square",
+        "g5u19-museum"
       ],
       "spokenVariants": [
-        "tauer",
-        "towa"
+        "towa",
+        "tauer"
       ],
       "modes": [
         "dragSpell",
@@ -130,23 +103,73 @@
       ]
     },
     {
-      "id": "g5u19-pagoda",
-      "word": "pagoda",
-      "ttsText": "pagoda",
-      "image": "grade5/pagoda.png",
+      "id": "g5u19-bridge",
+      "word": "bridge",
+      "ttsText": "bridge",
+      "image": "grade5/bridge.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I think the bridge is beautiful",
+        "The bridge is very long"
+      ],
+      "distractorIds": [
+        "g5u19-square",
+        "g5u19-museum",
+        "g5u19-lake"
+      ],
+      "spokenVariants": [
+        "brige",
+        "bridg"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u19-square",
+      "word": "square",
+      "ttsText": "square",
+      "image": "grade5/square.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I think the square is big",
+        "The square is very busy"
+      ],
+      "distractorIds": [
+        "g5u19-museum",
+        "g5u19-lake",
+        "g5u19-peaceful"
+      ],
+      "spokenVariants": [
+        "squair",
+        "skware"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u19-museum",
+      "word": "museum",
+      "ttsText": "museum",
+      "image": "grade5/museum.png",
       "syllables": 3,
       "sentencePatterns": [
-        "The pagoda is very old",
-        "We visited a famous pagoda"
+        "I think the museum is interesting",
+        "The museum is very old"
       ],
       "distractorIds": [
-        "g5u19-market",
-        "g5u19-statue",
-        "g5u19-beach"
+        "g5u19-lake",
+        "g5u19-peaceful",
+        "g5u19-exciting"
       ],
       "spokenVariants": [
-        "pagoder",
-        "pagota"
+        "musium",
+        "myuseum"
       ],
       "modes": [
         "dragSpell",
@@ -155,23 +178,23 @@
       ]
     },
     {
-      "id": "g5u19-market",
-      "word": "market",
-      "ttsText": "market",
-      "image": "grade5/market.png",
-      "syllables": 2,
+      "id": "g5u19-lake",
+      "word": "lake",
+      "ttsText": "lake",
+      "image": "grade5/lake.png",
+      "syllables": 1,
       "sentencePatterns": [
-        "We shop at the market",
-        "The market is very busy"
+        "I think the lake is peaceful",
+        "The lake is very big"
       ],
       "distractorIds": [
-        "g5u19-statue",
-        "g5u19-beach",
-        "g5u19-mountain"
+        "g5u19-peaceful",
+        "g5u19-exciting",
+        "g5u19-beautiful"
       ],
       "spokenVariants": [
-        "markit",
-        "marked"
+        "lak",
+        "laik"
       ],
       "modes": [
         "dragSpell",
@@ -180,23 +203,47 @@
       ]
     },
     {
-      "id": "g5u19-statue",
-      "word": "statue",
-      "ttsText": "statue",
-      "image": "grade5/statue.png",
+      "id": "g5u19-peaceful",
+      "word": "peaceful",
+      "ttsText": "peaceful",
+      "image": "grade5/peaceful.png",
       "syllables": 2,
       "sentencePatterns": [
-        "The statue is very big",
-        "We took photos of the statue"
+        "The waterfall is peaceful",
+        "It is a peaceful place"
       ],
       "distractorIds": [
-        "g5u19-beach",
-        "g5u19-mountain",
+        "g5u19-exciting",
+        "g5u19-beautiful",
+        "g5u19-fantastic"
+      ],
+      "spokenVariants": [
+        "peacefull"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u19-exciting",
+      "word": "exciting",
+      "ttsText": "exciting",
+      "image": "grade5/exciting.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "The old town is exciting",
+        "It is an exciting place"
+      ],
+      "distractorIds": [
+        "g5u19-beautiful",
+        "g5u19-fantastic",
         "g5u19-waterfall"
       ],
       "spokenVariants": [
-        "stachu",
-        "statu"
+        "exiting",
+        "exciteing"
       ],
       "modes": [
         "dragSpell",
@@ -205,73 +252,48 @@
       ]
     },
     {
-      "id": "g5u19-beach",
-      "word": "beach",
-      "ttsText": "beach",
-      "image": "grade5/beach.png",
-      "syllables": 1,
-      "sentencePatterns": [
-        "The beach is very clean",
-        "We walk on the beach"
-      ],
-      "distractorIds": [
-        "g5u19-mountain",
-        "g5u19-waterfall",
-        "g5u19-bay"
-      ],
-      "spokenVariants": [
-        "beech",
-        "bitch"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g5u19-mountain",
-      "word": "mountain",
-      "ttsText": "mountain",
-      "image": "grade5/mountain.png",
-      "syllables": 2,
-      "sentencePatterns": [
-        "The mountain is very high",
-        "We climbed the mountain"
-      ],
-      "distractorIds": [
-        "g5u19-waterfall",
-        "g5u19-bay",
-        "g5u19-citadel"
-      ],
-      "spokenVariants": [
-        "mountin",
-        "mauntain"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g5u19-waterfall",
-      "word": "waterfall",
-      "ttsText": "waterfall",
-      "image": "grade5/waterfall.png",
+      "id": "g5u19-beautiful",
+      "word": "beautiful",
+      "ttsText": "beautiful",
+      "image": "grade5/beautiful.png",
       "syllables": 3,
       "sentencePatterns": [
-        "The waterfall is very high",
-        "We saw a big waterfall"
+        "The opera house is beautiful",
+        "It is a beautiful place"
       ],
       "distractorIds": [
-        "g5u19-bay",
-        "g5u19-citadel",
-        "g5u19-palace"
+        "g5u19-fantastic",
+        "g5u19-waterfall",
+        "g5u19-town"
       ],
       "spokenVariants": [
-        "water fall",
-        "waterfal"
+        "beautifull",
+        "butiful"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u19-fantastic",
+      "word": "fantastic",
+      "ttsText": "fantastic",
+      "image": "grade5/fantastic.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "The towers are fantastic",
+        "It is a fantastic place"
+      ],
+      "distractorIds": [
+        "g5u19-waterfall",
+        "g5u19-town",
+        "g5u19-opera"
+      ],
+      "spokenVariants": [
+        "fantastik",
+        "fantasic"
       ],
       "modes": [
         "dragSpell",

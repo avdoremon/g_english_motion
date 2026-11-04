@@ -1,20 +1,20 @@
 # Sources - Grade 2 (units u01-u16)
 
-All vocabulary is author-written from the unit topic and the Global Success Grade 2 level (no word list page was fetched); NOT teacher-reviewed. Check against the printed textbook before release.
+Revised 2026-11-04 against printed-book word lists as published on teaching sites (Tieng Anh 2 Global Success). Official single words were kept, extra related words fill each unit up to 12 items. Multi-word items use a key word (riding a bike -> bike, driving a car -> car, ice cream -> icecream with ttsText 'ice cream'). Not teacher-reviewed; check against the printed book before release. Numbers: u13 numbers are shown as digits.
 
-- u01: At my birthday party - author-written from topic
-- u02: In the backyard - author-written from topic
-- u03: At the seaside - author-written from topic
-- u04: In the countryside - author-written from topic
-- u05: In the classroom - author-written from topic
-- u06: On the farm - author-written from topic
-- u07: In the kitchen - author-written from topic
-- u08: In the village - author-written from topic
-- u09: In the grocery store - author-written from topic
-- u10: At the zoo - author-written from topic
-- u11: In the playground - author-written from topic
-- u12: At the café - author-written from topic
-- u13: In the maths class - author-written from topic
-- u14: At home - author-written from topic
-- u15: In the clothes shop - author-written from topic
-- u16: At the campsite - author-written from topic
+- u01: At my birthday party - verified against lingolandedu.com + kenhgiaovien.com. URLs: https://lingolandedu.com/en/vocabulary/grade-vocabularies/grade-2/unit-1-at-my-birthday-party ; kenhgiaovien.com giao-nls-tieng-anh-2-global-success-unit-1-lesson-2-pasta-popcorn-pizza (pasta, popcorn, pizza, noodles)
+- u02: In the backyard - verified against lingolandedu.com + lop2.vn. URLs: https://lingolandedu.com/en/vocabulary/grade-vocabularies/grade-2/unit-2-in-the-backyard ; https://lop2.vn/giao-an-tieng-anh-lop-2-sach-ket-noi-tri-thuc-voi-cuoc-song-unit-2-in-the-backyard-6316 (kite, bike, kitten)
+- u03: At the seaside - verified against lingolandedu.com + lop2.vn. URLs: https://lingolandedu.com/en/vocabulary/grade-vocabularies/grade-2/unit-3-at-the-seaside ; https://lop2.vn/giao-an-tieng-anh-lop-2-sach-ket-noi-tri-thuc-voi-cuoc-song-unit-3-at-the-seaside-6317 (sail, sand, sea, sun)
+- u04: In the countryside - verified against lingolandedu.com + lop2.vn. URLs: https://lingolandedu.com/en/vocabulary/grade-vocabularies/grade-2/unit-4-in-the-countryside ; https://lop2.vn/giao-an-tieng-anh-lop-2-sach-ket-noi-tri-thuc-voi-cuoc-song-unit-4-in-the-countryside-6318 (rainbow, river, road, lake)
+- u05: In the classroom - verified against lingolandedu.com + lop2.vn. URLs: https://lingolandedu.com/en/vocabulary/grade-vocabularies/grade-2/unit-5-in-the-classroom ; https://lop2.vn/giao-an-tieng-anh-lop-2-sach-ket-noi-tri-thuc-voi-cuoc-song-unit-5-in-the-classroom-6319 (question, square, quiz)
+- u06: On the farm - verified against lingolandedu.com only (second site could not be fetched). URLs: https://lingolandedu.com/en/vocabulary/grade-vocabularies/grade-2/unit-6-on-the-farm
+- u07: In the kitchen - verified against lingolandedu.com + lop2.vn. URLs: https://lingolandedu.com/en/vocabulary/grade-vocabularies/grade-2/unit-7-in-the-village ; https://lop2.vn/giao-an-tieng-anh-lop-2-sach-ket-noi-tri-thuc-voi-cuoc-song-unit-7-in-the-kitchen-6321 (juice, jelly, jam, pass me the...); note lingoland lists the kitchen set under its "unit-7-in-the-village" URL (its unit 7/8 labels are swapped vs the book)
+- u08: In the village - verified against lingolandedu.com + vietjack.com. URLs: https://lingolandedu.com/en/vocabulary/grade-vocabularies/grade-2/unit-8-in-the-kitchen ; https://vietjack.com/giao-an-tieng-anh-2/unit-8-lesson-1-lop-2-kntt.jsp (village, van, volleyball); lingoland lists the village set under its "unit-8-in-the-kitchen" URL
+- u09: In the grocery store - verified against lingolandedu.com only. URLs: https://lingolandedu.com/en/vocabulary/grade-vocabularies/grade-2/unit-9-in-the-grocery-store
+- u10: At the zoo - verified against lingolandedu.com only. URLs: https://lingolandedu.com/en/vocabulary/grade-vocabularies/grade-2/unit-10-at-the-zoo
+- u11: In the playground - verified against lingolandedu.com only. URLs: https://lingolandedu.com/en/vocabulary/grade-vocabularies/grade-2/unit-11-in-the-playground
+- u12: At the café - verified against lingolandedu.com + lop2.vn. URLs: https://lingolandedu.com/en/vocabulary/grade-vocabularies/grade-2/unit-12-at-the-caf ; https://lop2.vn/giao-an-tieng-anh-lop-2-sach-ket-noi-tri-thuc-voi-cuoc-song-unit-12-at-the-cafe-6334 (grapes, cake, table, yogurt, ...)
+- u13: In the maths class - verified against lingolandedu.com only. URLs: https://lingolandedu.com/en/vocabulary/grade-vocabularies/grade-2/unit-13-in-the-maths-class
+- u14: At home - verified against lingolandedu.com only. URLs: https://lingolandedu.com/en/vocabulary/grade-vocabularies/grade-2/unit-14-at-home
+- u15: In the clothes shop - verified against lingolandedu.com only (here/there not used: not picturable). URLs: https://lingolandedu.com/en/vocabulary/grade-vocabularies/grade-2/unit-15-in-the-clothes-shop
+- u16: At the campsite - verified against lingolandedu.com only (funny not used: not picturable). URLs: https://lingolandedu.com/en/vocabulary/grade-vocabularies/grade-2/unit-16-at-the-campsites

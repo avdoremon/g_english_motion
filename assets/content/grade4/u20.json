@@ -16,8 +16,8 @@
       ],
       "distractorIds": [
         "g4u20-tent",
-        "g4u20-campfire",
-        "g4u20-lake"
+        "g4u20-campsite",
+        "g4u20-song"
       ],
       "spokenVariants": [
         "camb",
@@ -41,8 +41,8 @@
       ],
       "distractorIds": [
         "g4u20-campfire",
-        "g4u20-lake",
-        "g4u20-forest"
+        "g4u20-photo",
+        "g4u20-story"
       ],
       "spokenVariants": [
         "tint",
@@ -65,9 +65,9 @@
         "The campfire is warm"
       ],
       "distractorIds": [
-        "g4u20-lake",
-        "g4u20-forest",
-        "g4u20-boat"
+        "g4u20-campsite",
+        "g4u20-song",
+        "g4u20-cards"
       ],
       "spokenVariants": [
         "camp fire",
@@ -80,48 +80,23 @@
       ]
     },
     {
-      "id": "g4u20-lake",
-      "word": "lake",
-      "ttsText": "lake",
-      "image": "grade4/lake.png",
-      "syllables": 1,
-      "sentencePatterns": [
-        "We swim in the lake",
-        "The lake is calm"
-      ],
-      "distractorIds": [
-        "g4u20-forest",
-        "g4u20-boat",
-        "g4u20-hike"
-      ],
-      "spokenVariants": [
-        "lick",
-        "lace"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g4u20-forest",
-      "word": "forest",
-      "ttsText": "forest",
-      "image": "grade4/forest.png",
+      "id": "g4u20-campsite",
+      "word": "campsite",
+      "ttsText": "campsite",
+      "image": "grade4/campsite.png",
       "syllables": 2,
       "sentencePatterns": [
-        "We walk in the forest",
-        "The forest is green"
+        "We are at the campsite",
+        "The campsite is big"
       ],
       "distractorIds": [
-        "g4u20-boat",
-        "g4u20-hike",
-        "g4u20-backpack"
+        "g4u20-photo",
+        "g4u20-story",
+        "g4u20-build"
       ],
       "spokenVariants": [
-        "forrest",
-        "forist"
+        "camp site",
+        "campside"
       ],
       "modes": [
         "dragSpell",
@@ -130,73 +105,48 @@
       ]
     },
     {
-      "id": "g4u20-boat",
-      "word": "boat",
-      "ttsText": "boat",
-      "image": "grade4/boat.png",
-      "syllables": 1,
-      "sentencePatterns": [
-        "We ride a boat",
-        "The boat is small"
-      ],
-      "distractorIds": [
-        "g4u20-hike",
-        "g4u20-backpack",
-        "g4u20-torch"
-      ],
-      "spokenVariants": [
-        "boot",
-        "bolt"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g4u20-hike",
-      "word": "hike",
-      "ttsText": "hike",
-      "image": "grade4/hike.png",
-      "syllables": 1,
-      "sentencePatterns": [
-        "We hike up the hill",
-        "Let us go for a hike"
-      ],
-      "distractorIds": [
-        "g4u20-backpack",
-        "g4u20-torch",
-        "g4u20-river"
-      ],
-      "spokenVariants": [
-        "hi",
-        "hick"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g4u20-backpack",
-      "word": "backpack",
-      "ttsText": "backpack",
-      "image": "grade4/backpack.png",
+      "id": "g4u20-photo",
+      "word": "photo",
+      "ttsText": "photo",
+      "image": "grade4/photo.png",
       "syllables": 2,
       "sentencePatterns": [
-        "I carry my backpack",
-        "The backpack is heavy"
+        "I take a photo",
+        "He takes a photo"
       ],
       "distractorIds": [
-        "g4u20-torch",
-        "g4u20-river",
+        "g4u20-song",
+        "g4u20-cards",
+        "g4u20-email"
+      ],
+      "spokenVariants": [
+        "foto",
+        "photos"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u20-song",
+      "word": "song",
+      "ttsText": "song",
+      "image": "grade4/song.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "We sing a song",
+        "I like this song"
+      ],
+      "distractorIds": [
+        "g4u20-story",
+        "g4u20-build",
         "g4u20-camp"
       ],
       "spokenVariants": [
-        "back pack",
-        "bakpack"
+        "son",
+        "sung"
       ],
       "modes": [
         "dragSpell",
@@ -205,23 +155,23 @@
       ]
     },
     {
-      "id": "g4u20-torch",
-      "word": "torch",
-      "ttsText": "torch",
-      "image": "grade4/torch.png",
-      "syllables": 1,
+      "id": "g4u20-story",
+      "word": "story",
+      "ttsText": "story",
+      "image": "grade4/story.png",
+      "syllables": 2,
       "sentencePatterns": [
-        "I have a torch",
-        "The torch is bright"
+        "I tell a story",
+        "Tell us a story"
       ],
       "distractorIds": [
-        "g4u20-river",
-        "g4u20-camp",
+        "g4u20-cards",
+        "g4u20-email",
         "g4u20-tent"
       ],
       "spokenVariants": [
-        "touch",
-        "porch"
+        "storey",
+        "stori"
       ],
       "modes": [
         "dragSpell",
@@ -230,23 +180,73 @@
       ]
     },
     {
-      "id": "g4u20-river",
-      "word": "river",
-      "ttsText": "river",
-      "image": "grade4/river.png",
-      "syllables": 2,
+      "id": "g4u20-cards",
+      "word": "cards",
+      "ttsText": "cards",
+      "image": "grade4/cards.png",
+      "syllables": 1,
       "sentencePatterns": [
-        "We cross the river",
-        "The river is wide"
+        "We play cards",
+        "They play cards"
       ],
       "distractorIds": [
+        "g4u20-build",
         "g4u20-camp",
-        "g4u20-tent",
         "g4u20-campfire"
       ],
       "spokenVariants": [
-        "liver",
-        "rivar"
+        "cars",
+        "card"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u20-build",
+      "word": "build",
+      "ttsText": "build",
+      "image": "grade4/build.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "We build a campfire",
+        "Let us build a tent"
+      ],
+      "distractorIds": [
+        "g4u20-email",
+        "g4u20-tent",
+        "g4u20-campsite"
+      ],
+      "spokenVariants": [
+        "bill",
+        "billed"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u20-email",
+      "word": "email",
+      "ttsText": "email",
+      "image": "grade4/email.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I email my friends",
+        "We email our grandparents"
+      ],
+      "distractorIds": [
+        "g4u20-camp",
+        "g4u20-campfire",
+        "g4u20-photo"
+      ],
+      "spokenVariants": [
+        "he mail",
+        "e mail"
       ],
       "modes": [
         "dragSpell",

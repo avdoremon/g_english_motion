@@ -5,6 +5,31 @@
   "title": "Colours",
   "items": [
     {
+      "id": "g3u09-colour",
+      "word": "colour",
+      "ttsText": "colour",
+      "image": "grade3/colour.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "What colour is it",
+        "My favourite colour is blue"
+      ],
+      "distractorIds": [
+        "g3u09-red",
+        "g3u09-yellow",
+        "g3u09-orange"
+      ],
+      "spokenVariants": [
+        "color",
+        "culler"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
       "id": "g3u09-red",
       "word": "red",
       "ttsText": "red",
@@ -16,8 +41,8 @@
       ],
       "distractorIds": [
         "g3u09-blue",
-        "g3u09-green",
-        "g3u09-yellow"
+        "g3u09-brown",
+        "g3u09-green"
       ],
       "spokenVariants": [
         "read",
@@ -40,38 +65,13 @@
         "I like blue"
       ],
       "distractorIds": [
-        "g3u09-green",
         "g3u09-yellow",
-        "g3u09-orange"
+        "g3u09-orange",
+        "g3u09-white"
       ],
       "spokenVariants": [
         "blew",
         "blu"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g3u09-green",
-      "word": "green",
-      "ttsText": "green",
-      "image": "grade3/green.png",
-      "syllables": 1,
-      "sentencePatterns": [
-        "The grass is green",
-        "I like green"
-      ],
-      "distractorIds": [
-        "g3u09-yellow",
-        "g3u09-orange",
-        "g3u09-pink"
-      ],
-      "spokenVariants": [
-        "grin",
-        "grean"
       ],
       "modes": [
         "dragSpell",
@@ -90,88 +90,13 @@
         "I like yellow"
       ],
       "distractorIds": [
-        "g3u09-orange",
-        "g3u09-pink",
-        "g3u09-purple"
+        "g3u09-brown",
+        "g3u09-green",
+        "g3u09-black"
       ],
       "spokenVariants": [
         "yelo",
         "yella"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g3u09-orange",
-      "word": "orange",
-      "ttsText": "orange",
-      "image": "grade3/orange.png",
-      "syllables": 2,
-      "sentencePatterns": [
-        "The orange is orange",
-        "I like orange"
-      ],
-      "distractorIds": [
-        "g3u09-pink",
-        "g3u09-purple",
-        "g3u09-brown"
-      ],
-      "spokenVariants": [
-        "oringe",
-        "orenge"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g3u09-pink",
-      "word": "pink",
-      "ttsText": "pink",
-      "image": "grade3/pink.png",
-      "syllables": 1,
-      "sentencePatterns": [
-        "The flower is pink",
-        "I like pink"
-      ],
-      "distractorIds": [
-        "g3u09-purple",
-        "g3u09-brown",
-        "g3u09-black"
-      ],
-      "spokenVariants": [
-        "pinc",
-        "ping"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g3u09-purple",
-      "word": "purple",
-      "ttsText": "purple",
-      "image": "grade3/purple.png",
-      "syllables": 2,
-      "sentencePatterns": [
-        "The grape is purple",
-        "I like purple"
-      ],
-      "distractorIds": [
-        "g3u09-brown",
-        "g3u09-black",
-        "g3u09-white"
-      ],
-      "spokenVariants": [
-        "pupple",
-        "perple"
       ],
       "modes": [
         "dragSpell",
@@ -190,9 +115,9 @@
         "I like brown"
       ],
       "distractorIds": [
-        "g3u09-black",
+        "g3u09-orange",
         "g3u09-white",
-        "g3u09-grey"
+        "g3u09-pink"
       ],
       "spokenVariants": [
         "braun",
@@ -205,23 +130,48 @@
       ]
     },
     {
-      "id": "g3u09-black",
-      "word": "black",
-      "ttsText": "black",
-      "image": "grade3/black.png",
-      "syllables": 1,
+      "id": "g3u09-orange",
+      "word": "orange",
+      "ttsText": "orange",
+      "image": "grade3/orange.png",
+      "syllables": 2,
       "sentencePatterns": [
-        "The cat is black",
-        "I like black"
+        "The orange is orange",
+        "I like orange"
       ],
       "distractorIds": [
-        "g3u09-white",
-        "g3u09-grey",
+        "g3u09-green",
+        "g3u09-black",
         "g3u09-colour"
       ],
       "spokenVariants": [
-        "blak",
-        "block"
+        "oringe",
+        "orenge"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u09-green",
+      "word": "green",
+      "ttsText": "green",
+      "image": "grade3/green.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "The grass is green",
+        "I like green"
+      ],
+      "distractorIds": [
+        "g3u09-white",
+        "g3u09-pink",
+        "g3u09-red"
+      ],
+      "spokenVariants": [
+        "grin",
+        "grean"
       ],
       "modes": [
         "dragSpell",
@@ -240,9 +190,9 @@
         "I like white"
       ],
       "distractorIds": [
-        "g3u09-grey",
+        "g3u09-black",
         "g3u09-colour",
-        "g3u09-red"
+        "g3u09-blue"
       ],
       "spokenVariants": [
         "wight",
@@ -255,23 +205,23 @@
       ]
     },
     {
-      "id": "g3u09-grey",
-      "word": "grey",
-      "ttsText": "grey",
-      "image": "grade3/grey.png",
+      "id": "g3u09-black",
+      "word": "black",
+      "ttsText": "black",
+      "image": "grade3/black.png",
       "syllables": 1,
       "sentencePatterns": [
-        "The elephant is grey",
-        "I like grey"
+        "The cat is black",
+        "I like black"
       ],
       "distractorIds": [
-        "g3u09-colour",
+        "g3u09-pink",
         "g3u09-red",
-        "g3u09-blue"
+        "g3u09-yellow"
       ],
       "spokenVariants": [
-        "gray",
-        "grae"
+        "blak",
+        "block"
       ],
       "modes": [
         "dragSpell",
@@ -280,23 +230,23 @@
       ]
     },
     {
-      "id": "g3u09-colour",
-      "word": "colour",
-      "ttsText": "colour",
-      "image": "grade3/colour.png",
-      "syllables": 2,
+      "id": "g3u09-pink",
+      "word": "pink",
+      "ttsText": "pink",
+      "image": "grade3/pink.png",
+      "syllables": 1,
       "sentencePatterns": [
-        "What colour is it",
-        "My favourite colour is blue"
+        "The flower is pink",
+        "I like pink"
       ],
       "distractorIds": [
-        "g3u09-red",
+        "g3u09-colour",
         "g3u09-blue",
-        "g3u09-green"
+        "g3u09-brown"
       ],
       "spokenVariants": [
-        "color",
-        "culler"
+        "pinc",
+        "ping"
       ],
       "modes": [
         "dragSpell",

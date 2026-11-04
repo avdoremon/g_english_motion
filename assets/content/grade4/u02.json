@@ -16,8 +16,8 @@
       ],
       "distractorIds": [
         "g4u02-clock",
-        "g4u02-morning",
-        "g4u02-afternoon"
+        "g4u02-evening",
+        "g4u02-bed"
       ],
       "spokenVariants": [
         "thyme"
@@ -40,8 +40,8 @@
       ],
       "distractorIds": [
         "g4u02-morning",
-        "g4u02-afternoon",
-        "g4u02-evening"
+        "g4u02-breakfast",
+        "g4u02-homework"
       ],
       "spokenVariants": [
         "clog"
@@ -63,9 +63,9 @@
         "Good morning teacher"
       ],
       "distractorIds": [
-        "g4u02-afternoon",
         "g4u02-evening",
-        "g4u02-breakfast"
+        "g4u02-bed",
+        "g4u02-school"
       ],
       "spokenVariants": [
         "mourning"
@@ -74,29 +74,6 @@
         "dragSpell",
         "skyShoot",
         "sayIt"
-      ]
-    },
-    {
-      "id": "g4u02-afternoon",
-      "word": "afternoon",
-      "ttsText": "afternoon",
-      "image": "grade4/afternoon.png",
-      "syllables": 3,
-      "sentencePatterns": [
-        "Good afternoon class",
-        "I play in the afternoon"
-      ],
-      "distractorIds": [
-        "g4u02-evening",
-        "g4u02-breakfast",
-        "g4u02-lunch"
-      ],
-      "spokenVariants": [
-        "after noon"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot"
       ]
     },
     {
@@ -111,8 +88,8 @@
       ],
       "distractorIds": [
         "g4u02-breakfast",
-        "g4u02-lunch",
-        "g4u02-dinner"
+        "g4u02-homework",
+        "g4u02-shower"
       ],
       "spokenVariants": [
         "even in",
@@ -135,60 +112,12 @@
         "Breakfast is ready"
       ],
       "distractorIds": [
-        "g4u02-lunch",
-        "g4u02-dinner",
-        "g4u02-bed"
+        "g4u02-bed",
+        "g4u02-school",
+        "g4u02-exercise"
       ],
       "spokenVariants": [
         "break fast"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g4u02-lunch",
-      "word": "lunch",
-      "ttsText": "lunch",
-      "image": "grade4/lunch.png",
-      "syllables": 1,
-      "sentencePatterns": [
-        "It is time for lunch",
-        "I have lunch at school"
-      ],
-      "distractorIds": [
-        "g4u02-dinner",
-        "g4u02-bed",
-        "g4u02-homework"
-      ],
-      "spokenVariants": [
-        "launch"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g4u02-dinner",
-      "word": "dinner",
-      "ttsText": "dinner",
-      "image": "grade4/dinner.png",
-      "syllables": 2,
-      "sentencePatterns": [
-        "We have dinner at seven",
-        "Dinner is ready"
-      ],
-      "distractorIds": [
-        "g4u02-bed",
-        "g4u02-homework",
-        "g4u02-time"
-      ],
-      "spokenVariants": [
-        "diner"
       ],
       "modes": [
         "dragSpell",
@@ -208,8 +137,8 @@
       ],
       "distractorIds": [
         "g4u02-homework",
-        "g4u02-time",
-        "g4u02-clock"
+        "g4u02-shower",
+        "g4u02-time"
       ],
       "spokenVariants": [
         "bad",
@@ -232,9 +161,9 @@
         "Homework is easy today"
       ],
       "distractorIds": [
-        "g4u02-time",
-        "g4u02-clock",
-        "g4u02-morning"
+        "g4u02-school",
+        "g4u02-exercise",
+        "g4u02-clock"
       ],
       "spokenVariants": [
         "home work"
@@ -243,6 +172,80 @@
         "dragSpell",
         "skyShoot",
         "sayIt"
+      ]
+    },
+    {
+      "id": "g4u02-school",
+      "word": "school",
+      "ttsText": "school",
+      "image": "grade4/school.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I go to school",
+        "I go to school at seven"
+      ],
+      "distractorIds": [
+        "g4u02-shower",
+        "g4u02-time",
+        "g4u02-morning"
+      ],
+      "spokenVariants": [
+        "skull",
+        "scool"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u02-shower",
+      "word": "shower",
+      "ttsText": "shower",
+      "image": "grade4/shower.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I take a shower",
+        "He takes a shower"
+      ],
+      "distractorIds": [
+        "g4u02-exercise",
+        "g4u02-clock",
+        "g4u02-evening"
+      ],
+      "spokenVariants": [
+        "shore",
+        "shaw her"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u02-exercise",
+      "word": "exercise",
+      "ttsText": "exercise",
+      "image": "grade4/exercise.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "I do morning exercise",
+        "He does exercise daily"
+      ],
+      "distractorIds": [
+        "g4u02-time",
+        "g4u02-morning",
+        "g4u02-breakfast"
+      ],
+      "spokenVariants": [
+        "exercises",
+        "excercise"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot"
       ]
     }
   ]

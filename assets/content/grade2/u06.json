@@ -5,6 +5,68 @@
   "title": "On the farm",
   "items": [
     {
+      "id": "g2u06-farm",
+      "word": "farm",
+      "ttsText": "farm",
+      "image": "grade2/farm.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u06-pig",
+        "g2u06-sheep",
+        "g2u06-windmill"
+      ],
+      "spokenVariants": [
+        "firm",
+        "farn"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u06-duck",
+      "word": "duck",
+      "ttsText": "duck",
+      "image": "grade2/duck.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u06-cow",
+        "g2u06-donkey",
+        "g2u06-hen"
+      ],
+      "spokenVariants": [
+        "dock"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u06-farmer",
+      "word": "farmer",
+      "ttsText": "farmer",
+      "image": "grade2/farmer.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u06-sheep",
+        "g2u06-windmill",
+        "g2u06-goat"
+      ],
+      "spokenVariants": [
+        "farma",
+        "firmer"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
       "id": "g2u06-pig",
       "word": "pig",
       "ttsText": "pig",
@@ -12,12 +74,94 @@
       "syllables": 1,
       "sentencePatterns": [],
       "distractorIds": [
-        "g2u06-goat",
-        "g2u06-rabbit",
+        "g2u06-donkey",
+        "g2u06-hen",
         "g2u06-tractor"
       ],
       "spokenVariants": [
         "big"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u06-cow",
+      "word": "cow",
+      "ttsText": "cow",
+      "image": "grade2/cow.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u06-windmill",
+        "g2u06-goat",
+        "g2u06-chick"
+      ],
+      "spokenVariants": [
+        "call"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u06-sheep",
+      "word": "sheep",
+      "ttsText": "sheep",
+      "image": "grade2/sheep.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u06-hen",
+        "g2u06-tractor",
+        "g2u06-farm"
+      ],
+      "spokenVariants": [
+        "ship"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u06-donkey",
+      "word": "donkey",
+      "ttsText": "donkey",
+      "image": "grade2/donkey.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u06-goat",
+        "g2u06-chick",
+        "g2u06-duck"
+      ],
+      "spokenVariants": [
+        "dunkey",
+        "donky"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u06-windmill",
+      "word": "windmill",
+      "ttsText": "windmill",
+      "image": "grade2/windmill.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u06-tractor",
+        "g2u06-farm",
+        "g2u06-farmer"
+      ],
+      "spokenVariants": [
+        "wind mill",
+        "winmill"
       ],
       "modes": [
         "laneJump",
@@ -32,32 +176,12 @@
       "syllables": 1,
       "sentencePatterns": [],
       "distractorIds": [
-        "g2u06-cat",
-        "g2u06-turkey",
-        "g2u06-barn"
+        "g2u06-chick",
+        "g2u06-duck",
+        "g2u06-pig"
       ],
       "spokenVariants": [
         "hand"
-      ],
-      "modes": [
-        "laneJump",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g2u06-chick",
-      "word": "chick",
-      "ttsText": "chick",
-      "image": "grade2/chick.png",
-      "syllables": 1,
-      "sentencePatterns": [],
-      "distractorIds": [
-        "g2u06-rabbit",
-        "g2u06-tractor",
-        "g2u06-egg"
-      ],
-      "spokenVariants": [
-        "check"
       ],
       "modes": [
         "laneJump",
@@ -72,69 +196,13 @@
       "syllables": 1,
       "sentencePatterns": [],
       "distractorIds": [
-        "g2u06-turkey",
-        "g2u06-barn",
-        "g2u06-carrot"
+        "g2u06-farm",
+        "g2u06-farmer",
+        "g2u06-cow"
       ],
       "spokenVariants": [
         "goal"
       ],
-      "modes": [
-        "laneJump",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g2u06-cat",
-      "word": "cat",
-      "ttsText": "cat",
-      "image": "grade2/cat.png",
-      "syllables": 1,
-      "sentencePatterns": [],
-      "distractorIds": [
-        "g2u06-tractor",
-        "g2u06-egg",
-        "g2u06-farmer"
-      ],
-      "spokenVariants": [
-        "cut"
-      ],
-      "modes": [
-        "laneJump",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g2u06-rabbit",
-      "word": "rabbit",
-      "ttsText": "rabbit",
-      "image": "grade2/rabbit.png",
-      "syllables": 2,
-      "sentencePatterns": [],
-      "distractorIds": [
-        "g2u06-barn",
-        "g2u06-carrot",
-        "g2u06-pig"
-      ],
-      "spokenVariants": [],
-      "modes": [
-        "laneJump",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g2u06-turkey",
-      "word": "turkey",
-      "ttsText": "turkey",
-      "image": "grade2/turkey.png",
-      "syllables": 2,
-      "sentencePatterns": [],
-      "distractorIds": [
-        "g2u06-egg",
-        "g2u06-farmer",
-        "g2u06-hen"
-      ],
-      "spokenVariants": [],
       "modes": [
         "laneJump",
         "sayIt"
@@ -148,9 +216,9 @@
       "syllables": 2,
       "sentencePatterns": [],
       "distractorIds": [
-        "g2u06-carrot",
+        "g2u06-duck",
         "g2u06-pig",
-        "g2u06-chick"
+        "g2u06-sheep"
       ],
       "spokenVariants": [],
       "modes": [
@@ -159,76 +227,20 @@
       ]
     },
     {
-      "id": "g2u06-barn",
-      "word": "barn",
-      "ttsText": "barn",
-      "image": "grade2/barn.png",
+      "id": "g2u06-chick",
+      "word": "chick",
+      "ttsText": "chick",
+      "image": "grade2/chick.png",
       "syllables": 1,
       "sentencePatterns": [],
       "distractorIds": [
         "g2u06-farmer",
-        "g2u06-hen",
-        "g2u06-goat"
+        "g2u06-cow",
+        "g2u06-donkey"
       ],
       "spokenVariants": [
-        "bone"
+        "check"
       ],
-      "modes": [
-        "laneJump",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g2u06-egg",
-      "word": "egg",
-      "ttsText": "egg",
-      "image": "grade2/egg.png",
-      "syllables": 1,
-      "sentencePatterns": [],
-      "distractorIds": [
-        "g2u06-pig",
-        "g2u06-chick",
-        "g2u06-cat"
-      ],
-      "spokenVariants": [
-        "ag"
-      ],
-      "modes": [
-        "laneJump",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g2u06-carrot",
-      "word": "carrot",
-      "ttsText": "carrot",
-      "image": "grade2/carrot.png",
-      "syllables": 2,
-      "sentencePatterns": [],
-      "distractorIds": [
-        "g2u06-hen",
-        "g2u06-goat",
-        "g2u06-rabbit"
-      ],
-      "spokenVariants": [],
-      "modes": [
-        "laneJump",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g2u06-farmer",
-      "word": "farmer",
-      "ttsText": "farmer",
-      "image": "grade2/farmer.png",
-      "syllables": 2,
-      "sentencePatterns": [],
-      "distractorIds": [
-        "g2u06-chick",
-        "g2u06-cat",
-        "g2u06-turkey"
-      ],
-      "spokenVariants": [],
       "modes": [
         "laneJump",
         "sayIt"

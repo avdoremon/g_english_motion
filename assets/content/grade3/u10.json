@@ -5,23 +5,48 @@
   "title": "Break time activities",
   "items": [
     {
-      "id": "g3u10-football",
-      "word": "football",
-      "ttsText": "football",
-      "image": "grade3/football.png",
-      "syllables": 2,
+      "id": "g3u10-chess",
+      "word": "chess",
+      "ttsText": "chess",
+      "image": "grade3/chess.png",
+      "syllables": 1,
       "sentencePatterns": [
-        "I play football",
-        "Let us play football"
+        "I play chess",
+        "Let us play chess"
+      ],
+      "distractorIds": [
+        "g3u10-volleyball",
+        "g3u10-badminton",
+        "g3u10-tennis"
+      ],
+      "spokenVariants": [
+        "chest",
+        "ches"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u10-volleyball",
+      "word": "volleyball",
+      "ttsText": "volleyball",
+      "image": "grade3/volleyball.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "I play volleyball",
+        "Let us play volleyball"
       ],
       "distractorIds": [
         "g3u10-basketball",
-        "g3u10-badminton",
-        "g3u10-volleyball"
+        "g3u10-football",
+        "g3u10-puzzle"
       ],
       "spokenVariants": [
-        "foot ball",
-        "footbal"
+        "volley ball",
+        "volleybal"
       ],
       "modes": [
         "dragSpell",
@@ -41,8 +66,8 @@
       ],
       "distractorIds": [
         "g3u10-badminton",
-        "g3u10-volleyball",
-        "g3u10-chess"
+        "g3u10-tennis",
+        "g3u10-chat"
       ],
       "spokenVariants": [
         "basket ball",
@@ -65,9 +90,9 @@
         "Let us play badminton"
       ],
       "distractorIds": [
-        "g3u10-volleyball",
-        "g3u10-chess",
-        "g3u10-skip"
+        "g3u10-football",
+        "g3u10-puzzle",
+        "g3u10-break"
       ],
       "spokenVariants": [
         "badmington",
@@ -80,123 +105,23 @@
       ]
     },
     {
-      "id": "g3u10-volleyball",
-      "word": "volleyball",
-      "ttsText": "volleyball",
-      "image": "grade3/volleyball.png",
-      "syllables": 3,
+      "id": "g3u10-football",
+      "word": "football",
+      "ttsText": "football",
+      "image": "grade3/football.png",
+      "syllables": 2,
       "sentencePatterns": [
-        "I play volleyball",
-        "Let us play volleyball"
+        "I play football",
+        "Let us play football"
       ],
       "distractorIds": [
-        "g3u10-chess",
-        "g3u10-skip",
-        "g3u10-kite"
-      ],
-      "spokenVariants": [
-        "volley ball",
-        "volleybal"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g3u10-chess",
-      "word": "chess",
-      "ttsText": "chess",
-      "image": "grade3/chess.png",
-      "syllables": 1,
-      "sentencePatterns": [
-        "I play chess",
-        "Let us play chess"
-      ],
-      "distractorIds": [
-        "g3u10-skip",
-        "g3u10-kite",
-        "g3u10-ball"
-      ],
-      "spokenVariants": [
-        "chest",
-        "ches"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g3u10-skip",
-      "word": "skip",
-      "ttsText": "skip",
-      "image": "grade3/skip.png",
-      "syllables": 1,
-      "sentencePatterns": [
-        "I like to skip",
-        "We skip at break time"
-      ],
-      "distractorIds": [
-        "g3u10-kite",
-        "g3u10-ball",
-        "g3u10-tennis"
-      ],
-      "spokenVariants": [
-        "skipp",
-        "scip"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g3u10-kite",
-      "word": "kite",
-      "ttsText": "kite",
-      "image": "grade3/kite.png",
-      "syllables": 1,
-      "sentencePatterns": [
-        "I fly my kite",
-        "The kite is high"
-      ],
-      "distractorIds": [
-        "g3u10-ball",
         "g3u10-tennis",
+        "g3u10-chat",
         "g3u10-play"
       ],
       "spokenVariants": [
-        "kight",
-        "kit"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g3u10-ball",
-      "word": "ball",
-      "ttsText": "ball",
-      "image": "grade3/ball.png",
-      "syllables": 1,
-      "sentencePatterns": [
-        "I kick the ball",
-        "Throw me the ball"
-      ],
-      "distractorIds": [
-        "g3u10-tennis",
-        "g3u10-play",
-        "g3u10-catch"
-      ],
-      "spokenVariants": [
-        "bowl",
-        "bal"
+        "foot ball",
+        "footbal"
       ],
       "modes": [
         "dragSpell",
@@ -215,13 +140,88 @@
         "Let us play tennis"
       ],
       "distractorIds": [
-        "g3u10-play",
-        "g3u10-catch",
-        "g3u10-rope"
+        "g3u10-puzzle",
+        "g3u10-break",
+        "g3u10-chess"
       ],
       "spokenVariants": [
         "tenis",
         "tennys"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u10-puzzle",
+      "word": "puzzle",
+      "ttsText": "puzzle",
+      "image": "grade3/puzzle.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I have a puzzle",
+        "The puzzle is hard"
+      ],
+      "distractorIds": [
+        "g3u10-chat",
+        "g3u10-play",
+        "g3u10-volleyball"
+      ],
+      "spokenVariants": [
+        "puzzel",
+        "pazzle"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u10-chat",
+      "word": "chat",
+      "ttsText": "chat",
+      "image": "grade3/chat.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I chat with my friends",
+        "We chat at break time"
+      ],
+      "distractorIds": [
+        "g3u10-break",
+        "g3u10-chess",
+        "g3u10-basketball"
+      ],
+      "spokenVariants": [
+        "chap",
+        "chart"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u10-break",
+      "word": "break",
+      "ttsText": "break",
+      "image": "grade3/break.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "It is break time",
+        "I play at break time"
+      ],
+      "distractorIds": [
+        "g3u10-play",
+        "g3u10-volleyball",
+        "g3u10-badminton"
+      ],
+      "spokenVariants": [
+        "brake",
+        "brek"
       ],
       "modes": [
         "dragSpell",
@@ -240,63 +240,13 @@
         "We play at break time"
       ],
       "distractorIds": [
-        "g3u10-catch",
-        "g3u10-rope",
+        "g3u10-chess",
+        "g3u10-basketball",
         "g3u10-football"
       ],
       "spokenVariants": [
         "pray",
         "pley"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g3u10-catch",
-      "word": "catch",
-      "ttsText": "catch",
-      "image": "grade3/catch.png",
-      "syllables": 1,
-      "sentencePatterns": [
-        "I can catch the ball",
-        "Catch the ball please"
-      ],
-      "distractorIds": [
-        "g3u10-rope",
-        "g3u10-football",
-        "g3u10-basketball"
-      ],
-      "spokenVariants": [
-        "cat",
-        "cats"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g3u10-rope",
-      "word": "rope",
-      "ttsText": "rope",
-      "image": "grade3/rope.png",
-      "syllables": 1,
-      "sentencePatterns": [
-        "I jump the rope",
-        "This is a long rope"
-      ],
-      "distractorIds": [
-        "g3u10-football",
-        "g3u10-basketball",
-        "g3u10-badminton"
-      ],
-      "spokenVariants": [
-        "robe",
-        "roap"
       ],
       "modes": [
         "dragSpell",

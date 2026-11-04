@@ -5,6 +5,86 @@
   "title": "In the garden",
   "items": [
     {
+      "id": "g1u07-garden",
+      "word": "garden",
+      "ttsText": "garden",
+      "image": "grade1/garden.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u07-gate",
+        "g1u07-goat",
+        "g1u07-tree"
+      ],
+      "spokenVariants": [
+        "gardin"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u07-gate",
+      "word": "gate",
+      "ttsText": "gate",
+      "image": "grade1/gate.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u07-girl",
+        "g1u07-flower",
+        "g1u07-grass"
+      ],
+      "spokenVariants": [
+        "get"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u07-girl",
+      "word": "girl",
+      "ttsText": "girl",
+      "image": "grade1/girl.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u07-goat",
+        "g1u07-tree",
+        "g1u07-bee"
+      ],
+      "spokenVariants": [
+        "gull"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u07-goat",
+      "word": "goat",
+      "ttsText": "goat",
+      "image": "grade1/goat.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u07-flower",
+        "g1u07-grass",
+        "g1u07-bird"
+      ],
+      "spokenVariants": [
+        "got"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
       "id": "g1u07-flower",
       "word": "flower",
       "ttsText": "flower",
@@ -13,8 +93,8 @@
       "sentencePatterns": [],
       "distractorIds": [
         "g1u07-tree",
-        "g1u07-bird",
-        "g1u07-cat"
+        "g1u07-bee",
+        "g1u07-frog"
       ],
       "spokenVariants": [
         "flour"
@@ -33,8 +113,8 @@
       "sentencePatterns": [],
       "distractorIds": [
         "g1u07-grass",
-        "g1u07-butterfly",
-        "g1u07-dog"
+        "g1u07-bird",
+        "g1u07-garden"
       ],
       "spokenVariants": [
         "three"
@@ -53,8 +133,8 @@
       "sentencePatterns": [],
       "distractorIds": [
         "g1u07-bee",
-        "g1u07-rabbit",
-        "g1u07-pond"
+        "g1u07-frog",
+        "g1u07-gate"
       ],
       "spokenVariants": [
         "glass"
@@ -73,8 +153,8 @@
       "sentencePatterns": [],
       "distractorIds": [
         "g1u07-bird",
-        "g1u07-cat",
-        "g1u07-frog"
+        "g1u07-garden",
+        "g1u07-girl"
       ],
       "spokenVariants": [
         "be"
@@ -92,109 +172,12 @@
       "syllables": 1,
       "sentencePatterns": [],
       "distractorIds": [
-        "g1u07-butterfly",
-        "g1u07-dog",
-        "g1u07-leaf"
+        "g1u07-frog",
+        "g1u07-gate",
+        "g1u07-goat"
       ],
       "spokenVariants": [
         "bud"
-      ],
-      "modes": [
-        "laneJump",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g1u07-butterfly",
-      "word": "butterfly",
-      "ttsText": "butterfly",
-      "image": "grade1/butterfly.png",
-      "syllables": 3,
-      "sentencePatterns": [],
-      "distractorIds": [
-        "g1u07-rabbit",
-        "g1u07-pond",
-        "g1u07-flower"
-      ],
-      "spokenVariants": [],
-      "modes": [
-        "laneJump"
-      ]
-    },
-    {
-      "id": "g1u07-rabbit",
-      "word": "rabbit",
-      "ttsText": "rabbit",
-      "image": "grade1/rabbit.png",
-      "syllables": 2,
-      "sentencePatterns": [],
-      "distractorIds": [
-        "g1u07-cat",
-        "g1u07-frog",
-        "g1u07-tree"
-      ],
-      "spokenVariants": [
-        "rabbet"
-      ],
-      "modes": [
-        "laneJump",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g1u07-cat",
-      "word": "cat",
-      "ttsText": "cat",
-      "image": "grade1/cat.png",
-      "syllables": 1,
-      "sentencePatterns": [],
-      "distractorIds": [
-        "g1u07-dog",
-        "g1u07-leaf",
-        "g1u07-grass"
-      ],
-      "spokenVariants": [
-        "cut"
-      ],
-      "modes": [
-        "laneJump",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g1u07-dog",
-      "word": "dog",
-      "ttsText": "dog",
-      "image": "grade1/dog.png",
-      "syllables": 1,
-      "sentencePatterns": [],
-      "distractorIds": [
-        "g1u07-pond",
-        "g1u07-flower",
-        "g1u07-bee"
-      ],
-      "spokenVariants": [
-        "dug"
-      ],
-      "modes": [
-        "laneJump",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g1u07-pond",
-      "word": "pond",
-      "ttsText": "pond",
-      "image": "grade1/pond.png",
-      "syllables": 1,
-      "sentencePatterns": [],
-      "distractorIds": [
-        "g1u07-frog",
-        "g1u07-tree",
-        "g1u07-bird"
-      ],
-      "spokenVariants": [
-        "pawn"
       ],
       "modes": [
         "laneJump",
@@ -209,32 +192,12 @@
       "syllables": 1,
       "sentencePatterns": [],
       "distractorIds": [
-        "g1u07-leaf",
-        "g1u07-grass",
-        "g1u07-butterfly"
+        "g1u07-garden",
+        "g1u07-girl",
+        "g1u07-flower"
       ],
       "spokenVariants": [
         "frock"
-      ],
-      "modes": [
-        "laneJump",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g1u07-leaf",
-      "word": "leaf",
-      "ttsText": "leaf",
-      "image": "grade1/leaf.png",
-      "syllables": 1,
-      "sentencePatterns": [],
-      "distractorIds": [
-        "g1u07-flower",
-        "g1u07-bee",
-        "g1u07-rabbit"
-      ],
-      "spokenVariants": [
-        "leave"
       ],
       "modes": [
         "laneJump",

@@ -16,8 +16,8 @@
       ],
       "distractorIds": [
         "g4u12-doctor",
-        "g4u12-nurse",
-        "g4u12-farmer"
+        "g4u12-farmer",
+        "g4u12-policeman"
       ],
       "spokenVariants": [
         "teach her",
@@ -41,8 +41,8 @@
       ],
       "distractorIds": [
         "g4u12-nurse",
-        "g4u12-farmer",
-        "g4u12-driver"
+        "g4u12-worker",
+        "g4u12-actor"
       ],
       "spokenVariants": [
         "docter",
@@ -66,8 +66,8 @@
       ],
       "distractorIds": [
         "g4u12-farmer",
-        "g4u12-driver",
-        "g4u12-worker"
+        "g4u12-policeman",
+        "g4u12-factory"
       ],
       "spokenVariants": [
         "nurs",
@@ -90,38 +90,13 @@
         "The farmer works hard"
       ],
       "distractorIds": [
-        "g4u12-driver",
         "g4u12-worker",
-        "g4u12-engineer"
+        "g4u12-actor",
+        "g4u12-farm"
       ],
       "spokenVariants": [
         "farma",
         "far mer"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g4u12-driver",
-      "word": "driver",
-      "ttsText": "driver",
-      "image": "grade4/driver.png",
-      "syllables": 2,
-      "sentencePatterns": [
-        "My dad is a driver",
-        "The driver is careful"
-      ],
-      "distractorIds": [
-        "g4u12-worker",
-        "g4u12-engineer",
-        "g4u12-pilot"
-      ],
-      "spokenVariants": [
-        "drivor",
-        "dryver"
       ],
       "modes": [
         "dragSpell",
@@ -140,9 +115,9 @@
         "The worker is tired"
       ],
       "distractorIds": [
-        "g4u12-engineer",
-        "g4u12-pilot",
-        "g4u12-singer"
+        "g4u12-policeman",
+        "g4u12-factory",
+        "g4u12-hospital"
       ],
       "spokenVariants": [
         "walker",
@@ -155,23 +130,23 @@
       ]
     },
     {
-      "id": "g4u12-engineer",
-      "word": "engineer",
-      "ttsText": "engineer",
-      "image": "grade4/engineer.png",
+      "id": "g4u12-policeman",
+      "word": "policeman",
+      "ttsText": "policeman",
+      "image": "grade4/policeman.png",
       "syllables": 3,
       "sentencePatterns": [
-        "My uncle is an engineer",
-        "She wants to be an engineer"
+        "My uncle is a policeman",
+        "He is a policeman"
       ],
       "distractorIds": [
-        "g4u12-pilot",
-        "g4u12-singer",
-        "g4u12-dentist"
+        "g4u12-actor",
+        "g4u12-farm",
+        "g4u12-teacher"
       ],
       "spokenVariants": [
-        "engineers",
-        "engeneer"
+        "police man",
+        "polisman"
       ],
       "modes": [
         "dragSpell",
@@ -179,48 +154,23 @@
       ]
     },
     {
-      "id": "g4u12-pilot",
-      "word": "pilot",
-      "ttsText": "pilot",
-      "image": "grade4/pilot.png",
+      "id": "g4u12-actor",
+      "word": "actor",
+      "ttsText": "actor",
+      "image": "grade4/actor.png",
       "syllables": 2,
       "sentencePatterns": [
-        "He is a pilot",
-        "The pilot flies a plane"
+        "She is an actor",
+        "He is an actor"
       ],
       "distractorIds": [
-        "g4u12-singer",
-        "g4u12-dentist",
-        "g4u12-teacher"
-      ],
-      "spokenVariants": [
-        "pie lot",
-        "pilots"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g4u12-singer",
-      "word": "singer",
-      "ttsText": "singer",
-      "image": "grade4/singer.png",
-      "syllables": 2,
-      "sentencePatterns": [
-        "She is a singer",
-        "The singer is famous"
-      ],
-      "distractorIds": [
-        "g4u12-dentist",
-        "g4u12-teacher",
+        "g4u12-factory",
+        "g4u12-hospital",
         "g4u12-doctor"
       ],
       "spokenVariants": [
-        "sing her",
-        "singa"
+        "acter",
+        "acto"
       ],
       "modes": [
         "dragSpell",
@@ -229,28 +179,76 @@
       ]
     },
     {
-      "id": "g4u12-dentist",
-      "word": "dentist",
-      "ttsText": "dentist",
-      "image": "grade4/dentist.png",
-      "syllables": 2,
+      "id": "g4u12-factory",
+      "word": "factory",
+      "ttsText": "factory",
+      "image": "grade4/factory.png",
+      "syllables": 3,
       "sentencePatterns": [
-        "The dentist is nice",
-        "My aunt is a dentist"
+        "He works in a factory",
+        "The factory is big"
       ],
       "distractorIds": [
+        "g4u12-farm",
         "g4u12-teacher",
-        "g4u12-doctor",
         "g4u12-nurse"
       ],
       "spokenVariants": [
-        "den tist",
-        "dentis"
+        "factry",
+        "fact tory"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot"
+      ]
+    },
+    {
+      "id": "g4u12-farm",
+      "word": "farm",
+      "ttsText": "farm",
+      "image": "grade4/farm.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "He works on a farm",
+        "The farm is big"
+      ],
+      "distractorIds": [
+        "g4u12-hospital",
+        "g4u12-doctor",
+        "g4u12-farmer"
+      ],
+      "spokenVariants": [
+        "form",
+        "firm"
       ],
       "modes": [
         "dragSpell",
         "skyShoot",
         "sayIt"
+      ]
+    },
+    {
+      "id": "g4u12-hospital",
+      "word": "hospital",
+      "ttsText": "hospital",
+      "image": "grade4/hospital.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "She works in a hospital",
+        "The hospital is big"
+      ],
+      "distractorIds": [
+        "g4u12-teacher",
+        "g4u12-nurse",
+        "g4u12-worker"
+      ],
+      "spokenVariants": [
+        "hospitle",
+        "host pital"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot"
       ]
     }
   ]

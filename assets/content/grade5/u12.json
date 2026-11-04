@@ -5,22 +5,96 @@
   "title": "Our Tet holiday",
   "items": [
     {
+      "id": "g5u12-rose",
+      "word": "rose",
+      "ttsText": "rose",
+      "image": "grade5/rose.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "We buy roses for Tet",
+        "The rose is very red"
+      ],
+      "distractorIds": [
+        "g5u12-blossom",
+        "g5u12-peach",
+        "g5u12-fireworks"
+      ],
+      "spokenVariants": [
+        "rows",
+        "roze"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u12-blossom",
+      "word": "blossom",
+      "ttsText": "blossom",
+      "image": "grade5/blossom.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "We buy peach blossoms",
+        "The blossom is very pretty"
+      ],
+      "distractorIds": [
+        "g5u12-peach",
+        "g5u12-fireworks",
+        "g5u12-flowers"
+      ],
+      "spokenVariants": [
+        "blosum",
+        "blossem"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u12-peach",
+      "word": "peach",
+      "ttsText": "peach",
+      "image": "grade5/peach.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "We buy a peach branch",
+        "The peach flowers are pink"
+      ],
+      "distractorIds": [
+        "g5u12-fireworks",
+        "g5u12-flowers",
+        "g5u12-festival"
+      ],
+      "spokenVariants": [
+        "peech",
+        "petch"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
       "id": "g5u12-fireworks",
       "word": "fireworks",
       "ttsText": "fireworks",
       "image": "grade5/fireworks.png",
       "syllables": 2,
       "sentencePatterns": [
-        "We watch fireworks at midnight",
+        "We watch the fireworks show",
         "The fireworks are very bright"
       ],
       "distractorIds": [
         "g5u12-flowers",
-        "g5u12-gifts",
-        "g5u12-blossom"
+        "g5u12-festival",
+        "g5u12-party"
       ],
       "spokenVariants": [
-        "fire works",
         "fireworx"
       ],
       "modes": [
@@ -36,142 +110,17 @@
       "image": "grade5/flowers.png",
       "syllables": 2,
       "sentencePatterns": [
-        "We buy flowers for Tet",
+        "We go to the flowers market",
         "The flowers are very beautiful"
       ],
       "distractorIds": [
-        "g5u12-gifts",
-        "g5u12-blossom",
-        "g5u12-relatives"
-      ],
-      "spokenVariants": [
-        "flours",
-        "flowas"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g5u12-gifts",
-      "word": "gifts",
-      "ttsText": "gifts",
-      "image": "grade5/gifts.png",
-      "syllables": 1,
-      "sentencePatterns": [
-        "We give gifts to children",
-        "The gifts are in the box"
-      ],
-      "distractorIds": [
-        "g5u12-blossom",
-        "g5u12-relatives",
-        "g5u12-dragon"
-      ],
-      "spokenVariants": [
-        "gifs",
-        "gifs"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g5u12-blossom",
-      "word": "blossom",
-      "ttsText": "blossom",
-      "image": "grade5/blossom.png",
-      "syllables": 2,
-      "sentencePatterns": [
-        "We buy peach blossom for Tet",
-        "The blossom is pink"
-      ],
-      "distractorIds": [
-        "g5u12-relatives",
-        "g5u12-dragon",
-        "g5u12-decorate"
-      ],
-      "spokenVariants": [
-        "blosom",
-        "blossum"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g5u12-relatives",
-      "word": "relatives",
-      "ttsText": "relatives",
-      "image": "grade5/relatives.png",
-      "syllables": 3,
-      "sentencePatterns": [
-        "We visit our relatives at Tet",
-        "My relatives come to my house"
-      ],
-      "distractorIds": [
-        "g5u12-dragon",
-        "g5u12-decorate",
-        "g5u12-wishes"
-      ],
-      "spokenVariants": [
-        "relitives",
-        "relativs"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g5u12-dragon",
-      "word": "dragon",
-      "ttsText": "dragon",
-      "image": "grade5/dragon.png",
-      "syllables": 2,
-      "sentencePatterns": [
-        "We watch the dragon dance",
-        "The dragon is very long"
-      ],
-      "distractorIds": [
-        "g5u12-decorate",
-        "g5u12-wishes",
-        "g5u12-sweets"
-      ],
-      "spokenVariants": [
-        "dragan",
-        "dragun"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g5u12-decorate",
-      "word": "decorate",
-      "ttsText": "decorate",
-      "image": "grade5/decorate.png",
-      "syllables": 3,
-      "sentencePatterns": [
-        "We decorate our house for Tet",
-        "I help decorate the tree"
-      ],
-      "distractorIds": [
-        "g5u12-wishes",
-        "g5u12-sweets",
+        "g5u12-festival",
+        "g5u12-party",
         "g5u12-money"
       ],
       "spokenVariants": [
-        "decorat",
-        "decorait"
+        "flowas",
+        "flowes"
       ],
       "modes": [
         "dragSpell",
@@ -180,23 +129,22 @@
       ]
     },
     {
-      "id": "g5u12-wishes",
-      "word": "wishes",
-      "ttsText": "wishes",
-      "image": "grade5/wishes.png",
-      "syllables": 2,
+      "id": "g5u12-festival",
+      "word": "festival",
+      "ttsText": "festival",
+      "image": "grade5/festival.png",
+      "syllables": 3,
       "sentencePatterns": [
-        "We give good wishes to everyone",
-        "Her wishes are kind"
+        "We go to a festival",
+        "The flower festival is fun"
       ],
       "distractorIds": [
-        "g5u12-sweets",
+        "g5u12-party",
         "g5u12-money",
         "g5u12-clothes"
       ],
       "spokenVariants": [
-        "wishis",
-        "wishers"
+        "festivel"
       ],
       "modes": [
         "dragSpell",
@@ -205,23 +153,23 @@
       ]
     },
     {
-      "id": "g5u12-sweets",
-      "word": "sweets",
-      "ttsText": "sweets",
-      "image": "grade5/sweets.png",
-      "syllables": 1,
+      "id": "g5u12-party",
+      "word": "party",
+      "ttsText": "party",
+      "image": "grade5/party.png",
+      "syllables": 2,
       "sentencePatterns": [
-        "We eat sweets at Tet",
-        "The sweets are very sweet"
+        "We go to a party",
+        "The New Year party is fun"
       ],
       "distractorIds": [
         "g5u12-money",
         "g5u12-clothes",
-        "g5u12-fireworks"
+        "g5u12-relatives"
       ],
       "spokenVariants": [
-        "sweats",
-        "sweet"
+        "pardy",
+        "partey"
       ],
       "modes": [
         "dragSpell",
@@ -236,16 +184,16 @@
       "image": "grade5/money.png",
       "syllables": 2,
       "sentencePatterns": [
-        "Children get lucky money at Tet",
-        "I keep my money safe"
+        "We receive lucky money",
+        "I get lucky money"
       ],
       "distractorIds": [
         "g5u12-clothes",
-        "g5u12-fireworks",
-        "g5u12-flowers"
+        "g5u12-relatives",
+        "g5u12-decorate"
       ],
       "spokenVariants": [
-        "mony",
+        "muni",
         "mooney"
       ],
       "modes": [
@@ -261,17 +209,91 @@
       "image": "grade5/clothes.png",
       "syllables": 1,
       "sentencePatterns": [
-        "I wear new clothes at Tet",
-        "My clothes are very nice"
+        "We wear new clothes",
+        "My new clothes are red"
       ],
       "distractorIds": [
-        "g5u12-fireworks",
-        "g5u12-flowers",
-        "g5u12-gifts"
+        "g5u12-relatives",
+        "g5u12-decorate",
+        "g5u12-shopping"
       ],
       "spokenVariants": [
         "close",
-        "cloths"
+        "clothe"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u12-relatives",
+      "word": "relatives",
+      "ttsText": "relatives",
+      "image": "grade5/relatives.png",
+      "syllables": 4,
+      "sentencePatterns": [
+        "We visit our relatives",
+        "My relatives come to my house"
+      ],
+      "distractorIds": [
+        "g5u12-decorate",
+        "g5u12-shopping",
+        "g5u12-rose"
+      ],
+      "spokenVariants": [
+        "relatifs",
+        "relativs"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot"
+      ]
+    },
+    {
+      "id": "g5u12-decorate",
+      "word": "decorate",
+      "ttsText": "decorate",
+      "image": "grade5/decorate.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "We decorate the house",
+        "They decorate the house for Tet"
+      ],
+      "distractorIds": [
+        "g5u12-shopping",
+        "g5u12-rose",
+        "g5u12-blossom"
+      ],
+      "spokenVariants": [
+        "decorait",
+        "decorat"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u12-shopping",
+      "word": "shopping",
+      "ttsText": "shopping",
+      "image": "grade5/shopping.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "We do the shopping",
+        "Shopping is fun before Tet"
+      ],
+      "distractorIds": [
+        "g5u12-rose",
+        "g5u12-blossom",
+        "g5u12-peach"
+      ],
+      "spokenVariants": [
+        "shoping",
+        "shoppin"
       ],
       "modes": [
         "dragSpell",

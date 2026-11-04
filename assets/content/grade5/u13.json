@@ -5,23 +5,23 @@
   "title": "Our special days",
   "items": [
     {
-      "id": "g5u13-celebrate",
-      "word": "celebrate",
-      "ttsText": "celebrate",
-      "image": "grade5/celebrate.png",
-      "syllables": 3,
+      "id": "g5u13-party",
+      "word": "party",
+      "ttsText": "party",
+      "image": "grade5/party.png",
+      "syllables": 2,
       "sentencePatterns": [
-        "We celebrate Teachers Day in November",
-        "Do you celebrate Christmas"
+        "We will have a party",
+        "The party is at school"
       ],
       "distractorIds": [
         "g5u13-festival",
-        "g5u13-party",
-        "g5u13-birthday"
+        "g5u13-lantern",
+        "g5u13-dance"
       ],
       "spokenVariants": [
-        "celebrait",
-        "selebrate"
+        "pardy",
+        "partey"
       ],
       "modes": [
         "dragSpell",
@@ -36,16 +36,15 @@
       "image": "grade5/festival.png",
       "syllables": 3,
       "sentencePatterns": [
-        "We have a festival in autumn",
-        "The festival is very fun"
+        "We will go to the festival",
+        "The festival is coming soon"
       ],
       "distractorIds": [
-        "g5u13-party",
-        "g5u13-birthday",
-        "g5u13-present"
+        "g5u13-lantern",
+        "g5u13-dance",
+        "g5u13-sing"
       ],
       "spokenVariants": [
-        "festaval",
         "festivel"
       ],
       "modes": [
@@ -55,23 +54,48 @@
       ]
     },
     {
-      "id": "g5u13-party",
-      "word": "party",
-      "ttsText": "party",
-      "image": "grade5/party.png",
+      "id": "g5u13-lantern",
+      "word": "lantern",
+      "ttsText": "lantern",
+      "image": "grade5/lantern.png",
       "syllables": 2,
       "sentencePatterns": [
-        "We have a party at school",
-        "The party starts at six"
+        "We will make a lantern",
+        "The lantern is very bright"
       ],
       "distractorIds": [
-        "g5u13-birthday",
-        "g5u13-present",
+        "g5u13-dance",
+        "g5u13-sing",
+        "g5u13-badminton"
+      ],
+      "spokenVariants": [
+        "lantan",
+        "lanturn"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u13-dance",
+      "word": "dance",
+      "ttsText": "dance",
+      "image": "grade5/dance.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "We will sing and dance",
+        "They dance on Sports Day"
+      ],
+      "distractorIds": [
+        "g5u13-sing",
+        "g5u13-badminton",
         "g5u13-cake"
       ],
       "spokenVariants": [
-        "parti",
-        "partee"
+        "dans",
+        "dence"
       ],
       "modes": [
         "dragSpell",
@@ -80,23 +104,23 @@
       ]
     },
     {
-      "id": "g5u13-birthday",
-      "word": "birthday",
-      "ttsText": "birthday",
-      "image": "grade5/birthday.png",
-      "syllables": 2,
+      "id": "g5u13-sing",
+      "word": "sing",
+      "ttsText": "sing",
+      "image": "grade5/sing.png",
+      "syllables": 1,
       "sentencePatterns": [
-        "When is your birthday",
-        "My birthday is in May"
+        "We will sing and dance",
+        "They sing at the party"
       ],
       "distractorIds": [
-        "g5u13-present",
+        "g5u13-badminton",
         "g5u13-cake",
-        "g5u13-card"
+        "g5u13-lemonade"
       ],
       "spokenVariants": [
-        "birth day",
-        "birthdey"
+        "sin",
+        "sinn"
       ],
       "modes": [
         "dragSpell",
@@ -105,23 +129,23 @@
       ]
     },
     {
-      "id": "g5u13-present",
-      "word": "present",
-      "ttsText": "present",
-      "image": "grade5/present.png",
-      "syllables": 2,
+      "id": "g5u13-badminton",
+      "word": "badminton",
+      "ttsText": "badminton",
+      "image": "grade5/badminton.png",
+      "syllables": 3,
       "sentencePatterns": [
-        "I give my friend a present",
-        "The present is in the box"
+        "We will play badminton",
+        "Badminton is my favourite sport"
       ],
       "distractorIds": [
         "g5u13-cake",
-        "g5u13-card",
-        "g5u13-candle"
+        "g5u13-lemonade",
+        "g5u13-chips"
       ],
       "spokenVariants": [
-        "presant",
-        "prezent"
+        "badmington",
+        "batminton"
       ],
       "modes": [
         "dragSpell",
@@ -136,13 +160,13 @@
       "image": "grade5/cake.png",
       "syllables": 1,
       "sentencePatterns": [
-        "We eat cake on my birthday",
+        "We will have a cake",
         "The cake is very sweet"
       ],
       "distractorIds": [
-        "g5u13-card",
-        "g5u13-candle",
-        "g5u13-balloon"
+        "g5u13-lemonade",
+        "g5u13-chips",
+        "g5u13-pizza"
       ],
       "spokenVariants": [
         "kake",
@@ -155,122 +179,123 @@
       ]
     },
     {
-      "id": "g5u13-card",
-      "word": "card",
-      "ttsText": "card",
-      "image": "grade5/card.png",
-      "syllables": 1,
-      "sentencePatterns": [
-        "I make a card today",
-        "The card is very pretty"
-      ],
-      "distractorIds": [
-        "g5u13-candle",
-        "g5u13-balloon",
-        "g5u13-christmas"
-      ],
-      "spokenVariants": [
-        "kard",
-        "cart"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g5u13-candle",
-      "word": "candle",
-      "ttsText": "candle",
-      "image": "grade5/candle.png",
-      "syllables": 2,
-      "sentencePatterns": [
-        "I light the candle now",
-        "Blow out the candle"
-      ],
-      "distractorIds": [
-        "g5u13-balloon",
-        "g5u13-christmas",
-        "g5u13-november"
-      ],
-      "spokenVariants": [
-        "candel",
-        "kandle"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g5u13-balloon",
-      "word": "balloon",
-      "ttsText": "balloon",
-      "image": "grade5/balloon.png",
-      "syllables": 2,
-      "sentencePatterns": [
-        "I have a red balloon",
-        "The balloon is very big"
-      ],
-      "distractorIds": [
-        "g5u13-christmas",
-        "g5u13-november",
-        "g5u13-celebrate"
-      ],
-      "spokenVariants": [
-        "baloon",
-        "ballon"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g5u13-christmas",
-      "word": "christmas",
-      "ttsText": "christmas",
-      "image": "grade5/christmas.png",
-      "syllables": 2,
-      "sentencePatterns": [
-        "We celebrate Christmas in December",
-        "Christmas is a special day"
-      ],
-      "distractorIds": [
-        "g5u13-november",
-        "g5u13-celebrate",
-        "g5u13-festival"
-      ],
-      "spokenVariants": [
-        "chrismas",
-        "krismas"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g5u13-november",
-      "word": "november",
-      "ttsText": "november",
-      "image": "grade5/november.png",
+      "id": "g5u13-lemonade",
+      "word": "lemonade",
+      "ttsText": "lemonade",
+      "image": "grade5/lemonade.png",
       "syllables": 3,
       "sentencePatterns": [
-        "Teachers Day is in November",
-        "It is cold in November"
+        "We will drink lemonade",
+        "I like cold lemonade"
       ],
       "distractorIds": [
-        "g5u13-celebrate",
-        "g5u13-festival",
+        "g5u13-chips",
+        "g5u13-pizza",
+        "g5u13-burger"
+      ],
+      "spokenVariants": [
+        "lemonaid",
+        "lemonaid"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u13-chips",
+      "word": "chips",
+      "ttsText": "chips",
+      "image": "grade5/chips.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "We will eat chips",
+        "I like chips very much"
+      ],
+      "distractorIds": [
+        "g5u13-pizza",
+        "g5u13-burger",
+        "g5u13-juice"
+      ],
+      "spokenVariants": [
+        "chip",
+        "tships"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u13-pizza",
+      "word": "pizza",
+      "ttsText": "pizza",
+      "image": "grade5/pizza.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "We will have pizza",
+        "I like pizza very much"
+      ],
+      "distractorIds": [
+        "g5u13-burger",
+        "g5u13-juice",
         "g5u13-party"
       ],
       "spokenVariants": [
-        "novembar"
+        "pitza",
+        "peetza"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u13-burger",
+      "word": "burger",
+      "ttsText": "burger",
+      "image": "grade5/burger.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "We will eat burgers",
+        "I like a burger"
+      ],
+      "distractorIds": [
+        "g5u13-juice",
+        "g5u13-party",
+        "g5u13-festival"
+      ],
+      "spokenVariants": [
+        "berger",
+        "burgar"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u13-juice",
+      "word": "juice",
+      "ttsText": "juice",
+      "image": "grade5/juice.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "We will drink apple juice",
+        "I like orange juice"
+      ],
+      "distractorIds": [
+        "g5u13-party",
+        "g5u13-festival",
+        "g5u13-lantern"
+      ],
+      "spokenVariants": [
+        "jus",
+        "juce"
       ],
       "modes": [
         "dragSpell",

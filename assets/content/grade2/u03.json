@@ -5,19 +5,20 @@
   "title": "At the seaside",
   "items": [
     {
-      "id": "g2u03-sea",
-      "word": "sea",
-      "ttsText": "sea",
-      "image": "grade2/sea.png",
-      "syllables": 1,
+      "id": "g2u03-seaside",
+      "word": "seaside",
+      "ttsText": "seaside",
+      "image": "grade2/seaside.png",
+      "syllables": 2,
       "sentencePatterns": [],
       "distractorIds": [
+        "g2u03-sun",
         "g2u03-wave",
-        "g2u03-boat",
-        "g2u03-starfish"
+        "g2u03-shell"
       ],
       "spokenVariants": [
-        "see"
+        "see side",
+        "seasied"
       ],
       "modes": [
         "laneJump",
@@ -32,9 +33,9 @@
       "syllables": 1,
       "sentencePatterns": [],
       "distractorIds": [
-        "g2u03-crab",
-        "g2u03-fish",
-        "g2u03-umbrella"
+        "g2u03-sky",
+        "g2u03-sail",
+        "g2u03-boat"
       ],
       "spokenVariants": [
         "sound"
@@ -45,19 +46,61 @@
       ]
     },
     {
-      "id": "g2u03-shell",
-      "word": "shell",
-      "ttsText": "shell",
-      "image": "grade2/shell.png",
+      "id": "g2u03-sea",
+      "word": "sea",
+      "ttsText": "sea",
+      "image": "grade2/sea.png",
       "syllables": 1,
       "sentencePatterns": [],
       "distractorIds": [
-        "g2u03-boat",
-        "g2u03-starfish",
-        "g2u03-sunhat"
+        "g2u03-wave",
+        "g2u03-shell",
+        "g2u03-crab"
       ],
       "spokenVariants": [
-        "sell"
+        "see"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u03-sun",
+      "word": "sun",
+      "ttsText": "sun",
+      "image": "grade2/sun.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u03-sail",
+        "g2u03-boat",
+        "g2u03-fish"
+      ],
+      "spokenVariants": [
+        "son",
+        "sin"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u03-sky",
+      "word": "sky",
+      "ttsText": "sky",
+      "image": "grade2/sky.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u03-shell",
+        "g2u03-crab",
+        "g2u03-starfish"
+      ],
+      "spokenVariants": [
+        "skai",
+        "ski"
       ],
       "modes": [
         "laneJump",
@@ -72,9 +115,9 @@
       "syllables": 1,
       "sentencePatterns": [],
       "distractorIds": [
+        "g2u03-boat",
         "g2u03-fish",
-        "g2u03-umbrella",
-        "g2u03-island"
+        "g2u03-seaside"
       ],
       "spokenVariants": [
         "way"
@@ -85,19 +128,40 @@
       ]
     },
     {
-      "id": "g2u03-crab",
-      "word": "crab",
-      "ttsText": "crab",
-      "image": "grade2/crab.png",
+      "id": "g2u03-sail",
+      "word": "sail",
+      "ttsText": "sail",
+      "image": "grade2/sail.png",
       "syllables": 1,
       "sentencePatterns": [],
       "distractorIds": [
+        "g2u03-crab",
         "g2u03-starfish",
-        "g2u03-sunhat",
-        "g2u03-ship"
+        "g2u03-sand"
       ],
       "spokenVariants": [
-        "crap"
+        "sale",
+        "sell"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u03-shell",
+      "word": "shell",
+      "ttsText": "shell",
+      "image": "grade2/shell.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u03-fish",
+        "g2u03-seaside",
+        "g2u03-sea"
+      ],
+      "spokenVariants": [
+        "sell"
       ],
       "modes": [
         "laneJump",
@@ -112,12 +176,32 @@
       "syllables": 1,
       "sentencePatterns": [],
       "distractorIds": [
-        "g2u03-umbrella",
-        "g2u03-island",
-        "g2u03-sea"
+        "g2u03-starfish",
+        "g2u03-sand",
+        "g2u03-sun"
       ],
       "spokenVariants": [
         "boot"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u03-crab",
+      "word": "crab",
+      "ttsText": "crab",
+      "image": "grade2/crab.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u03-seaside",
+        "g2u03-sea",
+        "g2u03-sky"
+      ],
+      "spokenVariants": [
+        "crap"
       ],
       "modes": [
         "laneJump",
@@ -132,9 +216,9 @@
       "syllables": 1,
       "sentencePatterns": [],
       "distractorIds": [
-        "g2u03-sunhat",
-        "g2u03-ship",
-        "g2u03-sand"
+        "g2u03-sand",
+        "g2u03-sun",
+        "g2u03-wave"
       ],
       "spokenVariants": [
         "fist"
@@ -152,86 +236,11 @@
       "syllables": 2,
       "sentencePatterns": [],
       "distractorIds": [
-        "g2u03-island",
         "g2u03-sea",
-        "g2u03-shell"
+        "g2u03-sky",
+        "g2u03-sail"
       ],
       "spokenVariants": [],
-      "modes": [
-        "laneJump",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g2u03-umbrella",
-      "word": "umbrella",
-      "ttsText": "umbrella",
-      "image": "grade2/umbrella.png",
-      "syllables": 3,
-      "sentencePatterns": [],
-      "distractorIds": [
-        "g2u03-ship",
-        "g2u03-sand",
-        "g2u03-wave"
-      ],
-      "spokenVariants": [],
-      "modes": [
-        "laneJump"
-      ]
-    },
-    {
-      "id": "g2u03-sunhat",
-      "word": "sunhat",
-      "ttsText": "sunhat",
-      "image": "grade2/sunhat.png",
-      "syllables": 2,
-      "sentencePatterns": [],
-      "distractorIds": [
-        "g2u03-sea",
-        "g2u03-shell",
-        "g2u03-crab"
-      ],
-      "spokenVariants": [],
-      "modes": [
-        "laneJump",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g2u03-island",
-      "word": "island",
-      "ttsText": "island",
-      "image": "grade2/island.png",
-      "syllables": 2,
-      "sentencePatterns": [],
-      "distractorIds": [
-        "g2u03-sand",
-        "g2u03-wave",
-        "g2u03-boat"
-      ],
-      "spokenVariants": [
-        "iland"
-      ],
-      "modes": [
-        "laneJump",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g2u03-ship",
-      "word": "ship",
-      "ttsText": "ship",
-      "image": "grade2/ship.png",
-      "syllables": 1,
-      "sentencePatterns": [],
-      "distractorIds": [
-        "g2u03-shell",
-        "g2u03-crab",
-        "g2u03-fish"
-      ],
-      "spokenVariants": [
-        "sheep"
-      ],
       "modes": [
         "laneJump",
         "sayIt"

@@ -57,16 +57,20 @@ Full facts and sources: [pose-plugin-evaluation.md](pose-plugin-evaluation.md).
 - **No recorded audio.** Questions are read by the device text-to-speech and
   Vietnamese prompts are shown as captions only (no `.m4a` clips shipped, so
   the voice depends on the phone's installed English TTS voice).
-- **Vocabulary is not teacher-reviewed.** Grade 1 units 1-2 are author-written
-  for their topics; only 11 unit titles in the whole curriculum are confirmed.
-  See [content/unit-map.md](content/unit-map.md).
+- **Vocabulary is not teacher-reviewed.** All 92 units (grades 1-5) have
+  content. Unit titles and word lists were researched on 2026-11-04 from
+  Vietnamese teaching sites (per-unit URLs in `docs/content/sources-grade<N>.md`),
+  not from the printed books. Many pages were truncated, so some lists are
+  partial and padded with related "fill" words (marked in the sources files);
+  sentence patterns and spoken variants for new words are author-written.
+  Check every unit against the printed textbook before release.
 - **Placeholder art.** Word pictures are generated placeholder cards (see
   `assets/images/LICENSES.md`); real artwork will replace them under the same
   file names.
 
 ## Implemented but unverified on a device
 
-- **DragSpell and SkyShoot** (grade 3 units 1-2 only) and **SayIt** have round
+- **DragSpell and SkyShoot** (grades 3-5) and **SayIt** have round
   logic, screens and tests, but have never run on a phone. SkyShoot's cast
   latency (250 ms) and sweep speed are placeholders until the Task 0 spike.
 - **SayIt** uses the `speech_to_text` plugin restricted to on-device
@@ -82,8 +86,7 @@ Full facts and sources: [pose-plugin-evaluation.md](pose-plugin-evaluation.md).
 
 ## Not implemented yet
 
-- Grade 3 units 3+, grades 1-2 units 3+, grades 4-5 content (Home shows them
-  as coming soon). LaneJump is not part of the grade 3-5 mix.
+- LaneJump is not part of the grade 3-5 mix.
 - Real art, recorded audio, ads/Families compliance (Task 24).
 
 ## Needs the user's device (plan Task 0 / Task 16)

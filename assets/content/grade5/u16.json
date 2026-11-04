@@ -11,8 +11,8 @@
       "image": "grade5/spring.png",
       "syllables": 1,
       "sentencePatterns": [
-        "It is warm in spring",
-        "Flowers bloom in spring"
+        "It is spring here",
+        "Spring is warm and sunny"
       ],
       "distractorIds": [
         "g5u16-summer",
@@ -36,13 +36,13 @@
       "image": "grade5/summer.png",
       "syllables": 2,
       "sentencePatterns": [
-        "It is hot in summer",
-        "We go swimming in summer"
+        "It is summer here",
+        "Summer is very hot"
       ],
       "distractorIds": [
         "g5u16-autumn",
         "g5u16-winter",
-        "g5u16-sunny"
+        "g5u16-hot"
       ],
       "spokenVariants": [
         "sumer",
@@ -61,17 +61,17 @@
       "image": "grade5/autumn.png",
       "syllables": 2,
       "sentencePatterns": [
-        "It is cool in autumn",
-        "Leaves fall in autumn"
+        "It is autumn in Ha Noi",
+        "Autumn is cool and dry"
       ],
       "distractorIds": [
         "g5u16-winter",
-        "g5u16-sunny",
-        "g5u16-rainy"
+        "g5u16-hot",
+        "g5u16-cool"
       ],
       "spokenVariants": [
-        "autum",
-        "ortum"
+        "orton",
+        "autum"
       ],
       "modes": [
         "dragSpell",
@@ -86,167 +86,17 @@
       "image": "grade5/winter.png",
       "syllables": 2,
       "sentencePatterns": [
-        "It is cold in winter",
-        "We wear coats in winter"
-      ],
-      "distractorIds": [
-        "g5u16-sunny",
-        "g5u16-rainy",
-        "g5u16-windy"
-      ],
-      "spokenVariants": [
-        "winta",
-        "winer"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g5u16-sunny",
-      "word": "sunny",
-      "ttsText": "sunny",
-      "image": "grade5/sunny.png",
-      "syllables": 2,
-      "sentencePatterns": [
-        "It is sunny today",
-        "Is it sunny in Hue"
-      ],
-      "distractorIds": [
-        "g5u16-rainy",
-        "g5u16-windy",
-        "g5u16-cloudy"
-      ],
-      "spokenVariants": [
-        "sunni",
-        "sonny"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g5u16-rainy",
-      "word": "rainy",
-      "ttsText": "rainy",
-      "image": "grade5/rainy.png",
-      "syllables": 2,
-      "sentencePatterns": [
-        "It is rainy today",
-        "The rainy season is long"
-      ],
-      "distractorIds": [
-        "g5u16-windy",
-        "g5u16-cloudy",
-        "g5u16-snowy"
-      ],
-      "spokenVariants": [
-        "rainey",
-        "rany"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g5u16-windy",
-      "word": "windy",
-      "ttsText": "windy",
-      "image": "grade5/windy.png",
-      "syllables": 2,
-      "sentencePatterns": [
-        "It is windy today",
-        "The windy day is fun"
-      ],
-      "distractorIds": [
-        "g5u16-cloudy",
-        "g5u16-snowy",
-        "g5u16-stormy"
-      ],
-      "spokenVariants": [
-        "windee",
-        "windi"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g5u16-cloudy",
-      "word": "cloudy",
-      "ttsText": "cloudy",
-      "image": "grade5/cloudy.png",
-      "syllables": 2,
-      "sentencePatterns": [
-        "It is cloudy today",
-        "What a cloudy day"
-      ],
-      "distractorIds": [
-        "g5u16-snowy",
-        "g5u16-stormy",
-        "g5u16-hot"
-      ],
-      "spokenVariants": [
-        "cloudee",
-        "cloudi"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g5u16-snowy",
-      "word": "snowy",
-      "ttsText": "snowy",
-      "image": "grade5/snowy.png",
-      "syllables": 2,
-      "sentencePatterns": [
-        "It is snowy in winter",
-        "We love snowy days"
-      ],
-      "distractorIds": [
-        "g5u16-stormy",
-        "g5u16-hot",
-        "g5u16-cool"
-      ],
-      "spokenVariants": [
-        "snowee",
-        "snowi"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g5u16-stormy",
-      "word": "stormy",
-      "ttsText": "stormy",
-      "image": "grade5/stormy.png",
-      "syllables": 2,
-      "sentencePatterns": [
-        "It is stormy today",
-        "A stormy night is scary"
+        "It is winter in Sydney",
+        "Winter is very cold"
       ],
       "distractorIds": [
         "g5u16-hot",
         "g5u16-cool",
-        "g5u16-spring"
+        "g5u16-cold"
       ],
       "spokenVariants": [
-        "stormi",
-        "stormee"
+        "winta",
+        "winer"
       ],
       "modes": [
         "dragSpell",
@@ -262,12 +112,12 @@
       "syllables": 1,
       "sentencePatterns": [
         "It is hot in summer",
-        "Drink water on hot days"
+        "The weather is very hot"
       ],
       "distractorIds": [
         "g5u16-cool",
-        "g5u16-spring",
-        "g5u16-summer"
+        "g5u16-cold",
+        "g5u16-warm"
       ],
       "spokenVariants": [
         "hut",
@@ -290,13 +140,163 @@
         "The weather is cool today"
       ],
       "distractorIds": [
+        "g5u16-cold",
+        "g5u16-warm",
+        "g5u16-sunny"
+      ],
+      "spokenVariants": [
+        "cule",
+        "kool"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u16-cold",
+      "word": "cold",
+      "ttsText": "cold",
+      "image": "grade5/cold.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "It is cold in winter",
+        "Is it cold there"
+      ],
+      "distractorIds": [
+        "g5u16-warm",
+        "g5u16-sunny",
+        "g5u16-rainy"
+      ],
+      "spokenVariants": [
+        "colt",
+        "coled"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u16-warm",
+      "word": "warm",
+      "ttsText": "warm",
+      "image": "grade5/warm.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "It is warm in spring",
+        "The weather is warm today"
+      ],
+      "distractorIds": [
+        "g5u16-sunny",
+        "g5u16-rainy",
+        "g5u16-windy"
+      ],
+      "spokenVariants": [
+        "worm",
+        "wam"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u16-sunny",
+      "word": "sunny",
+      "ttsText": "sunny",
+      "image": "grade5/sunny.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "It is sunny today",
+        "The weather is sunny"
+      ],
+      "distractorIds": [
+        "g5u16-rainy",
+        "g5u16-windy",
+        "g5u16-snowy"
+      ],
+      "spokenVariants": [
+        "suny",
+        "sunni"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u16-rainy",
+      "word": "rainy",
+      "ttsText": "rainy",
+      "image": "grade5/rainy.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "It is rainy today",
+        "The weather is rainy"
+      ],
+      "distractorIds": [
+        "g5u16-windy",
+        "g5u16-snowy",
+        "g5u16-spring"
+      ],
+      "spokenVariants": [
+        "rainey",
+        "rany"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u16-windy",
+      "word": "windy",
+      "ttsText": "windy",
+      "image": "grade5/windy.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "It is windy today",
+        "The weather is windy"
+      ],
+      "distractorIds": [
+        "g5u16-snowy",
+        "g5u16-spring",
+        "g5u16-summer"
+      ],
+      "spokenVariants": [
+        "windi",
+        "windey"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u16-snowy",
+      "word": "snowy",
+      "ttsText": "snowy",
+      "image": "grade5/snowy.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "It is snowy in winter",
+        "The weather is snowy"
+      ],
+      "distractorIds": [
         "g5u16-spring",
         "g5u16-summer",
         "g5u16-autumn"
       ],
       "spokenVariants": [
-        "kool",
-        "cule"
+        "snowey",
+        "snowi"
       ],
       "modes": [
         "dragSpell",

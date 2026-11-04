@@ -5,6 +5,27 @@
   "title": "In the clothes shop",
   "items": [
     {
+      "id": "g2u15-shop",
+      "word": "shop",
+      "ttsText": "shop",
+      "image": "grade2/shop.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u15-shoe",
+        "g2u15-red",
+        "g2u15-dress"
+      ],
+      "spokenVariants": [
+        "shot",
+        "chop"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
       "id": "g2u15-shirt",
       "word": "shirt",
       "ttsText": "shirt",
@@ -12,12 +33,114 @@
       "syllables": 1,
       "sentencePatterns": [],
       "distractorIds": [
-        "g2u15-jacket",
-        "g2u15-socks",
-        "g2u15-scarf"
+        "g2u15-blue",
+        "g2u15-black",
+        "g2u15-skirt"
       ],
       "spokenVariants": [
         "short"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u15-shorts",
+      "word": "shorts",
+      "ttsText": "shorts",
+      "image": "grade2/shorts.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u15-red",
+        "g2u15-dress",
+        "g2u15-socks"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u15-shoe",
+      "word": "shoe",
+      "ttsText": "shoe",
+      "image": "grade2/shoe.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u15-black",
+        "g2u15-skirt",
+        "g2u15-jacket"
+      ],
+      "spokenVariants": [
+        "shu",
+        "shoo"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u15-blue",
+      "word": "blue",
+      "ttsText": "blue",
+      "image": "grade2/blue.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u15-dress",
+        "g2u15-socks",
+        "g2u15-cap"
+      ],
+      "spokenVariants": [
+        "blu",
+        "blew"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u15-red",
+      "word": "red",
+      "ttsText": "red",
+      "image": "grade2/red.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u15-skirt",
+        "g2u15-jacket",
+        "g2u15-shop"
+      ],
+      "spokenVariants": [
+        "rad",
+        "read"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u15-black",
+      "word": "black",
+      "ttsText": "black",
+      "image": "grade2/black.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u15-socks",
+        "g2u15-cap",
+        "g2u15-shirt"
+      ],
+      "spokenVariants": [
+        "blak",
+        "block"
       ],
       "modes": [
         "laneJump",
@@ -32,9 +155,9 @@
       "syllables": 1,
       "sentencePatterns": [],
       "distractorIds": [
-        "g2u15-shorts",
-        "g2u15-shoes",
-        "g2u15-cap"
+        "g2u15-jacket",
+        "g2u15-shop",
+        "g2u15-shorts"
       ],
       "spokenVariants": [
         "tress"
@@ -52,12 +175,32 @@
       "syllables": 1,
       "sentencePatterns": [],
       "distractorIds": [
-        "g2u15-socks",
-        "g2u15-scarf",
-        "g2u15-jeans"
+        "g2u15-cap",
+        "g2u15-shirt",
+        "g2u15-shoe"
       ],
       "spokenVariants": [
         "scurt"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u15-socks",
+      "word": "socks",
+      "ttsText": "socks",
+      "image": "grade2/socks.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u15-shop",
+        "g2u15-shorts",
+        "g2u15-blue"
+      ],
+      "spokenVariants": [
+        "sacks"
       ],
       "modes": [
         "laneJump",
@@ -72,85 +215,9 @@
       "syllables": 2,
       "sentencePatterns": [],
       "distractorIds": [
-        "g2u15-shoes",
-        "g2u15-cap",
-        "g2u15-sweater"
-      ],
-      "spokenVariants": [],
-      "modes": [
-        "laneJump",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g2u15-shorts",
-      "word": "shorts",
-      "ttsText": "shorts",
-      "image": "grade2/shorts.png",
-      "syllables": 1,
-      "sentencePatterns": [],
-      "distractorIds": [
-        "g2u15-scarf",
-        "g2u15-jeans",
-        "g2u15-boots"
-      ],
-      "spokenVariants": [],
-      "modes": [
-        "laneJump",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g2u15-socks",
-      "word": "socks",
-      "ttsText": "socks",
-      "image": "grade2/socks.png",
-      "syllables": 1,
-      "sentencePatterns": [],
-      "distractorIds": [
-        "g2u15-cap",
-        "g2u15-sweater",
-        "g2u15-shirt"
-      ],
-      "spokenVariants": [
-        "sacks"
-      ],
-      "modes": [
-        "laneJump",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g2u15-shoes",
-      "word": "shoes",
-      "ttsText": "shoes",
-      "image": "grade2/shoes.png",
-      "syllables": 1,
-      "sentencePatterns": [],
-      "distractorIds": [
-        "g2u15-jeans",
-        "g2u15-boots",
-        "g2u15-dress"
-      ],
-      "spokenVariants": [
-        "shoos"
-      ],
-      "modes": [
-        "laneJump",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g2u15-scarf",
-      "word": "scarf",
-      "ttsText": "scarf",
-      "image": "grade2/scarf.png",
-      "syllables": 1,
-      "sentencePatterns": [],
-      "distractorIds": [
-        "g2u15-sweater",
         "g2u15-shirt",
-        "g2u15-skirt"
+        "g2u15-shoe",
+        "g2u15-red"
       ],
       "spokenVariants": [],
       "modes": [
@@ -166,69 +233,13 @@
       "syllables": 1,
       "sentencePatterns": [],
       "distractorIds": [
-        "g2u15-boots",
-        "g2u15-dress",
-        "g2u15-jacket"
+        "g2u15-shorts",
+        "g2u15-blue",
+        "g2u15-black"
       ],
       "spokenVariants": [
         "cop"
       ],
-      "modes": [
-        "laneJump",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g2u15-jeans",
-      "word": "jeans",
-      "ttsText": "jeans",
-      "image": "grade2/jeans.png",
-      "syllables": 1,
-      "sentencePatterns": [],
-      "distractorIds": [
-        "g2u15-shirt",
-        "g2u15-skirt",
-        "g2u15-shorts"
-      ],
-      "spokenVariants": [
-        "genes"
-      ],
-      "modes": [
-        "laneJump",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g2u15-sweater",
-      "word": "sweater",
-      "ttsText": "sweater",
-      "image": "grade2/sweater.png",
-      "syllables": 2,
-      "sentencePatterns": [],
-      "distractorIds": [
-        "g2u15-dress",
-        "g2u15-jacket",
-        "g2u15-socks"
-      ],
-      "spokenVariants": [],
-      "modes": [
-        "laneJump",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g2u15-boots",
-      "word": "boots",
-      "ttsText": "boots",
-      "image": "grade2/boots.png",
-      "syllables": 1,
-      "sentencePatterns": [],
-      "distractorIds": [
-        "g2u15-skirt",
-        "g2u15-shorts",
-        "g2u15-shoes"
-      ],
-      "spokenVariants": [],
       "modes": [
         "laneJump",
         "sayIt"

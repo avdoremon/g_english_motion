@@ -11,117 +11,17 @@
       "image": "grade5/bus.png",
       "syllables": 1,
       "sentencePatterns": [
-        "I go to school by bus",
-        "The bus is very full"
+        "I go there by bus",
+        "The bus stop is over there"
       ],
       "distractorIds": [
-        "g5u18-train",
-        "g5u18-plane",
-        "g5u18-ship"
+        "g5u18-bicycle",
+        "g5u18-taxi",
+        "g5u18-boat"
       ],
       "spokenVariants": [
         "buss",
-        "bas"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g5u18-train",
-      "word": "train",
-      "ttsText": "train",
-      "image": "grade5/train.png",
-      "syllables": 1,
-      "sentencePatterns": [
-        "We go there by train",
-        "The train is very fast"
-      ],
-      "distractorIds": [
-        "g5u18-plane",
-        "g5u18-ship",
-        "g5u18-taxi"
-      ],
-      "spokenVariants": [
-        "trane",
-        "trein"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g5u18-plane",
-      "word": "plane",
-      "ttsText": "plane",
-      "image": "grade5/plane.png",
-      "syllables": 1,
-      "sentencePatterns": [
-        "My uncle travels by plane",
-        "The plane is very big"
-      ],
-      "distractorIds": [
-        "g5u18-ship",
-        "g5u18-taxi",
-        "g5u18-bicycle"
-      ],
-      "spokenVariants": [
-        "plain",
-        "plan"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g5u18-ship",
-      "word": "ship",
-      "ttsText": "ship",
-      "image": "grade5/ship.png",
-      "syllables": 1,
-      "sentencePatterns": [
-        "We travel by ship",
-        "The ship is very large"
-      ],
-      "distractorIds": [
-        "g5u18-taxi",
-        "g5u18-bicycle",
-        "g5u18-motorbike"
-      ],
-      "spokenVariants": [
-        "sheep",
-        "shipp"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g5u18-taxi",
-      "word": "taxi",
-      "ttsText": "taxi",
-      "image": "grade5/taxi.png",
-      "syllables": 2,
-      "sentencePatterns": [
-        "We go home by taxi",
-        "The taxi is yellow"
-      ],
-      "distractorIds": [
-        "g5u18-bicycle",
-        "g5u18-motorbike",
-        "g5u18-car"
-      ],
-      "spokenVariants": [
-        "taksi",
-        "taxy"
+        "buz"
       ],
       "modes": [
         "dragSpell",
@@ -136,17 +36,17 @@
       "image": "grade5/bicycle.png",
       "syllables": 3,
       "sentencePatterns": [
-        "I go to school by bicycle",
-        "My bicycle is blue"
+        "I go there by bicycle",
+        "My bicycle is very new"
       ],
       "distractorIds": [
-        "g5u18-motorbike",
-        "g5u18-car",
-        "g5u18-boat"
+        "g5u18-taxi",
+        "g5u18-boat",
+        "g5u18-plane"
       ],
       "spokenVariants": [
-        "bicicle",
-        "bi cycle"
+        "bicycel",
+        "baisikel"
       ],
       "modes": [
         "dragSpell",
@@ -155,48 +55,23 @@
       ]
     },
     {
-      "id": "g5u18-motorbike",
-      "word": "motorbike",
-      "ttsText": "motorbike",
-      "image": "grade5/motorbike.png",
-      "syllables": 3,
+      "id": "g5u18-taxi",
+      "word": "taxi",
+      "ttsText": "taxi",
+      "image": "grade5/taxi.png",
+      "syllables": 2,
       "sentencePatterns": [
-        "My dad goes by motorbike",
-        "The motorbike is very fast"
-      ],
-      "distractorIds": [
-        "g5u18-car",
-        "g5u18-boat",
-        "g5u18-helicopter"
-      ],
-      "spokenVariants": [
-        "motor bike",
-        "motorbyke"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g5u18-car",
-      "word": "car",
-      "ttsText": "car",
-      "image": "grade5/car.png",
-      "syllables": 1,
-      "sentencePatterns": [
-        "We go to work by car",
-        "The car is red"
+        "I go there by taxi",
+        "The taxi is very fast"
       ],
       "distractorIds": [
         "g5u18-boat",
-        "g5u18-helicopter",
-        "g5u18-ferry"
+        "g5u18-plane",
+        "g5u18-foot"
       ],
       "spokenVariants": [
-        "kar",
-        "cah"
+        "taksi",
+        "taxy"
       ],
       "modes": [
         "dragSpell",
@@ -211,13 +86,13 @@
       "image": "grade5/boat.png",
       "syllables": 1,
       "sentencePatterns": [
-        "We go there by boat",
+        "I go there by boat",
         "The boat is very small"
       ],
       "distractorIds": [
-        "g5u18-helicopter",
-        "g5u18-ferry",
-        "g5u18-bus"
+        "g5u18-plane",
+        "g5u18-foot",
+        "g5u18-bridge"
       ],
       "spokenVariants": [
         "bote",
@@ -230,47 +105,198 @@
       ]
     },
     {
-      "id": "g5u18-helicopter",
-      "word": "helicopter",
-      "ttsText": "helicopter",
-      "image": "grade5/helicopter.png",
-      "syllables": 4,
+      "id": "g5u18-plane",
+      "word": "plane",
+      "ttsText": "plane",
+      "image": "grade5/plane.png",
+      "syllables": 1,
       "sentencePatterns": [
-        "The helicopter flies very high",
-        "I see a helicopter"
+        "I go there by plane",
+        "The plane is very fast"
       ],
       "distractorIds": [
-        "g5u18-ferry",
-        "g5u18-bus",
-        "g5u18-train"
+        "g5u18-foot",
+        "g5u18-bridge",
+        "g5u18-lake"
       ],
       "spokenVariants": [
-        "helicoptar",
-        "helicopta"
+        "plain",
+        "plan"
       ],
       "modes": [
         "dragSpell",
-        "skyShoot"
+        "skyShoot",
+        "sayIt"
       ]
     },
     {
-      "id": "g5u18-ferry",
-      "word": "ferry",
-      "ttsText": "ferry",
-      "image": "grade5/ferry.png",
-      "syllables": 2,
+      "id": "g5u18-foot",
+      "word": "foot",
+      "ttsText": "foot",
+      "image": "grade5/foot.png",
+      "syllables": 1,
       "sentencePatterns": [
-        "We cross the river by ferry",
-        "The ferry is very big"
+        "I go there on foot",
+        "We can go on foot"
+      ],
+      "distractorIds": [
+        "g5u18-bridge",
+        "g5u18-lake",
+        "g5u18-museum"
+      ],
+      "spokenVariants": [
+        "fut",
+        "fout"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u18-bridge",
+      "word": "bridge",
+      "ttsText": "bridge",
+      "image": "grade5/bridge.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I want to visit Dragon Bridge",
+        "The bridge is very long"
+      ],
+      "distractorIds": [
+        "g5u18-lake",
+        "g5u18-museum",
+        "g5u18-pagoda"
+      ],
+      "spokenVariants": [
+        "brige",
+        "bridg"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u18-lake",
+      "word": "lake",
+      "ttsText": "lake",
+      "image": "grade5/lake.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I want to visit the lake",
+        "The lake is very big"
+      ],
+      "distractorIds": [
+        "g5u18-museum",
+        "g5u18-pagoda",
+        "g5u18-square"
+      ],
+      "spokenVariants": [
+        "lak",
+        "laik"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u18-museum",
+      "word": "museum",
+      "ttsText": "museum",
+      "image": "grade5/museum.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "I want to visit the museum",
+        "The museum is far from here"
+      ],
+      "distractorIds": [
+        "g5u18-pagoda",
+        "g5u18-square",
+        "g5u18-stadium"
+      ],
+      "spokenVariants": [
+        "musium",
+        "myuseum"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u18-pagoda",
+      "word": "pagoda",
+      "ttsText": "pagoda",
+      "image": "grade5/pagoda.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "I want to visit the pagoda",
+        "The pagoda is very old"
+      ],
+      "distractorIds": [
+        "g5u18-square",
+        "g5u18-stadium",
+        "g5u18-bus"
+      ],
+      "spokenVariants": [
+        "pagoder",
+        "pegoda"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u18-square",
+      "word": "square",
+      "ttsText": "square",
+      "image": "grade5/square.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I want to visit the square",
+        "The square is very big"
+      ],
+      "distractorIds": [
+        "g5u18-stadium",
+        "g5u18-bus",
+        "g5u18-bicycle"
+      ],
+      "spokenVariants": [
+        "squair",
+        "skware"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u18-stadium",
+      "word": "stadium",
+      "ttsText": "stadium",
+      "image": "grade5/stadium.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "I want to visit the stadium",
+        "The stadium is very big"
       ],
       "distractorIds": [
         "g5u18-bus",
-        "g5u18-train",
-        "g5u18-plane"
+        "g5u18-bicycle",
+        "g5u18-taxi"
       ],
       "spokenVariants": [
-        "fairy",
-        "ferri"
+        "stadiam",
+        "stadyum"
       ],
       "modes": [
         "dragSpell",

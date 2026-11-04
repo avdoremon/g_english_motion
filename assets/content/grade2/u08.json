@@ -5,6 +5,162 @@
   "title": "In the village",
   "items": [
     {
+      "id": "g2u08-village",
+      "word": "village",
+      "ttsText": "village",
+      "image": "grade2/village.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u08-ox",
+        "g2u08-chicken",
+        "g2u08-river"
+      ],
+      "spokenVariants": [
+        "villige",
+        "billage"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u08-van",
+      "word": "van",
+      "ttsText": "van",
+      "image": "grade2/van.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u08-cow",
+        "g2u08-road",
+        "g2u08-house"
+      ],
+      "spokenVariants": [
+        "ban",
+        "fan"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u08-volleyball",
+      "word": "volleyball",
+      "ttsText": "volleyball",
+      "image": "grade2/volleyball.png",
+      "syllables": 3,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u08-chicken",
+        "g2u08-river",
+        "g2u08-buffalo"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump"
+      ]
+    },
+    {
+      "id": "g2u08-ox",
+      "word": "ox",
+      "ttsText": "ox",
+      "image": "grade2/ox.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u08-road",
+        "g2u08-house",
+        "g2u08-garden"
+      ],
+      "spokenVariants": [
+        "ocks",
+        "oxe"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u08-cow",
+      "word": "cow",
+      "ttsText": "cow",
+      "image": "grade2/cow.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u08-river",
+        "g2u08-buffalo",
+        "g2u08-market"
+      ],
+      "spokenVariants": [
+        "call"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u08-chicken",
+      "word": "chicken",
+      "ttsText": "chicken",
+      "image": "grade2/chicken.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u08-house",
+        "g2u08-garden",
+        "g2u08-village"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u08-road",
+      "word": "road",
+      "ttsText": "road",
+      "image": "grade2/road.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u08-buffalo",
+        "g2u08-market",
+        "g2u08-van"
+      ],
+      "spokenVariants": [
+        "rode"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u08-river",
+      "word": "river",
+      "ttsText": "river",
+      "image": "grade2/river.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u08-garden",
+        "g2u08-village",
+        "g2u08-volleyball"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
       "id": "g2u08-house",
       "word": "house",
       "ttsText": "house",
@@ -12,105 +168,9 @@
       "syllables": 1,
       "sentencePatterns": [],
       "distractorIds": [
-        "g2u08-cart",
-        "g2u08-temple",
-        "g2u08-garden"
-      ],
-      "spokenVariants": [],
-      "modes": [
-        "laneJump",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g2u08-tree",
-      "word": "tree",
-      "ttsText": "tree",
-      "image": "grade2/tree.png",
-      "syllables": 1,
-      "sentencePatterns": [],
-      "distractorIds": [
         "g2u08-market",
-        "g2u08-buffalo",
-        "g2u08-path"
-      ],
-      "spokenVariants": [
-        "three"
-      ],
-      "modes": [
-        "laneJump",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g2u08-well",
-      "word": "well",
-      "ttsText": "well",
-      "image": "grade2/well.png",
-      "syllables": 1,
-      "sentencePatterns": [],
-      "distractorIds": [
-        "g2u08-temple",
-        "g2u08-garden",
-        "g2u08-gate"
-      ],
-      "spokenVariants": [
-        "wall"
-      ],
-      "modes": [
-        "laneJump",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g2u08-cart",
-      "word": "cart",
-      "ttsText": "cart",
-      "image": "grade2/cart.png",
-      "syllables": 1,
-      "sentencePatterns": [],
-      "distractorIds": [
-        "g2u08-buffalo",
-        "g2u08-path",
-        "g2u08-chicken"
-      ],
-      "spokenVariants": [
-        "card"
-      ],
-      "modes": [
-        "laneJump",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g2u08-market",
-      "word": "market",
-      "ttsText": "market",
-      "image": "grade2/market.png",
-      "syllables": 2,
-      "sentencePatterns": [],
-      "distractorIds": [
-        "g2u08-garden",
-        "g2u08-gate",
-        "g2u08-bicycle"
-      ],
-      "spokenVariants": [],
-      "modes": [
-        "laneJump",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g2u08-temple",
-      "word": "temple",
-      "ttsText": "temple",
-      "image": "grade2/temple.png",
-      "syllables": 2,
-      "sentencePatterns": [],
-      "distractorIds": [
-        "g2u08-path",
-        "g2u08-chicken",
-        "g2u08-house"
+        "g2u08-van",
+        "g2u08-ox"
       ],
       "spokenVariants": [],
       "modes": [
@@ -126,9 +186,9 @@
       "syllables": 3,
       "sentencePatterns": [],
       "distractorIds": [
-        "g2u08-gate",
-        "g2u08-bicycle",
-        "g2u08-tree"
+        "g2u08-village",
+        "g2u08-volleyball",
+        "g2u08-cow"
       ],
       "spokenVariants": [],
       "modes": [
@@ -143,9 +203,9 @@
       "syllables": 2,
       "sentencePatterns": [],
       "distractorIds": [
-        "g2u08-chicken",
-        "g2u08-house",
-        "g2u08-well"
+        "g2u08-van",
+        "g2u08-ox",
+        "g2u08-chicken"
       ],
       "spokenVariants": [],
       "modes": [
@@ -154,76 +214,21 @@
       ]
     },
     {
-      "id": "g2u08-path",
-      "word": "path",
-      "ttsText": "path",
-      "image": "grade2/path.png",
-      "syllables": 1,
-      "sentencePatterns": [],
-      "distractorIds": [
-        "g2u08-bicycle",
-        "g2u08-tree",
-        "g2u08-cart"
-      ],
-      "spokenVariants": [],
-      "modes": [
-        "laneJump",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g2u08-gate",
-      "word": "gate",
-      "ttsText": "gate",
-      "image": "grade2/gate.png",
-      "syllables": 1,
-      "sentencePatterns": [],
-      "distractorIds": [
-        "g2u08-house",
-        "g2u08-well",
-        "g2u08-market"
-      ],
-      "spokenVariants": [
-        "get"
-      ],
-      "modes": [
-        "laneJump",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g2u08-chicken",
-      "word": "chicken",
-      "ttsText": "chicken",
-      "image": "grade2/chicken.png",
+      "id": "g2u08-market",
+      "word": "market",
+      "ttsText": "market",
+      "image": "grade2/market.png",
       "syllables": 2,
       "sentencePatterns": [],
       "distractorIds": [
-        "g2u08-tree",
-        "g2u08-cart",
-        "g2u08-temple"
+        "g2u08-volleyball",
+        "g2u08-cow",
+        "g2u08-road"
       ],
       "spokenVariants": [],
       "modes": [
         "laneJump",
         "sayIt"
-      ]
-    },
-    {
-      "id": "g2u08-bicycle",
-      "word": "bicycle",
-      "ttsText": "bicycle",
-      "image": "grade2/bicycle.png",
-      "syllables": 3,
-      "sentencePatterns": [],
-      "distractorIds": [
-        "g2u08-well",
-        "g2u08-market",
-        "g2u08-buffalo"
-      ],
-      "spokenVariants": [],
-      "modes": [
-        "laneJump"
       ]
     }
   ]

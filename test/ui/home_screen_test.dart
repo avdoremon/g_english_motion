@@ -108,20 +108,9 @@ void main() {
     },
   );
 
-  testWidgets('grade 3 is playable; grades 4-5 are "Sắp có"', (tester) async {
+  testWidgets('all five grades are playable and selectable', (tester) async {
     await pump(tester);
-    for (final g in [4, 5]) {
-      final tile = find.byKey(ValueKey('grade-$g'));
-      expect(
-        find.descendant(of: tile, matching: find.text('Sắp có')),
-        findsOneWidget,
-      );
-      await tester.tap(tile);
-      await tester.pump();
-    }
-    await tester.tap(find.byKey(const ValueKey('play')));
-    expect(played.single.$1, 1, reason: 'a disabled grade is never selected');
-    for (final g in [1, 2, 3]) {
+    for (final g in [1, 2, 3, 4, 5]) {
       expect(
         find.descendant(
           of: find.byKey(ValueKey('grade-$g')),
@@ -129,11 +118,11 @@ void main() {
         ),
         findsNothing,
       );
+      await tester.tap(find.byKey(ValueKey('grade-$g')));
+      await tester.pump();
+      await tester.tap(find.byKey(const ValueKey('play')));
+      expect(played.last, (g, 1));
     }
-    await tester.tap(find.byKey(const ValueKey('grade-3')));
-    await tester.pump();
-    await tester.tap(find.byKey(const ValueKey('play')));
-    expect(played.last, (3, 1));
   });
 
   testWidgets(

@@ -16,8 +16,8 @@
       ],
       "distractorIds": [
         "g4u03-tuesday",
-        "g4u03-wednesday",
-        "g4u03-thursday"
+        "g4u03-thursday",
+        "g4u03-saturday"
       ],
       "spokenVariants": [
         "mon day",
@@ -41,8 +41,8 @@
       ],
       "distractorIds": [
         "g4u03-wednesday",
-        "g4u03-thursday",
-        "g4u03-friday"
+        "g4u03-friday",
+        "g4u03-sunday"
       ],
       "spokenVariants": [
         "choose day",
@@ -66,8 +66,8 @@
       ],
       "distractorIds": [
         "g4u03-thursday",
-        "g4u03-friday",
-        "g4u03-saturday"
+        "g4u03-saturday",
+        "g4u03-week"
       ],
       "spokenVariants": [
         "wens day",
@@ -91,8 +91,8 @@
       ],
       "distractorIds": [
         "g4u03-friday",
-        "g4u03-saturday",
-        "g4u03-sunday"
+        "g4u03-sunday",
+        "g4u03-football"
       ],
       "spokenVariants": [
         "thurs day",
@@ -116,8 +116,8 @@
       ],
       "distractorIds": [
         "g4u03-saturday",
-        "g4u03-sunday",
-        "g4u03-week"
+        "g4u03-week",
+        "g4u03-shopping"
       ],
       "spokenVariants": [
         "fry day",
@@ -141,8 +141,8 @@
       ],
       "distractorIds": [
         "g4u03-sunday",
-        "g4u03-week",
-        "g4u03-weekend"
+        "g4u03-football",
+        "g4u03-music"
       ],
       "spokenVariants": [
         "satur day",
@@ -165,8 +165,8 @@
       ],
       "distractorIds": [
         "g4u03-week",
-        "g4u03-weekend",
-        "g4u03-today"
+        "g4u03-shopping",
+        "g4u03-monday"
       ],
       "spokenVariants": [
         "sun day",
@@ -189,9 +189,9 @@
         "This week is busy"
       ],
       "distractorIds": [
-        "g4u03-weekend",
-        "g4u03-today",
-        "g4u03-monday"
+        "g4u03-football",
+        "g4u03-music",
+        "g4u03-tuesday"
       ],
       "spokenVariants": [
         "weak"
@@ -203,23 +203,23 @@
       ]
     },
     {
-      "id": "g4u03-weekend",
-      "word": "weekend",
-      "ttsText": "weekend",
-      "image": "grade4/weekend.png",
+      "id": "g4u03-football",
+      "word": "football",
+      "ttsText": "football",
+      "image": "grade4/football.png",
       "syllables": 2,
       "sentencePatterns": [
-        "I play at the weekend",
-        "The weekend is fun"
+        "We play football on Saturday",
+        "I play football on Sundays"
       ],
       "distractorIds": [
-        "g4u03-today",
+        "g4u03-shopping",
         "g4u03-monday",
-        "g4u03-tuesday"
+        "g4u03-wednesday"
       ],
       "spokenVariants": [
-        "week end",
-        "weekand"
+        "foot ball",
+        "footbal"
       ],
       "modes": [
         "dragSpell",
@@ -228,23 +228,48 @@
       ]
     },
     {
-      "id": "g4u03-today",
-      "word": "today",
-      "ttsText": "today",
-      "image": "grade4/today.png",
+      "id": "g4u03-shopping",
+      "word": "shopping",
+      "ttsText": "shopping",
+      "image": "grade4/shopping.png",
       "syllables": 2,
       "sentencePatterns": [
-        "What day is it today",
-        "Today is Tuesday"
+        "We go shopping on Saturday",
+        "I go shopping today"
+      ],
+      "distractorIds": [
+        "g4u03-music",
+        "g4u03-tuesday",
+        "g4u03-thursday"
+      ],
+      "spokenVariants": [
+        "shoping",
+        "shop ping"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u03-music",
+      "word": "music",
+      "ttsText": "music",
+      "image": "grade4/music.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I listen to music",
+        "He listens to music"
       ],
       "distractorIds": [
         "g4u03-monday",
-        "g4u03-tuesday",
-        "g4u03-wednesday"
+        "g4u03-wednesday",
+        "g4u03-friday"
       ],
       "spokenVariants": [
-        "to day",
-        "todai"
+        "mew sick",
+        "musick"
       ],
       "modes": [
         "dragSpell",

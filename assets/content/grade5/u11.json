@@ -5,23 +5,23 @@
   "title": "Family time",
   "items": [
     {
-      "id": "g5u11-dinner",
-      "word": "dinner",
-      "ttsText": "dinner",
-      "image": "grade5/dinner.png",
-      "syllables": 2,
+      "id": "g5u11-boat",
+      "word": "boat",
+      "ttsText": "boat",
+      "image": "grade5/boat.png",
+      "syllables": 1,
       "sentencePatterns": [
-        "We have dinner at seven",
-        "My mum cooks dinner"
+        "We took a boat trip",
+        "The boat is very small"
       ],
       "distractorIds": [
-        "g5u11-cooking",
-        "g5u11-cleaning",
-        "g5u11-washing"
+        "g5u11-bay",
+        "g5u11-seafood",
+        "g5u11-souvenir"
       ],
       "spokenVariants": [
-        "dinna",
-        "diner"
+        "bote",
+        "boot"
       ],
       "modes": [
         "dragSpell",
@@ -30,23 +30,23 @@
       ]
     },
     {
-      "id": "g5u11-cooking",
-      "word": "cooking",
-      "ttsText": "cooking",
-      "image": "grade5/cooking.png",
-      "syllables": 2,
+      "id": "g5u11-bay",
+      "word": "bay",
+      "ttsText": "bay",
+      "image": "grade5/bay.png",
+      "syllables": 1,
       "sentencePatterns": [
-        "I help my mum with cooking",
-        "Cooking is fun"
+        "We went around the bay",
+        "The bay is very beautiful"
       ],
       "distractorIds": [
-        "g5u11-cleaning",
-        "g5u11-washing",
-        "g5u11-dishes"
+        "g5u11-seafood",
+        "g5u11-souvenir",
+        "g5u11-seashell"
       ],
       "spokenVariants": [
-        "coking",
-        "cookin"
+        "bey",
+        "bai"
       ],
       "modes": [
         "dragSpell",
@@ -55,23 +55,22 @@
       ]
     },
     {
-      "id": "g5u11-cleaning",
-      "word": "cleaning",
-      "ttsText": "cleaning",
-      "image": "grade5/cleaning.png",
+      "id": "g5u11-seafood",
+      "word": "seafood",
+      "ttsText": "seafood",
+      "image": "grade5/seafood.png",
       "syllables": 2,
       "sentencePatterns": [
-        "We are cleaning the house",
-        "Cleaning is hard work"
+        "We ate seafood there",
+        "I like seafood very much"
       ],
       "distractorIds": [
-        "g5u11-washing",
-        "g5u11-dishes",
-        "g5u11-laundry"
+        "g5u11-souvenir",
+        "g5u11-seashell",
+        "g5u11-beach"
       ],
       "spokenVariants": [
-        "cleanin",
-        "cleening"
+        "seefood"
       ],
       "modes": [
         "dragSpell",
@@ -80,23 +79,23 @@
       ]
     },
     {
-      "id": "g5u11-washing",
-      "word": "washing",
-      "ttsText": "washing",
-      "image": "grade5/washing.png",
-      "syllables": 2,
+      "id": "g5u11-souvenir",
+      "word": "souvenir",
+      "ttsText": "souvenir",
+      "image": "grade5/souvenir.png",
+      "syllables": 3,
       "sentencePatterns": [
-        "I help with the washing up",
-        "She is washing the clothes"
+        "We bought some souvenirs",
+        "This souvenir is for you"
       ],
       "distractorIds": [
-        "g5u11-dishes",
-        "g5u11-laundry",
-        "g5u11-kitchen"
+        "g5u11-seashell",
+        "g5u11-beach",
+        "g5u11-sandcastle"
       ],
       "spokenVariants": [
-        "wasing",
-        "washin"
+        "suvenir",
+        "souvenear"
       ],
       "modes": [
         "dragSpell",
@@ -105,23 +104,22 @@
       ]
     },
     {
-      "id": "g5u11-dishes",
-      "word": "dishes",
-      "ttsText": "dishes",
-      "image": "grade5/dishes.png",
+      "id": "g5u11-seashell",
+      "word": "seashell",
+      "ttsText": "seashell",
+      "image": "grade5/seashell.png",
       "syllables": 2,
       "sentencePatterns": [
-        "I wash the dishes",
-        "Dad dries the dishes"
+        "We collected some seashells",
+        "This seashell is very pretty"
       ],
       "distractorIds": [
-        "g5u11-laundry",
-        "g5u11-kitchen",
-        "g5u11-weekend"
+        "g5u11-beach",
+        "g5u11-sandcastle",
+        "g5u11-photo"
       ],
       "spokenVariants": [
-        "dishis",
-        "dishers"
+        "seashel"
       ],
       "modes": [
         "dragSpell",
@@ -130,23 +128,23 @@
       ]
     },
     {
-      "id": "g5u11-laundry",
-      "word": "laundry",
-      "ttsText": "laundry",
-      "image": "grade5/laundry.png",
-      "syllables": 2,
+      "id": "g5u11-beach",
+      "word": "beach",
+      "ttsText": "beach",
+      "image": "grade5/beach.png",
+      "syllables": 1,
       "sentencePatterns": [
-        "Mum does the laundry on Sunday",
-        "I help fold the laundry"
+        "We walked on the beach",
+        "The beach is very long"
       ],
       "distractorIds": [
-        "g5u11-kitchen",
-        "g5u11-weekend",
-        "g5u11-movie"
+        "g5u11-sandcastle",
+        "g5u11-photo",
+        "g5u11-island"
       ],
       "spokenVariants": [
-        "landry",
-        "lawndry"
+        "beech",
+        "beatch"
       ],
       "modes": [
         "dragSpell",
@@ -155,23 +153,22 @@
       ]
     },
     {
-      "id": "g5u11-kitchen",
-      "word": "kitchen",
-      "ttsText": "kitchen",
-      "image": "grade5/kitchen.png",
-      "syllables": 2,
+      "id": "g5u11-sandcastle",
+      "word": "sandcastle",
+      "ttsText": "sandcastle",
+      "image": "grade5/sandcastle.png",
+      "syllables": 3,
       "sentencePatterns": [
-        "We cook in the kitchen",
-        "The kitchen is very clean"
+        "We built a sandcastle",
+        "The sandcastle is very big"
       ],
       "distractorIds": [
-        "g5u11-weekend",
-        "g5u11-movie",
-        "g5u11-sofa"
+        "g5u11-photo",
+        "g5u11-island",
+        "g5u11-basketball"
       ],
       "spokenVariants": [
-        "kitchin",
-        "kitcheon"
+        "sancastle"
       ],
       "modes": [
         "dragSpell",
@@ -180,23 +177,23 @@
       ]
     },
     {
-      "id": "g5u11-weekend",
-      "word": "weekend",
-      "ttsText": "weekend",
-      "image": "grade5/weekend.png",
+      "id": "g5u11-photo",
+      "word": "photo",
+      "ttsText": "photo",
+      "image": "grade5/photo.png",
       "syllables": 2,
       "sentencePatterns": [
-        "We stay home at the weekend",
-        "I love the weekend"
+        "We took a photo",
+        "This photo is very nice"
       ],
       "distractorIds": [
-        "g5u11-movie",
-        "g5u11-sofa",
-        "g5u11-picnic"
+        "g5u11-island",
+        "g5u11-basketball",
+        "g5u11-swim"
       ],
       "spokenVariants": [
-        "week end",
-        "weekand"
+        "foto",
+        "photto"
       ],
       "modes": [
         "dragSpell",
@@ -205,23 +202,23 @@
       ]
     },
     {
-      "id": "g5u11-movie",
-      "word": "movie",
-      "ttsText": "movie",
-      "image": "grade5/movie.png",
+      "id": "g5u11-island",
+      "word": "island",
+      "ttsText": "island",
+      "image": "grade5/island.png",
       "syllables": 2,
       "sentencePatterns": [
-        "We watch a movie together",
-        "The movie is very funny"
+        "We visited the island",
+        "The island is very small"
       ],
       "distractorIds": [
-        "g5u11-sofa",
-        "g5u11-picnic",
-        "g5u11-dinner"
+        "g5u11-basketball",
+        "g5u11-swim",
+        "g5u11-sea"
       ],
       "spokenVariants": [
-        "moovie",
-        "muvy"
+        "iland",
+        "ireland"
       ],
       "modes": [
         "dragSpell",
@@ -230,23 +227,22 @@
       ]
     },
     {
-      "id": "g5u11-sofa",
-      "word": "sofa",
-      "ttsText": "sofa",
-      "image": "grade5/sofa.png",
-      "syllables": 2,
+      "id": "g5u11-basketball",
+      "word": "basketball",
+      "ttsText": "basketball",
+      "image": "grade5/basketball.png",
+      "syllables": 3,
       "sentencePatterns": [
-        "We sit on the sofa",
-        "The sofa is very soft"
+        "We played basketball together",
+        "He likes playing basketball"
       ],
       "distractorIds": [
-        "g5u11-picnic",
-        "g5u11-dinner",
-        "g5u11-cooking"
+        "g5u11-swim",
+        "g5u11-sea",
+        "g5u11-boat"
       ],
       "spokenVariants": [
-        "sofar",
-        "sofah"
+        "basketbal"
       ],
       "modes": [
         "dragSpell",
@@ -255,23 +251,48 @@
       ]
     },
     {
-      "id": "g5u11-picnic",
-      "word": "picnic",
-      "ttsText": "picnic",
-      "image": "grade5/picnic.png",
-      "syllables": 2,
+      "id": "g5u11-swim",
+      "word": "swim",
+      "ttsText": "swim",
+      "image": "grade5/swim.png",
+      "syllables": 1,
       "sentencePatterns": [
-        "We have a picnic on Sunday",
-        "Our picnic is in the park"
+        "We swam in the sea",
+        "I can swim very well"
       ],
       "distractorIds": [
-        "g5u11-dinner",
-        "g5u11-cooking",
-        "g5u11-cleaning"
+        "g5u11-sea",
+        "g5u11-boat",
+        "g5u11-bay"
       ],
       "spokenVariants": [
-        "pickneck",
-        "picknic"
+        "swin",
+        "swimm"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u11-sea",
+      "word": "sea",
+      "ttsText": "sea",
+      "image": "grade5/sea.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "We swam in the sea",
+        "The sea is very blue"
+      ],
+      "distractorIds": [
+        "g5u11-boat",
+        "g5u11-bay",
+        "g5u11-seafood"
+      ],
+      "spokenVariants": [
+        "see",
+        "sey"
       ],
       "modes": [
         "dragSpell",

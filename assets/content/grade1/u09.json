@@ -5,19 +5,19 @@
   "title": "In the shop",
   "items": [
     {
-      "id": "g1u09-shirt",
-      "word": "shirt",
-      "ttsText": "shirt",
-      "image": "grade1/shirt.png",
+      "id": "g1u09-clock",
+      "word": "clock",
+      "ttsText": "clock",
+      "image": "grade1/clock.png",
       "syllables": 1,
       "sentencePatterns": [],
       "distractorIds": [
-        "g1u09-dress",
-        "g1u09-cap",
-        "g1u09-coat"
+        "g1u09-lock",
+        "g1u09-pot",
+        "g1u09-one"
       ],
       "spokenVariants": [
-        "short"
+        "clog"
       ],
       "modes": [
         "laneJump",
@@ -25,19 +25,19 @@
       ]
     },
     {
-      "id": "g1u09-dress",
-      "word": "dress",
-      "ttsText": "dress",
-      "image": "grade1/dress.png",
+      "id": "g1u09-lock",
+      "word": "lock",
+      "ttsText": "lock",
+      "image": "grade1/lock.png",
       "syllables": 1,
       "sentencePatterns": [],
       "distractorIds": [
-        "g1u09-skirt",
-        "g1u09-shoe",
-        "g1u09-bag"
+        "g1u09-mop",
+        "g1u09-shop",
+        "g1u09-two"
       ],
       "spokenVariants": [
-        "dres"
+        "lack"
       ],
       "modes": [
         "laneJump",
@@ -45,19 +45,19 @@
       ]
     },
     {
-      "id": "g1u09-skirt",
-      "word": "skirt",
-      "ttsText": "skirt",
-      "image": "grade1/skirt.png",
+      "id": "g1u09-mop",
+      "word": "mop",
+      "ttsText": "mop",
+      "image": "grade1/mop.png",
       "syllables": 1,
       "sentencePatterns": [],
       "distractorIds": [
-        "g1u09-hat",
-        "g1u09-sock",
-        "g1u09-shorts"
+        "g1u09-pot",
+        "g1u09-one",
+        "g1u09-three"
       ],
       "spokenVariants": [
-        "scott"
+        "map"
       ],
       "modes": [
         "laneJump",
@@ -65,19 +65,19 @@
       ]
     },
     {
-      "id": "g1u09-hat",
-      "word": "hat",
-      "ttsText": "hat",
-      "image": "grade1/hat.png",
+      "id": "g1u09-pot",
+      "word": "pot",
+      "ttsText": "pot",
+      "image": "grade1/pot.png",
       "syllables": 1,
       "sentencePatterns": [],
       "distractorIds": [
-        "g1u09-cap",
-        "g1u09-coat",
-        "g1u09-scarf"
+        "g1u09-shop",
+        "g1u09-two",
+        "g1u09-four"
       ],
       "spokenVariants": [
-        "had"
+        "pat"
       ],
       "modes": [
         "laneJump",
@@ -85,19 +85,19 @@
       ]
     },
     {
-      "id": "g1u09-cap",
-      "word": "cap",
-      "ttsText": "cap",
-      "image": "grade1/cap.png",
+      "id": "g1u09-shop",
+      "word": "shop",
+      "ttsText": "shop",
+      "image": "grade1/shop.png",
       "syllables": 1,
       "sentencePatterns": [],
       "distractorIds": [
-        "g1u09-shoe",
-        "g1u09-bag",
-        "g1u09-watch"
+        "g1u09-one",
+        "g1u09-three",
+        "g1u09-five"
       ],
       "spokenVariants": [
-        "cup"
+        "shock"
       ],
       "modes": [
         "laneJump",
@@ -105,19 +105,19 @@
       ]
     },
     {
-      "id": "g1u09-shoe",
-      "word": "shoe",
-      "ttsText": "shoe",
-      "image": "grade1/shoe.png",
+      "id": "g1u09-one",
+      "word": "one",
+      "ttsText": "one",
+      "image": "grade1/one.png",
       "syllables": 1,
       "sentencePatterns": [],
       "distractorIds": [
-        "g1u09-sock",
-        "g1u09-shorts",
-        "g1u09-shirt"
+        "g1u09-two",
+        "g1u09-four",
+        "g1u09-clock"
       ],
       "spokenVariants": [
-        "shoo"
+        "won"
       ],
       "modes": [
         "laneJump",
@@ -125,19 +125,19 @@
       ]
     },
     {
-      "id": "g1u09-sock",
-      "word": "sock",
-      "ttsText": "sock",
-      "image": "grade1/sock.png",
+      "id": "g1u09-two",
+      "word": "two",
+      "ttsText": "two",
+      "image": "grade1/two.png",
       "syllables": 1,
       "sentencePatterns": [],
       "distractorIds": [
-        "g1u09-coat",
-        "g1u09-scarf",
-        "g1u09-dress"
+        "g1u09-three",
+        "g1u09-five",
+        "g1u09-lock"
       ],
       "spokenVariants": [
-        "sack"
+        "too"
       ],
       "modes": [
         "laneJump",
@@ -145,19 +145,19 @@
       ]
     },
     {
-      "id": "g1u09-coat",
-      "word": "coat",
-      "ttsText": "coat",
-      "image": "grade1/coat.png",
+      "id": "g1u09-three",
+      "word": "three",
+      "ttsText": "three",
+      "image": "grade1/three.png",
       "syllables": 1,
       "sentencePatterns": [],
       "distractorIds": [
-        "g1u09-bag",
-        "g1u09-watch",
-        "g1u09-skirt"
+        "g1u09-four",
+        "g1u09-clock",
+        "g1u09-mop"
       ],
       "spokenVariants": [
-        "coach"
+        "tree"
       ],
       "modes": [
         "laneJump",
@@ -165,19 +165,19 @@
       ]
     },
     {
-      "id": "g1u09-bag",
-      "word": "bag",
-      "ttsText": "bag",
-      "image": "grade1/bag.png",
+      "id": "g1u09-four",
+      "word": "four",
+      "ttsText": "four",
+      "image": "grade1/four.png",
       "syllables": 1,
       "sentencePatterns": [],
       "distractorIds": [
-        "g1u09-shorts",
-        "g1u09-shirt",
-        "g1u09-hat"
+        "g1u09-five",
+        "g1u09-lock",
+        "g1u09-pot"
       ],
       "spokenVariants": [
-        "bug"
+        "for"
       ],
       "modes": [
         "laneJump",
@@ -185,59 +185,19 @@
       ]
     },
     {
-      "id": "g1u09-shorts",
-      "word": "shorts",
-      "ttsText": "shorts",
-      "image": "grade1/shorts.png",
+      "id": "g1u09-five",
+      "word": "five",
+      "ttsText": "five",
+      "image": "grade1/five.png",
       "syllables": 1,
       "sentencePatterns": [],
       "distractorIds": [
-        "g1u09-scarf",
-        "g1u09-dress",
-        "g1u09-cap"
+        "g1u09-clock",
+        "g1u09-mop",
+        "g1u09-shop"
       ],
       "spokenVariants": [
-        "short"
-      ],
-      "modes": [
-        "laneJump",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g1u09-scarf",
-      "word": "scarf",
-      "ttsText": "scarf",
-      "image": "grade1/scarf.png",
-      "syllables": 1,
-      "sentencePatterns": [],
-      "distractorIds": [
-        "g1u09-watch",
-        "g1u09-skirt",
-        "g1u09-shoe"
-      ],
-      "spokenVariants": [
-        "scar"
-      ],
-      "modes": [
-        "laneJump",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g1u09-watch",
-      "word": "watch",
-      "ttsText": "watch",
-      "image": "grade1/watch.png",
-      "syllables": 1,
-      "sentencePatterns": [],
-      "distractorIds": [
-        "g1u09-shirt",
-        "g1u09-hat",
-        "g1u09-sock"
-      ],
-      "spokenVariants": [
-        "wash"
+        "fife"
       ],
       "modes": [
         "laneJump",

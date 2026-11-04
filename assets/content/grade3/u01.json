@@ -15,9 +15,9 @@
         "Hello my friend"
       ],
       "distractorIds": [
-        "g3u01-goodbye",
-        "g3u01-friend",
-        "g3u01-teacher"
+        "g3u01-hi",
+        "g3u01-bye",
+        "g3u01-friend"
       ],
       "spokenVariants": [
         "hallo",
@@ -25,6 +25,30 @@
       ],
       "modes": [
         "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u01-hi",
+      "word": "hi",
+      "ttsText": "hi",
+      "image": "grade3/hi.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "Hi I am Mai",
+        "Hi Ben how are you"
+      ],
+      "distractorIds": [
+        "g3u01-goodbye",
+        "g3u01-thank",
+        "g3u01-teacher"
+      ],
+      "spokenVariants": [
+        "high",
+        "hy"
+      ],
+      "modes": [
         "skyShoot",
         "sayIt"
       ]
@@ -40,13 +64,63 @@
         "Goodbye Miss Hoa"
       ],
       "distractorIds": [
+        "g3u01-bye",
         "g3u01-friend",
-        "g3u01-teacher",
-        "g3u01-pupil"
+        "g3u01-boy"
       ],
       "spokenVariants": [
         "good bye",
         "goodby"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u01-bye",
+      "word": "bye",
+      "ttsText": "bye",
+      "image": "grade3/bye.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "Bye bye my friend",
+        "Bye see you later"
+      ],
+      "distractorIds": [
+        "g3u01-thank",
+        "g3u01-teacher",
+        "g3u01-girl"
+      ],
+      "spokenVariants": [
+        "by",
+        "buy"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u01-thank",
+      "word": "thank",
+      "ttsText": "thank",
+      "image": "grade3/thank.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "Thank you Mai",
+        "I thank my friend"
+      ],
+      "distractorIds": [
+        "g3u01-friend",
+        "g3u01-boy",
+        "g3u01-class"
+      ],
+      "spokenVariants": [
+        "tank",
+        "thang"
       ],
       "modes": [
         "dragSpell",
@@ -66,8 +140,8 @@
       ],
       "distractorIds": [
         "g3u01-teacher",
-        "g3u01-pupil",
-        "g3u01-class"
+        "g3u01-girl",
+        "g3u01-school"
       ],
       "spokenVariants": [
         "frend",
@@ -90,9 +164,9 @@
         "Hello my teacher"
       ],
       "distractorIds": [
-        "g3u01-pupil",
+        "g3u01-boy",
         "g3u01-class",
-        "g3u01-school"
+        "g3u01-hello"
       ],
       "spokenVariants": [
         "teachar",
@@ -105,23 +179,47 @@
       ]
     },
     {
-      "id": "g3u01-pupil",
-      "word": "pupil",
-      "ttsText": "pupil",
-      "image": "grade3/pupil.png",
-      "syllables": 2,
+      "id": "g3u01-boy",
+      "word": "boy",
+      "ttsText": "boy",
+      "image": "grade3/boy.png",
+      "syllables": 1,
       "sentencePatterns": [
-        "I am a pupil",
-        "She is a pupil"
+        "He is a boy",
+        "The boy is happy"
+      ],
+      "distractorIds": [
+        "g3u01-girl",
+        "g3u01-school",
+        "g3u01-hi"
+      ],
+      "spokenVariants": [
+        "boi"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u01-girl",
+      "word": "girl",
+      "ttsText": "girl",
+      "image": "grade3/girl.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "She is a girl",
+        "The girl is happy"
       ],
       "distractorIds": [
         "g3u01-class",
-        "g3u01-school",
-        "g3u01-boy"
+        "g3u01-hello",
+        "g3u01-goodbye"
       ],
       "spokenVariants": [
-        "pupple",
-        "pew pill"
+        "gearl",
+        "gal"
       ],
       "modes": [
         "dragSpell",
@@ -141,8 +239,8 @@
       ],
       "distractorIds": [
         "g3u01-school",
-        "g3u01-boy",
-        "g3u01-girl"
+        "g3u01-hi",
+        "g3u01-bye"
       ],
       "spokenVariants": [
         "clas",
@@ -165,9 +263,9 @@
         "This is my school"
       ],
       "distractorIds": [
-        "g3u01-boy",
-        "g3u01-girl",
-        "g3u01-morning"
+        "g3u01-hello",
+        "g3u01-goodbye",
+        "g3u01-thank"
       ],
       "spokenVariants": [
         "skool",
@@ -175,129 +273,6 @@
       ],
       "modes": [
         "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g3u01-boy",
-      "word": "boy",
-      "ttsText": "boy",
-      "image": "grade3/boy.png",
-      "syllables": 1,
-      "sentencePatterns": [
-        "He is a boy",
-        "The boy is happy"
-      ],
-      "distractorIds": [
-        "g3u01-girl",
-        "g3u01-morning",
-        "g3u01-afternoon"
-      ],
-      "spokenVariants": [
-        "boi"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g3u01-girl",
-      "word": "girl",
-      "ttsText": "girl",
-      "image": "grade3/girl.png",
-      "syllables": 1,
-      "sentencePatterns": [
-        "She is a girl",
-        "The girl is happy"
-      ],
-      "distractorIds": [
-        "g3u01-morning",
-        "g3u01-afternoon",
-        "g3u01-bye"
-      ],
-      "spokenVariants": [
-        "gearl",
-        "gal"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g3u01-morning",
-      "word": "morning",
-      "ttsText": "morning",
-      "image": "grade3/morning.png",
-      "syllables": 2,
-      "sentencePatterns": [
-        "Good morning teacher",
-        "Good morning class"
-      ],
-      "distractorIds": [
-        "g3u01-afternoon",
-        "g3u01-bye",
-        "g3u01-hello"
-      ],
-      "spokenVariants": [
-        "mourning",
-        "morming"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g3u01-afternoon",
-      "word": "afternoon",
-      "ttsText": "afternoon",
-      "image": "grade3/afternoon.png",
-      "syllables": 3,
-      "sentencePatterns": [
-        "Good afternoon teacher",
-        "Good afternoon class"
-      ],
-      "distractorIds": [
-        "g3u01-bye",
-        "g3u01-hello",
-        "g3u01-goodbye"
-      ],
-      "spokenVariants": [
-        "after noon",
-        "afternon"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g3u01-bye",
-      "word": "bye",
-      "ttsText": "bye",
-      "image": "grade3/bye.png",
-      "syllables": 1,
-      "sentencePatterns": [
-        "Bye bye my friend",
-        "Bye see you later"
-      ],
-      "distractorIds": [
-        "g3u01-hello",
-        "g3u01-goodbye",
-        "g3u01-friend"
-      ],
-      "spokenVariants": [
-        "by",
-        "buy"
-      ],
-      "modes": [
         "skyShoot",
         "sayIt"
       ]

@@ -5,105 +5,6 @@
   "title": "Our timetable",
   "items": [
     {
-      "id": "g4u07-timetable",
-      "word": "timetable",
-      "ttsText": "timetable",
-      "image": "grade4/timetable.png",
-      "syllables": 3,
-      "sentencePatterns": [
-        "This is my timetable",
-        "Look at the timetable"
-      ],
-      "distractorIds": [
-        "g4u07-lesson",
-        "g4u07-subject",
-        "g4u07-class"
-      ],
-      "spokenVariants": [
-        "time table",
-        "timetabel"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot"
-      ]
-    },
-    {
-      "id": "g4u07-lesson",
-      "word": "lesson",
-      "ttsText": "lesson",
-      "image": "grade4/lesson.png",
-      "syllables": 2,
-      "sentencePatterns": [
-        "We have a maths lesson",
-        "The lesson starts now"
-      ],
-      "distractorIds": [
-        "g4u07-subject",
-        "g4u07-class",
-        "g4u07-vietnamese"
-      ],
-      "spokenVariants": [
-        "lessen",
-        "lesion"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g4u07-subject",
-      "word": "subject",
-      "ttsText": "subject",
-      "image": "grade4/subject.png",
-      "syllables": 2,
-      "sentencePatterns": [
-        "What subject do you like",
-        "Science is my subject"
-      ],
-      "distractorIds": [
-        "g4u07-class",
-        "g4u07-vietnamese",
-        "g4u07-maths"
-      ],
-      "spokenVariants": [
-        "sub ject",
-        "subjet"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g4u07-class",
-      "word": "class",
-      "ttsText": "class",
-      "image": "grade4/class.png",
-      "syllables": 1,
-      "sentencePatterns": [
-        "We have class today",
-        "Our class is small"
-      ],
-      "distractorIds": [
-        "g4u07-vietnamese",
-        "g4u07-maths",
-        "g4u07-english"
-      ],
-      "spokenVariants": [
-        "glass",
-        "clas"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
       "id": "g4u07-vietnamese",
       "word": "vietnamese",
       "ttsText": "vietnamese",
@@ -115,8 +16,8 @@
       ],
       "distractorIds": [
         "g4u07-maths",
-        "g4u07-english",
-        "g4u07-history"
+        "g4u07-history",
+        "g4u07-timetable"
       ],
       "spokenVariants": [
         "viet namese",
@@ -139,8 +40,8 @@
       ],
       "distractorIds": [
         "g4u07-english",
-        "g4u07-history",
-        "g4u07-geography"
+        "g4u07-geography",
+        "g4u07-subject"
       ],
       "spokenVariants": [
         "mass",
@@ -164,8 +65,8 @@
       ],
       "distractorIds": [
         "g4u07-history",
-        "g4u07-geography",
-        "g4u07-break"
+        "g4u07-timetable",
+        "g4u07-science"
       ],
       "spokenVariants": [
         "inglish",
@@ -189,8 +90,8 @@
       ],
       "distractorIds": [
         "g4u07-geography",
-        "g4u07-break",
-        "g4u07-timetable"
+        "g4u07-subject",
+        "g4u07-art"
       ],
       "spokenVariants": [
         "histry",
@@ -212,9 +113,9 @@
         "Geography is fun"
       ],
       "distractorIds": [
-        "g4u07-break",
         "g4u07-timetable",
-        "g4u07-lesson"
+        "g4u07-science",
+        "g4u07-music"
       ],
       "spokenVariants": [
         "geografy",
@@ -226,23 +127,122 @@
       ]
     },
     {
-      "id": "g4u07-break",
-      "word": "break",
-      "ttsText": "break",
-      "image": "grade4/break.png",
-      "syllables": 1,
+      "id": "g4u07-timetable",
+      "word": "timetable",
+      "ttsText": "timetable",
+      "image": "grade4/timetable.png",
+      "syllables": 3,
       "sentencePatterns": [
-        "It is break time",
-        "We play at break"
+        "This is my timetable",
+        "Look at the timetable"
       ],
       "distractorIds": [
-        "g4u07-timetable",
-        "g4u07-lesson",
-        "g4u07-subject"
+        "g4u07-subject",
+        "g4u07-art",
+        "g4u07-vietnamese"
       ],
       "spokenVariants": [
-        "brake",
-        "brick"
+        "time table",
+        "timetabel"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot"
+      ]
+    },
+    {
+      "id": "g4u07-subject",
+      "word": "subject",
+      "ttsText": "subject",
+      "image": "grade4/subject.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "What subject do you like",
+        "Science is my subject"
+      ],
+      "distractorIds": [
+        "g4u07-science",
+        "g4u07-music",
+        "g4u07-maths"
+      ],
+      "spokenVariants": [
+        "sub ject",
+        "subjet"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u07-science",
+      "word": "science",
+      "ttsText": "science",
+      "image": "grade4/science.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I have science today",
+        "We have science on Monday"
+      ],
+      "distractorIds": [
+        "g4u07-art",
+        "g4u07-vietnamese",
+        "g4u07-english"
+      ],
+      "spokenVariants": [
+        "sigh ence",
+        "signs"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u07-art",
+      "word": "art",
+      "ttsText": "art",
+      "image": "grade4/art.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I have art today",
+        "We have art and music"
+      ],
+      "distractorIds": [
+        "g4u07-music",
+        "g4u07-maths",
+        "g4u07-history"
+      ],
+      "spokenVariants": [
+        "heart",
+        "are"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u07-music",
+      "word": "music",
+      "ttsText": "music",
+      "image": "grade4/music.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I have music today",
+        "We have music on Friday"
+      ],
+      "distractorIds": [
+        "g4u07-vietnamese",
+        "g4u07-english",
+        "g4u07-geography"
+      ],
+      "spokenVariants": [
+        "mew sick",
+        "musick"
       ],
       "modes": [
         "dragSpell",

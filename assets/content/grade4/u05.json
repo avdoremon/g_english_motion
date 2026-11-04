@@ -15,38 +15,13 @@
         "Can you swim"
       ],
       "distractorIds": [
-        "g4u05-skate",
         "g4u05-cook",
-        "g4u05-paint"
+        "g4u05-skate",
+        "g4u05-guitar"
       ],
       "spokenVariants": [
         "swing",
         "sim"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g4u05-skate",
-      "word": "skate",
-      "ttsText": "skate",
-      "image": "grade4/skate.png",
-      "syllables": 1,
-      "sentencePatterns": [
-        "I can skate",
-        "She can skate well"
-      ],
-      "distractorIds": [
-        "g4u05-cook",
-        "g4u05-paint",
-        "g4u05-sing"
-      ],
-      "spokenVariants": [
-        "scate",
-        "skates"
       ],
       "modes": [
         "dragSpell",
@@ -65,88 +40,13 @@
         "Can you cook rice"
       ],
       "distractorIds": [
-        "g4u05-paint",
-        "g4u05-sing",
-        "g4u05-dance"
+        "g4u05-draw",
+        "g4u05-piano",
+        "g4u05-ride"
       ],
       "spokenVariants": [
         "cuck",
         "kook"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g4u05-paint",
-      "word": "paint",
-      "ttsText": "paint",
-      "image": "grade4/paint.png",
-      "syllables": 1,
-      "sentencePatterns": [
-        "I can paint a house",
-        "He can paint well"
-      ],
-      "distractorIds": [
-        "g4u05-sing",
-        "g4u05-dance",
-        "g4u05-draw"
-      ],
-      "spokenVariants": [
-        "pain",
-        "pint"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g4u05-sing",
-      "word": "sing",
-      "ttsText": "sing",
-      "image": "grade4/sing.png",
-      "syllables": 1,
-      "sentencePatterns": [
-        "I can sing a song",
-        "She can sing well"
-      ],
-      "distractorIds": [
-        "g4u05-dance",
-        "g4u05-draw",
-        "g4u05-ride"
-      ],
-      "spokenVariants": [
-        "sin",
-        "sink"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g4u05-dance",
-      "word": "dance",
-      "ttsText": "dance",
-      "image": "grade4/dance.png",
-      "syllables": 1,
-      "sentencePatterns": [
-        "We can dance together",
-        "Can you dance"
-      ],
-      "distractorIds": [
-        "g4u05-draw",
-        "g4u05-ride",
-        "g4u05-guitar"
-      ],
-      "spokenVariants": [
-        "dans",
-        "dunce"
       ],
       "modes": [
         "dragSpell",
@@ -165,9 +65,9 @@
         "Can you draw a tree"
       ],
       "distractorIds": [
-        "g4u05-ride",
+        "g4u05-skate",
         "g4u05-guitar",
-        "g4u05-piano"
+        "g4u05-badminton"
       ],
       "spokenVariants": [
         "drow",
@@ -180,48 +80,23 @@
       ]
     },
     {
-      "id": "g4u05-ride",
-      "word": "ride",
-      "ttsText": "ride",
-      "image": "grade4/ride.png",
+      "id": "g4u05-skate",
+      "word": "skate",
+      "ttsText": "skate",
+      "image": "grade4/skate.png",
       "syllables": 1,
       "sentencePatterns": [
-        "I can ride a bike",
-        "He can ride a horse"
-      ],
-      "distractorIds": [
-        "g4u05-guitar",
-        "g4u05-piano",
-        "g4u05-swim"
-      ],
-      "spokenVariants": [
-        "right",
-        "write"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g4u05-guitar",
-      "word": "guitar",
-      "ttsText": "guitar",
-      "image": "grade4/guitar.png",
-      "syllables": 2,
-      "sentencePatterns": [
-        "My brother can play guitar",
-        "I can play the guitar"
+        "I can skate",
+        "She can skate well"
       ],
       "distractorIds": [
         "g4u05-piano",
-        "g4u05-swim",
-        "g4u05-skate"
+        "g4u05-ride",
+        "g4u05-football"
       ],
       "spokenVariants": [
-        "gitar",
-        "guitars"
+        "scate",
+        "skates"
       ],
       "modes": [
         "dragSpell",
@@ -240,9 +115,9 @@
         "I cannot play the piano"
       ],
       "distractorIds": [
-        "g4u05-swim",
-        "g4u05-skate",
-        "g4u05-cook"
+        "g4u05-guitar",
+        "g4u05-badminton",
+        "g4u05-bike"
       ],
       "spokenVariants": [
         "pianno",
@@ -251,6 +126,155 @@
       "modes": [
         "dragSpell",
         "skyShoot"
+      ]
+    },
+    {
+      "id": "g4u05-guitar",
+      "word": "guitar",
+      "ttsText": "guitar",
+      "image": "grade4/guitar.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "My brother can play guitar",
+        "I can play the guitar"
+      ],
+      "distractorIds": [
+        "g4u05-ride",
+        "g4u05-football",
+        "g4u05-horse"
+      ],
+      "spokenVariants": [
+        "gitar",
+        "guitars"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u05-ride",
+      "word": "ride",
+      "ttsText": "ride",
+      "image": "grade4/ride.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I can ride a bike",
+        "He can ride a horse"
+      ],
+      "distractorIds": [
+        "g4u05-badminton",
+        "g4u05-bike",
+        "g4u05-swim"
+      ],
+      "spokenVariants": [
+        "right",
+        "write"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u05-badminton",
+      "word": "badminton",
+      "ttsText": "badminton",
+      "image": "grade4/badminton.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "I can play badminton",
+        "Can she play badminton"
+      ],
+      "distractorIds": [
+        "g4u05-football",
+        "g4u05-horse",
+        "g4u05-cook"
+      ],
+      "spokenVariants": [
+        "bad minton",
+        "badmington"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot"
+      ]
+    },
+    {
+      "id": "g4u05-football",
+      "word": "football",
+      "ttsText": "football",
+      "image": "grade4/football.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "Can he play football",
+        "I can play football"
+      ],
+      "distractorIds": [
+        "g4u05-bike",
+        "g4u05-swim",
+        "g4u05-draw"
+      ],
+      "spokenVariants": [
+        "foot ball",
+        "footbal"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u05-bike",
+      "word": "bike",
+      "ttsText": "bike",
+      "image": "grade4/bike.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I can ride a bike",
+        "Can you ride a bike"
+      ],
+      "distractorIds": [
+        "g4u05-horse",
+        "g4u05-cook",
+        "g4u05-skate"
+      ],
+      "spokenVariants": [
+        "bake",
+        "bikes"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u05-horse",
+      "word": "horse",
+      "ttsText": "horse",
+      "image": "grade4/horse.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I can ride a horse",
+        "Can she ride a horse"
+      ],
+      "distractorIds": [
+        "g4u05-swim",
+        "g4u05-draw",
+        "g4u05-piano"
+      ],
+      "spokenVariants": [
+        "house",
+        "hose"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
       ]
     }
   ]

@@ -5,6 +5,27 @@
   "title": "At the campsite",
   "items": [
     {
+      "id": "g2u16-campsite",
+      "word": "campsite",
+      "ttsText": "campsite",
+      "image": "grade2/campsite.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u16-fence",
+        "g2u16-fire",
+        "g2u16-backpack"
+      ],
+      "spokenVariants": [
+        "camp site",
+        "campsight"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
       "id": "g2u16-tent",
       "word": "tent",
       "ttsText": "tent",
@@ -12,9 +33,9 @@
       "syllables": 1,
       "sentencePatterns": [],
       "distractorIds": [
-        "g2u16-flashlight",
-        "g2u16-compass",
-        "g2u16-forest"
+        "g2u16-teapot",
+        "g2u16-dark",
+        "g2u16-flashlight"
       ],
       "spokenVariants": [
         "tend"
@@ -25,18 +46,105 @@
       ]
     },
     {
-      "id": "g2u16-campfire",
-      "word": "campfire",
-      "ttsText": "campfire",
-      "image": "grade2/campfire.png",
+      "id": "g2u16-blanket",
+      "word": "blanket",
+      "ttsText": "blanket",
+      "image": "grade2/blanket.png",
       "syllables": 2,
       "sentencePatterns": [],
       "distractorIds": [
-        "g2u16-map",
-        "g2u16-marshmallow",
-        "g2u16-lake"
+        "g2u16-fire",
+        "g2u16-backpack",
+        "g2u16-moon"
       ],
-      "spokenVariants": [],
+      "spokenVariants": [
+        "blankit",
+        "blanked"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u16-fence",
+      "word": "fence",
+      "ttsText": "fence",
+      "image": "grade2/fence.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u16-dark",
+        "g2u16-flashlight",
+        "g2u16-star"
+      ],
+      "spokenVariants": [
+        "fens",
+        "fents"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u16-teapot",
+      "word": "teapot",
+      "ttsText": "teapot",
+      "image": "grade2/teapot.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u16-backpack",
+        "g2u16-moon",
+        "g2u16-owl"
+      ],
+      "spokenVariants": [
+        "tea pot",
+        "tipot"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u16-fire",
+      "word": "fire",
+      "ttsText": "fire",
+      "image": "grade2/fire.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u16-flashlight",
+        "g2u16-star",
+        "g2u16-campsite"
+      ],
+      "spokenVariants": [
+        "fyre",
+        "far"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u16-dark",
+      "word": "dark",
+      "ttsText": "dark",
+      "image": "grade2/dark.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u16-moon",
+        "g2u16-owl",
+        "g2u16-tent"
+      ],
+      "spokenVariants": [
+        "dock",
+        "dak"
+      ],
       "modes": [
         "laneJump",
         "sayIt"
@@ -50,9 +158,9 @@
       "syllables": 2,
       "sentencePatterns": [],
       "distractorIds": [
-        "g2u16-compass",
-        "g2u16-forest",
-        "g2u16-moon"
+        "g2u16-star",
+        "g2u16-campsite",
+        "g2u16-blanket"
       ],
       "spokenVariants": [],
       "modes": [
@@ -68,104 +176,11 @@
       "syllables": 2,
       "sentencePatterns": [],
       "distractorIds": [
-        "g2u16-marshmallow",
-        "g2u16-lake",
-        "g2u16-star"
-      ],
-      "spokenVariants": [],
-      "modes": [
-        "laneJump",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g2u16-map",
-      "word": "map",
-      "ttsText": "map",
-      "image": "grade2/map.png",
-      "syllables": 1,
-      "sentencePatterns": [],
-      "distractorIds": [
-        "g2u16-forest",
-        "g2u16-moon",
-        "g2u16-owl"
-      ],
-      "spokenVariants": [
-        "mop"
-      ],
-      "modes": [
-        "laneJump",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g2u16-compass",
-      "word": "compass",
-      "ttsText": "compass",
-      "image": "grade2/compass.png",
-      "syllables": 2,
-      "sentencePatterns": [],
-      "distractorIds": [
-        "g2u16-lake",
-        "g2u16-star",
-        "g2u16-tent"
-      ],
-      "spokenVariants": [],
-      "modes": [
-        "laneJump",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g2u16-marshmallow",
-      "word": "marshmallow",
-      "ttsText": "marshmallow",
-      "image": "grade2/marshmallow.png",
-      "syllables": 3,
-      "sentencePatterns": [],
-      "distractorIds": [
-        "g2u16-moon",
         "g2u16-owl",
-        "g2u16-campfire"
-      ],
-      "spokenVariants": [],
-      "modes": [
-        "laneJump"
-      ]
-    },
-    {
-      "id": "g2u16-forest",
-      "word": "forest",
-      "ttsText": "forest",
-      "image": "grade2/forest.png",
-      "syllables": 2,
-      "sentencePatterns": [],
-      "distractorIds": [
-        "g2u16-star",
         "g2u16-tent",
-        "g2u16-backpack"
+        "g2u16-fence"
       ],
       "spokenVariants": [],
-      "modes": [
-        "laneJump",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g2u16-lake",
-      "word": "lake",
-      "ttsText": "lake",
-      "image": "grade2/lake.png",
-      "syllables": 1,
-      "sentencePatterns": [],
-      "distractorIds": [
-        "g2u16-owl",
-        "g2u16-campfire",
-        "g2u16-flashlight"
-      ],
-      "spokenVariants": [
-        "lack"
-      ],
       "modes": [
         "laneJump",
         "sayIt"
@@ -179,9 +194,9 @@
       "syllables": 1,
       "sentencePatterns": [],
       "distractorIds": [
-        "g2u16-tent",
-        "g2u16-backpack",
-        "g2u16-map"
+        "g2u16-campsite",
+        "g2u16-blanket",
+        "g2u16-teapot"
       ],
       "spokenVariants": [
         "mune"
@@ -199,9 +214,9 @@
       "syllables": 1,
       "sentencePatterns": [],
       "distractorIds": [
-        "g2u16-campfire",
-        "g2u16-flashlight",
-        "g2u16-compass"
+        "g2u16-tent",
+        "g2u16-fence",
+        "g2u16-fire"
       ],
       "spokenVariants": [
         "stir"
@@ -219,9 +234,9 @@
       "syllables": 1,
       "sentencePatterns": [],
       "distractorIds": [
-        "g2u16-backpack",
-        "g2u16-map",
-        "g2u16-marshmallow"
+        "g2u16-blanket",
+        "g2u16-teapot",
+        "g2u16-dark"
       ],
       "spokenVariants": [
         "old"

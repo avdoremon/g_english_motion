@@ -5,6 +5,159 @@
   "title": "In the grocery store",
   "items": [
     {
+      "id": "g2u09-store",
+      "word": "store",
+      "ttsText": "store",
+      "image": "grade2/store.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u09-potato",
+        "g2u09-snack",
+        "g2u09-orange"
+      ],
+      "spokenVariants": [
+        "stor",
+        "stoor"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u09-candy",
+      "word": "candy",
+      "ttsText": "candy",
+      "image": "grade2/candy.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u09-tomato",
+        "g2u09-apple",
+        "g2u09-bread"
+      ],
+      "spokenVariants": [
+        "kandy"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u09-yogurt",
+      "word": "yogurt",
+      "ttsText": "yogurt",
+      "image": "grade2/yogurt.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u09-snack",
+        "g2u09-orange",
+        "g2u09-milk"
+      ],
+      "spokenVariants": [
+        "yoghurt",
+        "yogert"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u09-potato",
+      "word": "potato",
+      "ttsText": "potato",
+      "image": "grade2/potato.png",
+      "syllables": 3,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u09-apple",
+        "g2u09-bread",
+        "g2u09-banana"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump"
+      ]
+    },
+    {
+      "id": "g2u09-tomato",
+      "word": "tomato",
+      "ttsText": "tomato",
+      "image": "grade2/tomato.png",
+      "syllables": 3,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u09-orange",
+        "g2u09-milk",
+        "g2u09-basket"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump"
+      ]
+    },
+    {
+      "id": "g2u09-snack",
+      "word": "snack",
+      "ttsText": "snack",
+      "image": "grade2/snack.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u09-bread",
+        "g2u09-banana",
+        "g2u09-store"
+      ],
+      "spokenVariants": [
+        "snak",
+        "snuck"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u09-apple",
+      "word": "apple",
+      "ttsText": "apple",
+      "image": "grade2/apple.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u09-milk",
+        "g2u09-basket",
+        "g2u09-candy"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u09-orange",
+      "word": "orange",
+      "ttsText": "orange",
+      "image": "grade2/orange.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u09-banana",
+        "g2u09-store",
+        "g2u09-yogurt"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
       "id": "g2u09-bread",
       "word": "bread",
       "ttsText": "bread",
@@ -12,9 +165,9 @@
       "syllables": 1,
       "sentencePatterns": [],
       "distractorIds": [
-        "g2u09-banana",
-        "g2u09-tomato",
-        "g2u09-onion"
+        "g2u09-basket",
+        "g2u09-candy",
+        "g2u09-potato"
       ],
       "spokenVariants": [
         "bred"
@@ -32,32 +185,12 @@
       "syllables": 1,
       "sentencePatterns": [],
       "distractorIds": [
-        "g2u09-orange",
-        "g2u09-potato",
-        "g2u09-cheese"
+        "g2u09-store",
+        "g2u09-yogurt",
+        "g2u09-tomato"
       ],
       "spokenVariants": [
         "mill"
-      ],
-      "modes": [
-        "laneJump",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g2u09-egg",
-      "word": "egg",
-      "ttsText": "egg",
-      "image": "grade2/egg.png",
-      "syllables": 1,
-      "sentencePatterns": [],
-      "distractorIds": [
-        "g2u09-tomato",
-        "g2u09-onion",
-        "g2u09-basket"
-      ],
-      "spokenVariants": [
-        "ag"
       ],
       "modes": [
         "laneJump",
@@ -72,101 +205,13 @@
       "syllables": 3,
       "sentencePatterns": [],
       "distractorIds": [
+        "g2u09-candy",
         "g2u09-potato",
-        "g2u09-cheese",
-        "g2u09-cart"
+        "g2u09-snack"
       ],
       "spokenVariants": [],
       "modes": [
         "laneJump"
-      ]
-    },
-    {
-      "id": "g2u09-orange",
-      "word": "orange",
-      "ttsText": "orange",
-      "image": "grade2/orange.png",
-      "syllables": 2,
-      "sentencePatterns": [],
-      "distractorIds": [
-        "g2u09-onion",
-        "g2u09-basket",
-        "g2u09-shelf"
-      ],
-      "spokenVariants": [],
-      "modes": [
-        "laneJump",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g2u09-tomato",
-      "word": "tomato",
-      "ttsText": "tomato",
-      "image": "grade2/tomato.png",
-      "syllables": 3,
-      "sentencePatterns": [],
-      "distractorIds": [
-        "g2u09-cheese",
-        "g2u09-cart",
-        "g2u09-bread"
-      ],
-      "spokenVariants": [],
-      "modes": [
-        "laneJump"
-      ]
-    },
-    {
-      "id": "g2u09-potato",
-      "word": "potato",
-      "ttsText": "potato",
-      "image": "grade2/potato.png",
-      "syllables": 3,
-      "sentencePatterns": [],
-      "distractorIds": [
-        "g2u09-basket",
-        "g2u09-shelf",
-        "g2u09-milk"
-      ],
-      "spokenVariants": [],
-      "modes": [
-        "laneJump"
-      ]
-    },
-    {
-      "id": "g2u09-onion",
-      "word": "onion",
-      "ttsText": "onion",
-      "image": "grade2/onion.png",
-      "syllables": 2,
-      "sentencePatterns": [],
-      "distractorIds": [
-        "g2u09-cart",
-        "g2u09-bread",
-        "g2u09-egg"
-      ],
-      "spokenVariants": [],
-      "modes": [
-        "laneJump",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g2u09-cheese",
-      "word": "cheese",
-      "ttsText": "cheese",
-      "image": "grade2/cheese.png",
-      "syllables": 1,
-      "sentencePatterns": [],
-      "distractorIds": [
-        "g2u09-shelf",
-        "g2u09-milk",
-        "g2u09-banana"
-      ],
-      "spokenVariants": [],
-      "modes": [
-        "laneJump",
-        "sayIt"
       ]
     },
     {
@@ -177,47 +222,9 @@
       "syllables": 2,
       "sentencePatterns": [],
       "distractorIds": [
-        "g2u09-bread",
-        "g2u09-egg",
-        "g2u09-orange"
-      ],
-      "spokenVariants": [],
-      "modes": [
-        "laneJump",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g2u09-cart",
-      "word": "cart",
-      "ttsText": "cart",
-      "image": "grade2/cart.png",
-      "syllables": 1,
-      "sentencePatterns": [],
-      "distractorIds": [
-        "g2u09-milk",
-        "g2u09-banana",
-        "g2u09-tomato"
-      ],
-      "spokenVariants": [
-        "card"
-      ],
-      "modes": [
-        "laneJump",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g2u09-shelf",
-      "word": "shelf",
-      "ttsText": "shelf",
-      "image": "grade2/shelf.png",
-      "syllables": 1,
-      "sentencePatterns": [],
-      "distractorIds": [
-        "g2u09-egg",
-        "g2u09-orange",
-        "g2u09-potato"
+        "g2u09-yogurt",
+        "g2u09-tomato",
+        "g2u09-apple"
       ],
       "spokenVariants": [],
       "modes": [

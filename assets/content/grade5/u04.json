@@ -5,147 +5,23 @@
   "title": "Our free-time activities",
   "items": [
     {
-      "id": "g5u04-cinema",
-      "word": "cinema",
-      "ttsText": "cinema",
-      "image": "grade5/cinema.png",
+      "id": "g5u04-violin",
+      "word": "violin",
+      "ttsText": "violin",
+      "image": "grade5/violin.png",
       "syllables": 3,
       "sentencePatterns": [
-        "We go to the cinema",
-        "I like the cinema"
-      ],
-      "distractorIds": [
-        "g5u04-shopping",
-        "g5u04-camping",
-        "g5u04-fishing"
-      ],
-      "spokenVariants": [
-        "sinema",
-        "cinemma"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g5u04-shopping",
-      "word": "shopping",
-      "ttsText": "shopping",
-      "image": "grade5/shopping.png",
-      "syllables": 2,
-      "sentencePatterns": [
-        "My mum goes shopping on Sundays",
-        "I like going shopping"
-      ],
-      "distractorIds": [
-        "g5u04-camping",
-        "g5u04-fishing",
-        "g5u04-chess"
-      ],
-      "spokenVariants": [
-        "shoping",
-        "shopin"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g5u04-camping",
-      "word": "camping",
-      "ttsText": "camping",
-      "image": "grade5/camping.png",
-      "syllables": 2,
-      "sentencePatterns": [
-        "We go camping in summer",
-        "I love going camping"
-      ],
-      "distractorIds": [
-        "g5u04-fishing",
-        "g5u04-chess",
-        "g5u04-comics"
-      ],
-      "spokenVariants": [
-        "kamping"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g5u04-fishing",
-      "word": "fishing",
-      "ttsText": "fishing",
-      "image": "grade5/fishing.png",
-      "syllables": 2,
-      "sentencePatterns": [
-        "My dad goes fishing on Sundays",
-        "I like going fishing"
-      ],
-      "distractorIds": [
-        "g5u04-chess",
-        "g5u04-comics",
-        "g5u04-internet"
-      ],
-      "spokenVariants": [
-        "fising",
-        "fishin"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g5u04-chess",
-      "word": "chess",
-      "ttsText": "chess",
-      "image": "grade5/chess.png",
-      "syllables": 1,
-      "sentencePatterns": [
-        "I like playing chess",
-        "My brother plays chess well"
-      ],
-      "distractorIds": [
-        "g5u04-comics",
-        "g5u04-internet",
-        "g5u04-television"
-      ],
-      "spokenVariants": [
-        "ches",
-        "chest"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g5u04-comics",
-      "word": "comics",
-      "ttsText": "comics",
-      "image": "grade5/comics.png",
-      "syllables": 2,
-      "sentencePatterns": [
-        "I like reading comics",
-        "She reads comics every day"
+        "I like playing the violin",
+        "She plays the violin well"
       ],
       "distractorIds": [
         "g5u04-internet",
-        "g5u04-television",
-        "g5u04-swimming"
+        "g5u04-walk",
+        "g5u04-flowers"
       ],
       "spokenVariants": [
-        "comix",
-        "comic"
+        "violen",
+        "vyolin"
       ],
       "modes": [
         "dragSpell",
@@ -160,17 +36,192 @@
       "image": "grade5/internet.png",
       "syllables": 3,
       "sentencePatterns": [
-        "I surf the internet at weekends",
-        "The internet is very useful"
+        "I like surfing the internet",
+        "He uses the internet daily"
+      ],
+      "distractorIds": [
+        "g5u04-walk",
+        "g5u04-flowers",
+        "g5u04-bike"
+      ],
+      "spokenVariants": [
+        "internett",
+        "inernet"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u04-walk",
+      "word": "walk",
+      "ttsText": "walk",
+      "image": "grade5/walk.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I like going for walk",
+        "We go for a walk"
+      ],
+      "distractorIds": [
+        "g5u04-flowers",
+        "g5u04-bike",
+        "g5u04-music"
+      ],
+      "spokenVariants": [
+        "wok",
+        "walc"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u04-flowers",
+      "word": "flowers",
+      "ttsText": "flowers",
+      "image": "grade5/flowers.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I like watering the flowers",
+        "She waters the flowers daily"
+      ],
+      "distractorIds": [
+        "g5u04-bike",
+        "g5u04-music",
+        "g5u04-tennis"
+      ],
+      "spokenVariants": [
+        "flowas",
+        "flowes"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u04-bike",
+      "word": "bike",
+      "ttsText": "bike",
+      "image": "grade5/bike.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I like riding my bike",
+        "He rides his bike"
+      ],
+      "distractorIds": [
+        "g5u04-music",
+        "g5u04-tennis",
+        "g5u04-book"
+      ],
+      "spokenVariants": [
+        "bik",
+        "byke"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u04-music",
+      "word": "music",
+      "ttsText": "music",
+      "image": "grade5/music.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I like listening to music",
+        "We listen to music together"
+      ],
+      "distractorIds": [
+        "g5u04-tennis",
+        "g5u04-book",
+        "g5u04-cartoon"
+      ],
+      "spokenVariants": [
+        "musik",
+        "myusic"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u04-tennis",
+      "word": "tennis",
+      "ttsText": "tennis",
+      "image": "grade5/tennis.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I like playing table tennis",
+        "He plays tennis at weekends"
+      ],
+      "distractorIds": [
+        "g5u04-book",
+        "g5u04-cartoon",
+        "g5u04-television"
+      ],
+      "spokenVariants": [
+        "tenis",
+        "tenniss"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u04-book",
+      "word": "book",
+      "ttsText": "book",
+      "image": "grade5/book.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I like reading a book",
+        "This book is very good"
+      ],
+      "distractorIds": [
+        "g5u04-cartoon",
+        "g5u04-television",
+        "g5u04-cinema"
+      ],
+      "spokenVariants": [
+        "buk",
+        "boock"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u04-cartoon",
+      "word": "cartoon",
+      "ttsText": "cartoon",
+      "image": "grade5/cartoon.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I like watching cartoons",
+        "He is watching a cartoon"
       ],
       "distractorIds": [
         "g5u04-television",
-        "g5u04-swimming",
-        "g5u04-hiking"
+        "g5u04-cinema",
+        "g5u04-violin"
       ],
       "spokenVariants": [
-        "intranet",
-        "in ternet"
+        "cartune",
+        "katoon"
       ],
       "modes": [
         "dragSpell",
@@ -185,17 +236,17 @@
       "image": "grade5/television.png",
       "syllables": 4,
       "sentencePatterns": [
-        "We watch television every evening",
+        "I watch television at home",
         "The television is on"
       ],
       "distractorIds": [
-        "g5u04-swimming",
-        "g5u04-hiking",
-        "g5u04-cooking"
+        "g5u04-cinema",
+        "g5u04-violin",
+        "g5u04-internet"
       ],
       "spokenVariants": [
-        "tv",
-        "televison"
+        "televishion",
+        "telivision"
       ],
       "modes": [
         "dragSpell",
@@ -203,73 +254,23 @@
       ]
     },
     {
-      "id": "g5u04-swimming",
-      "word": "swimming",
-      "ttsText": "swimming",
-      "image": "grade5/swimming.png",
-      "syllables": 2,
+      "id": "g5u04-cinema",
+      "word": "cinema",
+      "ttsText": "cinema",
+      "image": "grade5/cinema.png",
+      "syllables": 3,
       "sentencePatterns": [
-        "I go swimming on Saturdays",
-        "She likes swimming very much"
+        "We go to the cinema",
+        "The cinema is very big"
       ],
       "distractorIds": [
-        "g5u04-hiking",
-        "g5u04-cooking",
-        "g5u04-cinema"
+        "g5u04-violin",
+        "g5u04-internet",
+        "g5u04-walk"
       ],
       "spokenVariants": [
-        "swiming",
-        "swimin"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g5u04-hiking",
-      "word": "hiking",
-      "ttsText": "hiking",
-      "image": "grade5/hiking.png",
-      "syllables": 2,
-      "sentencePatterns": [
-        "We go hiking in the mountains",
-        "My family likes hiking"
-      ],
-      "distractorIds": [
-        "g5u04-cooking",
-        "g5u04-cinema",
-        "g5u04-shopping"
-      ],
-      "spokenVariants": [
-        "hicking",
-        "hikin"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g5u04-cooking",
-      "word": "cooking",
-      "ttsText": "cooking",
-      "image": "grade5/cooking.png",
-      "syllables": 2,
-      "sentencePatterns": [
-        "My mum likes cooking dinner",
-        "I enjoy cooking with her"
-      ],
-      "distractorIds": [
-        "g5u04-cinema",
-        "g5u04-shopping",
-        "g5u04-camping"
-      ],
-      "spokenVariants": [
-        "coking",
-        "cookin"
+        "sinema",
+        "cinemma"
       ],
       "modes": [
         "dragSpell",

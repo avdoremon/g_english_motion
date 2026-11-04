@@ -5,73 +5,23 @@
   "title": "At the shopping centre",
   "items": [
     {
-      "id": "g4u18-shirt",
-      "word": "shirt",
-      "ttsText": "shirt",
-      "image": "grade4/shirt.png",
+      "id": "g4u18-price",
+      "word": "price",
+      "ttsText": "price",
+      "image": "grade4/price.png",
       "syllables": 1,
       "sentencePatterns": [
-        "I like this shirt",
-        "The shirt is white"
-      ],
-      "distractorIds": [
-        "g4u18-shoes",
-        "g4u18-dress",
-        "g4u18-skirt"
-      ],
-      "spokenVariants": [
-        "shot",
-        "short"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g4u18-shoes",
-      "word": "shoes",
-      "ttsText": "shoes",
-      "image": "grade4/shoes.png",
-      "syllables": 1,
-      "sentencePatterns": [
-        "These shoes are nice",
-        "I need new shoes"
-      ],
-      "distractorIds": [
-        "g4u18-dress",
-        "g4u18-skirt",
-        "g4u18-jacket"
-      ],
-      "spokenVariants": [
-        "shoe",
-        "shows"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g4u18-dress",
-      "word": "dress",
-      "ttsText": "dress",
-      "image": "grade4/dress.png",
-      "syllables": 1,
-      "sentencePatterns": [
-        "She wears a dress",
-        "The dress is pink"
+        "What is the price",
+        "The price is low"
       ],
       "distractorIds": [
         "g4u18-skirt",
-        "g4u18-jacket",
-        "g4u18-jeans"
+        "g4u18-bakery",
+        "g4u18-toy"
       ],
       "spokenVariants": [
-        "driss",
-        "press"
+        "prize",
+        "prise"
       ],
       "modes": [
         "dragSpell",
@@ -90,9 +40,9 @@
         "The skirt is blue"
       ],
       "distractorIds": [
-        "g4u18-jacket",
-        "g4u18-jeans",
-        "g4u18-hat"
+        "g4u18-bookshop",
+        "g4u18-gift",
+        "g4u18-shop"
       ],
       "spokenVariants": [
         "scurt",
@@ -105,23 +55,23 @@
       ]
     },
     {
-      "id": "g4u18-jacket",
-      "word": "jacket",
-      "ttsText": "jacket",
-      "image": "grade4/jacket.png",
+      "id": "g4u18-bookshop",
+      "word": "bookshop",
+      "ttsText": "bookshop",
+      "image": "grade4/bookshop.png",
       "syllables": 2,
       "sentencePatterns": [
-        "The jacket is warm",
-        "I want this jacket"
+        "Where is the bookshop",
+        "The bookshop is near"
       ],
       "distractorIds": [
-        "g4u18-jeans",
-        "g4u18-hat",
-        "g4u18-price"
+        "g4u18-bakery",
+        "g4u18-toy",
+        "g4u18-near"
       ],
       "spokenVariants": [
-        "jaket",
-        "jackit"
+        "book shop",
+        "bookshops"
       ],
       "modes": [
         "dragSpell",
@@ -130,127 +80,201 @@
       ]
     },
     {
-      "id": "g4u18-jeans",
-      "word": "jeans",
-      "ttsText": "jeans",
-      "image": "grade4/jeans.png",
-      "syllables": 1,
-      "sentencePatterns": [
-        "These jeans are blue",
-        "I like these jeans"
-      ],
-      "distractorIds": [
-        "g4u18-hat",
-        "g4u18-price",
-        "g4u18-cheap"
-      ],
-      "spokenVariants": [
-        "jean",
-        "genes"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g4u18-hat",
-      "word": "hat",
-      "ttsText": "hat",
-      "image": "grade4/hat.png",
-      "syllables": 1,
-      "sentencePatterns": [
-        "I like this hat",
-        "The hat is red"
-      ],
-      "distractorIds": [
-        "g4u18-price",
-        "g4u18-cheap",
-        "g4u18-expensive"
-      ],
-      "spokenVariants": [
-        "hut",
-        "hot"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g4u18-price",
-      "word": "price",
-      "ttsText": "price",
-      "image": "grade4/price.png",
-      "syllables": 1,
-      "sentencePatterns": [
-        "What is the price",
-        "The price is low"
-      ],
-      "distractorIds": [
-        "g4u18-cheap",
-        "g4u18-expensive",
-        "g4u18-shirt"
-      ],
-      "spokenVariants": [
-        "prize",
-        "prise"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g4u18-cheap",
-      "word": "cheap",
-      "ttsText": "cheap",
-      "image": "grade4/cheap.png",
-      "syllables": 1,
-      "sentencePatterns": [
-        "The shirt is cheap",
-        "It is not cheap"
-      ],
-      "distractorIds": [
-        "g4u18-expensive",
-        "g4u18-shirt",
-        "g4u18-shoes"
-      ],
-      "spokenVariants": [
-        "chip",
-        "cheep"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g4u18-expensive",
-      "word": "expensive",
-      "ttsText": "expensive",
-      "image": "grade4/expensive.png",
+      "id": "g4u18-bakery",
+      "word": "bakery",
+      "ttsText": "bakery",
+      "image": "grade4/bakery.png",
       "syllables": 3,
       "sentencePatterns": [
-        "The dress is expensive",
-        "It is very expensive"
+        "It is near the bakery",
+        "Where is the bakery"
       ],
       "distractorIds": [
-        "g4u18-shirt",
-        "g4u18-shoes",
-        "g4u18-dress"
+        "g4u18-gift",
+        "g4u18-shop",
+        "g4u18-opposite"
       ],
       "spokenVariants": [
-        "expensiv",
-        "expencive"
+        "bake ery",
+        "baker"
       ],
       "modes": [
         "dragSpell",
         "skyShoot"
+      ]
+    },
+    {
+      "id": "g4u18-gift",
+      "word": "gift",
+      "ttsText": "gift",
+      "image": "grade4/gift.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "Look at the gift shop",
+        "It is a nice gift"
+      ],
+      "distractorIds": [
+        "g4u18-toy",
+        "g4u18-near",
+        "g4u18-behind"
+      ],
+      "spokenVariants": [
+        "kift",
+        "gifts"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u18-toy",
+      "word": "toy",
+      "ttsText": "toy",
+      "image": "grade4/toy.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "Where is the toy shop",
+        "I buy a toy"
+      ],
+      "distractorIds": [
+        "g4u18-shop",
+        "g4u18-opposite",
+        "g4u18-between"
+      ],
+      "spokenVariants": [
+        "tie",
+        "boy"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u18-shop",
+      "word": "shop",
+      "ttsText": "shop",
+      "image": "grade4/shop.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "It is a big shop",
+        "Where is the shop"
+      ],
+      "distractorIds": [
+        "g4u18-near",
+        "g4u18-behind",
+        "g4u18-price"
+      ],
+      "spokenVariants": [
+        "chop",
+        "sharp"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u18-near",
+      "word": "near",
+      "ttsText": "near",
+      "image": "grade4/near.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "It is near the bakery",
+        "The shop is near"
+      ],
+      "distractorIds": [
+        "g4u18-opposite",
+        "g4u18-between",
+        "g4u18-skirt"
+      ],
+      "spokenVariants": [
+        "ear",
+        "beer"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u18-opposite",
+      "word": "opposite",
+      "ttsText": "opposite",
+      "image": "grade4/opposite.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "It is opposite the bank",
+        "The shop is opposite"
+      ],
+      "distractorIds": [
+        "g4u18-behind",
+        "g4u18-price",
+        "g4u18-bookshop"
+      ],
+      "spokenVariants": [
+        "opposit",
+        "oposit"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot"
+      ]
+    },
+    {
+      "id": "g4u18-behind",
+      "word": "behind",
+      "ttsText": "behind",
+      "image": "grade4/behind.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "It is behind the shop",
+        "The bakery is behind"
+      ],
+      "distractorIds": [
+        "g4u18-between",
+        "g4u18-skirt",
+        "g4u18-bakery"
+      ],
+      "spokenVariants": [
+        "be hind",
+        "behinds"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u18-between",
+      "word": "between",
+      "ttsText": "between",
+      "image": "grade4/between.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "It is between two shops",
+        "The gift shop is between"
+      ],
+      "distractorIds": [
+        "g4u18-price",
+        "g4u18-bookshop",
+        "g4u18-gift"
+      ],
+      "spokenVariants": [
+        "be tween",
+        "betwin"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
       ]
     }
   ]

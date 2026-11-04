@@ -16,8 +16,8 @@
       ],
       "distractorIds": [
         "g4u09-basketball",
-        "g4u09-volleyball",
-        "g4u09-badminton"
+        "g4u09-badminton",
+        "g4u09-june"
       ],
       "spokenVariants": [
         "foot ball",
@@ -41,8 +41,8 @@
       ],
       "distractorIds": [
         "g4u09-volleyball",
-        "g4u09-badminton",
-        "g4u09-tennis"
+        "g4u09-chess",
+        "g4u09-july"
       ],
       "spokenVariants": [
         "basket ball",
@@ -65,8 +65,8 @@
       ],
       "distractorIds": [
         "g4u09-badminton",
-        "g4u09-tennis",
-        "g4u09-race"
+        "g4u09-june",
+        "g4u09-august"
       ],
       "spokenVariants": [
         "volley ball",
@@ -88,9 +88,9 @@
         "She plays badminton well"
       ],
       "distractorIds": [
-        "g4u09-tennis",
-        "g4u09-race",
-        "g4u09-run"
+        "g4u09-chess",
+        "g4u09-july",
+        "g4u09-september"
       ],
       "spokenVariants": [
         "bad minton",
@@ -102,23 +102,73 @@
       ]
     },
     {
-      "id": "g4u09-tennis",
-      "word": "tennis",
-      "ttsText": "tennis",
-      "image": "grade4/tennis.png",
+      "id": "g4u09-chess",
+      "word": "chess",
+      "ttsText": "chess",
+      "image": "grade4/chess.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "The girls play chess",
+        "I like chess"
+      ],
+      "distractorIds": [
+        "g4u09-june",
+        "g4u09-august",
+        "g4u09-october"
+      ],
+      "spokenVariants": [
+        "chest",
+        "ches"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u09-june",
+      "word": "june",
+      "ttsText": "june",
+      "image": "grade4/june.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "Our sports day is in June",
+        "It is in June"
+      ],
+      "distractorIds": [
+        "g4u09-july",
+        "g4u09-september",
+        "g4u09-november"
+      ],
+      "spokenVariants": [
+        "gene",
+        "joon"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u09-july",
+      "word": "july",
+      "ttsText": "july",
+      "image": "grade4/july.png",
       "syllables": 2,
       "sentencePatterns": [
-        "He plays tennis",
-        "I like tennis"
+        "My birthday is in July",
+        "It is in July"
       ],
       "distractorIds": [
-        "g4u09-race",
-        "g4u09-run",
-        "g4u09-jump"
+        "g4u09-august",
+        "g4u09-october",
+        "g4u09-december"
       ],
       "spokenVariants": [
-        "tenis",
-        "tennies"
+        "julie",
+        "jew lie"
       ],
       "modes": [
         "dragSpell",
@@ -127,73 +177,23 @@
       ]
     },
     {
-      "id": "g4u09-race",
-      "word": "race",
-      "ttsText": "race",
-      "image": "grade4/race.png",
-      "syllables": 1,
+      "id": "g4u09-august",
+      "word": "august",
+      "ttsText": "august",
+      "image": "grade4/august.png",
+      "syllables": 2,
       "sentencePatterns": [
-        "We have a race",
-        "I win the race"
+        "Our sports day is in August",
+        "It is in August"
       ],
       "distractorIds": [
-        "g4u09-run",
-        "g4u09-jump",
-        "g4u09-skip"
-      ],
-      "spokenVariants": [
-        "rice",
-        "raise"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g4u09-run",
-      "word": "run",
-      "ttsText": "run",
-      "image": "grade4/run.png",
-      "syllables": 1,
-      "sentencePatterns": [
-        "I can run fast",
-        "Let us run"
-      ],
-      "distractorIds": [
-        "g4u09-jump",
-        "g4u09-skip",
-        "g4u09-team"
-      ],
-      "spokenVariants": [
-        "ran",
-        "ron"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g4u09-jump",
-      "word": "jump",
-      "ttsText": "jump",
-      "image": "grade4/jump.png",
-      "syllables": 1,
-      "sentencePatterns": [
-        "I can jump high",
-        "Let us jump"
-      ],
-      "distractorIds": [
-        "g4u09-skip",
-        "g4u09-team",
+        "g4u09-september",
+        "g4u09-november",
         "g4u09-football"
       ],
       "spokenVariants": [
-        "jum",
-        "chump"
+        "augst",
+        "orgust"
       ],
       "modes": [
         "dragSpell",
@@ -202,53 +202,99 @@
       ]
     },
     {
-      "id": "g4u09-skip",
-      "word": "skip",
-      "ttsText": "skip",
-      "image": "grade4/skip.png",
-      "syllables": 1,
+      "id": "g4u09-september",
+      "word": "september",
+      "ttsText": "september",
+      "image": "grade4/september.png",
+      "syllables": 3,
       "sentencePatterns": [
-        "I can skip well",
-        "We skip in the yard"
+        "Our sports day is in September",
+        "It is in September"
       ],
       "distractorIds": [
-        "g4u09-team",
-        "g4u09-football",
+        "g4u09-october",
+        "g4u09-december",
         "g4u09-basketball"
       ],
       "spokenVariants": [
-        "skid",
-        "scip"
+        "sep tember",
+        "septembre"
       ],
       "modes": [
         "dragSpell",
-        "skyShoot",
-        "sayIt"
+        "skyShoot"
       ]
     },
     {
-      "id": "g4u09-team",
-      "word": "team",
-      "ttsText": "team",
-      "image": "grade4/team.png",
-      "syllables": 1,
+      "id": "g4u09-october",
+      "word": "october",
+      "ttsText": "october",
+      "image": "grade4/october.png",
+      "syllables": 3,
       "sentencePatterns": [
-        "Our team is strong",
-        "I am in the red team"
+        "Our sports day is in October",
+        "It is in October"
       ],
       "distractorIds": [
+        "g4u09-november",
         "g4u09-football",
-        "g4u09-basketball",
         "g4u09-volleyball"
       ],
       "spokenVariants": [
-        "theme",
-        "teen"
+        "ok tober",
+        "octobar"
       ],
       "modes": [
         "dragSpell",
-        "skyShoot",
-        "sayIt"
+        "skyShoot"
+      ]
+    },
+    {
+      "id": "g4u09-november",
+      "word": "november",
+      "ttsText": "november",
+      "image": "grade4/november.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "Our sports day is in November",
+        "It is in November"
+      ],
+      "distractorIds": [
+        "g4u09-december",
+        "g4u09-basketball",
+        "g4u09-badminton"
+      ],
+      "spokenVariants": [
+        "no vember",
+        "novembre"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot"
+      ]
+    },
+    {
+      "id": "g4u09-december",
+      "word": "december",
+      "ttsText": "december",
+      "image": "grade4/december.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "Our sports day is in December",
+        "It is in December"
+      ],
+      "distractorIds": [
+        "g4u09-football",
+        "g4u09-volleyball",
+        "g4u09-chess"
+      ],
+      "spokenVariants": [
+        "dezember",
+        "decembre"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot"
       ]
     }
   ]

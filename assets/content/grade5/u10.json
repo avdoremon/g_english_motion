@@ -5,23 +5,98 @@
   "title": "Our school trip",
   "items": [
     {
-      "id": "g5u10-museum",
-      "word": "museum",
-      "ttsText": "museum",
-      "image": "grade5/museum.png",
+      "id": "g5u10-hill",
+      "word": "hill",
+      "ttsText": "hill",
+      "image": "grade5/hill.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "We went to Ba Na hill",
+        "The hill is very high"
+      ],
+      "distractorIds": [
+        "g5u10-lake",
+        "g5u10-park",
+        "g5u10-pagoda"
+      ],
+      "spokenVariants": [
+        "hil",
+        "hell"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u10-lake",
+      "word": "lake",
+      "ttsText": "lake",
+      "image": "grade5/lake.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "We walked around the lake",
+        "The lake is very big"
+      ],
+      "distractorIds": [
+        "g5u10-park",
+        "g5u10-pagoda",
+        "g5u10-zoo"
+      ],
+      "spokenVariants": [
+        "lak",
+        "laik"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u10-park",
+      "word": "park",
+      "ttsText": "park",
+      "image": "grade5/park.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "We went to the park",
+        "The park is very green"
+      ],
+      "distractorIds": [
+        "g5u10-pagoda",
+        "g5u10-zoo",
+        "g5u10-museum"
+      ],
+      "spokenVariants": [
+        "pack",
+        "parc"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u10-pagoda",
+      "word": "pagoda",
+      "ttsText": "pagoda",
+      "image": "grade5/pagoda.png",
       "syllables": 3,
       "sentencePatterns": [
-        "We visited the museum",
-        "The museum is very interesting"
+        "We went to the pagoda",
+        "The pagoda is very old"
       ],
       "distractorIds": [
         "g5u10-zoo",
-        "g5u10-farm",
-        "g5u10-beach"
+        "g5u10-museum",
+        "g5u10-bus"
       ],
       "spokenVariants": [
-        "muzeum",
-        "mew zee um"
+        "pagoder",
+        "pegoda"
       ],
       "modes": [
         "dragSpell",
@@ -40,9 +115,9 @@
         "The zoo has many animals"
       ],
       "distractorIds": [
-        "g5u10-farm",
-        "g5u10-beach",
-        "g5u10-mountain"
+        "g5u10-museum",
+        "g5u10-bus",
+        "g5u10-train"
       ],
       "spokenVariants": [
         "zu",
@@ -55,23 +130,123 @@
       ]
     },
     {
-      "id": "g5u10-farm",
-      "word": "farm",
-      "ttsText": "farm",
-      "image": "grade5/farm.png",
+      "id": "g5u10-museum",
+      "word": "museum",
+      "ttsText": "museum",
+      "image": "grade5/museum.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "We went to the museum",
+        "The museum is very old"
+      ],
+      "distractorIds": [
+        "g5u10-bus",
+        "g5u10-train",
+        "g5u10-coach"
+      ],
+      "spokenVariants": [
+        "musium",
+        "myuseum"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u10-bus",
+      "word": "bus",
+      "ttsText": "bus",
+      "image": "grade5/bus.png",
       "syllables": 1,
       "sentencePatterns": [
-        "We visited a farm last week",
-        "The farm is in the countryside"
+        "We went by bus",
+        "The bus is very big"
+      ],
+      "distractorIds": [
+        "g5u10-train",
+        "g5u10-coach",
+        "g5u10-photo"
+      ],
+      "spokenVariants": [
+        "buss",
+        "buz"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u10-train",
+      "word": "train",
+      "ttsText": "train",
+      "image": "grade5/train.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "We went by train",
+        "The train is very fast"
+      ],
+      "distractorIds": [
+        "g5u10-coach",
+        "g5u10-photo",
+        "g5u10-beach"
+      ],
+      "spokenVariants": [
+        "trane",
+        "trein"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u10-coach",
+      "word": "coach",
+      "ttsText": "coach",
+      "image": "grade5/coach.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "We went by coach",
+        "The coach is very comfortable"
+      ],
+      "distractorIds": [
+        "g5u10-photo",
+        "g5u10-beach",
+        "g5u10-tree"
+      ],
+      "spokenVariants": [
+        "couch",
+        "coche"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u10-photo",
+      "word": "photo",
+      "ttsText": "photo",
+      "image": "grade5/photo.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "We took many photos",
+        "I like this photo"
       ],
       "distractorIds": [
         "g5u10-beach",
-        "g5u10-mountain",
-        "g5u10-pagoda"
+        "g5u10-tree",
+        "g5u10-hill"
       ],
       "spokenVariants": [
-        "fam",
-        "farmm"
+        "foto",
+        "photto"
       ],
       "modes": [
         "dragSpell",
@@ -86,17 +261,17 @@
       "image": "grade5/beach.png",
       "syllables": 1,
       "sentencePatterns": [
-        "We went to the beach",
-        "The beach is very clean"
+        "We cleaned up the beach",
+        "The beach is very long"
       ],
       "distractorIds": [
-        "g5u10-mountain",
-        "g5u10-pagoda",
-        "g5u10-cave"
+        "g5u10-tree",
+        "g5u10-hill",
+        "g5u10-lake"
       ],
       "spokenVariants": [
         "beech",
-        "bitch"
+        "beatch"
       ],
       "modes": [
         "dragSpell",
@@ -105,171 +280,23 @@
       ]
     },
     {
-      "id": "g5u10-mountain",
-      "word": "mountain",
-      "ttsText": "mountain",
-      "image": "grade5/mountain.png",
-      "syllables": 2,
-      "sentencePatterns": [
-        "We climbed the mountain",
-        "The mountain is very high"
-      ],
-      "distractorIds": [
-        "g5u10-pagoda",
-        "g5u10-cave",
-        "g5u10-island"
-      ],
-      "spokenVariants": [
-        "mountin",
-        "mauntain"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g5u10-pagoda",
-      "word": "pagoda",
-      "ttsText": "pagoda",
-      "image": "grade5/pagoda.png",
-      "syllables": 3,
-      "sentencePatterns": [
-        "We visited an old pagoda",
-        "The pagoda is very beautiful"
-      ],
-      "distractorIds": [
-        "g5u10-cave",
-        "g5u10-island",
-        "g5u10-aquarium"
-      ],
-      "spokenVariants": [
-        "pagoder",
-        "pagota"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g5u10-cave",
-      "word": "cave",
-      "ttsText": "cave",
-      "image": "grade5/cave.png",
+      "id": "g5u10-tree",
+      "word": "tree",
+      "ttsText": "tree",
+      "image": "grade5/tree.png",
       "syllables": 1,
       "sentencePatterns": [
-        "We explored a big cave",
-        "The cave is very dark"
+        "We planted a tree",
+        "The tree is very tall"
       ],
       "distractorIds": [
-        "g5u10-island",
-        "g5u10-aquarium",
-        "g5u10-temple"
-      ],
-      "spokenVariants": [
-        "kave",
-        "cage"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g5u10-island",
-      "word": "island",
-      "ttsText": "island",
-      "image": "grade5/island.png",
-      "syllables": 2,
-      "sentencePatterns": [
-        "We reached the island by boat",
-        "The island is very small"
-      ],
-      "distractorIds": [
-        "g5u10-aquarium",
-        "g5u10-temple",
+        "g5u10-hill",
+        "g5u10-lake",
         "g5u10-park"
       ],
       "spokenVariants": [
-        "iland",
-        "eyeland"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g5u10-aquarium",
-      "word": "aquarium",
-      "ttsText": "aquarium",
-      "image": "grade5/aquarium.png",
-      "syllables": 4,
-      "sentencePatterns": [
-        "We saw fish at the aquarium",
-        "The aquarium is very big"
-      ],
-      "distractorIds": [
-        "g5u10-temple",
-        "g5u10-park",
-        "g5u10-museum"
-      ],
-      "spokenVariants": [
-        "aquarum"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot"
-      ]
-    },
-    {
-      "id": "g5u10-temple",
-      "word": "temple",
-      "ttsText": "temple",
-      "image": "grade5/temple.png",
-      "syllables": 2,
-      "sentencePatterns": [
-        "We visited a famous temple",
-        "The temple is very old"
-      ],
-      "distractorIds": [
-        "g5u10-park",
-        "g5u10-museum",
-        "g5u10-zoo"
-      ],
-      "spokenVariants": [
-        "tempel",
-        "tample"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g5u10-park",
-      "word": "park",
-      "ttsText": "park",
-      "image": "grade5/park.png",
-      "syllables": 1,
-      "sentencePatterns": [
-        "We had lunch in the park",
-        "The park is very green"
-      ],
-      "distractorIds": [
-        "g5u10-museum",
-        "g5u10-zoo",
-        "g5u10-farm"
-      ],
-      "spokenVariants": [
-        "pak",
-        "pork"
+        "tri",
+        "tre"
       ],
       "modes": [
         "dragSpell",

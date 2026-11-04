@@ -5,247 +5,22 @@
   "title": "Our favourite school activities",
   "items": [
     {
-      "id": "g5u07-drawing",
-      "word": "drawing",
-      "ttsText": "drawing",
-      "image": "grade5/drawing.png",
-      "syllables": 2,
-      "sentencePatterns": [
-        "I like drawing pictures",
-        "She is good at drawing"
-      ],
-      "distractorIds": [
-        "g5u07-painting",
-        "g5u07-singing",
-        "g5u07-dancing"
-      ],
-      "spokenVariants": [
-        "draiwng",
-        "drawin"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g5u07-painting",
-      "word": "painting",
-      "ttsText": "painting",
-      "image": "grade5/painting.png",
-      "syllables": 2,
-      "sentencePatterns": [
-        "I enjoy painting at school",
-        "The painting is very colourful"
-      ],
-      "distractorIds": [
-        "g5u07-singing",
-        "g5u07-dancing",
-        "g5u07-reading"
-      ],
-      "spokenVariants": [
-        "paintin",
-        "paynting"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g5u07-singing",
-      "word": "singing",
-      "ttsText": "singing",
-      "image": "grade5/singing.png",
-      "syllables": 2,
-      "sentencePatterns": [
-        "We enjoy singing together",
-        "She likes singing songs"
-      ],
-      "distractorIds": [
-        "g5u07-dancing",
-        "g5u07-reading",
-        "g5u07-writing"
-      ],
-      "spokenVariants": [
-        "singin",
-        "sining"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g5u07-dancing",
-      "word": "dancing",
-      "ttsText": "dancing",
-      "image": "grade5/dancing.png",
-      "syllables": 2,
-      "sentencePatterns": [
-        "They are dancing on the stage",
-        "I like dancing at school"
-      ],
-      "distractorIds": [
-        "g5u07-reading",
-        "g5u07-writing",
-        "g5u07-club"
-      ],
-      "spokenVariants": [
-        "dansing",
-        "dancin"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g5u07-reading",
-      "word": "reading",
-      "ttsText": "reading",
-      "image": "grade5/reading.png",
-      "syllables": 2,
-      "sentencePatterns": [
-        "I like reading story books",
-        "Reading is my favourite activity"
-      ],
-      "distractorIds": [
-        "g5u07-writing",
-        "g5u07-club",
-        "g5u07-science"
-      ],
-      "spokenVariants": [
-        "redding",
-        "readin"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g5u07-writing",
-      "word": "writing",
-      "ttsText": "writing",
-      "image": "grade5/writing.png",
-      "syllables": 2,
-      "sentencePatterns": [
-        "Writing is my favourite activity",
-        "He is good at writing"
-      ],
-      "distractorIds": [
-        "g5u07-club",
-        "g5u07-science",
-        "g5u07-music"
-      ],
-      "spokenVariants": [
-        "righting",
-        "writin"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g5u07-club",
-      "word": "club",
-      "ttsText": "club",
-      "image": "grade5/club.png",
-      "syllables": 1,
-      "sentencePatterns": [
-        "I join the English club",
-        "Our school has a music club"
-      ],
-      "distractorIds": [
-        "g5u07-science",
-        "g5u07-music",
-        "g5u07-football"
-      ],
-      "spokenVariants": [
-        "klub",
-        "clup"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g5u07-science",
-      "word": "science",
-      "ttsText": "science",
-      "image": "grade5/science.png",
-      "syllables": 2,
-      "sentencePatterns": [
-        "I like science lessons",
-        "Science is my favourite subject"
-      ],
-      "distractorIds": [
-        "g5u07-music",
-        "g5u07-football",
-        "g5u07-volleyball"
-      ],
-      "spokenVariants": [
-        "sience",
-        "sighence"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g5u07-music",
-      "word": "music",
-      "ttsText": "music",
-      "image": "grade5/music.png",
-      "syllables": 2,
-      "sentencePatterns": [
-        "We sing in music class",
-        "Music is my favourite subject"
-      ],
-      "distractorIds": [
-        "g5u07-football",
-        "g5u07-volleyball",
-        "g5u07-drawing"
-      ],
-      "spokenVariants": [
-        "musik",
-        "mewsic"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
       "id": "g5u07-football",
       "word": "football",
       "ttsText": "football",
       "image": "grade5/football.png",
       "syllables": 2,
       "sentencePatterns": [
-        "We play football after school",
-        "He loves playing football"
+        "We play football at school",
+        "He likes playing football"
       ],
       "distractorIds": [
-        "g5u07-volleyball",
-        "g5u07-drawing",
-        "g5u07-painting"
+        "g5u07-sing",
+        "g5u07-dance",
+        "g5u07-violin"
       ],
       "spokenVariants": [
-        "foot ball",
+        "footbal",
         "futball"
       ],
       "modes": [
@@ -255,23 +30,273 @@
       ]
     },
     {
-      "id": "g5u07-volleyball",
-      "word": "volleyball",
-      "ttsText": "volleyball",
-      "image": "grade5/volleyball.png",
-      "syllables": 3,
+      "id": "g5u07-sing",
+      "word": "sing",
+      "ttsText": "sing",
+      "image": "grade5/sing.png",
+      "syllables": 1,
       "sentencePatterns": [
-        "They are playing volleyball now",
-        "I like playing volleyball"
+        "She likes to sing",
+        "We sing in the music room"
       ],
       "distractorIds": [
-        "g5u07-drawing",
-        "g5u07-painting",
-        "g5u07-singing"
+        "g5u07-dance",
+        "g5u07-violin",
+        "g5u07-guitar"
       ],
       "spokenVariants": [
-        "volley ball",
-        "volibal"
+        "sin",
+        "sinn"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u07-dance",
+      "word": "dance",
+      "ttsText": "dance",
+      "image": "grade5/dance.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "He likes to dance",
+        "We dance at school"
+      ],
+      "distractorIds": [
+        "g5u07-violin",
+        "g5u07-guitar",
+        "g5u07-paint"
+      ],
+      "spokenVariants": [
+        "dans",
+        "dence"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u07-violin",
+      "word": "violin",
+      "ttsText": "violin",
+      "image": "grade5/violin.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "She plays the violin",
+        "I want to play the violin"
+      ],
+      "distractorIds": [
+        "g5u07-guitar",
+        "g5u07-paint",
+        "g5u07-book"
+      ],
+      "spokenVariants": [
+        "violen",
+        "vyolin"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u07-guitar",
+      "word": "guitar",
+      "ttsText": "guitar",
+      "image": "grade5/guitar.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "He plays the guitar",
+        "I want to play the guitar"
+      ],
+      "distractorIds": [
+        "g5u07-paint",
+        "g5u07-book",
+        "g5u07-project"
+      ],
+      "spokenVariants": [
+        "gitar",
+        "guitarr"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u07-paint",
+      "word": "paint",
+      "ttsText": "paint",
+      "image": "grade5/paint.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "She likes to paint",
+        "We paint in the art room"
+      ],
+      "distractorIds": [
+        "g5u07-book",
+        "g5u07-project",
+        "g5u07-maths"
+      ],
+      "spokenVariants": [
+        "pain",
+        "paynt"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u07-book",
+      "word": "book",
+      "ttsText": "book",
+      "image": "grade5/book.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "He likes reading a book",
+        "I read a book at school"
+      ],
+      "distractorIds": [
+        "g5u07-project",
+        "g5u07-maths",
+        "g5u07-game"
+      ],
+      "spokenVariants": [
+        "buk",
+        "boock"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u07-project",
+      "word": "project",
+      "ttsText": "project",
+      "image": "grade5/project.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "We do a project together",
+        "Her project is very good"
+      ],
+      "distractorIds": [
+        "g5u07-maths",
+        "g5u07-game",
+        "g5u07-computer"
+      ],
+      "spokenVariants": [
+        "projekt",
+        "prodject"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u07-maths",
+      "word": "maths",
+      "ttsText": "maths",
+      "image": "grade5/maths.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "He likes solving maths problems",
+        "I like maths very much"
+      ],
+      "distractorIds": [
+        "g5u07-game",
+        "g5u07-computer",
+        "g5u07-craft"
+      ],
+      "spokenVariants": [
+        "mats",
+        "mass"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u07-game",
+      "word": "game",
+      "ttsText": "game",
+      "image": "grade5/game.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "We play a game together",
+        "This game is very fun"
+      ],
+      "distractorIds": [
+        "g5u07-computer",
+        "g5u07-craft",
+        "g5u07-football"
+      ],
+      "spokenVariants": [
+        "gaim",
+        "gaem"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u07-computer",
+      "word": "computer",
+      "ttsText": "computer",
+      "image": "grade5/computer.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "We use a computer at school",
+        "She likes using the computer"
+      ],
+      "distractorIds": [
+        "g5u07-craft",
+        "g5u07-football",
+        "g5u07-sing"
+      ],
+      "spokenVariants": [
+        "computa",
+        "compyuter"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u07-craft",
+      "word": "craft",
+      "ttsText": "craft",
+      "image": "grade5/craft.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "We make a craft together",
+        "I like art and craft"
+      ],
+      "distractorIds": [
+        "g5u07-football",
+        "g5u07-sing",
+        "g5u07-dance"
+      ],
+      "spokenVariants": [
+        "kraft",
+        "crafft"
       ],
       "modes": [
         "dragSpell",

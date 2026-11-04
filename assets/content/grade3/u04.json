@@ -5,31 +5,6 @@
   "title": "Our bodies",
   "items": [
     {
-      "id": "g3u04-hand",
-      "word": "hand",
-      "ttsText": "hand",
-      "image": "grade3/hand.png",
-      "syllables": 1,
-      "sentencePatterns": [
-        "I wave my hand",
-        "Clap your hand up"
-      ],
-      "distractorIds": [
-        "g3u04-face",
-        "g3u04-eye",
-        "g3u04-ear"
-      ],
-      "spokenVariants": [
-        "han",
-        "hend"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
       "id": "g3u04-face",
       "word": "face",
       "ttsText": "face",
@@ -40,9 +15,9 @@
         "She has a happy face"
       ],
       "distractorIds": [
+        "g3u04-hand",
         "g3u04-eye",
-        "g3u04-ear",
-        "g3u04-nose"
+        "g3u04-mouth"
       ],
       "spokenVariants": [
         "fase",
@@ -55,23 +30,23 @@
       ]
     },
     {
-      "id": "g3u04-eye",
-      "word": "eye",
-      "ttsText": "eye",
-      "image": "grade3/eye.png",
+      "id": "g3u04-hand",
+      "word": "hand",
+      "ttsText": "hand",
+      "image": "grade3/hand.png",
       "syllables": 1,
       "sentencePatterns": [
-        "I close my eye",
-        "She has a big eye"
+        "I wave my hand",
+        "Clap your hand up"
       ],
       "distractorIds": [
         "g3u04-ear",
         "g3u04-nose",
-        "g3u04-mouth"
+        "g3u04-hair"
       ],
       "spokenVariants": [
-        "i",
-        "aye"
+        "han",
+        "hend"
       ],
       "modes": [
         "dragSpell",
@@ -90,13 +65,38 @@
         "He has one ear"
       ],
       "distractorIds": [
-        "g3u04-nose",
+        "g3u04-eye",
         "g3u04-mouth",
-        "g3u04-arm"
+        "g3u04-touch"
       ],
       "spokenVariants": [
         "ere",
         "year"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u04-eye",
+      "word": "eye",
+      "ttsText": "eye",
+      "image": "grade3/eye.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I close my eye",
+        "She has a big eye"
+      ],
+      "distractorIds": [
+        "g3u04-nose",
+        "g3u04-hair",
+        "g3u04-open"
+      ],
+      "spokenVariants": [
+        "i",
+        "aye"
       ],
       "modes": [
         "dragSpell",
@@ -116,8 +116,8 @@
       ],
       "distractorIds": [
         "g3u04-mouth",
-        "g3u04-arm",
-        "g3u04-leg"
+        "g3u04-touch",
+        "g3u04-head"
       ],
       "spokenVariants": [
         "nos",
@@ -140,87 +140,13 @@
         "This is my mouth"
       ],
       "distractorIds": [
-        "g3u04-arm",
-        "g3u04-leg",
-        "g3u04-foot"
+        "g3u04-hair",
+        "g3u04-open",
+        "g3u04-arm"
       ],
       "spokenVariants": [
         "mouse",
         "maus"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g3u04-arm",
-      "word": "arm",
-      "ttsText": "arm",
-      "image": "grade3/arm.png",
-      "syllables": 1,
-      "sentencePatterns": [
-        "I move my arm",
-        "Raise your arm up"
-      ],
-      "distractorIds": [
-        "g3u04-leg",
-        "g3u04-foot",
-        "g3u04-hair"
-      ],
-      "spokenVariants": [
-        "am",
-        "arn"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g3u04-leg",
-      "word": "leg",
-      "ttsText": "leg",
-      "image": "grade3/leg.png",
-      "syllables": 1,
-      "sentencePatterns": [
-        "I have one leg",
-        "Shake your leg now"
-      ],
-      "distractorIds": [
-        "g3u04-foot",
-        "g3u04-hair",
-        "g3u04-head"
-      ],
-      "spokenVariants": [
-        "lag",
-        "leck"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g3u04-foot",
-      "word": "foot",
-      "ttsText": "foot",
-      "image": "grade3/foot.png",
-      "syllables": 1,
-      "sentencePatterns": [
-        "This is my foot",
-        "I hurt my foot"
-      ],
-      "distractorIds": [
-        "g3u04-hair",
-        "g3u04-head",
-        "g3u04-finger"
-      ],
-      "spokenVariants": [
-        "fut"
       ],
       "modes": [
         "dragSpell",
@@ -239,13 +165,63 @@
         "My hair is black"
       ],
       "distractorIds": [
+        "g3u04-touch",
         "g3u04-head",
-        "g3u04-finger",
-        "g3u04-hand"
+        "g3u04-face"
       ],
       "spokenVariants": [
         "hare",
         "her"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u04-touch",
+      "word": "touch",
+      "ttsText": "touch",
+      "image": "grade3/touch.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "Touch your nose please",
+        "Touch your hair now"
+      ],
+      "distractorIds": [
+        "g3u04-open",
+        "g3u04-arm",
+        "g3u04-hand"
+      ],
+      "spokenVariants": [
+        "tach",
+        "touche"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u04-open",
+      "word": "open",
+      "ttsText": "open",
+      "image": "grade3/open.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "Open your book please",
+        "Please open the door"
+      ],
+      "distractorIds": [
+        "g3u04-head",
+        "g3u04-face",
+        "g3u04-ear"
+      ],
+      "spokenVariants": [
+        "opan",
+        "oben"
       ],
       "modes": [
         "dragSpell",
@@ -264,9 +240,9 @@
         "This is my head"
       ],
       "distractorIds": [
-        "g3u04-finger",
+        "g3u04-arm",
         "g3u04-hand",
-        "g3u04-face"
+        "g3u04-eye"
       ],
       "spokenVariants": [
         "had",
@@ -279,23 +255,23 @@
       ]
     },
     {
-      "id": "g3u04-finger",
-      "word": "finger",
-      "ttsText": "finger",
-      "image": "grade3/finger.png",
-      "syllables": 2,
+      "id": "g3u04-arm",
+      "word": "arm",
+      "ttsText": "arm",
+      "image": "grade3/arm.png",
+      "syllables": 1,
       "sentencePatterns": [
-        "I have one finger",
-        "Point with your finger"
+        "I move my arm",
+        "Raise your arm up"
       ],
       "distractorIds": [
-        "g3u04-hand",
         "g3u04-face",
-        "g3u04-eye"
+        "g3u04-ear",
+        "g3u04-nose"
       ],
       "spokenVariants": [
-        "fingah",
-        "fingre"
+        "am",
+        "arn"
       ],
       "modes": [
         "dragSpell",

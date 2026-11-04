@@ -16,8 +16,8 @@
       ],
       "distractorIds": [
         "g4u13-short",
-        "g4u13-slim",
-        "g4u13-strong"
+        "g4u13-strong",
+        "g4u13-long"
       ],
       "spokenVariants": [
         "tool",
@@ -41,8 +41,8 @@
       ],
       "distractorIds": [
         "g4u13-slim",
-        "g4u13-strong",
-        "g4u13-young"
+        "g4u13-hair",
+        "g4u13-curly"
       ],
       "spokenVariants": [
         "shot",
@@ -66,8 +66,8 @@
       ],
       "distractorIds": [
         "g4u13-strong",
-        "g4u13-young",
-        "g4u13-old"
+        "g4u13-long",
+        "g4u13-glasses"
       ],
       "spokenVariants": [
         "slimm",
@@ -90,63 +90,13 @@
         "He is a strong man"
       ],
       "distractorIds": [
-        "g4u13-young",
-        "g4u13-old",
-        "g4u13-hair"
+        "g4u13-hair",
+        "g4u13-curly",
+        "g4u13-big"
       ],
       "spokenVariants": [
         "strung",
         "strongg"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g4u13-young",
-      "word": "young",
-      "ttsText": "young",
-      "image": "grade4/young.png",
-      "syllables": 1,
-      "sentencePatterns": [
-        "She is young",
-        "The young boy is happy"
-      ],
-      "distractorIds": [
-        "g4u13-old",
-        "g4u13-hair",
-        "g4u13-long"
-      ],
-      "spokenVariants": [
-        "yung",
-        "jung"
-      ],
-      "modes": [
-        "dragSpell",
-        "skyShoot",
-        "sayIt"
-      ]
-    },
-    {
-      "id": "g4u13-old",
-      "word": "old",
-      "ttsText": "old",
-      "image": "grade4/old.png",
-      "syllables": 1,
-      "sentencePatterns": [
-        "My grandpa is old",
-        "The old man is kind"
-      ],
-      "distractorIds": [
-        "g4u13-hair",
-        "g4u13-long",
-        "g4u13-curly"
-      ],
-      "spokenVariants": [
-        "owed",
-        "hold"
       ],
       "modes": [
         "dragSpell",
@@ -166,8 +116,8 @@
       ],
       "distractorIds": [
         "g4u13-long",
-        "g4u13-curly",
-        "g4u13-glasses"
+        "g4u13-glasses",
+        "g4u13-small"
       ],
       "spokenVariants": [
         "hare",
@@ -191,8 +141,8 @@
       ],
       "distractorIds": [
         "g4u13-curly",
-        "g4u13-glasses",
-        "g4u13-tall"
+        "g4u13-big",
+        "g4u13-face"
       ],
       "spokenVariants": [
         "lung",
@@ -216,8 +166,8 @@
       ],
       "distractorIds": [
         "g4u13-glasses",
-        "g4u13-tall",
-        "g4u13-short"
+        "g4u13-small",
+        "g4u13-eyes"
       ],
       "spokenVariants": [
         "curley",
@@ -240,13 +190,113 @@
         "My teacher has glasses"
       ],
       "distractorIds": [
-        "g4u13-tall",
-        "g4u13-short",
-        "g4u13-slim"
+        "g4u13-big",
+        "g4u13-face",
+        "g4u13-tall"
       ],
       "spokenVariants": [
         "glass is",
         "glasess"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u13-big",
+      "word": "big",
+      "ttsText": "big",
+      "image": "grade4/big.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "He has big eyes",
+        "The house is big"
+      ],
+      "distractorIds": [
+        "g4u13-small",
+        "g4u13-eyes",
+        "g4u13-short"
+      ],
+      "spokenVariants": [
+        "bit",
+        "pig"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u13-small",
+      "word": "small",
+      "ttsText": "small",
+      "image": "grade4/small.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "She has small eyes",
+        "The box is small"
+      ],
+      "distractorIds": [
+        "g4u13-face",
+        "g4u13-tall",
+        "g4u13-slim"
+      ],
+      "spokenVariants": [
+        "smell",
+        "smoll"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u13-face",
+      "word": "face",
+      "ttsText": "face",
+      "image": "grade4/face.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "She has a round face",
+        "His face is round"
+      ],
+      "distractorIds": [
+        "g4u13-eyes",
+        "g4u13-short",
+        "g4u13-strong"
+      ],
+      "spokenVariants": [
+        "phase",
+        "fays"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u13-eyes",
+      "word": "eyes",
+      "ttsText": "eyes",
+      "image": "grade4/eyes.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "He has big eyes",
+        "She has small eyes"
+      ],
+      "distractorIds": [
+        "g4u13-tall",
+        "g4u13-slim",
+        "g4u13-hair"
+      ],
+      "spokenVariants": [
+        "ice",
+        "ayes"
       ],
       "modes": [
         "dragSpell",
