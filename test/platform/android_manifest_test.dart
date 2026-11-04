@@ -14,6 +14,18 @@ void main() {
     expect(queries, contains('android.intent.action.PROCESS_TEXT'));
   });
 
+  test('SayIt: microphone permission and RecognitionService visibility', () {
+    expect(manifest, contains('android.permission.RECORD_AUDIO'));
+    final queries = RegExp(r'<queries>[\s\S]*?</queries>')
+        .firstMatch(manifest)!
+        .group(0)!;
+    expect(queries, contains('android.speech.RecognitionService'));
+  });
+
+  test('no INTERNET permission is declared by the app (privacy)', () {
+    expect(manifest, isNot(contains('android.permission.INTERNET')));
+  });
+
   test('declares the camera permission and an optional front camera', () {
     expect(manifest, contains('android.permission.CAMERA'));
     expect(

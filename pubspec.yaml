@@ -41,6 +41,7 @@ dependencies:
   wakelock_plus: ^1.8.2
   permission_handler: ^13.0.2
   flutter_mp_pose_landmarker: ^0.1.9
+  speech_to_text: ^7.5.0
 
 dev_dependencies:
   flutter_test:
