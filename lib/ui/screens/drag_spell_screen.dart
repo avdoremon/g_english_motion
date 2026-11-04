@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
@@ -233,6 +234,14 @@ class _DragSpellScreenState extends State<DragSpellScreen> {
               builder: (context, box) {
                 final compact = box.maxHeight < 420;
                 final gap = compact ? 6.0 : 12.0;
+                final inner = box.maxWidth - 48;
+                final checkW = compact ? 150.0 : 200.0;
+                final n = round.tiles.length;
+                final slotsPer = _cellsPerRow(n, inner);
+                final trayW = inner - 16 - checkW;
+                final trayPer = _cellsPerRow(n, trayW);
+                final slotRows = _rowCount(n, inner);
+                final trayRows = _rowCount(n, trayW);
                 return Padding(
                   padding: compact
                       ? const EdgeInsets.fromLTRB(24, 6, 24, 8)
@@ -257,20 +266,28 @@ class _DragSpellScreenState extends State<DragSpellScreen> {
                       ),
                       SizedBox(height: gap),
                       Expanded(
-                        flex: round.tiles.length > _maxPerRow ? 5 : 3,
-                        child: _Slots(screen: this, round: round),
+                        flex: 2 * slotRows + 1,
+                        child: _Slots(
+                          screen: this,
+                          round: round,
+                          perRow: slotsPer,
+                        ),
                       ),
                       SizedBox(height: gap),
                       Expanded(
-                        flex: round.tiles.length > _maxPerRow ? 5 : 3,
+                        flex: 2 * trayRows + 1,
                         child: Row(
                           children: [
                             Expanded(
-                              child: _Tray(screen: this, round: round),
+                              child: _Tray(
+                                screen: this,
+                                round: round,
+                                perRow: trayPer,
+                              ),
                             ),
                             const SizedBox(width: 16),
                             SizedBox(
-                              width: compact ? 150 : 200,
+                              width: checkW,
                               child: _CheckButton(
                                 screen: this,
                                 enabled: round.isFull,
@@ -586,46 +603,62 @@ class _Chip extends StatelessWidget {
   }
 }
 
-/// More than this many cells go on two rows, so each stays wide enough to
-/// read and to hit.
-const int _maxPerRow = 10;
+const double _cellGap = 10;
+const double _rowGap = 8;
 
-/// Lays [n] cells in one row, or in two rows when there are too many.
-Widget _wrapped(int n, Widget Function(int i) cell) {
-  Widget row(int from, int to, int width) => Row(
+/// Cells per row so that every cell is at least [AppTheme.minTarget] wide in
+/// [width] px, spread evenly over as many rows as that needs.
+int _cellsPerRow(int n, double width) {
+  if (n <= 0) return 1;
+  final fit = ((width + _cellGap) / (AppTheme.minTarget + _cellGap))
+      .floor()
+      .clamp(1, n);
+  final rows = (n + fit - 1) ~/ fit;
+  return (n + rows - 1) ~/ rows;
+}
+
+int _rowCount(int n, double width) {
+  final per = _cellsPerRow(n, width);
+  return n <= 0 ? 1 : (n + per - 1) ~/ per;
+}
+
+/// Lays [n] cells in rows of [perRow] (the last row is padded with blanks).
+Widget _wrapped(int n, int perRow, Widget Function(int i) cell) {
+  Widget row(int from, int to) => Row(
     children: [
-      for (var i = from; i < to; i++) ...[
-        if (i > from) const SizedBox(width: 10),
-        Expanded(child: cell(i)),
-      ],
-      for (var i = to - from; i < width; i++) ...[
-        const SizedBox(width: 10),
-        const Expanded(child: SizedBox.shrink()),
+      for (var i = from; i < from + perRow; i++) ...[
+        if (i > from) const SizedBox(width: _cellGap),
+        Expanded(child: i < to ? cell(i) : const SizedBox.shrink()),
       ],
     ],
   );
-  if (n <= _maxPerRow) return row(0, n, n);
-  final half = (n + 1) ~/ 2;
+  final rows = (n + perRow - 1) ~/ perRow;
   return Column(
     children: [
-      Expanded(child: row(0, half, half)),
-      const SizedBox(height: 8),
-      Expanded(child: row(half, n, half)),
+      for (var r = 0; r < rows; r++) ...[
+        if (r > 0) const SizedBox(height: _rowGap),
+        Expanded(child: row(r * perRow, math.min(n, (r + 1) * perRow))),
+      ],
     ],
   );
 }
 
 class _Slots extends StatelessWidget {
-  const _Slots({required this.screen, required this.round});
+  const _Slots({
+    required this.screen,
+    required this.round,
+    required this.perRow,
+  });
 
   final _DragSpellScreenState screen;
   final DragSpellRound round;
+  final int perRow;
 
   @override
   Widget build(BuildContext context) {
     final slots = round.slots;
     final hover = screen._progress.targetId;
-    return _wrapped(slots.length, (i) {
+    return _wrapped(slots.length, perRow, (i) {
       return _Target(
         screen: screen,
         id: 'slot:$i',
@@ -644,15 +677,20 @@ class _Slots extends StatelessWidget {
 }
 
 class _Tray extends StatelessWidget {
-  const _Tray({required this.screen, required this.round});
+  const _Tray({
+    required this.screen,
+    required this.round,
+    required this.perRow,
+  });
 
   final _DragSpellScreenState screen;
   final DragSpellRound round;
+  final int perRow;
 
   @override
   Widget build(BuildContext context) {
     final hover = screen._progress.targetId;
-    return _wrapped(round.tiles.length, (i) {
+    return _wrapped(round.tiles.length, perRow, (i) {
       return _Target(
         screen: screen,
         id: 'tile:$i',

@@ -4,12 +4,15 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/semantics.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:g_english_motion/content/content_repository.dart';
 import 'package:g_english_motion/input/confirm_gesture.dart';
 import 'package:g_english_motion/progress/progress_store.dart';
 import 'package:g_english_motion/ui/parent/parent_gate.dart';
 import 'package:g_english_motion/ui/parent/parent_settings.dart';
 import 'package:g_english_motion/ui/theme/app_theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../helpers/game_harness.dart';
 
 /// Always returns [v] so the gate question is deterministic.
 class _SeqRandom implements Random {
@@ -282,6 +285,43 @@ void main() {
         ),
       ),
     );
+
+    testWidgets('forRepo covers grades 1-5 with the repo unit counts', (
+      tester,
+    ) async {
+      final counts = {1: 16, 2: 16, 3: 20, 4: 20, 5: 20};
+      final repo = ContentRepository([
+        for (final e in counts.entries)
+          for (var i = 1; i <= e.value; i++)
+            harnessUnit(grade: e.key, index: i, count: 4),
+      ]);
+      await tester.binding.setSurfaceSize(const Size(800, 900));
+      addTearDown(() => tester.binding.setSurfaceSize(null));
+      await tester.pumpWidget(
+        _app(
+          SingleChildScrollView(
+            child: ParentSettings.forRepo(store: store, repo: repo),
+          ),
+        ),
+      );
+      for (var g = 1; g <= 5; g++) {
+        expect(find.byKey(ValueKey('unit-inc-$g')), findsOneWidget);
+      }
+      final inc5 = find.byKey(const ValueKey('unit-inc-5'));
+      for (var i = 0; i < 11; i++) {
+        await tester.ensureVisible(inc5);
+        await tester.tap(inc5);
+        await tester.pump();
+      }
+      expect(store.currentUnit(5), 12);
+      expect(find.text('Lớp 5: bài 12'), findsOneWidget);
+      for (var i = 0; i < 30; i++) {
+        await tester.tap(inc5);
+        await tester.pump();
+      }
+      expect(store.currentUnit(5), 20);
+      await tester.pumpAndSettle();
+    });
 
     testWidgets('turning SayIt on (only on) asks for the microphone', (
       tester,

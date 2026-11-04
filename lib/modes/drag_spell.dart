@@ -17,6 +17,16 @@ import 'round.dart';
 /// the two "the" of a sentence) are interchangeable: the answer is compared
 /// by text. Input that is not understood (unknown id, tile not available,
 /// check on an incomplete answer) is ignored, never graded.
+/// A sentence word without the punctuation around it ("apples." -> "apples"):
+/// a tile must not hint that it is the last word. Inner marks ("don't") stay.
+String _stripPunctuation(String w) {
+  final s = w.replaceAll(
+    RegExp(r'^[^\p{L}\p{N}]+|[^\p{L}\p{N}]+$', unicode: true),
+    '',
+  );
+  return s.isEmpty ? w : s;
+}
+
 class DragSpellRound implements Round {
   DragSpellRound.spell(SpellQuestion q, {required this.timeLimit})
     : tiles = List.unmodifiable(q.tiles),
@@ -25,8 +35,8 @@ class DragSpellRound implements Round {
       _remaining = timeLimit;
 
   DragSpellRound.order(OrderQuestion q, {required this.timeLimit})
-    : tiles = List.unmodifiable(q.words),
-      _answer = List.unmodifiable(q.answer),
+    : tiles = List.unmodifiable(q.words.map(_stripPunctuation)),
+      _answer = List.unmodifiable(q.answer.map(_stripPunctuation)),
       _slots = List<int?>.filled(q.words.length, null),
       _remaining = timeLimit;
 

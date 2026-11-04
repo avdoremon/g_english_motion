@@ -332,6 +332,7 @@ void main() {
     (tester) async {
       await boot(
         tester,
+        size: const Size(800, 360),
         words: const ['international', 'refrigerator', 'extraordinary'],
       );
       final n = round().tiles.length;
@@ -355,6 +356,34 @@ void main() {
       await finish(tester);
     },
   );
+
+  for (final size in const [Size(800, 360), Size(1280, 720)]) {
+    for (final word in const ['strawberry', 'international']) {
+      testWidgets('tiles and slots stay >= 48 px (width >= 56) for "$word" at '
+          '${size.width.toInt()}x${size.height.toInt()}', (tester) async {
+        await boot(tester, size: size, words: [word]);
+        final n = round().tiles.length;
+        expect(n, word.length);
+        final check = tester.getRect(
+          find.byKey(const ValueKey('check-button')),
+        );
+        for (var i = 0; i < n; i++) {
+          for (final k in ['tile-$i', 'slot-$i']) {
+            final r = tester.getRect(find.byKey(ValueKey(k)));
+            expect(r.height, greaterThanOrEqualTo(48), reason: k);
+            expect(r.width, greaterThanOrEqualTo(56), reason: k);
+            expect(r.right, lessThanOrEqualTo(size.width), reason: k);
+            expect(r.bottom, lessThanOrEqualTo(size.height), reason: k);
+          }
+          final tile = tester.getRect(find.byKey(ValueKey('tile-$i')));
+          expect(tile.overlaps(check), isFalse, reason: 'tile-$i vs check');
+        }
+        expect(check.height, greaterThanOrEqualTo(48));
+        expect(tester.takeException(), isNull);
+        await finish(tester);
+      });
+    }
+  }
 
   testWidgets('PlayScreen routes a dragSpell question to DragSpellScreen', (
     tester,

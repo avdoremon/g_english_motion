@@ -169,6 +169,28 @@ void main() {
     expect(r.result, RoundResult.correct);
   });
 
+  test(
+    'order: tiles carry no trailing punctuation; the answer still grades',
+    () {
+      final r = DragSpellRound.order(
+        const OrderQuestion(
+          itemId: 'apples',
+          ttsText: 'I like apples.',
+          words: ['apples.', 'like', 'I'],
+          answer: ['I', 'like', 'apples.'],
+        ),
+        timeLimit: _limit,
+      )..start();
+      expect(r.tiles, ['apples', 'like', 'I']);
+      place(r, 2, 0);
+      place(r, 1, 1);
+      place(r, 0, 2);
+      expect(r.slots, ['I', 'like', 'apples']);
+      r.onTargetHeld('check');
+      expect(r.result, RoundResult.correct);
+    },
+  );
+
   test('order: wrong order -> wrong', () {
     final r = _order();
     for (var i = 0; i < 5; i++) {

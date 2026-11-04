@@ -1,9 +1,49 @@
 import 'dart:async';
 
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:g_english_motion/speech/on_device_speech_source.dart';
 import 'package:g_english_motion/speech/speech_source.dart';
 import 'package:g_english_motion/speech/word_judge.dart';
+import 'package:speech_to_text/speech_to_text.dart';
+
+class _FakeStt implements SpeechToText {
+  SpeechStatusListener? onStatus;
+  int cancels = 0;
+
+  @override
+  Future<bool> initialize({
+    SpeechErrorListener? onError,
+    SpeechStatusListener? onStatus,
+    debugLogging = false,
+    Duration finalTimeout = SpeechToText.defaultFinalTimeout,
+    List<SpeechConfigOption>? options,
+  }) async {
+    this.onStatus = onStatus;
+    return true;
+  }
+
+  @override
+  Future listen({
+    SpeechResultListener? onResult,
+    Duration? listenFor,
+    Duration? pauseFor,
+    String? localeId,
+    SpeechSoundLevelChange? onSoundLevelChange,
+    cancelOnError = false,
+    partialResults = true,
+    onDevice = false,
+    ListenMode listenMode = ListenMode.confirmation,
+    sampleRate = 0,
+    SpeechListenOptions? listenOptions,
+  }) async {}
+
+  @override
+  Future<void> cancel() async => cancels++;
+
+  @override
+  dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
+}
 
 class FakeBackend implements SpeechBackend {
   bool onDevice = true, permission = true, initOk = true, grantOnAsk = true;
@@ -237,6 +277,38 @@ void main() {
       expect(isBenignSpeechError('error_busy'), isFalse);
       expect(isBenignSpeechError('error_permission'), isFalse);
     });
+  });
+
+  test('a late done after stop() reaches no callback; the next listen ends normally', () async {
+    TestWidgetsFlutterBinding.ensureInitialized();
+    const channel = MethodChannel(SpeechToTextBackend.channelName);
+    TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+        .setMockMethodCallHandler(channel, (_) async => true);
+    addTearDown(
+      () => TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+          .setMockMethodCallHandler(channel, null),
+    );
+    final stt = _FakeStt();
+    final b = SpeechToTextBackend(plugin: stt, channel: channel);
+    await b.isOnDeviceAvailable();
+    await b.initialize();
+    final ends = <String>[];
+    await b.listen(
+      localeId: 'en_US',
+      onResult: (_, _) {},
+      onEnd: (c) => ends.add('first:$c'),
+    );
+    await b.stop();
+    expect(stt.cancels, 1);
+    stt.onStatus!(SpeechToText.doneStatus); // late, from the cancelled listen
+    expect(ends, isEmpty, reason: 'a cancelled listen is never reported');
+    await b.listen(
+      localeId: 'en_US',
+      onResult: (_, _) {},
+      onEnd: (c) => ends.add('second:$c'),
+    );
+    stt.onStatus!(SpeechToText.doneStatus);
+    expect(ends, ['second:null']);
   });
 
   test('plugin options enforce on-device recognition in en_US', () {

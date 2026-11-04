@@ -163,6 +163,7 @@ class _StatusRow extends StatelessWidget {
   Widget build(BuildContext context) {
     final t = Theme.of(context).textTheme;
     final ok = session.lastResult == RoundResult.correct;
+    final timedOut = session.lastResult == RoundResult.timeout;
     final blank = question.form == QuestionForm.fillBlank;
     final hint = _hint();
     return LayoutBuilder(
@@ -223,19 +224,29 @@ class _StatusRow extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Icon(
-                  ok ? Icons.check_circle : Icons.cancel,
+                  ok
+                      ? Icons.check_circle
+                      : (timedOut ? Icons.hourglass_bottom : Icons.cancel),
                   size: 44,
-                  color: ok ? AppTheme.green : AppTheme.pink,
+                  color: ok
+                      ? AppTheme.green
+                      : (timedOut ? AppTheme.muted : AppTheme.pink),
                 ),
                 const SizedBox(width: 8),
-                Text(ok ? 'Đúng' : 'Sai', style: t.titleLarge),
+                // A timeout is never "wrong": the child may not have understood.
+                Text(
+                  ok ? 'Đúng' : (timedOut ? 'Hết giờ' : 'Sai'),
+                  style: t.titleLarge,
+                ),
                 const SizedBox(width: 12),
               ],
             ),
           TinTin(
             state: !feedback
                 ? TinTinState.idle
-                : (ok ? TinTinState.happy : TinTinState.sad),
+                : (ok
+                      ? TinTinState.happy
+                      : (timedOut ? TinTinState.idle : TinTinState.sad)),
             size: box.maxHeight.clamp(56.0, 100.0),
             pulse: session.index,
           ),

@@ -163,6 +163,25 @@ void main() {
     await finish(tester);
   });
 
+  testWidgets('a timeout shows a neutral Hết giờ, not Sai, and scores as not '
+      'correct', (tester) async {
+    await boot(tester);
+    await tester.runAsync(
+      () => h.run(
+        const Duration(seconds: 120),
+        stopWhen: () => session().phase == SessionPhase.feedback,
+      ),
+    );
+    await tester.pump();
+    expect(session().lastResult, RoundResult.timeout);
+    expect(find.text('Hết giờ'), findsOneWidget);
+    expect(find.text('Sai'), findsNothing);
+    expect(find.text('Đúng'), findsNothing);
+    expect(find.byIcon(Icons.cancel), findsNothing);
+    expect(find.byIcon(Icons.hourglass_bottom), findsOneWidget);
+    await finish(tester);
+  });
+
   testWidgets('three misses end the question as wrong', (tester) async {
     await boot(tester);
     for (var i = 0; i < 3; i++) {

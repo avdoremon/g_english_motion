@@ -30,15 +30,13 @@ void main() {
     expect(manifest, contains('android.permission.CAMERA'));
     expect(
       manifest,
-      matches(RegExp(
-        r'android\.hardware\.camera"\s+android:required="false"',
-      )),
+      matches(RegExp(r'android\.hardware\.camera"\s+android:required="false"')),
     );
     expect(
       manifest,
-      matches(RegExp(
-        r'android\.hardware\.camera\.front"\s+android:required="false"',
-      )),
+      matches(
+        RegExp(r'android\.hardware\.camera\.front"\s+android:required="false"'),
+      ),
     );
   });
 

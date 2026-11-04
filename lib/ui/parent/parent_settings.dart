@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
+import '../../content/content_repository.dart';
 import '../../input/confirm_gesture.dart';
 import '../../progress/progress_store.dart';
 import '../theme/app_theme.dart';
@@ -14,6 +15,22 @@ class ParentSettings extends StatefulWidget {
     required this.unitCounts,
     this.onSayItTurnedOn,
   });
+
+  /// Settings for every grade (1-5) with the unit counts of [repo].
+  ParentSettings.forRepo({
+    Key? key,
+    required ProgressStore store,
+    required ContentRepository repo,
+    Future<void> Function()? onSayItTurnedOn,
+  }) : this(
+         key: key,
+         store: store,
+         grades: const [1, 2, 3, 4, 5],
+         unitCounts: {
+           for (final g in const [1, 2, 3, 4, 5]) g: repo.unitsFor(g).length,
+         },
+         onSayItTurnedOn: onSayItTurnedOn,
+       );
 
   /// Called when the parent switches SayIt on: the place to ask for the
   /// microphone (this screen is behind the parent gate).

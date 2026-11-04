@@ -273,5 +273,9 @@ class SpeechToTextBackend implements SpeechBackend {
   }
 
   @override
-  Future<void> stop() => _stt.cancel();
+  Future<void> stop() {
+    // A late 'done' from this cancelled listen must not end the next one.
+    _onEnd = null;
+    return _stt.cancel();
+  }
 }

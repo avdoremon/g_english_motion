@@ -232,39 +232,38 @@ void main() {
     }
 
     // Sweep: every unit of every grade must be able to fill levels 1 and 5.
-    for (final entry in {
-      1: 16,
-      2: 16,
-      3: 20,
-      4: 20,
-      5: 20,
-    }.entries) {
+    for (final entry in {1: 16, 2: 16, 3: 20, 4: 20, 5: 20}.entries) {
       final modes = entry.key <= 2
           ? {ModeKind.laneJump}
           : {ModeKind.dragSpell, ModeKind.skyShoot};
-      test('grade ${entry.key}: all ${entry.value} units fill levels 1 and 5',
-          () {
-        for (var unit = 1; unit <= entry.value; unit++) {
-          for (final lv in [1, 5]) {
-            final level = levels.firstWhere((l) => l.level == lv);
-            final plan =
-                QuestionGenerator(repo, InMemoryHistoryStore(), Random(unit))
-                    .plan(
-                  level: level,
-                  pos: CurriculumPosition(
-                    grade: entry.key,
-                    currentUnitIndex: unit,
-                  ),
-                  modes: modes,
-                );
-            expect(
-              plan.length,
-              level.questionCount,
-              reason: 'grade ${entry.key} unit $unit level $lv',
-            );
+      test(
+        'grade ${entry.key}: all ${entry.value} units fill levels 1 and 5',
+        () {
+          for (var unit = 1; unit <= entry.value; unit++) {
+            for (final lv in [1, 5]) {
+              final level = levels.firstWhere((l) => l.level == lv);
+              final plan =
+                  QuestionGenerator(
+                    repo,
+                    InMemoryHistoryStore(),
+                    Random(unit),
+                  ).plan(
+                    level: level,
+                    pos: CurriculumPosition(
+                      grade: entry.key,
+                      currentUnitIndex: unit,
+                    ),
+                    modes: modes,
+                  );
+              expect(
+                plan.length,
+                level.questionCount,
+                reason: 'grade ${entry.key} unit $unit level $lv',
+              );
+            }
           }
-        }
-      });
+        },
+      );
     }
   });
 }

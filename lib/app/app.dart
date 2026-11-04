@@ -453,16 +453,15 @@ class _RootState extends State<_Root> with WidgetsBindingObserver {
           body: SafeArea(
             child: ParentGate(
               lockout: _gateLockout,
-              child: ParentSettings(
-                store: _d.store,
-                grades: const [1, 2],
-                unitCounts: {
-                  for (final g in const [1, 2]) g: _d.repo.unitsFor(g).length,
-                },
-                // The only place that may ask for the microphone.
-                onSayItTurnedOn: () async {
-                  await _d.speech?.check(askPermission: true);
-                },
+              child: SingleChildScrollView(
+                child: ParentSettings.forRepo(
+                  store: _d.store,
+                  repo: _d.repo,
+                  // The only place that may ask for the microphone.
+                  onSayItTurnedOn: () async {
+                    await _d.speech?.check(askPermission: true);
+                  },
+                ),
               ),
             ),
           ),

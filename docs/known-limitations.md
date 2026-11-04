@@ -80,7 +80,9 @@ Full facts and sources: [pose-plugin-evaluation.md](pose-plugin-evaluation.md).
   requested. Known small gaps: no message when the mic is permanently denied;
   SayIt stars are not saved.
 - A SkyShoot round with no pull for 20 s ends as a timeout.
-- DragSpell words of 11+ letters can drop below 48 px tiles on 800x360.
+- DragSpell tray/slot cells are laid out from the available width (>= 56 px
+  wide, wrapping to more rows); on 800x360 the row height of long words
+  stays >= 48 px but can be below the 56 px target.
 - Gradle/AGP compatibility is verified by CI (debug APK builds); nothing has
   been run on a device.
 
