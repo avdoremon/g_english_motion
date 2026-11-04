@@ -64,12 +64,27 @@ Full facts and sources: [pose-plugin-evaluation.md](pose-plugin-evaluation.md).
   `assets/images/LICENSES.md`); real artwork will replace them under the same
   file names.
 
+## Implemented but unverified on a device
+
+- **DragSpell and SkyShoot** (grade 3 units 1-2 only) and **SayIt** have round
+  logic, screens and tests, but have never run on a phone. SkyShoot's cast
+  latency (250 ms) and sweep speed are placeholders until the Task 0 spike.
+- **SayIt** uses the `speech_to_text` plugin restricted to on-device
+  recognition (API 31+ and an installed English pack). If the phone has no
+  on-device recogniser the entry is hidden; it never falls back to cloud.
+  The parent must switch it on in settings, which is when the mic permission is
+  requested. Known small gaps: no message when the mic is permanently denied;
+  SayIt stars are not saved.
+- A SkyShoot round with no pull for 20 s ends as a timeout.
+- DragSpell words of 11+ letters can drop below 48 px tiles on 800x360.
+- Gradle/AGP compatibility is verified by CI (debug APK builds); nothing has
+  been run on a device.
+
 ## Not implemented yet
 
-- **SayIt** (speech), **DragSpell** and **SkyShoot** modes: the content and
-  question generator support their question forms, but there are no screens
-  or round logic; only LaneJump is playable. Home has only a disabled SayIt placeholder.
-- Grades 2-5 content directories are empty.
+- Grade 3 units 3+, grades 1-2 units 3+, grades 4-5 content (Home shows them
+  as coming soon). LaneJump is not part of the grade 3-5 mix.
+- Real art, recorded audio, ads/Families compliance (Task 24).
 
 ## Needs the user's device (plan Task 0 / Task 16)
 
