@@ -21,6 +21,7 @@ import '../levels/scoring.dart';
 import '../modes/drag_spell.dart';
 import '../modes/lane_jump.dart';
 import '../modes/round.dart';
+import '../modes/sky_shoot.dart';
 import '../progress/progress_store.dart';
 import '../session/level_session.dart';
 
@@ -89,6 +90,7 @@ class GameController extends ChangeNotifier {
     required AudioService audio,
     required TickerFactory ticker,
     Random? rng,
+    this.castLatency = defaultCastLatency,
     Calibrator Function()? calibratorFactory,
     this.feedbackTime = const Duration(milliseconds: 2500),
     this.frameWatchdog = const Duration(seconds: 2),
@@ -106,11 +108,23 @@ class GameController extends ChangeNotifier {
   static const maxTickStep = Duration(milliseconds: 250);
 
   /// Grades 3-5 play the upper modes (DragSpell); grades 1-2 LaneJump.
-  Set<ModeKind> get _modes =>
-      grade >= 3 ? {ModeKind.dragSpell} : {ModeKind.laneJump};
+  Set<ModeKind> get _modes => grade >= 3
+      ? {ModeKind.dragSpell, ModeKind.skyShoot}
+      : {ModeKind.laneJump};
+
+  /// Arrow sweep speed (fractions of the width per second) of [level]: the
+  /// higher the level, the faster (0.24 .. 0.40).
+  static double sweepSpeedFor(LevelConfig level) => 0.2 + 0.04 * level.level;
+
+  /// Placeholder until the cast latency of the real displays is measured
+  /// (spike, Task 0): camera event -> what the child sees on the TV.
+  static const defaultCastLatency = Duration(milliseconds: 250);
 
   final int grade;
   final LevelConfig level;
+
+  /// SkyShoot scores a shot where the arrow was this long before the event.
+  final Duration castLatency;
   final Duration feedbackTime, frameWatchdog, promptWatchdog;
 
   /// Calibration: no frame at all for this long => [GamePhase.cameraProblem].
@@ -469,6 +483,7 @@ class GameController extends ChangeNotifier {
       laneCount: level.choiceCount,
       confirm: confirm,
       cursor: grade >= 3,
+      pull: grade >= 3,
     );
     _pose = pose;
     _selectedLane = pose.currentLane;
@@ -487,13 +502,15 @@ class GameController extends ChangeNotifier {
     _tickSub ??= _tickerFactory().listen(_onTick);
     _setPhase(GamePhase.playing);
     // Before the first question; the audio queue keeps the order.
-    unawaited(
-      _audio.playLine(
-        confirm == ConfirmGesture.raiseHands
-            ? VoiceLine.raiseHandsToChoose
-            : VoiceLine.jumpToChoose,
-      ),
-    );
+    if (grade < 3) {
+      unawaited(
+        _audio.playLine(
+          confirm == ConfirmGesture.raiseHands
+              ? VoiceLine.raiseHandsToChoose
+              : VoiceLine.jumpToChoose,
+        ),
+      );
+    }
     s.begin();
     _afterSessionChange();
   }
@@ -530,7 +547,20 @@ class GameController extends ChangeNotifier {
             initialLane: pose.currentLane,
           );
         }
-      case ModeKind.skyShoot || ModeKind.sayIt:
+      case ModeKind.skyShoot:
+        if (q is ChoiceQuestion) {
+          return SkyShootRound(
+            q,
+            timeLimit: Scoring.timeFor(level, ModeKind.skyShoot),
+            field: SkyField(
+              rng: _rng,
+              answerCount: q.choices.length,
+              sweepSpeed: sweepSpeedFor(level),
+            ),
+            castLatency: castLatency,
+          );
+        }
+      case ModeKind.sayIt:
         break;
     }
     throw StateError('No round for ${pq.mode} with ${q.runtimeType}');
@@ -545,6 +575,18 @@ class GameController extends ChangeNotifier {
     });
     _afterSessionChange();
     if (!_disposed) notifyListeners();
+  }
+
+  /// Time on the clock of the pose frames' timestamps right now (the latest
+  /// frame plus the time since it arrived). SkyShoot draws its field at this
+  /// time, so the child sees the arrow where a shot is scored.
+  Duration get frameClock => _lastFrameTs + (_now - _lastFrameAt);
+
+  /// Touch fallback for SkyShoot (a tap shoots / pulls): behaves like an
+  /// event coming from [PoseSession].
+  void touchInput(GameInputEvent e) {
+    if (_disposed || e is PlayerLost || e is PlayerFound) return;
+    _dispatch(e);
   }
 
   // ---- input ----
@@ -648,7 +690,10 @@ class GameController extends ChangeNotifier {
     final now = s.phase;
     _lastSessionPhase = now;
     if (now == SessionPhase.prompting) _maybePrompt(s);
-    if (now == SessionPhase.playing) _maybeStartRound(s);
+    if (now == SessionPhase.playing) {
+      _maybeStartRound(s);
+      _maybeCheerPull(s);
+    }
     // Once per question: feedback -> paused -> feedback (player lost, app
     // backgrounded) must not award or speak a second time.
     if (now == SessionPhase.feedback &&
@@ -662,6 +707,20 @@ class GameController extends ChangeNotifier {
     final hintsChanged = hints != _lastTileHints;
     _lastTileHints = hints;
     if (before != now || hintsChanged) notifyListeners();
+  }
+
+  Round? _pullCheered;
+
+  /// "Kéo dây" once per SkyShoot question, when the arrow hit something.
+  void _maybeCheerPull(LevelSession s) {
+    final r = s.round;
+    if (r is! SkyShootRound ||
+        r.phase != SkyPhase.reeling ||
+        identical(_pullCheered, r)) {
+      return;
+    }
+    _pullCheered = r;
+    unawaited(_audio.playLine(VoiceLine.pullTheRope));
   }
 
   void _maybeStartRound(LevelSession s) {

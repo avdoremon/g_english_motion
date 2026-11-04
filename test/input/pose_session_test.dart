@@ -25,6 +25,7 @@ Future<List<GameInputEvent>> run(
   ConfirmGesture confirm = ConfirmGesture.jump,
   int laneCount = 3,
   bool cursor = false,
+  bool pull = false,
 }) async {
   final source = FakePoseFrameSource(frames);
   final session = PoseSession(
@@ -33,6 +34,7 @@ Future<List<GameInputEvent>> run(
     laneCount: laneCount,
     confirm: confirm,
     cursor: cursor,
+    pull: pull,
   );
   final events = await session.events.toList(); // closes when frames end
   await session.dispose();
@@ -601,6 +603,32 @@ void main() {
         expect((await withMin(0.7)).whereType<Confirmed>(), isEmpty);
       },
     );
+  });
+
+  group('pull', () {
+    // Left wrist: down 0.15 over 300 ms and back up, starting at 200 ms.
+    double leftY(Duration t) {
+      final s = t.inMilliseconds - 200;
+      if (s < 0 || s >= 600) return 0.3;
+      return s < 300
+          ? 0.3 + 0.15 * s / 300
+          : 0.3 + 0.15 * (1 - (s - 300) / 300);
+    }
+
+    List<PoseFrame> pulling() => poseSequence(
+      duration: const Duration(milliseconds: 1500),
+      posesAt: (t) => [makePose(leftWrist: Offset(0.4, leftY(t)))],
+    );
+
+    test('a pull beat of the left wrist is emitted as Pulled(left)', () async {
+      final ev = await run(pulling(), pull: true);
+      expect(ev.whereType<Pulled>().map((e) => e.hand), [Hand.left]);
+      expect(ev.whereType<Confirmed>(), isEmpty);
+    });
+
+    test('nothing is emitted unless enabled', () async {
+      expect((await run(pulling())).whereType<Pulled>(), isEmpty);
+    });
   });
 
   group('cursor', () {

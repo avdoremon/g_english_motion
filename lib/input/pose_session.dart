@@ -8,6 +8,7 @@ import 'lane_tracker.dart';
 import 'one_euro_filter.dart';
 import 'pose_frame_source.dart';
 import 'pose_types.dart';
+import 'pull_detector.dart';
 import 'raise_hands_detector.dart';
 
 /// Turns a stream of [PoseFrame] into [GameInputEvent]s for the tracked player.
@@ -42,9 +43,11 @@ class PoseSession {
     this.confirm = ConfirmGesture.jump,
     this.minConfidence = 0.5,
     this.cursor = false,
+    this.pull = false,
   }) : _laneTracker = LaneTracker(calibration, laneCount: laneCount),
        _jump = JumpDetector(calibration),
        _cursor = CursorTracker(calibration),
+       _calibration = calibration,
        _seedX = calibration.centerX,
        _seedTorso = calibration.torsoHeight,
        _lastX = calibration.centerX,
@@ -58,6 +61,10 @@ class PoseSession {
   /// Also emit [CursorMoved] (the raised wrist as a 0..1 cursor) every frame
   /// in which a reliable wrist is visible. Off for the lane modes.
   final bool cursor;
+
+  /// Also emit [Pulled] for each "pull the rope" beat of a wrist (down, then
+  /// back up). Off for the lane modes.
+  final bool pull;
 
   static const double _maxTrackDistance = 0.25;
   static const double _maxReacquireDistance = 0.6;
@@ -88,6 +95,8 @@ class PoseSession {
   final LaneTracker _laneTracker;
   final JumpDetector _jump;
   final CursorTracker _cursor;
+  final Calibration _calibration;
+  late PullDetector _pull = PullDetector(_calibration);
   late RaiseHandsDetector _raise = _newRaise();
   final StreamController<GameInputEvent> _events =
       StreamController<GameInputEvent>.broadcast();
@@ -230,6 +239,7 @@ class PoseSession {
   void _onFrameFailed(Duration t) {
     _jump.suppressUntil(t + _uncertainHold);
     _raise = _newRaise();
+    _pull = PullDetector(_calibration);
     _throwingSince ??= t;
     if (!_lost && t - _throwingSince! >= _lostAfter) _enterLost(t);
   }
@@ -259,6 +269,7 @@ class PoseSession {
       // Not sure who/where the player is: never score through this frame.
       _jump.suppressUntil(t + _uncertainHold);
       _raise = _newRaise();
+      _pull = PullDetector(_calibration);
       if (!_lost && t - _lastValidAt! >= _lostAfter) _enterLost(t);
       return;
     }
@@ -271,6 +282,7 @@ class PoseSession {
       _filters.clear();
       _resetCursor();
       _raise = _newRaise();
+      _pull = PullDetector(_calibration);
       // The first frame back must not confirm anything.
       _jump.suppressUntil(t + const Duration(milliseconds: 1));
       _emit(PlayerFound(at: t));
@@ -292,6 +304,11 @@ class PoseSession {
           ),
         );
       }
+    }
+
+    if (pull) {
+      final hand = _pull.update(pose, t);
+      if (hand != null) _emit(Pulled(hand, at: t));
     }
 
     final bool fired;

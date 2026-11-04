@@ -5,6 +5,7 @@ import '../../content/models.dart';
 import '../../session/level_session.dart';
 import 'drag_spell_screen.dart';
 import 'lane_jump_screen.dart';
+import 'sky_shoot_screen.dart';
 
 /// The play screen of the current question's mode: a level of grades 3-5
 /// mixes modes, so the screen follows the question, not the grade.
@@ -26,6 +27,11 @@ class PlayScreen extends StatelessWidget {
         return switch (s.current.mode) {
           ModeKind.dragSpell => DragSpellScreen(
             key: const ValueKey('mode-dragSpell'),
+            controller: controller,
+            onExit: onExit,
+          ),
+          ModeKind.skyShoot => SkyShootScreen(
+            key: const ValueKey('mode-skyShoot'),
             controller: controller,
             onExit: onExit,
           ),
