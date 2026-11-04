@@ -8,17 +8,26 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../audio/audio_service.dart';
 import '../content/content_repository.dart';
+import '../content/curriculum.dart';
+import '../content/models.dart';
+import '../content/question_generator.dart';
 import '../input/calibrator.dart';
 import '../input/plugin_pose_frame_source.dart';
 import '../input/pose_frame_source.dart';
 import '../levels/level_config.dart';
+import '../levels/scoring.dart';
+import '../modes/say_it.dart';
 import '../progress/progress_store.dart';
+import '../speech/on_device_speech_source.dart';
+import '../speech/speech_session.dart';
+import '../speech/speech_source.dart';
 import '../ui/mascot/tin_tin.dart';
 import '../ui/parent/parent_gate.dart';
 import '../ui/parent/parent_settings.dart';
 import '../ui/screens/home_screen.dart';
 import '../ui/screens/play_screen.dart';
 import '../ui/screens/result_screen.dart';
+import '../ui/screens/say_it_screen.dart';
 import '../ui/shell/calibration_screen.dart';
 import '../ui/shell/camera_problem_screen.dart';
 import '../ui/shell/game_shell.dart';
@@ -39,7 +48,7 @@ class AppDependencies {
     PoseFrameSource Function()? sourceFactory,
     TickerFactory? ticker,
     this.wakelock = const WakelockPlusAdapter(),
-    this.sayItAvailable = false,
+    this.speech,
     VoidCallback? openSettings,
     Random? rng,
     this.closeTimeout = const Duration(seconds: 3),
@@ -70,9 +79,9 @@ class AppDependencies {
   final Wakelock wakelock;
   final Random rng;
 
-  /// Whether on-device speech recognition exists. No recogniser is wired in
-  /// this phase, so the SayIt entry stays hidden in production.
-  final bool sayItAvailable;
+  /// On-device speech recognition for SayIt (null: SayIt is not offered).
+  /// Never a recogniser that can use the network.
+  final SpeechSource? speech;
 
   /// Longest wait for a previous controller to release the camera.
   final Duration closeTimeout;
@@ -114,6 +123,7 @@ class AppDependencies {
       ),
       repo: await ContentRepository.loadFromAssets(b),
       levels: await LevelConfig.load(b),
+      speech: OnDeviceSpeechSource(SpeechToTextBackend()),
     );
   }
 
@@ -176,6 +186,19 @@ class NoLessonsView extends StatelessWidget {
   }
 }
 
+/// One SayIt play-through (no camera): the level and its listening session.
+class _SayItPlay {
+  _SayItPlay({
+    required this.grade,
+    required this.level,
+    required this.session,
+    required this.game,
+  });
+  final int grade, level;
+  final SpeechSession session;
+  final SayItLevel game;
+}
+
 class _Root extends StatefulWidget {
   const _Root({required this.deps});
 
@@ -191,6 +214,14 @@ class _RootState extends State<_Root> with WidgetsBindingObserver {
   GameController? _ctl;
   PoseFrameSource? _source;
   (int, int)? _afterSafety;
+
+  /// SayIt availability: asked once the entry is wanted (the check may ask for
+  /// the microphone), never assumed.
+  SpeechAvailability _sayItAvailability =
+      SpeechAvailability.noOnDeviceRecognizer;
+  bool _sayItChecking = false;
+  _SayItPlay? _sayIt;
+  int _nextSessionId = 1;
   Future<void> _closing = Future<void>.value();
 
   /// Owned by the app session so re-entering the parent area cannot reset
@@ -201,6 +232,32 @@ class _RootState extends State<_Root> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
+    _checkSayIt();
+  }
+
+  /// Asks the speech source once (and again later while it said no, e.g. the
+  /// parent granted the microphone in the system settings meanwhile).
+  void _checkSayIt() {
+    final speech = _d.speech;
+    if (speech == null ||
+        _sayItChecking ||
+        _sayItAvailability == SpeechAvailability.available ||
+        !_d.store.sayItEnabled) {
+      return;
+    }
+    _sayItChecking = true;
+    speech.check().then<void>(
+      (a) {
+        _sayItChecking = false;
+        if (mounted && a != _sayItAvailability) {
+          setState(() => _sayItAvailability = a);
+        }
+      },
+      onError: (Object e) {
+        _sayItChecking = false;
+        debugPrint('SayIt availability check failed: $e');
+      },
+    );
   }
 
   /// The camera timeouts of the running game stand still while the app is
@@ -214,6 +271,7 @@ class _RootState extends State<_Root> with WidgetsBindingObserver {
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
     _gateLockout.dispose();
+    _closeSayIt();
     _ctl?.dispose();
     super.dispose();
   }
@@ -229,6 +287,60 @@ class _RootState extends State<_Root> with WidgetsBindingObserver {
       return;
     }
     _begin(grade, level);
+  }
+
+  /// Starts SayIt: no camera, no pose source, no safety screen (the child
+  /// stands still near the phone).
+  void _beginSayIt(int grade, int level) {
+    final speech = _d.speech;
+    final cfg = _d.levels.where((l) => l.level == level).firstOrNull;
+    if (speech == null || cfg == null) {
+      _showNoLessons();
+      return;
+    }
+    final words = QuestionGenerator(_d.repo, _d.store, _d.rng).sayItWords(
+      pos: CurriculumPosition(
+        grade: grade,
+        currentUnitIndex: _d.store.currentUnit(grade),
+      ),
+      level: cfg,
+      count: 9,
+    );
+    if (words.length < 3) {
+      _showNoLessons();
+      return;
+    }
+    final nine = [for (var i = 0; i < 9; i++) words[i % words.length]];
+    final first = _nextSessionId;
+    _nextSessionId += 9;
+    _closeSayIt();
+    unawaited(_d.wakelock.enable().catchError((Object _) {}));
+    setState(() {
+      _sayIt = _SayItPlay(
+        grade: grade,
+        level: level,
+        session: SpeechSession(speech, _d.audio),
+        game: SayItLevel.build(
+          nine,
+          travelTime: Scoring.timeFor(cfg, ModeKind.sayIt),
+          rng: _d.rng,
+          modelFirst: grade < 3,
+          firstSessionId: first,
+        ),
+      );
+    });
+  }
+
+  void _closeSayIt() {
+    final p = _sayIt;
+    if (p == null) return;
+    _sayIt = null;
+    unawaited(p.session.cancel());
+    unawaited(_d.wakelock.disable().catchError((Object _) {}));
+  }
+
+  void _exitSayIt() {
+    setState(_closeSayIt);
   }
 
   void _showNoLessons() {
@@ -328,7 +440,7 @@ class _RootState extends State<_Root> with WidgetsBindingObserver {
   }
 
   void _openParent() {
-    Navigator.of(context).push(
+    final route = Navigator.of(context).push(
       MaterialPageRoute<void>(
         builder: (ctx) => Scaffold(
           appBar: AppBar(
@@ -353,6 +465,8 @@ class _RootState extends State<_Root> with WidgetsBindingObserver {
         ),
       ),
     );
+    // The parent may have switched SayIt on or granted the microphone.
+    unawaited(route.then((_) => _checkSayIt()));
   }
 
   @override
@@ -372,13 +486,33 @@ class _RootState extends State<_Root> with WidgetsBindingObserver {
         ),
       );
     }
+    final sayIt = _sayIt;
+    if (sayIt != null) {
+      return PopScope(
+        canPop: false,
+        onPopInvokedWithResult: (didPop, _) {
+          if (!didPop) _exitSayIt();
+        },
+        child: Scaffold(
+          body: SayItScreen(
+            key: ObjectKey(sayIt),
+            level: sayIt.game,
+            speech: sayIt.session,
+            audio: _d.audio,
+            onExit: _exitSayIt,
+            onPlayAgain: () => _beginSayIt(sayIt.grade, sayIt.level),
+          ),
+        ),
+      );
+    }
     final ctl = _ctl;
     if (ctl == null) {
       return Scaffold(
         body: HomeScreen(
           store: _d.store,
-          sayItAvailable: _d.sayItAvailable,
+          sayItAvailability: _sayItAvailability,
           onPlay: _onPlay,
+          onSayIt: _beginSayIt,
           onOpenParent: _openParent,
         ),
       );

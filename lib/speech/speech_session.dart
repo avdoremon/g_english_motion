@@ -73,14 +73,20 @@ class SpeechSession {
               cancelOnError: true,
             );
         await ended.future;
-        await run.sub?.cancel();
+        // Not awaited: the audio must be restored whatever the source does.
+        unawaited(run.sub?.cancel());
         run.sub = null;
         if (run.failed) {
           _failed = true;
           break;
         }
         if (!run.cancelled && relistenDelay > Duration.zero) {
-          await Future<void>.delayed(relistenDelay);
+          final wake = run.wake = Completer<void>();
+          final timer = Timer(relistenDelay, () {
+            if (!wake.isCompleted) wake.complete();
+          });
+          await wake.future;
+          timer.cancel();
         }
       }
     } catch (_) {
@@ -89,6 +95,7 @@ class SpeechSession {
       _audio.restoreAfterListening();
       if (identical(_run, run)) _run = null;
       if (!run.out.isClosed) unawaited(run.out.close());
+      if (!run.finished.isCompleted) run.finished.complete();
     }
   }
 
@@ -100,10 +107,9 @@ class SpeechSession {
 
   Future<void> _cancelRun(_Run run) async {
     run.cancelled = true;
-    try {
-      await run.sub?.cancel();
-    } catch (_) {}
+    unawaited(run.sub?.cancel());
     if (!(run.ended?.isCompleted ?? true)) run.ended!.complete();
+    if (!(run.wake?.isCompleted ?? true)) run.wake!.complete();
     try {
       await _source.stop();
     } catch (_) {}
@@ -114,8 +120,8 @@ class SpeechSession {
     final run = _run;
     if (run == null) return;
     await _cancelRun(run);
-    // Let the loop's finally run (restore audio, close the stream).
-    await Future<void>.delayed(Duration.zero);
+    // The loop's tail restores the audio and closes the stream.
+    await run.finished.future;
   }
 }
 
@@ -123,7 +129,8 @@ class _Run {
   _Run(this.out);
   final StreamController<RecognitionResult> out;
   StreamSubscription<RecognitionResult>? sub;
-  Completer<void>? ended;
+  Completer<void>? ended, wake;
+  final Completer<void> finished = Completer<void>();
   bool cancelled = false;
   bool failed = false;
 }

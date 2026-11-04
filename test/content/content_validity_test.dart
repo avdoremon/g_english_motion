@@ -4,6 +4,7 @@ import 'dart:math';
 
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:g_english_motion/speech/word_judge.dart';
 import 'package:g_english_motion/content/content_repository.dart';
 import 'package:g_english_motion/content/curriculum.dart';
 import 'package:g_english_motion/content/history_store.dart';
@@ -168,13 +169,9 @@ void main() {
         }
       }
       for (final v in it.spokenVariants) {
-        expect(v, v.toLowerCase(), reason: '${it.id} variant "$v"');
-        expect(
-          RegExp(r"^[a-z0-9 ]+$").hasMatch(v),
-          isTrue,
-          reason: '${it.id} variant "$v" has punctuation',
-        );
-        expect(v, isNot(it.word), reason: it.id);
+        // Already in the form the judge compares in, and not just the word.
+        expect(WordJudge.normalize(v), v, reason: '${it.id} variant "$v"');
+        expect(v, isNot(WordJudge.normalize(it.word)), reason: it.id);
       }
     }
   });

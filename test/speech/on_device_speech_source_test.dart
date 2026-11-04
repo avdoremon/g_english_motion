@@ -68,10 +68,13 @@ void main() {
       b.permission = false;
       expect(await s.check(), SpeechAvailability.noPermission);
     });
-    test('init fails with permission granted -> noOnDeviceRecognizer', () async {
-      b.initOk = false;
-      expect(await s.check(), SpeechAvailability.noOnDeviceRecognizer);
-    });
+    test(
+      'init fails with permission granted -> noOnDeviceRecognizer',
+      () async {
+        b.initOk = false;
+        expect(await s.check(), SpeechAvailability.noOnDeviceRecognizer);
+      },
+    );
     test('a throwing platform means unavailable, not a crash', () async {
       b.throwOnDeviceCheck = true;
       expect(await s.check(), SpeechAvailability.noOnDeviceRecognizer);
@@ -79,20 +82,23 @@ void main() {
   });
 
   group('listenOnce', () {
-    test('en_US, stamps the session id, ends when the recogniser ends', () async {
-      final got = <RecognitionResult>[];
-      final done = Completer<void>();
-      s.listenOnce(sessionId: 42).listen(got.add, onDone: done.complete);
-      await settle();
-      expect(b.lastLocale, 'en_US');
-      b.onResult!(['hand', 'and'], [0.9, 0.0]);
-      await settle();
-      expect(got.single.sessionId, 42);
-      expect(got.single.transcripts, ['hand', 'and']);
-      expect(got.single.confidences, [0.9, 0.0]);
-      b.onEnd!();
-      await done.future;
-    });
+    test(
+      'en_US, stamps the session id, ends when the recogniser ends',
+      () async {
+        final got = <RecognitionResult>[];
+        final done = Completer<void>();
+        s.listenOnce(sessionId: 42).listen(got.add, onDone: done.complete);
+        await settle();
+        expect(b.lastLocale, 'en_US');
+        b.onResult!(['hand', 'and'], [0.9, 0.0]);
+        await settle();
+        expect(got.single.sessionId, 42);
+        expect(got.single.transcripts, ['hand', 'and']);
+        expect(got.single.confidences, [0.9, 0.0]);
+        b.onEnd!();
+        await done.future;
+      },
+    );
 
     test('refuses to listen unless on-device is available', () async {
       b.onDevice = false;
@@ -112,11 +118,9 @@ void main() {
       final errors = <Object>[];
       final done = Completer<void>();
       b.throwOnDeviceCheck = true;
-      s.listenOnce(sessionId: 1).listen(
-        (_) {},
-        onError: errors.add,
-        onDone: done.complete,
-      );
+      s
+          .listenOnce(sessionId: 1)
+          .listen((_) {}, onError: errors.add, onDone: done.complete);
       await done.future;
       expect(b.listenCalls, 0);
       expect(errors, hasLength(1));

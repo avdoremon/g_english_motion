@@ -3,25 +3,27 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:g_english_motion/progress/progress_store.dart';
+import 'package:g_english_motion/speech/speech_source.dart';
 import 'package:g_english_motion/ui/screens/home_screen.dart';
 import 'package:g_english_motion/ui/theme/app_theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   late ProgressStore store;
-  late List<(int, int)> played;
+  late List<(int, int)> played, sayItStarted;
   late int parent;
 
   setUp(() async {
     SharedPreferences.setMockInitialValues({});
     store = ProgressStore(await SharedPreferences.getInstance());
     played = [];
+    sayItStarted = [];
     parent = 0;
   });
 
   Future<void> pump(
     WidgetTester tester, {
-    bool sayIt = true,
+    SpeechAvailability sayIt = SpeechAvailability.available,
     Size size = const Size(1280, 720),
   }) async {
     await tester.binding.setSurfaceSize(size);
@@ -32,8 +34,9 @@ void main() {
         home: Scaffold(
           body: HomeScreen(
             store: store,
-            sayItAvailable: sayIt,
+            sayItAvailability: sayIt,
             onPlay: (g, l) => played.add((g, l)),
+            onSayIt: (g, l) => sayItStarted.add((g, l)),
             onOpenParent: () => parent++,
           ),
         ),
@@ -134,22 +137,30 @@ void main() {
   });
 
   testWidgets(
-    'SayIt entry: hidden when unavailable or switched off, else a "Sắp có" placeholder',
+    'SayIt entry: only when the device can listen on-device AND it is switched on',
     (tester) async {
-      await pump(tester, sayIt: false);
-      expect(find.byKey(const ValueKey('sayit-entry')), findsNothing);
+      final entry = find.byKey(const ValueKey('sayit-entry'));
+      for (final a in [
+        SpeechAvailability.noPermission,
+        SpeechAvailability.noOnDeviceRecognizer,
+      ]) {
+        await pump(tester, sayIt: a);
+        expect(entry, findsNothing, reason: '$a');
+      }
       unawaited(store.setSayItEnabled(false));
       await pump(tester);
-      expect(find.byKey(const ValueKey('sayit-entry')), findsNothing);
+      expect(entry, findsNothing, reason: 'switched off by the parent');
       unawaited(store.setSayItEnabled(true));
       await pump(tester);
-      final entry = find.byKey(const ValueKey('sayit-entry'));
       expect(entry, findsOneWidget);
       expect(
         find.descendant(of: entry, matching: find.text('Sắp có')),
-        findsOneWidget,
+        findsNothing,
       );
+      await tester.tap(find.byKey(const ValueKey('grade-2')));
+      await tester.pump();
       await tester.tap(entry);
+      expect(sayItStarted, [(2, 1)]);
       expect(played, isEmpty);
     },
   );

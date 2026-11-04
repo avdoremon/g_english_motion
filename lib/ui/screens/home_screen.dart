@@ -1,27 +1,32 @@
 import 'package:flutter/material.dart';
 
 import '../../progress/progress_store.dart';
+import '../../speech/speech_source.dart';
 import '../mascot/tin_tin.dart';
 import '../theme/app_theme.dart';
 
 /// Home: grade picker, level picker (stars + lock) and the Play button.
 ///
 /// Grades 1-3 are playable (grade 3 has content for units 1-2); grades 4-5 are shown disabled
-/// with "Sắp có". The SayIt entry is a disabled placeholder and is hidden
-/// unless the device can recognise speech ([sayItAvailable]) and the parent
+/// with "Sắp có". The SayIt entry is hidden unless the device can recognise
+/// speech on the device ([sayItAvailability] is `available`) and the parent
 /// left it enabled.
 class HomeScreen extends StatefulWidget {
   const HomeScreen({
     super.key,
     required this.store,
-    required this.sayItAvailable,
+    required this.sayItAvailability,
     required this.onPlay,
+    required this.onSayIt,
     required this.onOpenParent,
   });
 
   final ProgressStore store;
-  final bool sayItAvailable;
+  final SpeechAvailability sayItAvailability;
   final void Function(int grade, int level) onPlay;
+
+  /// Starts SayIt for the picked grade and level.
+  final void Function(int grade, int level) onSayIt;
   final VoidCallback onOpenParent;
 
   static const playableGrades = {1, 2, 3};
@@ -126,10 +131,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                 icon: const Icon(Icons.play_arrow, size: 36),
                                 label: const Text('Chơi'),
                               ),
-                              if (widget.sayItAvailable &&
+                              if (widget.sayItAvailability ==
+                                      SpeechAvailability.available &&
                                   store.sayItEnabled) ...[
                                 const SizedBox(height: 12),
-                                _sayItEntry(t),
+                                _sayItEntry(t, level),
                               ],
                             ],
                           ),
@@ -243,27 +249,30 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _sayItEntry(TextTheme t) {
+  Widget _sayItEntry(TextTheme t, int level) {
     return Semantics(
-      label: 'Luyện nói, sắp có',
-      enabled: false,
+      button: true,
+      label: 'Luyện nói',
       excludeSemantics: true,
-      child: Container(
+      child: GestureDetector(
         key: const ValueKey('sayit-entry'),
-        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
-        decoration: BoxDecoration(
-          color: AppTheme.surface,
-          borderRadius: BorderRadius.circular(28),
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Icon(Icons.mic, color: AppTheme.muted, size: 28),
-            const SizedBox(width: 8),
-            Text('Luyện nói', style: t.bodyMedium!.copyWith(fontSize: 28)),
-            const SizedBox(width: 12),
-            Text('Sắp có', style: t.bodyMedium!.copyWith(fontSize: 28)),
-          ],
+        onTap: () => widget.onSayIt(_grade, level),
+        child: Container(
+          constraints: const BoxConstraints(minHeight: AppTheme.minTarget),
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+          decoration: BoxDecoration(
+            color: AppTheme.surface,
+            borderRadius: BorderRadius.circular(28),
+            border: Border.all(color: AppTheme.accent, width: 3),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Icon(Icons.mic, color: AppTheme.accent, size: 32),
+              const SizedBox(width: 8),
+              Text('Luyện nói', style: t.bodyLarge),
+            ],
+          ),
         ),
       ),
     );

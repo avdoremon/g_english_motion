@@ -96,10 +96,9 @@ class WordJudge {
     return out.join(' ').trim();
   }
 
-  static Set<String> _targets(ContentItem item) => {
-    normalize(item.word),
-    for (final v in item.spokenVariants) normalize(v),
-  }..remove('');
+  static Set<String> _targets(ContentItem item) =>
+      {normalize(item.word), for (final v in item.spokenVariants) normalize(v)}
+        ..remove('');
 
   /// Whether an alternative's score allows grading. Missing or <= 0 means the
   /// platform gave no score: it is not held against the reading.
