@@ -24,6 +24,7 @@ Future<List<GameInputEvent>> run(
   List<PoseFrame> frames, {
   ConfirmGesture confirm = ConfirmGesture.jump,
   int laneCount = 3,
+  bool cursor = false,
 }) async {
   final source = FakePoseFrameSource(frames);
   final session = PoseSession(
@@ -31,6 +32,7 @@ Future<List<GameInputEvent>> run(
     calibration,
     laneCount: laneCount,
     confirm: confirm,
+    cursor: cursor,
   );
   final events = await session.events.toList(); // closes when frames end
   await session.dispose();
@@ -599,6 +601,32 @@ void main() {
         expect((await withMin(0.7)).whereType<Confirmed>(), isEmpty);
       },
     );
+  });
+
+  group('cursor', () {
+    List<PoseFrame> waving({bool hands = true}) => poseSequence(
+      duration: const Duration(seconds: 1),
+      posesAt: (_) => [
+        makePose(rightWrist: hands ? const Offset(0.5, 0.4) : null),
+      ],
+    );
+
+    test(
+      'CursorMoved per frame with a visible wrist, only when enabled',
+      () async {
+        final on = await run(waving(), cursor: true);
+        final moved = on.whereType<CursorMoved>().toList();
+        expect(moved, hasLength(30));
+        expect(moved.last.x, closeTo(0.5, 0.05));
+        expect(moved.last.y, inInclusiveRange(0.0, 1.0));
+        expect((await run(waving())).whereType<CursorMoved>(), isEmpty);
+      },
+    );
+
+    test('no wrist -> no CursorMoved (unknown, not a miss)', () async {
+      final ev = await run(waving(hands: false), cursor: true);
+      expect(ev.whereType<CursorMoved>(), isEmpty);
+    });
   });
 }
 

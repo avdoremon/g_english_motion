@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'calibrator.dart';
+import 'cursor_tracker.dart';
 import 'game_input_event.dart';
 import 'jump_detector.dart';
 import 'lane_tracker.dart';
@@ -40,8 +41,10 @@ class PoseSession {
     required int laneCount,
     this.confirm = ConfirmGesture.jump,
     this.minConfidence = 0.5,
+    this.cursor = false,
   }) : _laneTracker = LaneTracker(calibration, laneCount: laneCount),
        _jump = JumpDetector(calibration),
+       _cursor = CursorTracker(calibration),
        _seedX = calibration.centerX,
        _seedTorso = calibration.torsoHeight,
        _lastX = calibration.centerX,
@@ -51,6 +54,10 @@ class PoseSession {
 
   final ConfirmGesture confirm;
   final double minConfidence;
+
+  /// Also emit [CursorMoved] (the raised wrist as a 0..1 cursor) every frame
+  /// in which a reliable wrist is visible. Off for the lane modes.
+  final bool cursor;
 
   static const double _maxTrackDistance = 0.25;
   static const double _maxReacquireDistance = 0.6;
@@ -80,11 +87,24 @@ class PoseSession {
 
   final LaneTracker _laneTracker;
   final JumpDetector _jump;
+  final CursorTracker _cursor;
   late RaiseHandsDetector _raise = _newRaise();
   final StreamController<GameInputEvent> _events =
       StreamController<GameInputEvent>.broadcast();
   late final StreamSubscription<PoseFrame> _sub;
   final Map<String, OneEuroFilter> _filters = {};
+
+  // The cursor is smoothed on its output (targets are big, jitter is not).
+  static const double _cursorMinCutoff = 2.0;
+  static const double _cursorBeta = 5.0;
+  final OneEuroFilter _cursorX = OneEuroFilter(
+    minCutoff: _cursorMinCutoff,
+    beta: _cursorBeta,
+  );
+  final OneEuroFilter _cursorY = OneEuroFilter(
+    minCutoff: _cursorMinCutoff,
+    beta: _cursorBeta,
+  );
 
   final double _seedX;
   final double _seedTorso;
@@ -214,9 +234,15 @@ class PoseSession {
     if (!_lost && t - _throwingSince! >= _lostAfter) _enterLost(t);
   }
 
+  void _resetCursor() {
+    _cursorX.reset();
+    _cursorY.reset();
+  }
+
   void _enterLost(Duration t) {
     _lost = true;
     _filters.clear();
+    _resetCursor();
     _lastX = _seedX;
     _lastTorso = _seedTorso;
     _emit(PlayerLost(at: t));
@@ -225,6 +251,7 @@ class PoseSession {
   void _onFrame(PoseFrame f) {
     final t = f.timestamp;
     _laneTracker.aspectRatio = f.aspectRatio;
+    _cursor.aspectRatio = f.aspectRatio;
     _lastValidAt ??= t;
     final player = _pickPlayer(f.poses);
 
@@ -242,6 +269,7 @@ class PoseSession {
     if (_lost) {
       _lost = false;
       _filters.clear();
+      _resetCursor();
       _raise = _newRaise();
       // The first frame back must not confirm anything.
       _jump.suppressUntil(t + const Duration(milliseconds: 1));
@@ -252,6 +280,19 @@ class PoseSession {
     final before = _laneTracker.current;
     final lane = _laneTracker.update(pose, t);
     if (lane != before) _emit(LaneChanged(lane, at: t));
+
+    if (cursor) {
+      final c = _cursor.update(pose, t);
+      if (c != null) {
+        _emit(
+          CursorMoved(
+            _cursorX.filter(c.$1, t),
+            _cursorY.filter(c.$2, t),
+            at: t,
+          ),
+        );
+      }
+    }
 
     final bool fired;
     switch (confirm) {
