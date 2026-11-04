@@ -102,6 +102,7 @@ Unit harnessUnit({
   bool withImages = false,
   List<ModeKind> modes = const [ModeKind.laneJump],
   bool sentences = false,
+  List<String> words = harnessWords,
 }) {
   final p = 'g${grade}u$index';
   return Unit(
@@ -113,14 +114,12 @@ Unit harnessUnit({
       for (var i = 0; i < count; i++)
         ContentItem(
           id: '${p}i$i',
-          word: harnessWords[i % harnessWords.length],
-          ttsText: harnessWords[i % harnessWords.length],
-          image: withImages
-              ? 'grade1/${harnessWords[i % harnessWords.length]}.png'
-              : null,
+          word: words[i % words.length],
+          ttsText: words[i % words.length],
+          image: withImages ? 'grade1/${words[i % words.length]}.png' : null,
           distractorIds: ['${p}i${(i + 1) % count}', '${p}i${(i + 2) % count}'],
           sentencePatterns: sentences
-              ? ['I like the ${harnessWords[i % harnessWords.length]}']
+              ? ['I like the ${words[i % words.length]}']
               : const [],
           modes: modes,
         ),
@@ -162,6 +161,7 @@ class GameHarness {
     int seed = 7,
     bool hangStop = false,
     int grade = 1,
+    List<String> words = harnessWords,
     List<ModeKind> modes = const [ModeKind.laneJump],
     ContentRepository? repo,
   }) async {
@@ -194,7 +194,8 @@ class GameHarness {
                 withImages: withImages,
                 count: unitSize,
                 modes: modes,
-                sentences: grade >= 3,
+                sentences: grade >= 3 && identical(words, harnessWords),
+                words: words,
               ),
             ]
           : [],

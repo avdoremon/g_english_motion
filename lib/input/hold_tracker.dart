@@ -69,17 +69,17 @@ class HoldTracker {
       return _report();
     }
     final last = _lastOn!;
-    if (_away) {
-      if (now - last >= grace) {
-        // Away for too long (the away update may have been the last one).
-        _held = Duration.zero;
-        _done = false;
-      }
+    if (now - last >= grace) {
+      // Silence of a grace or more (away, or a stalled UI / frame gap) is
+      // never counted as holding: start over.
+      _held = Duration.zero;
+      _done = false;
+    } else if (_away) {
       // A short dropout is neither counted nor lost.
-      _away = false;
     } else if (!_done && now > last) {
       _held += now - last;
     }
+    _away = false;
     _lastOn = now;
     if (!_done && _held >= holdTime) {
       _done = true;

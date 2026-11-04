@@ -71,6 +71,9 @@ class _DragSpellScreenState extends State<DragSpellScreen> {
   );
   bool _cursorVisible = false;
 
+  /// Cursor position drawn last (a repaint is needed only when it moves).
+  Offset? _shownCursor;
+
   Duration _now() => (widget.clock ?? _monotonic)();
 
   GlobalKey _keyFor(String id) => _keys.putIfAbsent(id, GlobalKey.new);
@@ -160,13 +163,15 @@ class _DragSpellScreenState extends State<DragSpellScreen> {
         now - _cursorAt <= DragSpellScreen.cursorStale;
     final target = fresh ? _hit(c, round) : null;
     final p = _hold.update(target, now);
+    final shown = fresh ? c : null;
     final changed =
         p.targetId != _progress.targetId ||
         p.progress != _progress.progress ||
         fresh != _cursorVisible ||
-        fresh;
+        shown != _shownCursor;
     _progress = p;
     _cursorVisible = fresh;
+    _shownCursor = shown;
     if (p.completed && p.targetId != null) {
       widget.controller.holdTarget(p.targetId!);
     }
@@ -252,12 +257,12 @@ class _DragSpellScreenState extends State<DragSpellScreen> {
                       ),
                       SizedBox(height: gap),
                       Expanded(
-                        flex: 3,
+                        flex: round.tiles.length > _maxPerRow ? 5 : 3,
                         child: _Slots(screen: this, round: round),
                       ),
                       SizedBox(height: gap),
                       Expanded(
-                        flex: 3,
+                        flex: round.tiles.length > _maxPerRow ? 5 : 3,
                         child: Row(
                           children: [
                             Expanded(
@@ -581,6 +586,35 @@ class _Chip extends StatelessWidget {
   }
 }
 
+/// More than this many cells go on two rows, so each stays wide enough to
+/// read and to hit.
+const int _maxPerRow = 10;
+
+/// Lays [n] cells in one row, or in two rows when there are too many.
+Widget _wrapped(int n, Widget Function(int i) cell) {
+  Widget row(int from, int to, int width) => Row(
+    children: [
+      for (var i = from; i < to; i++) ...[
+        if (i > from) const SizedBox(width: 10),
+        Expanded(child: cell(i)),
+      ],
+      for (var i = to - from; i < width; i++) ...[
+        const SizedBox(width: 10),
+        const Expanded(child: SizedBox.shrink()),
+      ],
+    ],
+  );
+  if (n <= _maxPerRow) return row(0, n, n);
+  final half = (n + 1) ~/ 2;
+  return Column(
+    children: [
+      Expanded(child: row(0, half, half)),
+      const SizedBox(height: 8),
+      Expanded(child: row(half, n, half)),
+    ],
+  );
+}
+
 class _Slots extends StatelessWidget {
   const _Slots({required this.screen, required this.round});
 
@@ -591,28 +625,21 @@ class _Slots extends StatelessWidget {
   Widget build(BuildContext context) {
     final slots = round.slots;
     final hover = screen._progress.targetId;
-    return Row(
-      children: [
-        for (var i = 0; i < slots.length; i++) ...[
-          if (i > 0) const SizedBox(width: 10),
-          Expanded(
-            child: _Target(
-              screen: screen,
-              id: 'slot:$i',
-              child: _Chip(
-                key: ValueKey('slot-$i'),
-                text: slots[i],
-                empty: slots[i] == null,
-                hovered: hover == 'slot:$i',
-                semanticLabel: slots[i] == null
-                    ? 'Ô ${i + 1}, trống'
-                    : 'Ô ${i + 1}, ${slots[i]}',
-              ),
-            ),
-          ),
-        ],
-      ],
-    );
+    return _wrapped(slots.length, (i) {
+      return _Target(
+        screen: screen,
+        id: 'slot:$i',
+        child: _Chip(
+          key: ValueKey('slot-$i'),
+          text: slots[i],
+          empty: slots[i] == null,
+          hovered: hover == 'slot:$i',
+          semanticLabel: slots[i] == null
+              ? 'Ô ${i + 1}, trống'
+              : 'Ô ${i + 1}, ${slots[i]}',
+        ),
+      );
+    });
   }
 }
 
@@ -625,30 +652,23 @@ class _Tray extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final hover = screen._progress.targetId;
-    return Row(
-      children: [
-        for (var i = 0; i < round.tiles.length; i++) ...[
-          if (i > 0) const SizedBox(width: 10),
-          Expanded(
-            child: _Target(
-              screen: screen,
-              id: 'tile:$i',
-              tappable: !round.isTileUsed(i),
-              child: _Chip(
-                key: ValueKey('tile-$i'),
-                text: round.tiles[i],
-                solid: !round.isTileUsed(i),
-                faded: round.isTileUsed(i),
-                hovered: hover == 'tile:$i',
-                semanticLabel: round.isTileUsed(i)
-                    ? 'Đã dùng, ${round.tiles[i]}'
-                    : round.tiles[i],
-              ),
-            ),
-          ),
-        ],
-      ],
-    );
+    return _wrapped(round.tiles.length, (i) {
+      return _Target(
+        screen: screen,
+        id: 'tile:$i',
+        tappable: !round.isTileUsed(i),
+        child: _Chip(
+          key: ValueKey('tile-$i'),
+          text: round.tiles[i],
+          solid: !round.isTileUsed(i),
+          faded: round.isTileUsed(i),
+          hovered: hover == 'tile:$i',
+          semanticLabel: round.isTileUsed(i)
+              ? 'Đã dùng, ${round.tiles[i]}'
+              : round.tiles[i],
+        ),
+      );
+    });
   }
 }
 

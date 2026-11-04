@@ -51,6 +51,20 @@ Confirmed shoot(int atMs) => Confirmed(0, at: ms(atMs));
 Pulled pull(Hand h) => Pulled(h, at: Duration.zero);
 
 void main() {
+  test('shots is configurable and exposed', () {
+    final r = SkyShootRound(
+      _q(),
+      timeLimit: const Duration(seconds: 30),
+      field: FakeField((_) => 0.35),
+      castLatency: Duration.zero,
+      shots: 2,
+    )..start();
+    expect(r.shots, 2);
+    r.onEvent(shoot(0));
+    r.onEvent(shoot(1));
+    expect(r.result, RoundResult.wrong);
+  });
+
   test('starts aiming with 3 shots and no pulls', () {
     final r = _round((_) => 0.5);
     expect(r.phase, SkyPhase.aiming);
@@ -218,6 +232,20 @@ void main() {
   });
 
   group('SkyField', () {
+    test(
+      'more than 4 answers is refused (the spacing guarantee ends there)',
+      () {
+        expect(
+          () => SkyField(rng: Random(1), answerCount: 5, sweepSpeed: 0.4),
+          throwsA(isA<AssertionError>()),
+        );
+        expect(
+          () => SkyField(rng: Random(1), answerCount: 4, sweepSpeed: 0.4),
+          returnsNormally,
+        );
+      },
+    );
+
     test('the arrow stays within 0.1..0.9', () {
       final f = SkyField(rng: Random(1), answerCount: 3, sweepSpeed: 0.4);
       for (var t = 0; t < 60000; t += 37) {

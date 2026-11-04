@@ -219,6 +219,45 @@ void main() {
     await finish(tester);
   });
 
+  testWidgets('a tap scores at the arrow position at tap time (no latency '
+      'compensation); the same time with latency would differ', (tester) async {
+    await boot(tester);
+    final r = round();
+    bool hitsAt(Duration t) {
+      final x = r.field.arrowX(t);
+      return [
+        for (var i = 0; i < question().choices.length; i++)
+          (r.field.answerX(i, t) - x).abs() <= r.hitRadius - 0.02,
+      ].any((b) => b);
+    }
+
+    bool missesAt(Duration t) {
+      final x = r.field.arrowX(t);
+      return [
+        for (var i = 0; i < question().choices.length; i++)
+          (r.field.answerX(i, t) - x).abs() > r.hitRadius + 0.02,
+      ].every((b) => b);
+    }
+
+    // Wait until the arrow is on an answer now but was not one latency ago.
+    await tester.runAsync(
+      () => h.run(
+        const Duration(seconds: 120),
+        stopWhen: () {
+          final f = h.controller.frameClock;
+          return hitsAt(f) && missesAt(f - r.castLatency);
+        },
+      ),
+    );
+    final f = h.controller.frameClock;
+    expect(hitsAt(f) && missesAt(f - r.castLatency), isTrue);
+    await tester.pump();
+    await tester.tap(find.byKey(const ValueKey('sky')));
+    await tester.pump();
+    expect(round().phase, SkyPhase.reeling, reason: 'scored at tap time');
+    await finish(tester);
+  });
+
   testWidgets('the arrow and the answers move with the pose clock', (
     tester,
   ) async {

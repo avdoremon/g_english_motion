@@ -27,10 +27,22 @@ void main() {
     expect(r.completed, isFalse);
   });
 
-  test('two updates 1000 ms apart complete', () {
+  test('a 1 s stall on the target (no updates) does not complete the hold', () {
     final h = HoldTracker();
     h.update('a', ms(0));
-    expect(h.update('a', ms(1000)).completed, isTrue);
+    final r = h.update('a', ms(1000));
+    expect(r.completed, isFalse);
+    expect(r.progress, 0);
+    // A normal hold afterwards still works.
+    expect(feed(h, 'a', 1050, 2100).where((r) => r.completed), hasLength(1));
+  });
+
+  test('a stall in the middle of a hold restarts it', () {
+    final h = HoldTracker();
+    feed(h, 'a', 0, 500);
+    final r = h.update('a', ms(1500));
+    expect(r.completed, isFalse);
+    expect(r.progress, 0);
   });
 
   test('leaving for 150 ms keeps the progress', () {
@@ -40,7 +52,7 @@ void main() {
     h.update(null, ms(650));
     final back = h.update('a', ms(650));
     expect(back.progress, closeTo(0.5, 1e-9), reason: 'away time not counted');
-    expect(h.update('a', ms(1150)).completed, isTrue);
+    expect(feed(h, 'a', 700, 1150).where((r) => r.completed), hasLength(1));
   });
 
   test('leaving for 300 ms resets', () {

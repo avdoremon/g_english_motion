@@ -44,6 +44,7 @@ void main() {
     LevelConfig level = harnessLevel,
     bool images = true,
     bool useScreen = true,
+    List<String> words = harnessWords,
   }) async {
     clock = Duration.zero;
     elapsed = Duration.zero;
@@ -55,6 +56,7 @@ void main() {
         modes: const [ModeKind.dragSpell],
         level: level,
         withImages: images,
+        words: words,
       );
       await h.startAndCalibrate();
     });
@@ -324,6 +326,35 @@ void main() {
     }
     await finish(tester);
   });
+
+  testWidgets(
+    'a long word (> 10 tiles) wraps to two rows, every cell >= 48 px',
+    (tester) async {
+      await boot(
+        tester,
+        words: const ['international', 'refrigerator', 'extraordinary'],
+      );
+      final n = round().tiles.length;
+      expect(n, greaterThan(10));
+      final ys = <double>{};
+      for (var i = 0; i < n; i++) {
+        final tile = tester.getRect(find.byKey(ValueKey('tile-$i')));
+        final slot = tester.getRect(find.byKey(ValueKey('slot-$i')));
+        expect(tile.height, greaterThanOrEqualTo(48));
+        expect(tile.width, greaterThanOrEqualTo(48));
+        expect(slot.height, greaterThanOrEqualTo(48));
+        expect(slot.width, greaterThanOrEqualTo(48));
+        ys.add(tile.top);
+      }
+      expect(ys, hasLength(2), reason: 'two tray rows');
+      expect(tester.takeException(), isNull);
+      // Still playable by touch.
+      await tap(tester, 'tile-${n - 1}');
+      await tap(tester, 'slot-${n - 1}');
+      expect(round().slots[n - 1], round().tiles[n - 1]);
+      await finish(tester);
+    },
+  );
 
   testWidgets('PlayScreen routes a dragSpell question to DragSpellScreen', (
     tester,

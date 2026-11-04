@@ -19,7 +19,11 @@ class SkyField {
     required Random rng,
     required this.answerCount,
     required this.sweepSpeed,
-  }) : _direction = rng.nextBool() ? 1 : -1,
+  }) : assert(
+         answerCount >= 1 && answerCount <= 4,
+         'neighbours stay > 2 hit radii apart only for up to 4 answers',
+       ),
+       _direction = rng.nextBool() ? 1 : -1,
        _speed = sweepSpeed * (0.8 + 0.4 * rng.nextDouble()),
        _start =
            arrowMin + (arrowMax - arrowMin) * (0.25 + 0.5 * rng.nextDouble()),
@@ -90,7 +94,7 @@ class SkyShootRound implements Round {
     required this.field,
     required this.castLatency,
     this.hitRadius = 0.08,
-    int shots = 3,
+    this.shots = 3,
     this.pullsNeeded = 4,
     this.reelTimeout = const Duration(seconds: 20),
   }) : assert(question.choices.isNotEmpty, 'a question needs choices'),
@@ -123,6 +127,9 @@ class SkyShootRound implements Round {
   int? _chosenIndex;
 
   SkyPhase get phase => _phase;
+
+  /// Shots at the start of the question.
+  final int shots;
   int get shotsLeft => _shotsLeft;
   int? get hitIndex => _hitIndex;
   int get pulls => _pulls;

@@ -42,7 +42,12 @@ class _SkyShootScreenState extends State<SkyShootScreen> {
   void _tapSky(SkyShootRound round) {
     final at = widget.controller.frameClock;
     if (round.phase == SkyPhase.aiming) {
-      widget.controller.touchInput(Confirmed(0, at: at));
+      // The round scores a shot at (at - castLatency), which is right for a
+      // pose event (the child saw the arrow that long ago). A tap is on the
+      // arrow the child sees now: add the latency back.
+      widget.controller.touchInput(
+        Confirmed(0, at: at + widget.controller.castLatency),
+      );
     } else if (round.phase == SkyPhase.reeling) {
       final hand = _nextTouchHand;
       _nextTouchHand = hand == Hand.left ? Hand.right : Hand.left;
@@ -187,7 +192,7 @@ class _StatusRow extends StatelessWidget {
                   key: const ValueKey('shots-left'),
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    for (var i = 0; i < 3; i++)
+                    for (var i = 0; i < round.shots; i++)
                       Icon(
                         Icons.arrow_upward,
                         size: 28,
@@ -431,7 +436,7 @@ class _Field extends StatelessWidget {
                 ),
               ),
             ),
-            if (round.phase == SkyPhase.aiming && round.shotsLeft < 3)
+            if (round.phase == SkyPhase.aiming && round.shotsLeft < round.shots)
               Positioned(
                 left: 16,
                 bottom: 8,
@@ -441,7 +446,8 @@ class _Field extends StatelessWidget {
                   style: t.bodyMedium,
                 ),
               ),
-            if (round.phase == SkyPhase.aiming && round.shotsLeft == 3)
+            if (round.phase == SkyPhase.aiming &&
+                round.shotsLeft == round.shots)
               Positioned(
                 right: 16,
                 bottom: 8,
