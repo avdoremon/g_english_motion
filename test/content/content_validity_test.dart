@@ -45,6 +45,59 @@ void main() {
     );
   });
 
+  test('content exists for grade 3 units 1 and 2', () {
+    expect(
+      units.where((u) => u.grade == 3).map((u) => u.index).toSet(),
+      containsAll([1, 2]),
+    );
+  });
+
+  test('every grade 3-5 unit has dragSpell and skyShoot items', () {
+    for (final u in units.where((u) => u.grade >= 3)) {
+      for (final m in [ModeKind.dragSpell, ModeKind.skyShoot]) {
+        expect(
+          u.items.where((it) => it.modes.contains(m)),
+          isNotEmpty,
+          reason: 'g${u.grade} ${u.id} needs >= 1 ${m.name} item',
+        );
+      }
+    }
+  });
+
+  test('dragSpell words and order-sentence patterns are playable', () {
+    final ws = RegExp(r'\s+');
+    for (final (_, it) in items.where((e) => e.$1.grade >= 3)) {
+      if (it.modes.contains(ModeKind.dragSpell)) {
+        expect(
+          it.word.length,
+          greaterThanOrEqualTo(3),
+          reason: '${it.id}: dragSpell word needs >= 3 letters',
+        );
+        expect(
+          RegExp(r'^[a-z]+$').hasMatch(it.word),
+          isTrue,
+          reason: '${it.id}: dragSpell word must be letters only',
+        );
+        for (final s in it.sentencePatterns) {
+          final n = s.trim().split(ws).length;
+          expect(n, inInclusiveRange(3, 6), reason: '${it.id}: "$s"');
+        }
+      }
+      if (it.modes.contains(ModeKind.skyShoot)) {
+        expect(
+          it.sentencePatterns.any(
+            (s) => RegExp(
+              '(^|\\s)${RegExp.escape(it.word)}(\\s|\$)',
+              caseSensitive: false,
+            ).hasMatch(s),
+          ),
+          isTrue,
+          reason: '${it.id}: skyShoot needs a sentence containing the word',
+        );
+      }
+    }
+  });
+
   test('ids are globally unique and distractors are valid', () {
     final ids = [for (final (_, it) in items) it.id];
     expect(ids.toSet().length, ids.length);
@@ -157,6 +210,26 @@ void main() {
           final itemCount = pool.fold<int>(0, (n, u) => n + u.items.length);
           // 3 laneJump forms per picturable item.
           expect(itemCount * 3, greaterThanOrEqualTo(16));
+        });
+      }
+    }
+
+    for (final unitIndex in [1, 2]) {
+      for (final lv in [1, 5]) {
+        test('grade 3 unit $unitIndex, level $lv mixes dragSpell and '
+            'skyShoot', () {
+          final level = levels.firstWhere((l) => l.level == lv);
+          final plan =
+              QuestionGenerator(repo, InMemoryHistoryStore(), Random(1)).plan(
+                level: level,
+                pos: CurriculumPosition(grade: 3, currentUnitIndex: unitIndex),
+                modes: {ModeKind.dragSpell, ModeKind.skyShoot},
+              );
+          expect(plan.length, level.questionCount);
+          expect(plan.map((q) => q.mode).toSet(), {
+            ModeKind.dragSpell,
+            ModeKind.skyShoot,
+          });
         });
       }
     }

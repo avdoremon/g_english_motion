@@ -81,8 +81,8 @@ void main() {
     expect(r.hitIndex, 1);
     expect(r.shotsLeft, 3, reason: 'a hit does not cost a shot');
     expect(r.clockRunning, isFalse);
-    r.tick(const Duration(seconds: 30));
-    expect(r.result, isNull, reason: 'no timeout while reeling');
+    r.tick(const Duration(seconds: 15));
+    expect(r.result, isNull, reason: 'the question clock is stopped');
     expect(r.remaining, const Duration(seconds: 27));
   });
 
@@ -292,6 +292,57 @@ void main() {
           expect(v, lessThan(0.05));
         }
       }
+    });
+  });
+
+  group('reeling timeout', () {
+    SkyShootRound reeling({Duration timeout = const Duration(seconds: 20)}) {
+      final r = SkyShootRound(
+        _q(),
+        timeLimit: const Duration(seconds: 30),
+        field: FakeField((_) => 0.5),
+        castLatency: Duration.zero,
+        reelTimeout: timeout,
+      )..start();
+      r.onEvent(shoot(0));
+      expect(r.phase, SkyPhase.reeling);
+      return r;
+    }
+
+    test('no pull for reelTimeout -> timeout (not wrong)', () {
+      final r = reeling();
+      r.tick(const Duration(seconds: 19));
+      expect(r.result, isNull);
+      r.tick(const Duration(seconds: 2));
+      expect(r.result, RoundResult.timeout);
+      expect(r.phase, SkyPhase.resolved);
+      expect(r.chosenIndex, isNull);
+    });
+
+    test('a counted pull restarts the idle timer', () {
+      final r = reeling();
+      r.tick(const Duration(seconds: 15));
+      r.onEvent(pull(Hand.left));
+      r.tick(const Duration(seconds: 15));
+      expect(r.result, isNull);
+      r.tick(const Duration(seconds: 6));
+      expect(r.result, RoundResult.timeout);
+    });
+
+    test('stands still while the player is lost', () {
+      final r = reeling();
+      r.onEvent(const PlayerLost(at: Duration.zero));
+      r.tick(const Duration(seconds: 60));
+      expect(r.result, isNull);
+      r.onEvent(const PlayerFound(at: Duration.zero));
+      r.tick(const Duration(seconds: 19));
+      expect(r.result, isNull);
+    });
+
+    test('the question clock still stands still while reeling', () {
+      final r = reeling();
+      r.tick(const Duration(seconds: 5));
+      expect(r.remaining, const Duration(seconds: 30));
     });
   });
 }

@@ -1,0 +1,308 @@
+{
+  "grade": 3,
+  "unit": "u02",
+  "index": 2,
+  "title": "Our names",
+  "items": [
+    {
+      "id": "g3u02-name",
+      "word": "name",
+      "ttsText": "name",
+      "image": "grade3/name.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "My name is Nam",
+        "What is your name"
+      ],
+      "distractorIds": [
+        "g3u02-letter",
+        "g3u02-spell",
+        "g3u02-meet"
+      ],
+      "spokenVariants": [
+        "nem",
+        "naim"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u02-letter",
+      "word": "letter",
+      "ttsText": "letter",
+      "image": "grade3/letter.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "This is a letter",
+        "A is a letter"
+      ],
+      "distractorIds": [
+        "g3u02-spell",
+        "g3u02-meet",
+        "g3u02-nice"
+      ],
+      "spokenVariants": [
+        "leta",
+        "ledder"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u02-spell",
+      "word": "spell",
+      "ttsText": "spell",
+      "image": "grade3/spell.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "How do you spell Nam",
+        "Spell your name"
+      ],
+      "distractorIds": [
+        "g3u02-meet",
+        "g3u02-nice",
+        "g3u02-thanks"
+      ],
+      "spokenVariants": [
+        "spel",
+        "smell"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u02-meet",
+      "word": "meet",
+      "ttsText": "meet",
+      "image": "grade3/meet.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "Nice to meet you",
+        "I meet my friend"
+      ],
+      "distractorIds": [
+        "g3u02-nice",
+        "g3u02-thanks",
+        "g3u02-fine"
+      ],
+      "spokenVariants": [
+        "meat",
+        "mit"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u02-nice",
+      "word": "nice",
+      "ttsText": "nice",
+      "image": "grade3/nice.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "Nice to meet you",
+        "She is nice"
+      ],
+      "distractorIds": [
+        "g3u02-thanks",
+        "g3u02-fine",
+        "g3u02-sorry"
+      ],
+      "spokenVariants": [
+        "nise",
+        "nais"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u02-thanks",
+      "word": "thanks",
+      "ttsText": "thanks",
+      "image": "grade3/thanks.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "Thanks my friend",
+        "Thanks my teacher"
+      ],
+      "distractorIds": [
+        "g3u02-fine",
+        "g3u02-sorry",
+        "g3u02-please"
+      ],
+      "spokenVariants": [
+        "thank",
+        "tanks"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u02-fine",
+      "word": "fine",
+      "ttsText": "fine",
+      "image": "grade3/fine.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I am fine thanks",
+        "Fine thanks and you"
+      ],
+      "distractorIds": [
+        "g3u02-sorry",
+        "g3u02-please",
+        "g3u02-today"
+      ],
+      "spokenVariants": [
+        "fain",
+        "find"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u02-sorry",
+      "word": "sorry",
+      "ttsText": "sorry",
+      "image": "grade3/sorry.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "Sorry my teacher",
+        "I am sorry"
+      ],
+      "distractorIds": [
+        "g3u02-please",
+        "g3u02-today",
+        "g3u02-stand"
+      ],
+      "spokenVariants": [
+        "sory",
+        "sorri"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u02-please",
+      "word": "please",
+      "ttsText": "please",
+      "image": "grade3/please.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "Sit down please",
+        "Come in please"
+      ],
+      "distractorIds": [
+        "g3u02-today",
+        "g3u02-stand",
+        "g3u02-sit"
+      ],
+      "spokenVariants": [
+        "pleas",
+        "police"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u02-today",
+      "word": "today",
+      "ttsText": "today",
+      "image": "grade3/today.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "How are you today",
+        "I am fine today"
+      ],
+      "distractorIds": [
+        "g3u02-stand",
+        "g3u02-sit",
+        "g3u02-name"
+      ],
+      "spokenVariants": [
+        "to day",
+        "tuday"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u02-stand",
+      "word": "stand",
+      "ttsText": "stand",
+      "image": "grade3/stand.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "Stand up please",
+        "Please stand up"
+      ],
+      "distractorIds": [
+        "g3u02-sit",
+        "g3u02-name",
+        "g3u02-letter"
+      ],
+      "spokenVariants": [
+        "stan",
+        "sand"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u02-sit",
+      "word": "sit",
+      "ttsText": "sit",
+      "image": "grade3/sit.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "Sit down please",
+        "Please sit down"
+      ],
+      "distractorIds": [
+        "g3u02-name",
+        "g3u02-letter",
+        "g3u02-spell"
+      ],
+      "spokenVariants": [
+        "set",
+        "sid"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    }
+  ]
+}

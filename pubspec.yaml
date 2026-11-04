@@ -70,6 +70,7 @@ flutter:
   assets:
     - assets/config/
     - assets/images/grade1/
+    - assets/images/grade3/
     - assets/content/grade1/
     - assets/content/grade2/
     - assets/content/grade3/

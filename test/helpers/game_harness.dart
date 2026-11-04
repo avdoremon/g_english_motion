@@ -163,6 +163,7 @@ class GameHarness {
     bool hangStop = false,
     int grade = 1,
     List<ModeKind> modes = const [ModeKind.laneJump],
+    ContentRepository? repo,
   }) async {
     SharedPreferences.setMockInitialValues({});
     final store = ProgressStore(await SharedPreferences.getInstance());
@@ -185,7 +186,7 @@ class GameHarness {
     final captions = <String>[];
     audio.captions.listen(captions.add);
     final tickCtl = StreamController<Duration>.broadcast(sync: true);
-    final repo = ContentRepository(
+    repo ??= ContentRepository(
       withContent
           ? [
               harnessUnit(

@@ -7,6 +7,8 @@ Only 11 titles could be confirmed (search-result page titles plus S5); all other
 
 **Vocabulary note:** Grade 1 u01/u02 vocabulary in `assets/content/grade1/` is author-written for these unit topics and is NOT teacher-reviewed. The printed book's word list could not be verified; check it against the printed textbook before release.
 
+Grade 3 u01/u02 (`assets/content/grade3/`): titles come from S1 (page titles), but the vocabulary, sentences and spoken variants are author-written from the unit topics and are NOT teacher-reviewed; the themes marked TBC and every word list must be checked against the printed textbook before release.
+
 ## Grade 1
 
 | Grade | Index | Unit id | Title | Theme | Source |
@@ -54,8 +56,8 @@ Only 11 titles could be confirmed (search-result page titles plus S5); all other
 | Grade | Index | Unit id | Title | Theme | Source |
 |---|---|---|---|---|---|
 | 3 | 0 | starter | Starter (title TBC) | TBC | - |
-| 3 | 1 | u01 | Hello | TBC | S1 |
-| 3 | 2 | u02 | Our names | TBC | S1 |
+| 3 | 1 | u01 | Hello | Greetings and school (TBC) | S1 |
+| 3 | 2 | u02 | Our names | Names, spelling, polite phrases (TBC) | S1 |
 | 3 | 3 | u03 | TBC | TBC | - |
 | 3 | 4 | u04 | TBC | TBC | - |
 | 3 | 5 | u05 | TBC | TBC | - |

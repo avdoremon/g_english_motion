@@ -74,8 +74,10 @@ enum SkyPhase { aiming, reeling, resolved }
 ///   arrow as it was one display latency before the frame the event comes
 ///   from, so the shot is scored there, not where the arrow is when the
 ///   event arrives.
-/// - A hit starts [SkyPhase.reeling] and stops the clock (no timeout while
-///   the answer is being pulled in); a miss costs a shot and with none left
+/// - A hit starts [SkyPhase.reeling] and stops the clock (the question time
+///   limit no longer applies); instead [reelTimeout] without a counted pull
+///   resolves the round as [RoundResult.timeout] (a retry, not a wrong
+///   answer); a miss costs a shot and with none left
 ///   the question is wrong.
 /// - [Pulled] counts only while reeling and only when the hand differs from
 ///   the last counted one; [pullsNeeded] pulls grade the hit answer.
@@ -90,6 +92,7 @@ class SkyShootRound implements Round {
     this.hitRadius = 0.08,
     int shots = 3,
     this.pullsNeeded = 4,
+    this.reelTimeout = const Duration(seconds: 20),
   }) : assert(question.choices.isNotEmpty, 'a question needs choices'),
        _shotsLeft = shots,
        _remaining = timeLimit;
@@ -100,6 +103,13 @@ class SkyShootRound implements Round {
   final double hitRadius;
   final int pullsNeeded;
 
+  /// A hit answer that is not pulled in within this long (no beat counted
+  /// since the hit or the last counted beat) ends the round as
+  /// [RoundResult.timeout], never as wrong: the child may simply not have
+  /// understood the pull. Runs only while the player is present.
+  final Duration reelTimeout;
+
+  Duration _reelIdle = Duration.zero;
   Duration _remaining;
   int _shotsLeft;
   bool _started = false;
@@ -185,6 +195,7 @@ class SkyShootRound implements Round {
       _hitIndex = best;
       _hitX = field.answerX(best, t);
       _phase = SkyPhase.reeling;
+      _reelIdle = Duration.zero;
       return;
     }
     _shotsLeft--;
@@ -199,6 +210,7 @@ class SkyShootRound implements Round {
     if (hand == _lastHand) return;
     _lastHand = hand;
     _pulls++;
+    _reelIdle = Duration.zero;
     if (_pulls >= pullsNeeded) {
       _phase = SkyPhase.resolved;
       _chosenIndex = _hitIndex;
@@ -210,7 +222,19 @@ class SkyShootRound implements Round {
 
   @override
   void tick(Duration dt) {
-    if (dt <= Duration.zero || !clockRunning) return;
+    if (dt <= Duration.zero) return;
+    if (_started &&
+        _playerPresent &&
+        _result == null &&
+        _phase == SkyPhase.reeling) {
+      _reelIdle += dt;
+      if (_reelIdle >= reelTimeout) {
+        _phase = SkyPhase.resolved;
+        _result = RoundResult.timeout;
+      }
+      return;
+    }
+    if (!clockRunning) return;
     _remaining -= dt;
     if (_remaining <= Duration.zero) {
       _remaining = Duration.zero;
