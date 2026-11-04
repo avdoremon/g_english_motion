@@ -159,8 +159,13 @@ void main() {
       );
       await tester.tap(find.byKey(const ValueKey('grade-2')));
       await tester.pump();
+      final h = tester.ensureSemantics();
+      tester.semantics.tap(find.semantics.byLabel('Luyện nói'));
+      await tester.pump();
+      expect(sayItStarted, [(2, 1)], reason: 'TalkBack can activate it');
       await tester.tap(entry);
-      expect(sayItStarted, [(2, 1)]);
+      expect(sayItStarted, [(2, 1), (2, 1)]);
+      h.dispose();
       expect(played, isEmpty);
     },
   );

@@ -54,10 +54,11 @@ class FakeSource implements SpeechSource {
   bool fail = false;
   final List<int> ids = [];
   final List<StreamController<RecognitionResult>> streams = [];
-  int checks = 0;
+  int checks = 0, asked = 0;
 
   @override
-  Future<SpeechAvailability> check() async {
+  Future<SpeechAvailability> check({bool askPermission = false}) async {
+    if (askPermission) asked++;
     checks++;
     return availability;
   }
@@ -218,6 +219,12 @@ void main() {
     await pumpScreen(t, levelWith(WordMotion.rightToLeft));
     src.hear('hat');
     await t.pump();
+    expect(verdict, findsNothing, reason: 'a miss is tentative: no Sai yet');
+    for (var i = 0; i < 10; i++) {
+      await advance(t, const Duration(seconds: 1));
+    }
+    expect(verdict, findsNothing);
+    await advance(t, const Duration(milliseconds: 1200));
     expect(
       find.descendant(of: verdict, matching: find.text('Sai')),
       findsOneWidget,
@@ -227,6 +234,19 @@ void main() {
       findsOneWidget,
     );
     expect(tin(TinTinState.sad), findsOneWidget);
+  });
+
+  testWidgets('a miss followed by the right word is Đúng', (t) async {
+    await pumpScreen(t, levelWith(WordMotion.fallDown));
+    src.hear('hat');
+    await advance(t, const Duration(seconds: 2));
+    expect(verdict, findsNothing);
+    src.hear('cat');
+    await t.pump();
+    expect(
+      find.descendant(of: verdict, matching: find.text('Đúng')),
+      findsOneWidget,
+    );
   });
 
   testWidgets('a result tagged with another word is ignored', (t) async {

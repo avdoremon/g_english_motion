@@ -97,12 +97,36 @@ void main() {
     expect(r.finished, isFalse);
   });
 
-  test('a miss is wrong at once', () {
+  test('a confident miss is only tentative: no Sai yet, still listening', () {
     final r = round();
     r.onRecognized(say('hat', 10, c: [0.9]));
+    expect(r.current.result, isNull);
+    expect(r.current.phase, WordPhase.running);
+    r.tick(travel);
+    expect(r.current.result, isNull);
+    r.tick(const Duration(milliseconds: 999));
+    expect(r.current.result, isNull);
+    r.tick(const Duration(milliseconds: 1));
     expect(r.current.result, RoundResult.wrong);
     expect(r.current.phase, WordPhase.judged);
     expect(r.correctCount, 0);
+  });
+
+  test('a match after a miss overrides it to correct', () {
+    final r = round();
+    r.onRecognized(say('hat', 10, c: [0.9]));
+    r.tick(const Duration(seconds: 2));
+    r.onRecognized(say('cat', 10));
+    expect(r.current.result, RoundResult.correct);
+    expect(r.current.phase, WordPhase.judged);
+  });
+
+  test('a match after a miss inside the late grace still counts', () {
+    final r = round();
+    r.onRecognized(say('hat', 10, c: [0.9]));
+    r.tick(travel + const Duration(milliseconds: 900));
+    r.onRecognized(say('cat', 10));
+    expect(r.current.result, RoundResult.correct);
   });
 
   test('uncertain recognition never grades: empty or low confidence', () {
@@ -167,7 +191,8 @@ void main() {
 
   test('results while judged or exploding are dropped', () {
     final r = round();
-    r.onRecognized(say('hat', 10, c: [0.9]));
+    r.tick(travel + kLateGrace);
+    expect(r.current.result, RoundResult.wrong);
     r.onRecognized(say('cat', 10));
     expect(r.current.result, RoundResult.wrong);
     r.tick(kJudgedHold);
@@ -225,7 +250,11 @@ void main() {
     SayItRound done(int correct) {
       final r = round();
       for (var i = 0; i < 3; i++) {
-        r.onRecognized(say(i < correct ? items[i].word : 'zzz', 10 + i));
+        if (i < correct) {
+          r.onRecognized(say(items[i].word, 10 + i));
+        } else {
+          r.tick(travel + kLateGrace);
+        }
         r.tick(kJudgedHold + kExplosionTime);
       }
       return r;

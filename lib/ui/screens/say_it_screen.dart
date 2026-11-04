@@ -153,13 +153,17 @@ class _SayItScreenState extends State<SayItScreen>
     _modelFor = w.sessionId;
     final round = _round;
     unawaited(
-      widget.audio.sayEnglish(w.item.ttsText, itemId: w.item.id).then((_) {
-        if (!mounted || !identical(round, _round)) return;
-        if (_modelFor != w.sessionId || _round.current != w) return;
-        _round.onModelFinished();
-        _sync();
-        if (mounted) setState(() {});
-      }),
+      widget.audio
+          .sayEnglish(w.item.ttsText, itemId: w.item.id)
+          // A broken model reading must not strand the word: it just runs.
+          .catchError((Object _) {})
+          .then((_) {
+            if (!mounted || !identical(round, _round)) return;
+            if (_modelFor != w.sessionId || _round.current != w) return;
+            _round.onModelFinished();
+            _sync();
+            if (mounted) setState(() {});
+          }),
     );
   }
 

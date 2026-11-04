@@ -13,8 +13,11 @@ enum SpeechAvailability {
 
 /// Speech recognition that runs on the device only: audio never leaves it.
 abstract class SpeechSource {
-  /// May ask for the microphone permission.
-  Future<SpeechAvailability> check();
+  /// Never asks for anything by default: `available` needs an on-device
+  /// recogniser AND a microphone permission that is already granted. With
+  /// [askPermission] the permission is requested (only a parent-gated screen
+  /// does that).
+  Future<SpeechAvailability> check({bool askPermission = false});
 
   /// One listen: results stamped with [sessionId]; the stream ends when the
   /// recogniser stops (end of speech, silence, or [stop]). Unless [check]

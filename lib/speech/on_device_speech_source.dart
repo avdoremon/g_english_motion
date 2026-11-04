@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:speech_to_text/speech_recognition_error.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart';
@@ -19,21 +20,30 @@ abstract class SpeechBackend {
   /// Microphone permission already granted (never asks).
   Future<bool> hasPermission();
 
-  /// Prepares the recogniser; asks for the microphone if needed. False when
-  /// it cannot be used (permission refused, or no recogniser).
+  /// Asks for the microphone permission; true when granted.
+  Future<bool> requestPermission();
+
+  /// Prepares the recogniser (only called once the permission is granted).
+  /// False when it cannot be used.
   Future<bool> initialize();
 
   /// Starts one on-device listen in en_US. [onEnd] fires once, when the
-  /// recogniser has finished (after any final result) or failed.
+  /// recogniser has finished (after any final result; error code null) or
+  /// failed (the plugin's error code, e.g. `error_busy`).
   Future<void> listen({
     required String localeId,
     required void Function(List<String> transcripts, List<double> confidences)
     onResult,
-    required void Function() onEnd,
+    required void Function(String? errorCode) onEnd,
   });
 
   Future<void> stop();
 }
+
+/// Plugin error codes that only mean "nothing was said": the listen ends
+/// normally and the session listens again. Every other code is a failure.
+bool isBenignSpeechError(String code) =>
+    code == 'error_no_match' || code == 'error_speech_timeout';
 
 /// Recognition that never leaves the device. Audio and transcripts exist only
 /// in memory, inside the stream events.
@@ -49,14 +59,15 @@ class OnDeviceSpeechSource implements SpeechSource {
 
   Future<SpeechAvailability>? _checked;
   StreamController<RecognitionResult>? _active;
+  Future<bool>? _initialized;
 
   @override
-  Future<SpeechAvailability> check() {
+  Future<SpeechAvailability> check({bool askPermission = false}) {
     // Only a positive answer is cached: a refused permission may be granted
-    // later in the system settings.
+    // later (system settings, or the parent turning SayIt on).
     final cached = _checked;
     if (cached != null) return cached;
-    final f = _check();
+    final f = _check(askPermission);
     _checked = f.then((a) {
       if (a != SpeechAvailability.available) _checked = null;
       return a;
@@ -64,16 +75,17 @@ class OnDeviceSpeechSource implements SpeechSource {
     return _checked!;
   }
 
-  Future<SpeechAvailability> _check() async {
+  Future<SpeechAvailability> _check(bool ask) async {
     try {
       // First: a device that cannot recognise on-device is out, and the
       // microphone permission is not asked for nothing.
       if (!await _backend.isOnDeviceAvailable()) {
         return SpeechAvailability.noOnDeviceRecognizer;
       }
-      if (await _backend.initialize()) return SpeechAvailability.available;
-      return await _backend.hasPermission()
-          ? SpeechAvailability.noOnDeviceRecognizer
+      var granted = await _backend.hasPermission();
+      if (!granted && ask) granted = await _backend.requestPermission();
+      return granted
+          ? SpeechAvailability.available
           : SpeechAvailability.noPermission;
     } catch (e) {
       debugPrint('OnDeviceSpeechSource.check failed: $e');
@@ -97,9 +109,15 @@ class OnDeviceSpeechSource implements SpeechSource {
   }
 
   Future<void> _start(StreamController<RecognitionResult> c, int id) async {
-    void end() {
+    void end([String? errorCode]) {
       if (identical(_active, c)) _active = null;
-      if (!c.isClosed) unawaited(c.close());
+      if (c.isClosed) return;
+      // "Heard nothing" is a normal end; any other code is a failure the
+      // caller must not mistake for silence.
+      if (errorCode != null && !isBenignSpeechError(errorCode)) {
+        c.addError(StateError('speech recognition failed: $errorCode'));
+      }
+      unawaited(c.close());
     }
 
     try {
@@ -114,6 +132,12 @@ class OnDeviceSpeechSource implements SpeechSource {
       if (previous != null && !previous.isClosed) {
         await _safeStop();
         unawaited(previous.close());
+      }
+      if (c.isClosed) return;
+      _initialized ??= _backend.initialize();
+      if (!await _initialized!) {
+        _initialized = null;
+        throw StateError('speech recognizer could not be initialised');
       }
       if (c.isClosed) return;
       await _backend.listen(
@@ -133,6 +157,7 @@ class OnDeviceSpeechSource implements SpeechSource {
       );
     } catch (e) {
       debugPrint('OnDeviceSpeechSource.listenOnce failed: $e');
+      _initialized = null;
       if (!c.isClosed) c.addError(e);
       end();
     }
@@ -187,7 +212,7 @@ class SpeechToTextBackend implements SpeechBackend {
   final SpeechToText _stt;
   final MethodChannel _channel;
   bool _onDeviceVerified = false;
-  void Function()? _onEnd;
+  void Function(String? errorCode)? _onEnd;
 
   @override
   Future<bool> isOnDeviceAvailable() async {
@@ -199,7 +224,11 @@ class SpeechToTextBackend implements SpeechBackend {
   }
 
   @override
-  Future<bool> hasPermission() => _stt.hasPermission;
+  Future<bool> hasPermission() => Permission.microphone.isGranted;
+
+  @override
+  Future<bool> requestPermission() async =>
+      (await Permission.microphone.request()).isGranted;
 
   @override
   Future<bool> initialize() => _stt.initialize(
@@ -210,22 +239,22 @@ class SpeechToTextBackend implements SpeechBackend {
 
   void _onStatus(String status) {
     // 'done' comes after the final result; 'notListening' can come before it.
-    if (status == SpeechToText.doneStatus) _fireEnd();
+    if (status == SpeechToText.doneStatus) _fireEnd(null);
   }
 
-  void _onError(SpeechRecognitionError e) => _fireEnd();
+  void _onError(SpeechRecognitionError e) => _fireEnd(e.errorMsg);
 
-  void _fireEnd() {
+  void _fireEnd(String? code) {
     final f = _onEnd;
     _onEnd = null;
-    f?.call();
+    f?.call(code);
   }
 
   @override
   Future<void> listen({
     required String localeId,
     required void Function(List<String>, List<double>) onResult,
-    required void Function() onEnd,
+    required void Function(String? errorCode) onEnd,
   }) async {
     if (!_onDeviceVerified) {
       throw StateError('on-device recognition was not verified');

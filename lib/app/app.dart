@@ -459,6 +459,10 @@ class _RootState extends State<_Root> with WidgetsBindingObserver {
                 unitCounts: {
                   for (final g in const [1, 2]) g: _d.repo.unitsFor(g).length,
                 },
+                // The only place that may ask for the microphone.
+                onSayItTurnedOn: () async {
+                  await _d.speech?.check(askPermission: true);
+                },
               ),
             ),
           ),

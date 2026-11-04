@@ -13,7 +13,12 @@ class SpeechSession {
     this._source,
     this._audio, {
     this.relistenDelay = const Duration(milliseconds: 100),
+    this.maxConsecutiveFailures = 3,
   });
+
+  /// After this many failed listens in a row the session gives up and
+  /// [failed] becomes true (a listen that ends normally resets the count).
+  final int maxConsecutiveFailures;
 
   final SpeechSource _source;
   final AudioService _audio;
@@ -38,8 +43,17 @@ class SpeechSession {
     c = StreamController<RecognitionResult>(
       onListen: () {
         final run = _Run(c);
+        final previous = _run;
         _run = run;
-        unawaited(_loop(run, sessionId, keepListening));
+        unawaited(() async {
+          // The earlier listen is fully stopped (and the audio restored)
+          // before this one mutes and opens the microphone again.
+          if (previous != null) {
+            await _cancelRun(previous);
+            await previous.finished.future;
+          }
+          await _loop(run, sessionId, keepListening);
+        }());
       },
       onCancel: () => _finish(c),
     );
@@ -53,8 +67,10 @@ class SpeechSession {
   ) async {
     _failed = false;
     _audio.muteForListening();
+    var failures = 0;
     try {
       while (!run.cancelled && keepListening()) {
+        run.failed = false;
         final ended = Completer<void>();
         run.ended = ended;
         run.sub = _source
@@ -77,8 +93,13 @@ class SpeechSession {
         unawaited(run.sub?.cancel());
         run.sub = null;
         if (run.failed) {
-          _failed = true;
-          break;
+          failures++;
+          if (failures >= maxConsecutiveFailures) {
+            _failed = true;
+            break;
+          }
+        } else {
+          failures = 0;
         }
         if (!run.cancelled && relistenDelay > Duration.zero) {
           final wake = run.wake = Completer<void>();

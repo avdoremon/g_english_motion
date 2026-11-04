@@ -50,16 +50,21 @@ class FakeSource implements SpeechSource {
   final List<StreamController<RecognitionResult>> streams = [];
   final List<int> ids = [];
   Object? failWith;
+
+  /// Per-call override: returns the error to fail with, or null to succeed.
+  Object? Function(int sessionId)? onListen;
   int stops = 0;
 
   @override
-  Future<SpeechAvailability> check() async => SpeechAvailability.available;
+  Future<SpeechAvailability> check({bool askPermission = false}) async =>
+      SpeechAvailability.available;
 
   @override
   Stream<RecognitionResult> listenOnce({required int sessionId}) {
     log.add('listen');
     ids.add(sessionId);
-    if (failWith != null) return Stream.error(failWith!);
+    final err = onListen != null ? onListen!(sessionId) : failWith;
+    if (err != null) return Stream.error(err);
     final c = StreamController<RecognitionResult>();
     streams.add(c);
     return c.stream;
@@ -129,7 +134,7 @@ void main() {
     expect(audio.muted, isFalse);
   });
 
-  test('a throwing source restores audio and does not throw', () async {
+  test('a failing source is retried up to 3 times, then failed', () async {
     src.failWith = StateError('boom');
     final errors = <Object>[];
     final done = Completer<void>();
@@ -137,11 +142,49 @@ void main() {
         .listenWhile(sessionId: 1, keepListening: () => true)
         .listen((_) {}, onError: errors.add, onDone: done.complete);
     await done.future;
-    expect(errors, isEmpty);
-    expect(log, containsAllInOrder(['mute', 'listen', 'restore']));
-    expect(src.streams, isEmpty, reason: 'no retry storm after a failure');
+    expect(errors, isEmpty, reason: 'never throws');
+    expect(src.ids, [1, 1, 1], reason: 'failure cap of 3');
     expect(session.failed, isTrue);
+    expect(log.first, 'mute');
+    expect(log.last, 'restore');
     expect(audio.muted, isFalse);
+  });
+
+  test('a normal end resets the failure count', () async {
+    var n = 0;
+    // calls 1,2 fail; 3 listens; 4,5 fail; 6 listens: never 3 in a row.
+    src.onListen = (id) {
+      n++;
+      return (n == 3 || n >= 6) ? null : StateError('x');
+    };
+    session.listenWhile(sessionId: 1, keepListening: () => true).listen((_) {});
+    await settle();
+    await settle();
+    expect(n, 3);
+    await src.streams[0].close();
+    await settle();
+    await settle();
+    expect(n, 6);
+    expect(session.failed, isFalse);
+    await session.cancel();
+  });
+
+  test('a new listen waits for the previous one to be cancelled', () async {
+    final done1 = Completer<void>();
+    session
+        .listenWhile(sessionId: 1, keepListening: () => true)
+        .listen((_) {}, onDone: done1.complete);
+    await settle();
+    expect(audio.muted, isTrue);
+    session.listenWhile(sessionId: 2, keepListening: () => true).listen((_) {});
+    await settle();
+    await settle();
+    await done1.future;
+    expect(src.ids, [1, 2]);
+    // restore of run 1 happened before run 2 muted again
+    expect(log.where((e) => e == 'restore').length, greaterThanOrEqualTo(1));
+    expect(log.indexOf('restore'), lessThan(log.lastIndexOf('mute')));
+    expect(audio.muted, isTrue);
   });
 
   test('cancel() stops the source, ends the stream and restores', () async {

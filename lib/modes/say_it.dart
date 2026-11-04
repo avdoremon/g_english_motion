@@ -46,9 +46,10 @@ class SayItWord {
 ///   ([WordPhase.waitingForModel]).
 /// - A result is graded only while the word is running (including the
 ///   [kLateGrace] after it ran off the screen) and only if its `sessionId` is
-///   the word's. Uncertain results (silence, low confidence) are ignored: a
-///   word turns wrong either because the recogniser clearly heard another
-///   word, or because the grace ended with no match.
+///   the word's. Only a match decides early (correct). Anything else, a
+///   confident other word included, leaves the word running: it turns wrong
+///   only when the word has run off the screen and the grace ended with no
+///   match. Uncertain input therefore never costs a word.
 class SayItRound {
   SayItRound(
     List<ContentItem> items, {
@@ -111,7 +112,10 @@ class SayItRound {
       case Judgement.match:
         _judge(RoundResult.correct);
       case Judgement.miss:
-        _judge(RoundResult.wrong);
+        // Only tentative: the word keeps running and the microphone stays
+        // open; a later match (before the word's end + grace) overrides it.
+        // It turns wrong only when that deadline passes.
+        break;
       case Judgement.uncertain:
         break;
     }

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 import '../../input/confirm_gesture.dart';
@@ -10,7 +12,12 @@ class ParentSettings extends StatefulWidget {
     required this.store,
     required this.grades,
     required this.unitCounts,
+    this.onSayItTurnedOn,
   });
+
+  /// Called when the parent switches SayIt on: the place to ask for the
+  /// microphone (this screen is behind the parent gate).
+  final Future<void> Function()? onSayItTurnedOn;
 
   final ProgressStore store;
   final List<int> grades;
@@ -108,6 +115,7 @@ class _ParentSettingsState extends State<ParentSettings> {
             value: _s.sayItEnabled,
             onChanged: (v) {
               _s.setSayItEnabled(v);
+              if (v) unawaited(widget.onSayItTurnedOn?.call());
               setState(() {});
             },
           ),

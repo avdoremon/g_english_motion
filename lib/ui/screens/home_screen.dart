@@ -250,31 +250,19 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _sayItEntry(TextTheme t, int level) {
-    return Semantics(
-      button: true,
-      label: 'Luyện nói',
-      excludeSemantics: true,
-      child: GestureDetector(
-        key: const ValueKey('sayit-entry'),
-        onTap: () => widget.onSayIt(_grade, level),
-        child: Container(
-          constraints: const BoxConstraints(minHeight: AppTheme.minTarget),
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
-          decoration: BoxDecoration(
-            color: AppTheme.surface,
-            borderRadius: BorderRadius.circular(28),
-            border: Border.all(color: AppTheme.accent, width: 3),
-          ),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Icon(Icons.mic, color: AppTheme.accent, size: 32),
-              const SizedBox(width: 8),
-              Text('Luyện nói', style: t.bodyLarge),
-            ],
-          ),
-        ),
+    // A real button, so TalkBack can focus and activate it.
+    return FilledButton.tonalIcon(
+      key: const ValueKey('sayit-entry'),
+      onPressed: () => widget.onSayIt(_grade, level),
+      style: FilledButton.styleFrom(
+        minimumSize: const Size(0, AppTheme.minTarget),
+        backgroundColor: AppTheme.surface,
+        foregroundColor: AppTheme.text,
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+        side: const BorderSide(color: AppTheme.accent, width: 3),
       ),
+      icon: const Icon(Icons.mic, color: AppTheme.accent, size: 32),
+      label: Text('Luyện nói', style: t.bodyLarge),
     );
   }
 }

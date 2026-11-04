@@ -271,15 +271,34 @@ void main() {
       store = ProgressStore(await SharedPreferences.getInstance());
     });
 
+    var sayItAsked = 0;
     Widget settings() => _app(
       SingleChildScrollView(
         child: ParentSettings(
           store: store,
           grades: const [1, 2],
           unitCounts: const {1: 3, 2: 2},
+          onSayItTurnedOn: () async => sayItAsked++,
         ),
       ),
     );
+
+    testWidgets('turning SayIt on (only on) asks for the microphone', (
+      tester,
+    ) async {
+      sayItAsked = 0;
+      await tester.pumpWidget(settings());
+      final toggle = find.byKey(const ValueKey('toggle-sayit'));
+      await tester.tap(toggle); // on -> off
+      await tester.pump();
+      expect(store.sayItEnabled, isFalse);
+      expect(sayItAsked, 0);
+      await tester.tap(toggle); // off -> on
+      await tester.pump();
+      expect(store.sayItEnabled, isTrue);
+      expect(sayItAsked, 1);
+      await tester.pumpAndSettle();
+    });
 
     testWidgets('unit stepper clamps to 1..max', (tester) async {
       await tester.pumpWidget(settings());
