@@ -166,6 +166,15 @@ class LevelSession implements PausableSession {
     _checkResult();
   }
 
+  /// Applies input that is not a [GameInputEvent] (a held drag target, a
+  /// touch) to the running round, then looks for its result like [onEvent].
+  /// Ignored unless the round is being played.
+  void act(void Function(Round round) f) {
+    if (!_begun || _phase != SessionPhase.playing) return;
+    f(_round!);
+    _checkResult();
+  }
+
   void tick(Duration dt) {
     if (!_begun) return;
     switch (_phase) {

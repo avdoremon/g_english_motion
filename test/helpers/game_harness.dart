@@ -100,6 +100,8 @@ Unit harnessUnit({
   int index = 1,
   int count = 8,
   bool withImages = false,
+  List<ModeKind> modes = const [ModeKind.laneJump],
+  bool sentences = false,
 }) {
   final p = 'g${grade}u$index';
   return Unit(
@@ -117,7 +119,10 @@ Unit harnessUnit({
               ? 'grade1/${harnessWords[i % harnessWords.length]}.png'
               : null,
           distractorIds: ['${p}i${(i + 1) % count}', '${p}i${(i + 2) % count}'],
-          modes: const [ModeKind.laneJump],
+          sentencePatterns: sentences
+              ? ['I like the ${harnessWords[i % harnessWords.length]}']
+              : const [],
+          modes: modes,
         ),
     ],
   );
@@ -156,6 +161,8 @@ class GameHarness {
     int unitSize = 8,
     int seed = 7,
     bool hangStop = false,
+    int grade = 1,
+    List<ModeKind> modes = const [ModeKind.laneJump],
   }) async {
     SharedPreferences.setMockInitialValues({});
     final store = ProgressStore(await SharedPreferences.getInstance());
@@ -179,10 +186,20 @@ class GameHarness {
     audio.captions.listen(captions.add);
     final tickCtl = StreamController<Duration>.broadcast(sync: true);
     final repo = ContentRepository(
-      withContent ? [harnessUnit(withImages: withImages, count: unitSize)] : [],
+      withContent
+          ? [
+              harnessUnit(
+                grade: grade,
+                withImages: withImages,
+                count: unitSize,
+                modes: modes,
+                sentences: grade >= 3,
+              ),
+            ]
+          : [],
     );
     final controller = GameController(
-      grade: 1,
+      grade: grade,
       level: level,
       store: store,
       repo: repo,

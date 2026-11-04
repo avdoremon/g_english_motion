@@ -17,7 +17,7 @@ import '../ui/mascot/tin_tin.dart';
 import '../ui/parent/parent_gate.dart';
 import '../ui/parent/parent_settings.dart';
 import '../ui/screens/home_screen.dart';
-import '../ui/screens/lane_jump_screen.dart';
+import '../ui/screens/play_screen.dart';
 import '../ui/screens/result_screen.dart';
 import '../ui/shell/calibration_screen.dart';
 import '../ui/shell/camera_problem_screen.dart';
@@ -490,7 +490,7 @@ class _RootState extends State<_Root> with WidgetsBindingObserver {
           onHome: _goHome,
         );
       case GamePhase.playing:
-        return LaneJumpScreen(controller: ctl, onExit: _goHome);
+        return PlayScreen(controller: ctl, onExit: _goHome);
       case GamePhase.finished:
         final o = ctl.outcome!;
         final grade = ctl.grade, level = ctl.level.level;

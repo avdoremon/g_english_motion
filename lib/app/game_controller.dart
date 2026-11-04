@@ -18,6 +18,7 @@ import '../input/pose_session.dart';
 import '../input/pose_types.dart';
 import '../levels/level_config.dart';
 import '../levels/scoring.dart';
+import '../modes/drag_spell.dart';
 import '../modes/lane_jump.dart';
 import '../modes/round.dart';
 import '../progress/progress_store.dart';
@@ -47,7 +48,8 @@ enum GamePhase {
 /// hand; production uses a periodic stream.
 typedef TickerFactory = Stream<Duration> Function();
 
-/// Orchestrates one grade 1-2 LaneJump play-through:
+/// Orchestrates one play-through (grades 1-2 LaneJump, grades 3-5 DragSpell
+/// and SkyShoot):
 /// permission -> calibration -> plan -> [LevelSession] -> result.
 ///
 /// Ordering and timing rules:
@@ -102,6 +104,10 @@ class GameController extends ChangeNotifier {
        _calibratorFactory = calibratorFactory ?? Calibrator.new;
 
   static const maxTickStep = Duration(milliseconds: 250);
+
+  /// Grades 3-5 play the upper modes (DragSpell); grades 1-2 LaneJump.
+  Set<ModeKind> get _modes =>
+      grade >= 3 ? {ModeKind.dragSpell} : {ModeKind.laneJump};
 
   final int grade;
   final LevelConfig level;
@@ -250,7 +256,7 @@ class GameController extends ChangeNotifier {
           grade: grade,
           currentUnitIndex: _store.currentUnit(grade),
         ),
-        modes: {ModeKind.laneJump},
+        modes: _modes,
       );
     } catch (e, st) {
       // E.g. not enough distractors in the bundled content: behave like an
@@ -442,6 +448,8 @@ class GameController extends ChangeNotifier {
       return true;
     }
     final q = s.current.question;
+    // Spell / order: the spoken word or sentence IS the answer.
+    if (q is SpellQuestion || q is OrderQuestion) return false;
     return !(q is ChoiceQuestion && _hidesWord.contains(q.form));
   }
 
@@ -460,6 +468,7 @@ class GameController extends ChangeNotifier {
       cal,
       laneCount: level.choiceCount,
       confirm: confirm,
+      cursor: grade >= 3,
     );
     _pose = pose;
     _selectedLane = pose.currentLane;
@@ -470,11 +479,7 @@ class GameController extends ChangeNotifier {
       plan: _plan,
       history: _store,
       feedbackTime: feedbackTime,
-      makeRound: (pq, {required review}) => LaneJumpRound(
-        pq.question as ChoiceQuestion,
-        timeLimit: Scoring.timeFor(level, ModeKind.laneJump),
-        initialLane: pose.currentLane,
-      ),
+      makeRound: (pq, {required review}) => _makeRound(pq, pose),
     );
     _session = s;
     _lastFrameAt = _now;
@@ -491,6 +496,55 @@ class GameController extends ChangeNotifier {
     );
     s.begin();
     _afterSessionChange();
+  }
+
+  Round _makeRound(PlannedQuestion pq, PoseSession pose) {
+    final q = pq.question;
+    switch (pq.mode) {
+      case ModeKind.dragSpell:
+        if (q is SpellQuestion) {
+          return DragSpellRound.spell(
+            q,
+            timeLimit: Scoring.timeFor(
+              level,
+              ModeKind.dragSpell,
+              slots: q.tiles.length,
+            ),
+          );
+        }
+        if (q is OrderQuestion) {
+          return DragSpellRound.order(
+            q,
+            timeLimit: Scoring.timeFor(
+              level,
+              ModeKind.dragSpell,
+              slots: q.words.length,
+            ),
+          );
+        }
+      case ModeKind.laneJump:
+        if (q is ChoiceQuestion) {
+          return LaneJumpRound(
+            q,
+            timeLimit: Scoring.timeFor(level, ModeKind.laneJump),
+            initialLane: pose.currentLane,
+          );
+        }
+      case ModeKind.skyShoot || ModeKind.sayIt:
+        break;
+    }
+    throw StateError('No round for ${pq.mode} with ${q.runtimeType}');
+  }
+
+  /// Touch / hold fallback for DragSpell: the player held (or tapped) the
+  /// target [targetId] (`tile:<i>`, `slot:<i>`, `check`).
+  void holdTarget(String targetId) {
+    if (_disposed) return;
+    _session?.act((r) {
+      if (r is DragSpellRound) r.onTargetHeld(targetId);
+    });
+    _afterSessionChange();
+    if (!_disposed) notifyListeners();
   }
 
   // ---- input ----
@@ -528,7 +582,8 @@ class GameController extends ChangeNotifier {
         _events.add(e);
     }
     _afterSessionChange();
-    if (!_disposed) notifyListeners();
+    // The cursor moves ~15 times a second: screens follow it themselves.
+    if (!_disposed && e is! CursorMoved) notifyListeners();
   }
 
   void _setLost(bool lost, GameInputEvent e) {
@@ -633,7 +688,7 @@ class GameController extends ChangeNotifier {
     final q = pq.question;
     unawaited(
       _audio
-          .sayEnglish(q.ttsText, itemId: q.itemId)
+          .sayEnglish(q.ttsText, itemId: _clipId(q))
           .catchError((Object _) {})
           .then((_) => _finishPrompt(token)),
     );
@@ -660,13 +715,30 @@ class GameController extends ChangeNotifier {
     unawaited(_explain(s.current.question));
   }
 
+  /// The recorded word clip may stand in for the spoken text only when the
+  /// text is exactly the item's word: a sentence (order) or a gap sentence
+  /// (fill-in) must go through TTS, or the clip would say the answer.
+  String? _clipId(Question q) => switch (q) {
+    OrderQuestion() => null,
+    ChoiceQuestion(form: QuestionForm.fillBlank) => null,
+    _ => q.itemId,
+  };
+
   Future<void> _explain(Question q) async {
     await _audio.playLine(VoiceLine.tryAgain);
     // Left the screen meanwhile: never speak on the next one.
-    if (_disposed || q is! ChoiceQuestion) return;
+    if (_disposed) return;
     try {
-      final correct = _repo.byId(q.choices[q.correctIndex].itemId);
-      if (!_disposed) await _audio.explainAnswer(correct);
+      switch (q) {
+        case ChoiceQuestion():
+          final correct = _repo.byId(q.choices[q.correctIndex].itemId);
+          if (!_disposed) await _audio.explainAnswer(correct);
+        case SpellQuestion():
+          if (!_disposed) await _audio.explainAnswer(_repo.byId(q.itemId));
+        case OrderQuestion():
+          await _audio.playLine(VoiceLine.theAnswerIs);
+          if (!_disposed) await _audio.sayEnglish(q.answer.join(' '));
+      }
     } on StateError {
       // Unknown id: the tryAgain line alone is fine.
     }

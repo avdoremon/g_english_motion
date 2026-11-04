@@ -1,4 +1,3 @@
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:g_english_motion/input/calibrator.dart';
 import 'package:g_english_motion/input/cursor_tracker.dart';
