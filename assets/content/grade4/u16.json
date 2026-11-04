@@ -1,0 +1,258 @@
+{
+  "grade": 4,
+  "unit": "u16",
+  "index": 16,
+  "title": "Weather",
+  "items": [
+    {
+      "id": "g4u16-weather",
+      "word": "weather",
+      "ttsText": "weather",
+      "image": "grade4/weather.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "What is the weather like",
+        "The weather is nice"
+      ],
+      "distractorIds": [
+        "g4u16-sunny",
+        "g4u16-rainy",
+        "g4u16-windy"
+      ],
+      "spokenVariants": [
+        "whether",
+        "wether"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u16-sunny",
+      "word": "sunny",
+      "ttsText": "sunny",
+      "image": "grade4/sunny.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "It is sunny today",
+        "The sunny day is hot"
+      ],
+      "distractorIds": [
+        "g4u16-rainy",
+        "g4u16-windy",
+        "g4u16-cloudy"
+      ],
+      "spokenVariants": [
+        "sonny",
+        "suny"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u16-rainy",
+      "word": "rainy",
+      "ttsText": "rainy",
+      "image": "grade4/rainy.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "It is rainy today",
+        "I hate rainy days"
+      ],
+      "distractorIds": [
+        "g4u16-windy",
+        "g4u16-cloudy",
+        "g4u16-stormy"
+      ],
+      "spokenVariants": [
+        "rainey",
+        "rany"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u16-windy",
+      "word": "windy",
+      "ttsText": "windy",
+      "image": "grade4/windy.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "It is windy today",
+        "The windy day is cool"
+      ],
+      "distractorIds": [
+        "g4u16-cloudy",
+        "g4u16-stormy",
+        "g4u16-snowy"
+      ],
+      "spokenVariants": [
+        "windi",
+        "wendy"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u16-cloudy",
+      "word": "cloudy",
+      "ttsText": "cloudy",
+      "image": "grade4/cloudy.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "It is cloudy today",
+        "The sky is cloudy"
+      ],
+      "distractorIds": [
+        "g4u16-stormy",
+        "g4u16-snowy",
+        "g4u16-hot"
+      ],
+      "spokenVariants": [
+        "clowdy",
+        "cloudi"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u16-stormy",
+      "word": "stormy",
+      "ttsText": "stormy",
+      "image": "grade4/stormy.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "It is stormy today",
+        "The sea is stormy"
+      ],
+      "distractorIds": [
+        "g4u16-snowy",
+        "g4u16-hot",
+        "g4u16-cold"
+      ],
+      "spokenVariants": [
+        "stormi",
+        "stormie"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u16-snowy",
+      "word": "snowy",
+      "ttsText": "snowy",
+      "image": "grade4/snowy.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "It is snowy there",
+        "The mountain is snowy"
+      ],
+      "distractorIds": [
+        "g4u16-hot",
+        "g4u16-cold",
+        "g4u16-warm"
+      ],
+      "spokenVariants": [
+        "snowi",
+        "snowie"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u16-hot",
+      "word": "hot",
+      "ttsText": "hot",
+      "image": "grade4/hot.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "It is hot today",
+        "The sun is hot"
+      ],
+      "distractorIds": [
+        "g4u16-cold",
+        "g4u16-warm",
+        "g4u16-weather"
+      ],
+      "spokenVariants": [
+        "hat",
+        "hut"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u16-cold",
+      "word": "cold",
+      "ttsText": "cold",
+      "image": "grade4/cold.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "It is cold today",
+        "The winter is cold"
+      ],
+      "distractorIds": [
+        "g4u16-warm",
+        "g4u16-weather",
+        "g4u16-sunny"
+      ],
+      "spokenVariants": [
+        "called",
+        "coal"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u16-warm",
+      "word": "warm",
+      "ttsText": "warm",
+      "image": "grade4/warm.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "It is warm today",
+        "The spring is warm"
+      ],
+      "distractorIds": [
+        "g4u16-weather",
+        "g4u16-sunny",
+        "g4u16-rainy"
+      ],
+      "spokenVariants": [
+        "worm",
+        "warn"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    }
+  ]
+}

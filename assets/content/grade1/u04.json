@@ -1,0 +1,244 @@
+{
+  "grade": 1,
+  "unit": "u04",
+  "index": 4,
+  "title": "In the bedroom",
+  "items": [
+    {
+      "id": "g1u04-bed",
+      "word": "bed",
+      "ttsText": "bed",
+      "image": "grade1/bed.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u04-lamp",
+        "g1u04-door",
+        "g1u04-doll"
+      ],
+      "spokenVariants": [
+        "bad"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u04-lamp",
+      "word": "lamp",
+      "ttsText": "lamp",
+      "image": "grade1/lamp.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u04-clock",
+        "g1u04-window",
+        "g1u04-robot"
+      ],
+      "spokenVariants": [
+        "lamb"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u04-clock",
+      "word": "clock",
+      "ttsText": "clock",
+      "image": "grade1/clock.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u04-book",
+        "g1u04-pillow",
+        "g1u04-teddy"
+      ],
+      "spokenVariants": [
+        "clog"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u04-book",
+      "word": "book",
+      "ttsText": "book",
+      "image": "grade1/book.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u04-door",
+        "g1u04-doll",
+        "g1u04-cat"
+      ],
+      "spokenVariants": [
+        "buck"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u04-door",
+      "word": "door",
+      "ttsText": "door",
+      "image": "grade1/door.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u04-window",
+        "g1u04-robot",
+        "g1u04-toy"
+      ],
+      "spokenVariants": [
+        "dor"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u04-window",
+      "word": "window",
+      "ttsText": "window",
+      "image": "grade1/window.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u04-pillow",
+        "g1u04-teddy",
+        "g1u04-bed"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u04-pillow",
+      "word": "pillow",
+      "ttsText": "pillow",
+      "image": "grade1/pillow.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u04-doll",
+        "g1u04-cat",
+        "g1u04-lamp"
+      ],
+      "spokenVariants": [
+        "pilo"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u04-doll",
+      "word": "doll",
+      "ttsText": "doll",
+      "image": "grade1/doll.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u04-robot",
+        "g1u04-toy",
+        "g1u04-clock"
+      ],
+      "spokenVariants": [
+        "dull"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u04-robot",
+      "word": "robot",
+      "ttsText": "robot",
+      "image": "grade1/robot.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u04-teddy",
+        "g1u04-bed",
+        "g1u04-book"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u04-teddy",
+      "word": "teddy",
+      "ttsText": "teddy",
+      "image": "grade1/teddy.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u04-cat",
+        "g1u04-lamp",
+        "g1u04-door"
+      ],
+      "spokenVariants": [
+        "tedi"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u04-cat",
+      "word": "cat",
+      "ttsText": "cat",
+      "image": "grade1/cat.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u04-toy",
+        "g1u04-clock",
+        "g1u04-window"
+      ],
+      "spokenVariants": [
+        "cut"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u04-toy",
+      "word": "toy",
+      "ttsText": "toy",
+      "image": "grade1/toy.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u04-bed",
+        "g1u04-book",
+        "g1u04-pillow"
+      ],
+      "spokenVariants": [
+        "toi"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    }
+  ]
+}

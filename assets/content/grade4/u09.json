@@ -1,0 +1,255 @@
+{
+  "grade": 4,
+  "unit": "u09",
+  "index": 9,
+  "title": "Our sports day",
+  "items": [
+    {
+      "id": "g4u09-football",
+      "word": "football",
+      "ttsText": "football",
+      "image": "grade4/football.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "We play football",
+        "He likes football"
+      ],
+      "distractorIds": [
+        "g4u09-basketball",
+        "g4u09-volleyball",
+        "g4u09-badminton"
+      ],
+      "spokenVariants": [
+        "foot ball",
+        "footbal"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u09-basketball",
+      "word": "basketball",
+      "ttsText": "basketball",
+      "image": "grade4/basketball.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "They play basketball",
+        "I like basketball"
+      ],
+      "distractorIds": [
+        "g4u09-volleyball",
+        "g4u09-badminton",
+        "g4u09-tennis"
+      ],
+      "spokenVariants": [
+        "basket ball",
+        "basketbal"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot"
+      ]
+    },
+    {
+      "id": "g4u09-volleyball",
+      "word": "volleyball",
+      "ttsText": "volleyball",
+      "image": "grade4/volleyball.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "We play volleyball",
+        "She likes volleyball"
+      ],
+      "distractorIds": [
+        "g4u09-badminton",
+        "g4u09-tennis",
+        "g4u09-race"
+      ],
+      "spokenVariants": [
+        "volley ball",
+        "volibal"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot"
+      ]
+    },
+    {
+      "id": "g4u09-badminton",
+      "word": "badminton",
+      "ttsText": "badminton",
+      "image": "grade4/badminton.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "I play badminton",
+        "She plays badminton well"
+      ],
+      "distractorIds": [
+        "g4u09-tennis",
+        "g4u09-race",
+        "g4u09-run"
+      ],
+      "spokenVariants": [
+        "bad minton",
+        "badmington"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot"
+      ]
+    },
+    {
+      "id": "g4u09-tennis",
+      "word": "tennis",
+      "ttsText": "tennis",
+      "image": "grade4/tennis.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "He plays tennis",
+        "I like tennis"
+      ],
+      "distractorIds": [
+        "g4u09-race",
+        "g4u09-run",
+        "g4u09-jump"
+      ],
+      "spokenVariants": [
+        "tenis",
+        "tennies"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u09-race",
+      "word": "race",
+      "ttsText": "race",
+      "image": "grade4/race.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "We have a race",
+        "I win the race"
+      ],
+      "distractorIds": [
+        "g4u09-run",
+        "g4u09-jump",
+        "g4u09-skip"
+      ],
+      "spokenVariants": [
+        "rice",
+        "raise"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u09-run",
+      "word": "run",
+      "ttsText": "run",
+      "image": "grade4/run.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I can run fast",
+        "Let us run"
+      ],
+      "distractorIds": [
+        "g4u09-jump",
+        "g4u09-skip",
+        "g4u09-team"
+      ],
+      "spokenVariants": [
+        "ran",
+        "ron"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u09-jump",
+      "word": "jump",
+      "ttsText": "jump",
+      "image": "grade4/jump.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I can jump high",
+        "Let us jump"
+      ],
+      "distractorIds": [
+        "g4u09-skip",
+        "g4u09-team",
+        "g4u09-football"
+      ],
+      "spokenVariants": [
+        "jum",
+        "chump"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u09-skip",
+      "word": "skip",
+      "ttsText": "skip",
+      "image": "grade4/skip.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I can skip well",
+        "We skip in the yard"
+      ],
+      "distractorIds": [
+        "g4u09-team",
+        "g4u09-football",
+        "g4u09-basketball"
+      ],
+      "spokenVariants": [
+        "skid",
+        "scip"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u09-team",
+      "word": "team",
+      "ttsText": "team",
+      "image": "grade4/team.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "Our team is strong",
+        "I am in the red team"
+      ],
+      "distractorIds": [
+        "g4u09-football",
+        "g4u09-basketball",
+        "g4u09-volleyball"
+      ],
+      "spokenVariants": [
+        "theme",
+        "teen"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    }
+  ]
+}

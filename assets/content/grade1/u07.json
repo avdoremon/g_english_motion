@@ -1,0 +1,245 @@
+{
+  "grade": 1,
+  "unit": "u07",
+  "index": 7,
+  "title": "In the garden",
+  "items": [
+    {
+      "id": "g1u07-flower",
+      "word": "flower",
+      "ttsText": "flower",
+      "image": "grade1/flower.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u07-tree",
+        "g1u07-bird",
+        "g1u07-cat"
+      ],
+      "spokenVariants": [
+        "flour"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u07-tree",
+      "word": "tree",
+      "ttsText": "tree",
+      "image": "grade1/tree.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u07-grass",
+        "g1u07-butterfly",
+        "g1u07-dog"
+      ],
+      "spokenVariants": [
+        "three"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u07-grass",
+      "word": "grass",
+      "ttsText": "grass",
+      "image": "grade1/grass.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u07-bee",
+        "g1u07-rabbit",
+        "g1u07-pond"
+      ],
+      "spokenVariants": [
+        "glass"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u07-bee",
+      "word": "bee",
+      "ttsText": "bee",
+      "image": "grade1/bee.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u07-bird",
+        "g1u07-cat",
+        "g1u07-frog"
+      ],
+      "spokenVariants": [
+        "be"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u07-bird",
+      "word": "bird",
+      "ttsText": "bird",
+      "image": "grade1/bird.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u07-butterfly",
+        "g1u07-dog",
+        "g1u07-leaf"
+      ],
+      "spokenVariants": [
+        "bud"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u07-butterfly",
+      "word": "butterfly",
+      "ttsText": "butterfly",
+      "image": "grade1/butterfly.png",
+      "syllables": 3,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u07-rabbit",
+        "g1u07-pond",
+        "g1u07-flower"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump"
+      ]
+    },
+    {
+      "id": "g1u07-rabbit",
+      "word": "rabbit",
+      "ttsText": "rabbit",
+      "image": "grade1/rabbit.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u07-cat",
+        "g1u07-frog",
+        "g1u07-tree"
+      ],
+      "spokenVariants": [
+        "rabbet"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u07-cat",
+      "word": "cat",
+      "ttsText": "cat",
+      "image": "grade1/cat.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u07-dog",
+        "g1u07-leaf",
+        "g1u07-grass"
+      ],
+      "spokenVariants": [
+        "cut"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u07-dog",
+      "word": "dog",
+      "ttsText": "dog",
+      "image": "grade1/dog.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u07-pond",
+        "g1u07-flower",
+        "g1u07-bee"
+      ],
+      "spokenVariants": [
+        "dug"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u07-pond",
+      "word": "pond",
+      "ttsText": "pond",
+      "image": "grade1/pond.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u07-frog",
+        "g1u07-tree",
+        "g1u07-bird"
+      ],
+      "spokenVariants": [
+        "pawn"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u07-frog",
+      "word": "frog",
+      "ttsText": "frog",
+      "image": "grade1/frog.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u07-leaf",
+        "g1u07-grass",
+        "g1u07-butterfly"
+      ],
+      "spokenVariants": [
+        "frock"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u07-leaf",
+      "word": "leaf",
+      "ttsText": "leaf",
+      "image": "grade1/leaf.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u07-flower",
+        "g1u07-bee",
+        "g1u07-rabbit"
+      ],
+      "spokenVariants": [
+        "leave"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    }
+  ]
+}

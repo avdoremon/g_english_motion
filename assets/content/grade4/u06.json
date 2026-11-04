@@ -1,0 +1,256 @@
+{
+  "grade": 4,
+  "unit": "u06",
+  "index": 6,
+  "title": "Our school facilities",
+  "items": [
+    {
+      "id": "g4u06-library",
+      "word": "library",
+      "ttsText": "library",
+      "image": "grade4/library.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "We read in the library",
+        "The library is quiet"
+      ],
+      "distractorIds": [
+        "g4u06-playground",
+        "g4u06-gym",
+        "g4u06-computer"
+      ],
+      "spokenVariants": [
+        "libary",
+        "librari"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot"
+      ]
+    },
+    {
+      "id": "g4u06-playground",
+      "word": "playground",
+      "ttsText": "playground",
+      "image": "grade4/playground.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I play in the playground",
+        "The playground is big"
+      ],
+      "distractorIds": [
+        "g4u06-gym",
+        "g4u06-computer",
+        "g4u06-classroom"
+      ],
+      "spokenVariants": [
+        "play ground",
+        "playgrown"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u06-gym",
+      "word": "gym",
+      "ttsText": "gym",
+      "image": "grade4/gym.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "We play in the gym",
+        "The gym is new"
+      ],
+      "distractorIds": [
+        "g4u06-computer",
+        "g4u06-classroom",
+        "g4u06-canteen"
+      ],
+      "spokenVariants": [
+        "jim",
+        "gem"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u06-computer",
+      "word": "computer",
+      "ttsText": "computer",
+      "image": "grade4/computer.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "This is the computer room",
+        "I use the computer"
+      ],
+      "distractorIds": [
+        "g4u06-classroom",
+        "g4u06-canteen",
+        "g4u06-hall"
+      ],
+      "spokenVariants": [
+        "compute er",
+        "computa"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot"
+      ]
+    },
+    {
+      "id": "g4u06-classroom",
+      "word": "classroom",
+      "ttsText": "classroom",
+      "image": "grade4/classroom.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "Our classroom is big",
+        "This is my classroom"
+      ],
+      "distractorIds": [
+        "g4u06-canteen",
+        "g4u06-hall",
+        "g4u06-garden"
+      ],
+      "spokenVariants": [
+        "class room",
+        "classrum"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u06-canteen",
+      "word": "canteen",
+      "ttsText": "canteen",
+      "image": "grade4/canteen.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "We eat in the canteen",
+        "The canteen is clean"
+      ],
+      "distractorIds": [
+        "g4u06-hall",
+        "g4u06-garden",
+        "g4u06-pool"
+      ],
+      "spokenVariants": [
+        "can teen",
+        "cantine"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u06-hall",
+      "word": "hall",
+      "ttsText": "hall",
+      "image": "grade4/hall.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "We sing in the hall",
+        "The hall is large"
+      ],
+      "distractorIds": [
+        "g4u06-garden",
+        "g4u06-pool",
+        "g4u06-office"
+      ],
+      "spokenVariants": [
+        "hole",
+        "haul"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u06-garden",
+      "word": "garden",
+      "ttsText": "garden",
+      "image": "grade4/garden.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "The school has a garden",
+        "I water the garden"
+      ],
+      "distractorIds": [
+        "g4u06-pool",
+        "g4u06-office",
+        "g4u06-library"
+      ],
+      "spokenVariants": [
+        "guarden",
+        "gardin"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u06-pool",
+      "word": "pool",
+      "ttsText": "pool",
+      "image": "grade4/pool.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "The school has a pool",
+        "We swim in the pool"
+      ],
+      "distractorIds": [
+        "g4u06-office",
+        "g4u06-library",
+        "g4u06-playground"
+      ],
+      "spokenVariants": [
+        "pull",
+        "poor"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u06-office",
+      "word": "office",
+      "ttsText": "office",
+      "image": "grade4/office.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "The teacher is in the office",
+        "This is the school office"
+      ],
+      "distractorIds": [
+        "g4u06-library",
+        "g4u06-playground",
+        "g4u06-gym"
+      ],
+      "spokenVariants": [
+        "offis",
+        "of fice"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    }
+  ]
+}

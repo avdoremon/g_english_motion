@@ -1,0 +1,257 @@
+{
+  "grade": 4,
+  "unit": "u18",
+  "index": 18,
+  "title": "At the shopping centre",
+  "items": [
+    {
+      "id": "g4u18-shirt",
+      "word": "shirt",
+      "ttsText": "shirt",
+      "image": "grade4/shirt.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I like this shirt",
+        "The shirt is white"
+      ],
+      "distractorIds": [
+        "g4u18-shoes",
+        "g4u18-dress",
+        "g4u18-skirt"
+      ],
+      "spokenVariants": [
+        "shot",
+        "short"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u18-shoes",
+      "word": "shoes",
+      "ttsText": "shoes",
+      "image": "grade4/shoes.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "These shoes are nice",
+        "I need new shoes"
+      ],
+      "distractorIds": [
+        "g4u18-dress",
+        "g4u18-skirt",
+        "g4u18-jacket"
+      ],
+      "spokenVariants": [
+        "shoe",
+        "shows"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u18-dress",
+      "word": "dress",
+      "ttsText": "dress",
+      "image": "grade4/dress.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "She wears a dress",
+        "The dress is pink"
+      ],
+      "distractorIds": [
+        "g4u18-skirt",
+        "g4u18-jacket",
+        "g4u18-jeans"
+      ],
+      "spokenVariants": [
+        "driss",
+        "press"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u18-skirt",
+      "word": "skirt",
+      "ttsText": "skirt",
+      "image": "grade4/skirt.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I like this skirt",
+        "The skirt is blue"
+      ],
+      "distractorIds": [
+        "g4u18-jacket",
+        "g4u18-jeans",
+        "g4u18-hat"
+      ],
+      "spokenVariants": [
+        "scurt",
+        "skit"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u18-jacket",
+      "word": "jacket",
+      "ttsText": "jacket",
+      "image": "grade4/jacket.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "The jacket is warm",
+        "I want this jacket"
+      ],
+      "distractorIds": [
+        "g4u18-jeans",
+        "g4u18-hat",
+        "g4u18-price"
+      ],
+      "spokenVariants": [
+        "jaket",
+        "jackit"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u18-jeans",
+      "word": "jeans",
+      "ttsText": "jeans",
+      "image": "grade4/jeans.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "These jeans are blue",
+        "I like these jeans"
+      ],
+      "distractorIds": [
+        "g4u18-hat",
+        "g4u18-price",
+        "g4u18-cheap"
+      ],
+      "spokenVariants": [
+        "jean",
+        "genes"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u18-hat",
+      "word": "hat",
+      "ttsText": "hat",
+      "image": "grade4/hat.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I like this hat",
+        "The hat is red"
+      ],
+      "distractorIds": [
+        "g4u18-price",
+        "g4u18-cheap",
+        "g4u18-expensive"
+      ],
+      "spokenVariants": [
+        "hut",
+        "hot"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u18-price",
+      "word": "price",
+      "ttsText": "price",
+      "image": "grade4/price.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "What is the price",
+        "The price is low"
+      ],
+      "distractorIds": [
+        "g4u18-cheap",
+        "g4u18-expensive",
+        "g4u18-shirt"
+      ],
+      "spokenVariants": [
+        "prize",
+        "prise"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u18-cheap",
+      "word": "cheap",
+      "ttsText": "cheap",
+      "image": "grade4/cheap.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "The shirt is cheap",
+        "It is not cheap"
+      ],
+      "distractorIds": [
+        "g4u18-expensive",
+        "g4u18-shirt",
+        "g4u18-shoes"
+      ],
+      "spokenVariants": [
+        "chip",
+        "cheep"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u18-expensive",
+      "word": "expensive",
+      "ttsText": "expensive",
+      "image": "grade4/expensive.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "The dress is expensive",
+        "It is very expensive"
+      ],
+      "distractorIds": [
+        "g4u18-shirt",
+        "g4u18-shoes",
+        "g4u18-dress"
+      ],
+      "spokenVariants": [
+        "expensiv",
+        "expencive"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot"
+      ]
+    }
+  ]
+}

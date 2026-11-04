@@ -1,0 +1,307 @@
+{
+  "grade": 3,
+  "unit": "u07",
+  "index": 7,
+  "title": "Classroom instructions",
+  "items": [
+    {
+      "id": "g3u07-stand",
+      "word": "stand",
+      "ttsText": "stand",
+      "image": "grade3/stand.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "Stand up please",
+        "Please stand up now"
+      ],
+      "distractorIds": [
+        "g3u07-sit",
+        "g3u07-open",
+        "g3u07-close"
+      ],
+      "spokenVariants": [
+        "stan",
+        "sand"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u07-sit",
+      "word": "sit",
+      "ttsText": "sit",
+      "image": "grade3/sit.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "Sit down please",
+        "Please sit down now"
+      ],
+      "distractorIds": [
+        "g3u07-open",
+        "g3u07-close",
+        "g3u07-come"
+      ],
+      "spokenVariants": [
+        "set",
+        "seat"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u07-open",
+      "word": "open",
+      "ttsText": "open",
+      "image": "grade3/open.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "Open your book please",
+        "Please open the door"
+      ],
+      "distractorIds": [
+        "g3u07-close",
+        "g3u07-come",
+        "g3u07-go"
+      ],
+      "spokenVariants": [
+        "opan",
+        "oben"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u07-close",
+      "word": "close",
+      "ttsText": "close",
+      "image": "grade3/close.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "Close your book please",
+        "Please close the door"
+      ],
+      "distractorIds": [
+        "g3u07-come",
+        "g3u07-go",
+        "g3u07-book"
+      ],
+      "spokenVariants": [
+        "clothes",
+        "cloze"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u07-come",
+      "word": "come",
+      "ttsText": "come",
+      "image": "grade3/come.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "Come in please",
+        "Please come here now"
+      ],
+      "distractorIds": [
+        "g3u07-go",
+        "g3u07-book",
+        "g3u07-quiet"
+      ],
+      "spokenVariants": [
+        "cum",
+        "calm"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u07-go",
+      "word": "go",
+      "ttsText": "go",
+      "image": "grade3/go.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "Please go to the board",
+        "Go to your seat"
+      ],
+      "distractorIds": [
+        "g3u07-book",
+        "g3u07-quiet",
+        "g3u07-talk"
+      ],
+      "spokenVariants": [
+        "goh",
+        "ghost"
+      ],
+      "modes": [
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u07-book",
+      "word": "book",
+      "ttsText": "book",
+      "image": "grade3/book.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "Open your book please",
+        "Close your book now"
+      ],
+      "distractorIds": [
+        "g3u07-quiet",
+        "g3u07-talk",
+        "g3u07-listen"
+      ],
+      "spokenVariants": [
+        "buk",
+        "back"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u07-quiet",
+      "word": "quiet",
+      "ttsText": "quiet",
+      "image": "grade3/quiet.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "Be quiet please",
+        "The class is quiet"
+      ],
+      "distractorIds": [
+        "g3u07-talk",
+        "g3u07-listen",
+        "g3u07-write"
+      ],
+      "spokenVariants": [
+        "quite",
+        "quiat"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u07-talk",
+      "word": "talk",
+      "ttsText": "talk",
+      "image": "grade3/talk.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "Do not talk please",
+        "Please do not talk"
+      ],
+      "distractorIds": [
+        "g3u07-listen",
+        "g3u07-write",
+        "g3u07-speak"
+      ],
+      "spokenVariants": [
+        "tock",
+        "took"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u07-listen",
+      "word": "listen",
+      "ttsText": "listen",
+      "image": "grade3/listen.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "Listen to me please",
+        "Please listen to the teacher"
+      ],
+      "distractorIds": [
+        "g3u07-write",
+        "g3u07-speak",
+        "g3u07-stand"
+      ],
+      "spokenVariants": [
+        "lissen",
+        "lisen"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u07-write",
+      "word": "write",
+      "ttsText": "write",
+      "image": "grade3/write.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "Write your name please",
+        "Please write the word"
+      ],
+      "distractorIds": [
+        "g3u07-speak",
+        "g3u07-stand",
+        "g3u07-sit"
+      ],
+      "spokenVariants": [
+        "right",
+        "rite"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u07-speak",
+      "word": "speak",
+      "ttsText": "speak",
+      "image": "grade3/speak.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "Speak English please",
+        "Please speak up"
+      ],
+      "distractorIds": [
+        "g3u07-stand",
+        "g3u07-sit",
+        "g3u07-open"
+      ],
+      "spokenVariants": [
+        "speek",
+        "spic"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    }
+  ]
+}

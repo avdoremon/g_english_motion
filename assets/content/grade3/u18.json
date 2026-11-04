@@ -1,0 +1,308 @@
+{
+  "grade": 3,
+  "unit": "u18",
+  "index": 18,
+  "title": "Playing and doing",
+  "items": [
+    {
+      "id": "g3u18-watch",
+      "word": "watch",
+      "ttsText": "watch",
+      "image": "grade3/watch.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I watch television",
+        "We watch cartoons now"
+      ],
+      "distractorIds": [
+        "g3u18-listen",
+        "g3u18-music",
+        "g3u18-cook"
+      ],
+      "spokenVariants": [
+        "wash",
+        "wach"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u18-listen",
+      "word": "listen",
+      "ttsText": "listen",
+      "image": "grade3/listen.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I listen to music",
+        "We listen to the teacher"
+      ],
+      "distractorIds": [
+        "g3u18-music",
+        "g3u18-cook",
+        "g3u18-draw"
+      ],
+      "spokenVariants": [
+        "lissen",
+        "lisen"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u18-music",
+      "word": "music",
+      "ttsText": "music",
+      "image": "grade3/music.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I like music",
+        "We listen to music"
+      ],
+      "distractorIds": [
+        "g3u18-cook",
+        "g3u18-draw",
+        "g3u18-play"
+      ],
+      "spokenVariants": [
+        "musik",
+        "mewsick"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u18-cook",
+      "word": "cook",
+      "ttsText": "cook",
+      "image": "grade3/cook.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "My mother can cook",
+        "I cook with my father"
+      ],
+      "distractorIds": [
+        "g3u18-draw",
+        "g3u18-play",
+        "g3u18-game"
+      ],
+      "spokenVariants": [
+        "cock",
+        "cuk"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u18-draw",
+      "word": "draw",
+      "ttsText": "draw",
+      "image": "grade3/draw.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I can draw a cat",
+        "She likes to draw"
+      ],
+      "distractorIds": [
+        "g3u18-play",
+        "g3u18-game",
+        "g3u18-read"
+      ],
+      "spokenVariants": [
+        "dror",
+        "door"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u18-play",
+      "word": "play",
+      "ttsText": "play",
+      "image": "grade3/play.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I play with my friends",
+        "We play in the park"
+      ],
+      "distractorIds": [
+        "g3u18-game",
+        "g3u18-read",
+        "g3u18-clean"
+      ],
+      "spokenVariants": [
+        "pray",
+        "pley"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u18-game",
+      "word": "game",
+      "ttsText": "game",
+      "image": "grade3/game.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I play a game",
+        "This game is fun"
+      ],
+      "distractorIds": [
+        "g3u18-read",
+        "g3u18-clean",
+        "g3u18-sleep"
+      ],
+      "spokenVariants": [
+        "gam",
+        "gaim"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u18-read",
+      "word": "read",
+      "ttsText": "read",
+      "image": "grade3/read.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I read a book",
+        "She can read well"
+      ],
+      "distractorIds": [
+        "g3u18-clean",
+        "g3u18-sleep",
+        "g3u18-write"
+      ],
+      "spokenVariants": [
+        "red",
+        "reed"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u18-clean",
+      "word": "clean",
+      "ttsText": "clean",
+      "image": "grade3/clean.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I clean my room",
+        "We clean the classroom"
+      ],
+      "distractorIds": [
+        "g3u18-sleep",
+        "g3u18-write",
+        "g3u18-eat"
+      ],
+      "spokenVariants": [
+        "keen",
+        "klean"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u18-sleep",
+      "word": "sleep",
+      "ttsText": "sleep",
+      "image": "grade3/sleep.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I sleep at night",
+        "The baby can sleep"
+      ],
+      "distractorIds": [
+        "g3u18-write",
+        "g3u18-eat",
+        "g3u18-watch"
+      ],
+      "spokenVariants": [
+        "slip",
+        "sleap"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u18-write",
+      "word": "write",
+      "ttsText": "write",
+      "image": "grade3/write.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I write my name",
+        "She can write well"
+      ],
+      "distractorIds": [
+        "g3u18-eat",
+        "g3u18-watch",
+        "g3u18-listen"
+      ],
+      "spokenVariants": [
+        "right",
+        "rite"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u18-eat",
+      "word": "eat",
+      "ttsText": "eat",
+      "image": "grade3/eat.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I eat rice",
+        "We eat at noon"
+      ],
+      "distractorIds": [
+        "g3u18-watch",
+        "g3u18-listen",
+        "g3u18-music"
+      ],
+      "spokenVariants": [
+        "it",
+        "eet"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    }
+  ]
+}

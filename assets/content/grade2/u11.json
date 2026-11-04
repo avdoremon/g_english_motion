@@ -1,0 +1,240 @@
+{
+  "grade": 2,
+  "unit": "u11",
+  "index": 11,
+  "title": "In the playground",
+  "items": [
+    {
+      "id": "g2u11-slide",
+      "word": "slide",
+      "ttsText": "slide",
+      "image": "grade2/slide.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u11-sandbox",
+        "g2u11-rope",
+        "g2u11-bike"
+      ],
+      "spokenVariants": [
+        "slight"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u11-swing",
+      "word": "swing",
+      "ttsText": "swing",
+      "image": "grade2/swing.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u11-ball",
+        "g2u11-kite",
+        "g2u11-hoop"
+      ],
+      "spokenVariants": [
+        "sing"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u11-seesaw",
+      "word": "seesaw",
+      "ttsText": "seesaw",
+      "image": "grade2/seesaw.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u11-rope",
+        "g2u11-bike",
+        "g2u11-scooter"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u11-sandbox",
+      "word": "sandbox",
+      "ttsText": "sandbox",
+      "image": "grade2/sandbox.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u11-kite",
+        "g2u11-hoop",
+        "g2u11-bench"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u11-ball",
+      "word": "ball",
+      "ttsText": "ball",
+      "image": "grade2/ball.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u11-bike",
+        "g2u11-scooter",
+        "g2u11-puddle"
+      ],
+      "spokenVariants": [
+        "bowl"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u11-rope",
+      "word": "rope",
+      "ttsText": "rope",
+      "image": "grade2/rope.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u11-hoop",
+        "g2u11-bench",
+        "g2u11-slide"
+      ],
+      "spokenVariants": [
+        "robe"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u11-kite",
+      "word": "kite",
+      "ttsText": "kite",
+      "image": "grade2/kite.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u11-scooter",
+        "g2u11-puddle",
+        "g2u11-swing"
+      ],
+      "spokenVariants": [
+        "kate"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u11-bike",
+      "word": "bike",
+      "ttsText": "bike",
+      "image": "grade2/bike.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u11-bench",
+        "g2u11-slide",
+        "g2u11-seesaw"
+      ],
+      "spokenVariants": [
+        "bite"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u11-hoop",
+      "word": "hoop",
+      "ttsText": "hoop",
+      "image": "grade2/hoop.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u11-puddle",
+        "g2u11-swing",
+        "g2u11-sandbox"
+      ],
+      "spokenVariants": [
+        "whoop"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u11-scooter",
+      "word": "scooter",
+      "ttsText": "scooter",
+      "image": "grade2/scooter.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u11-slide",
+        "g2u11-seesaw",
+        "g2u11-ball"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u11-bench",
+      "word": "bench",
+      "ttsText": "bench",
+      "image": "grade2/bench.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u11-swing",
+        "g2u11-sandbox",
+        "g2u11-rope"
+      ],
+      "spokenVariants": [
+        "bunch"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u11-puddle",
+      "word": "puddle",
+      "ttsText": "puddle",
+      "image": "grade2/puddle.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u11-seesaw",
+        "g2u11-ball",
+        "g2u11-kite"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,308 @@
+{
+  "grade": 5,
+  "unit": "u16",
+  "index": 16,
+  "title": "Seasons and the weather",
+  "items": [
+    {
+      "id": "g5u16-spring",
+      "word": "spring",
+      "ttsText": "spring",
+      "image": "grade5/spring.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "It is warm in spring",
+        "Flowers bloom in spring"
+      ],
+      "distractorIds": [
+        "g5u16-summer",
+        "g5u16-autumn",
+        "g5u16-winter"
+      ],
+      "spokenVariants": [
+        "sprin",
+        "spreeng"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u16-summer",
+      "word": "summer",
+      "ttsText": "summer",
+      "image": "grade5/summer.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "It is hot in summer",
+        "We go swimming in summer"
+      ],
+      "distractorIds": [
+        "g5u16-autumn",
+        "g5u16-winter",
+        "g5u16-sunny"
+      ],
+      "spokenVariants": [
+        "sumer",
+        "summa"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u16-autumn",
+      "word": "autumn",
+      "ttsText": "autumn",
+      "image": "grade5/autumn.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "It is cool in autumn",
+        "Leaves fall in autumn"
+      ],
+      "distractorIds": [
+        "g5u16-winter",
+        "g5u16-sunny",
+        "g5u16-rainy"
+      ],
+      "spokenVariants": [
+        "autum",
+        "ortum"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u16-winter",
+      "word": "winter",
+      "ttsText": "winter",
+      "image": "grade5/winter.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "It is cold in winter",
+        "We wear coats in winter"
+      ],
+      "distractorIds": [
+        "g5u16-sunny",
+        "g5u16-rainy",
+        "g5u16-windy"
+      ],
+      "spokenVariants": [
+        "winta",
+        "winer"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u16-sunny",
+      "word": "sunny",
+      "ttsText": "sunny",
+      "image": "grade5/sunny.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "It is sunny today",
+        "Is it sunny in Hue"
+      ],
+      "distractorIds": [
+        "g5u16-rainy",
+        "g5u16-windy",
+        "g5u16-cloudy"
+      ],
+      "spokenVariants": [
+        "sunni",
+        "sonny"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u16-rainy",
+      "word": "rainy",
+      "ttsText": "rainy",
+      "image": "grade5/rainy.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "It is rainy today",
+        "The rainy season is long"
+      ],
+      "distractorIds": [
+        "g5u16-windy",
+        "g5u16-cloudy",
+        "g5u16-snowy"
+      ],
+      "spokenVariants": [
+        "rainey",
+        "rany"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u16-windy",
+      "word": "windy",
+      "ttsText": "windy",
+      "image": "grade5/windy.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "It is windy today",
+        "The windy day is fun"
+      ],
+      "distractorIds": [
+        "g5u16-cloudy",
+        "g5u16-snowy",
+        "g5u16-stormy"
+      ],
+      "spokenVariants": [
+        "windee",
+        "windi"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u16-cloudy",
+      "word": "cloudy",
+      "ttsText": "cloudy",
+      "image": "grade5/cloudy.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "It is cloudy today",
+        "What a cloudy day"
+      ],
+      "distractorIds": [
+        "g5u16-snowy",
+        "g5u16-stormy",
+        "g5u16-hot"
+      ],
+      "spokenVariants": [
+        "cloudee",
+        "cloudi"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u16-snowy",
+      "word": "snowy",
+      "ttsText": "snowy",
+      "image": "grade5/snowy.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "It is snowy in winter",
+        "We love snowy days"
+      ],
+      "distractorIds": [
+        "g5u16-stormy",
+        "g5u16-hot",
+        "g5u16-cool"
+      ],
+      "spokenVariants": [
+        "snowee",
+        "snowi"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u16-stormy",
+      "word": "stormy",
+      "ttsText": "stormy",
+      "image": "grade5/stormy.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "It is stormy today",
+        "A stormy night is scary"
+      ],
+      "distractorIds": [
+        "g5u16-hot",
+        "g5u16-cool",
+        "g5u16-spring"
+      ],
+      "spokenVariants": [
+        "stormi",
+        "stormee"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u16-hot",
+      "word": "hot",
+      "ttsText": "hot",
+      "image": "grade5/hot.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "It is hot in summer",
+        "Drink water on hot days"
+      ],
+      "distractorIds": [
+        "g5u16-cool",
+        "g5u16-spring",
+        "g5u16-summer"
+      ],
+      "spokenVariants": [
+        "hut",
+        "hott"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u16-cool",
+      "word": "cool",
+      "ttsText": "cool",
+      "image": "grade5/cool.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "It is cool in autumn",
+        "The weather is cool today"
+      ],
+      "distractorIds": [
+        "g5u16-spring",
+        "g5u16-summer",
+        "g5u16-autumn"
+      ],
+      "spokenVariants": [
+        "kool",
+        "cule"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    }
+  ]
+}

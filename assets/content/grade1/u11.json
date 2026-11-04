@@ -1,0 +1,248 @@
+{
+  "grade": 1,
+  "unit": "u11",
+  "index": 11,
+  "title": "At the bus stop",
+  "items": [
+    {
+      "id": "g1u11-bus",
+      "word": "bus",
+      "ttsText": "bus",
+      "image": "grade1/bus.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u11-car",
+        "g1u11-truck",
+        "g1u11-plane"
+      ],
+      "spokenVariants": [
+        "boss"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u11-car",
+      "word": "car",
+      "ttsText": "car",
+      "image": "grade1/car.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u11-bike",
+        "g1u11-train",
+        "g1u11-road"
+      ],
+      "spokenVariants": [
+        "card"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u11-bike",
+      "word": "bike",
+      "ttsText": "bike",
+      "image": "grade1/bike.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u11-taxi",
+        "g1u11-boat",
+        "g1u11-sign"
+      ],
+      "spokenVariants": [
+        "bite"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u11-taxi",
+      "word": "taxi",
+      "ttsText": "taxi",
+      "image": "grade1/taxi.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u11-truck",
+        "g1u11-plane",
+        "g1u11-man"
+      ],
+      "spokenVariants": [
+        "tacsi"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u11-truck",
+      "word": "truck",
+      "ttsText": "truck",
+      "image": "grade1/truck.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u11-train",
+        "g1u11-road",
+        "g1u11-woman"
+      ],
+      "spokenVariants": [
+        "track"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u11-train",
+      "word": "train",
+      "ttsText": "train",
+      "image": "grade1/train.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u11-boat",
+        "g1u11-sign",
+        "g1u11-bus"
+      ],
+      "spokenVariants": [
+        "trane"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u11-boat",
+      "word": "boat",
+      "ttsText": "boat",
+      "image": "grade1/boat.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u11-plane",
+        "g1u11-man",
+        "g1u11-car"
+      ],
+      "spokenVariants": [
+        "boot"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u11-plane",
+      "word": "plane",
+      "ttsText": "plane",
+      "image": "grade1/plane.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u11-road",
+        "g1u11-woman",
+        "g1u11-bike"
+      ],
+      "spokenVariants": [
+        "plan"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u11-road",
+      "word": "road",
+      "ttsText": "road",
+      "image": "grade1/road.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u11-sign",
+        "g1u11-bus",
+        "g1u11-taxi"
+      ],
+      "spokenVariants": [
+        "rode"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u11-sign",
+      "word": "sign",
+      "ttsText": "sign",
+      "image": "grade1/sign.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u11-man",
+        "g1u11-car",
+        "g1u11-truck"
+      ],
+      "spokenVariants": [
+        "sine"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u11-man",
+      "word": "man",
+      "ttsText": "man",
+      "image": "grade1/man.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u11-woman",
+        "g1u11-bike",
+        "g1u11-train"
+      ],
+      "spokenVariants": [
+        "men"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u11-woman",
+      "word": "woman",
+      "ttsText": "woman",
+      "image": "grade1/woman.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u11-bus",
+        "g1u11-taxi",
+        "g1u11-boat"
+      ],
+      "spokenVariants": [
+        "women"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    }
+  ]
+}

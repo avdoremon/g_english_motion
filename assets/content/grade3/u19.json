@@ -1,0 +1,308 @@
+{
+  "grade": 3,
+  "unit": "u19",
+  "index": 19,
+  "title": "Outdoor activities",
+  "items": [
+    {
+      "id": "g3u19-park",
+      "word": "park",
+      "ttsText": "park",
+      "image": "grade3/park.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "We go to the park",
+        "The park is big"
+      ],
+      "distractorIds": [
+        "g3u19-kite",
+        "g3u19-skate",
+        "g3u19-climb"
+      ],
+      "spokenVariants": [
+        "pack",
+        "bark"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u19-kite",
+      "word": "kite",
+      "ttsText": "kite",
+      "image": "grade3/kite.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I fly a kite",
+        "The kite is high"
+      ],
+      "distractorIds": [
+        "g3u19-skate",
+        "g3u19-climb",
+        "g3u19-fish"
+      ],
+      "spokenVariants": [
+        "kight",
+        "kit"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u19-skate",
+      "word": "skate",
+      "ttsText": "skate",
+      "image": "grade3/skate.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I can skate well",
+        "We skate in the park"
+      ],
+      "distractorIds": [
+        "g3u19-climb",
+        "g3u19-fish",
+        "g3u19-picnic"
+      ],
+      "spokenVariants": [
+        "scate",
+        "skait"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u19-climb",
+      "word": "climb",
+      "ttsText": "climb",
+      "image": "grade3/climb.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I can climb a tree",
+        "We climb the hill"
+      ],
+      "distractorIds": [
+        "g3u19-fish",
+        "g3u19-picnic",
+        "g3u19-swing"
+      ],
+      "spokenVariants": [
+        "clime",
+        "climbed"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u19-fish",
+      "word": "fish",
+      "ttsText": "fish",
+      "image": "grade3/fish.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "My father can fish",
+        "We fish in the lake"
+      ],
+      "distractorIds": [
+        "g3u19-picnic",
+        "g3u19-swing",
+        "g3u19-slide"
+      ],
+      "spokenVariants": [
+        "fiss",
+        "fesh"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u19-picnic",
+      "word": "picnic",
+      "ttsText": "picnic",
+      "image": "grade3/picnic.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "We have a picnic",
+        "I like a picnic"
+      ],
+      "distractorIds": [
+        "g3u19-swing",
+        "g3u19-slide",
+        "g3u19-bench"
+      ],
+      "spokenVariants": [
+        "picknick",
+        "pick nick"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u19-swing",
+      "word": "swing",
+      "ttsText": "swing",
+      "image": "grade3/swing.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I play on the swing",
+        "We swing in the park"
+      ],
+      "distractorIds": [
+        "g3u19-slide",
+        "g3u19-bench",
+        "g3u19-tree"
+      ],
+      "spokenVariants": [
+        "string",
+        "swin"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u19-slide",
+      "word": "slide",
+      "ttsText": "slide",
+      "image": "grade3/slide.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I play on the slide",
+        "The slide is long"
+      ],
+      "distractorIds": [
+        "g3u19-bench",
+        "g3u19-tree",
+        "g3u19-lake"
+      ],
+      "spokenVariants": [
+        "slight",
+        "slied"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u19-bench",
+      "word": "bench",
+      "ttsText": "bench",
+      "image": "grade3/bench.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "We sit on the bench",
+        "The bench is brown"
+      ],
+      "distractorIds": [
+        "g3u19-tree",
+        "g3u19-lake",
+        "g3u19-fly"
+      ],
+      "spokenVariants": [
+        "bunch",
+        "branch"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u19-tree",
+      "word": "tree",
+      "ttsText": "tree",
+      "image": "grade3/tree.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I climb the tree",
+        "The tree is tall"
+      ],
+      "distractorIds": [
+        "g3u19-lake",
+        "g3u19-fly",
+        "g3u19-park"
+      ],
+      "spokenVariants": [
+        "three",
+        "tri"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u19-lake",
+      "word": "lake",
+      "ttsText": "lake",
+      "image": "grade3/lake.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "We go to the lake",
+        "The lake is big"
+      ],
+      "distractorIds": [
+        "g3u19-fly",
+        "g3u19-park",
+        "g3u19-kite"
+      ],
+      "spokenVariants": [
+        "lace",
+        "lack"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u19-fly",
+      "word": "fly",
+      "ttsText": "fly",
+      "image": "grade3/fly.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I fly my kite",
+        "Birds can fly high"
+      ],
+      "distractorIds": [
+        "g3u19-park",
+        "g3u19-kite",
+        "g3u19-skate"
+      ],
+      "spokenVariants": [
+        "fry",
+        "flies"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    }
+  ]
+}

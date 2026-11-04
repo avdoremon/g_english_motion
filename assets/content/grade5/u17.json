@@ -1,0 +1,282 @@
+{
+  "grade": 5,
+  "unit": "u17",
+  "index": 17,
+  "title": "Stories for children",
+  "items": [
+    {
+      "id": "g5u17-story",
+      "word": "story",
+      "ttsText": "story",
+      "image": "grade5/story.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I like this story",
+        "Tell me a story"
+      ],
+      "distractorIds": [
+        "g5u17-prince",
+        "g5u17-princess",
+        "g5u17-giant"
+      ],
+      "spokenVariants": [
+        "storey",
+        "stori"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u17-prince",
+      "word": "prince",
+      "ttsText": "prince",
+      "image": "grade5/prince.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "The prince is very brave",
+        "The prince met a princess"
+      ],
+      "distractorIds": [
+        "g5u17-princess",
+        "g5u17-giant",
+        "g5u17-fairy"
+      ],
+      "spokenVariants": [
+        "prints",
+        "prinz"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u17-princess",
+      "word": "princess",
+      "ttsText": "princess",
+      "image": "grade5/princess.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "The princess is very kind",
+        "She is a beautiful princess"
+      ],
+      "distractorIds": [
+        "g5u17-giant",
+        "g5u17-fairy",
+        "g5u17-wolf"
+      ],
+      "spokenVariants": [
+        "princes",
+        "prin cess"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u17-giant",
+      "word": "giant",
+      "ttsText": "giant",
+      "image": "grade5/giant.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "The giant is very tall",
+        "A giant lives in the castle"
+      ],
+      "distractorIds": [
+        "g5u17-fairy",
+        "g5u17-wolf",
+        "g5u17-fox"
+      ],
+      "spokenVariants": [
+        "jiant",
+        "gyant"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u17-fairy",
+      "word": "fairy",
+      "ttsText": "fairy",
+      "image": "grade5/fairy.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "The fairy has a magic wand",
+        "A fairy helps the girl"
+      ],
+      "distractorIds": [
+        "g5u17-wolf",
+        "g5u17-fox",
+        "g5u17-crow"
+      ],
+      "spokenVariants": [
+        "ferry",
+        "fairee"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u17-wolf",
+      "word": "wolf",
+      "ttsText": "wolf",
+      "image": "grade5/wolf.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "The wolf is very hungry",
+        "The wolf lives in the forest"
+      ],
+      "distractorIds": [
+        "g5u17-fox",
+        "g5u17-crow",
+        "g5u17-rabbit"
+      ],
+      "spokenVariants": [
+        "wulf",
+        "woof"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u17-fox",
+      "word": "fox",
+      "ttsText": "fox",
+      "image": "grade5/fox.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "The fox is very clever",
+        "The fox met a crow"
+      ],
+      "distractorIds": [
+        "g5u17-crow",
+        "g5u17-rabbit",
+        "g5u17-castle"
+      ],
+      "spokenVariants": [
+        "focks",
+        "fawx"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u17-crow",
+      "word": "crow",
+      "ttsText": "crow",
+      "image": "grade5/crow.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "The crow is on the tree",
+        "The crow has some cheese"
+      ],
+      "distractorIds": [
+        "g5u17-rabbit",
+        "g5u17-castle",
+        "g5u17-king"
+      ],
+      "spokenVariants": [
+        "crowe"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u17-rabbit",
+      "word": "rabbit",
+      "ttsText": "rabbit",
+      "image": "grade5/rabbit.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "The rabbit runs very fast",
+        "The rabbit eats a carrot"
+      ],
+      "distractorIds": [
+        "g5u17-castle",
+        "g5u17-king",
+        "g5u17-story"
+      ],
+      "spokenVariants": [
+        "rabit",
+        "rabbet"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u17-castle",
+      "word": "castle",
+      "ttsText": "castle",
+      "image": "grade5/castle.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "The castle is on the hill",
+        "The prince lives in a castle"
+      ],
+      "distractorIds": [
+        "g5u17-king",
+        "g5u17-story",
+        "g5u17-prince"
+      ],
+      "spokenVariants": [
+        "cassel",
+        "casel"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u17-king",
+      "word": "king",
+      "ttsText": "king",
+      "image": "grade5/king.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "The king is very kind",
+        "The king has a big castle"
+      ],
+      "distractorIds": [
+        "g5u17-story",
+        "g5u17-prince",
+        "g5u17-princess"
+      ],
+      "spokenVariants": [
+        "keen",
+        "kinng"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    }
+  ]
+}

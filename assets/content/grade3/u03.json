@@ -1,0 +1,283 @@
+{
+  "grade": 3,
+  "unit": "u03",
+  "index": 3,
+  "title": "Our friends",
+  "items": [
+    {
+      "id": "g3u03-friend",
+      "word": "friend",
+      "ttsText": "friend",
+      "image": "grade3/friend.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "This is my friend",
+        "That is my new friend"
+      ],
+      "distractorIds": [
+        "g3u03-boy",
+        "g3u03-girl",
+        "g3u03-teacher"
+      ],
+      "spokenVariants": [
+        "frend",
+        "fren"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u03-boy",
+      "word": "boy",
+      "ttsText": "boy",
+      "image": "grade3/boy.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "He is a boy",
+        "That boy is Nam"
+      ],
+      "distractorIds": [
+        "g3u03-girl",
+        "g3u03-teacher",
+        "g3u03-classmate"
+      ],
+      "spokenVariants": [
+        "boi",
+        "buoy"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u03-girl",
+      "word": "girl",
+      "ttsText": "girl",
+      "image": "grade3/girl.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "She is a girl",
+        "That girl is Mai"
+      ],
+      "distractorIds": [
+        "g3u03-teacher",
+        "g3u03-classmate",
+        "g3u03-name"
+      ],
+      "spokenVariants": [
+        "gurl",
+        "gal"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u03-teacher",
+      "word": "teacher",
+      "ttsText": "teacher",
+      "image": "grade3/teacher.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "That is my teacher",
+        "This is our teacher"
+      ],
+      "distractorIds": [
+        "g3u03-classmate",
+        "g3u03-name",
+        "g3u03-new"
+      ],
+      "spokenVariants": [
+        "tester",
+        "teachah"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u03-classmate",
+      "word": "classmate",
+      "ttsText": "classmate",
+      "image": "grade3/classmate.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "Ben is my classmate",
+        "This is my classmate"
+      ],
+      "distractorIds": [
+        "g3u03-name",
+        "g3u03-new",
+        "g3u03-nice"
+      ],
+      "spokenVariants": [
+        "class mate",
+        "classmates"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u03-name",
+      "word": "name",
+      "ttsText": "name",
+      "image": "grade3/name.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "My name is Mai",
+        "What is his name"
+      ],
+      "distractorIds": [
+        "g3u03-new",
+        "g3u03-nice",
+        "g3u03-yes"
+      ],
+      "spokenVariants": [
+        "nam",
+        "neim"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u03-new",
+      "word": "new",
+      "ttsText": "new",
+      "image": "grade3/new.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "This is a new friend",
+        "She is a new pupil"
+      ],
+      "distractorIds": [
+        "g3u03-nice",
+        "g3u03-yes",
+        "g3u03-who"
+      ],
+      "spokenVariants": [
+        "knew",
+        "nu"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u03-nice",
+      "word": "nice",
+      "ttsText": "nice",
+      "image": "grade3/nice.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "Nice to meet you",
+        "She is very nice"
+      ],
+      "distractorIds": [
+        "g3u03-yes",
+        "g3u03-who",
+        "g3u03-they"
+      ],
+      "spokenVariants": [
+        "nise",
+        "niece"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u03-yes",
+      "word": "yes",
+      "ttsText": "yes",
+      "image": "grade3/yes.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "Yes this is Ben",
+        "Yes she is my friend"
+      ],
+      "distractorIds": [
+        "g3u03-who",
+        "g3u03-they",
+        "g3u03-friend"
+      ],
+      "spokenVariants": [
+        "yess",
+        "yeah"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u03-who",
+      "word": "who",
+      "ttsText": "who",
+      "image": "grade3/who.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "Who is that girl",
+        "Who is he"
+      ],
+      "distractorIds": [
+        "g3u03-they",
+        "g3u03-friend",
+        "g3u03-boy"
+      ],
+      "spokenVariants": [
+        "hoo",
+        "hu"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u03-they",
+      "word": "they",
+      "ttsText": "they",
+      "image": "grade3/they.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "They are my friends",
+        "They are in my class"
+      ],
+      "distractorIds": [
+        "g3u03-friend",
+        "g3u03-boy",
+        "g3u03-girl"
+      ],
+      "spokenVariants": [
+        "day",
+        "thay"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    }
+  ]
+}

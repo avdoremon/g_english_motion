@@ -1,0 +1,240 @@
+{
+  "grade": 2,
+  "unit": "u04",
+  "index": 4,
+  "title": "In the countryside",
+  "items": [
+    {
+      "id": "g2u04-river",
+      "word": "river",
+      "ttsText": "river",
+      "image": "grade2/river.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u04-field",
+        "g2u04-horse",
+        "g2u04-sheep"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u04-bridge",
+      "word": "bridge",
+      "ttsText": "bridge",
+      "image": "grade2/bridge.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u04-cow",
+        "g2u04-duck",
+        "g2u04-pond"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u04-hill",
+      "word": "hill",
+      "ttsText": "hill",
+      "image": "grade2/hill.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u04-horse",
+        "g2u04-sheep",
+        "g2u04-road"
+      ],
+      "spokenVariants": [
+        "heel"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u04-field",
+      "word": "field",
+      "ttsText": "field",
+      "image": "grade2/field.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u04-duck",
+        "g2u04-pond",
+        "g2u04-mountain"
+      ],
+      "spokenVariants": [
+        "feel"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u04-cow",
+      "word": "cow",
+      "ttsText": "cow",
+      "image": "grade2/cow.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u04-sheep",
+        "g2u04-road",
+        "g2u04-rice"
+      ],
+      "spokenVariants": [
+        "call"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u04-horse",
+      "word": "horse",
+      "ttsText": "horse",
+      "image": "grade2/horse.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u04-pond",
+        "g2u04-mountain",
+        "g2u04-river"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u04-duck",
+      "word": "duck",
+      "ttsText": "duck",
+      "image": "grade2/duck.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u04-road",
+        "g2u04-rice",
+        "g2u04-bridge"
+      ],
+      "spokenVariants": [
+        "dock"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u04-sheep",
+      "word": "sheep",
+      "ttsText": "sheep",
+      "image": "grade2/sheep.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u04-mountain",
+        "g2u04-river",
+        "g2u04-hill"
+      ],
+      "spokenVariants": [
+        "ship"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u04-pond",
+      "word": "pond",
+      "ttsText": "pond",
+      "image": "grade2/pond.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u04-rice",
+        "g2u04-bridge",
+        "g2u04-field"
+      ],
+      "spokenVariants": [
+        "pawn"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u04-road",
+      "word": "road",
+      "ttsText": "road",
+      "image": "grade2/road.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u04-river",
+        "g2u04-hill",
+        "g2u04-cow"
+      ],
+      "spokenVariants": [
+        "rode"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u04-mountain",
+      "word": "mountain",
+      "ttsText": "mountain",
+      "image": "grade2/mountain.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u04-bridge",
+        "g2u04-field",
+        "g2u04-horse"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u04-rice",
+      "word": "rice",
+      "ttsText": "rice",
+      "image": "grade2/rice.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u04-hill",
+        "g2u04-cow",
+        "g2u04-duck"
+      ],
+      "spokenVariants": [
+        "rise"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    }
+  ]
+}

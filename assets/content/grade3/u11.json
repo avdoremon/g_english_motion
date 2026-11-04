@@ -1,0 +1,283 @@
+{
+  "grade": 3,
+  "unit": "u11",
+  "index": 11,
+  "title": "My family",
+  "items": [
+    {
+      "id": "g3u11-father",
+      "word": "father",
+      "ttsText": "father",
+      "image": "grade3/father.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "This is my father",
+        "My father is tall"
+      ],
+      "distractorIds": [
+        "g3u11-mother",
+        "g3u11-brother",
+        "g3u11-sister"
+      ],
+      "spokenVariants": [
+        "farther",
+        "fada"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u11-mother",
+      "word": "mother",
+      "ttsText": "mother",
+      "image": "grade3/mother.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "This is my mother",
+        "My mother is kind"
+      ],
+      "distractorIds": [
+        "g3u11-brother",
+        "g3u11-sister",
+        "g3u11-grandmother"
+      ],
+      "spokenVariants": [
+        "mudder",
+        "mothar"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u11-brother",
+      "word": "brother",
+      "ttsText": "brother",
+      "image": "grade3/brother.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "This is my brother",
+        "My brother is young"
+      ],
+      "distractorIds": [
+        "g3u11-sister",
+        "g3u11-grandmother",
+        "g3u11-grandfather"
+      ],
+      "spokenVariants": [
+        "brudder",
+        "brothar"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u11-sister",
+      "word": "sister",
+      "ttsText": "sister",
+      "image": "grade3/sister.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "This is my sister",
+        "My sister is nice"
+      ],
+      "distractorIds": [
+        "g3u11-grandmother",
+        "g3u11-grandfather",
+        "g3u11-family"
+      ],
+      "spokenVariants": [
+        "sista",
+        "sisters"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u11-grandmother",
+      "word": "grandmother",
+      "ttsText": "grandmother",
+      "image": "grade3/grandmother.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "This is my grandmother",
+        "My grandmother is old"
+      ],
+      "distractorIds": [
+        "g3u11-grandfather",
+        "g3u11-family",
+        "g3u11-baby"
+      ],
+      "spokenVariants": [
+        "grand mother",
+        "grandma"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u11-grandfather",
+      "word": "grandfather",
+      "ttsText": "grandfather",
+      "image": "grade3/grandfather.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "This is my grandfather",
+        "My grandfather is old"
+      ],
+      "distractorIds": [
+        "g3u11-family",
+        "g3u11-baby",
+        "g3u11-uncle"
+      ],
+      "spokenVariants": [
+        "grand father",
+        "grandpa"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u11-family",
+      "word": "family",
+      "ttsText": "family",
+      "image": "grade3/family.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "This is my family",
+        "I love my family"
+      ],
+      "distractorIds": [
+        "g3u11-baby",
+        "g3u11-uncle",
+        "g3u11-aunt"
+      ],
+      "spokenVariants": [
+        "famly",
+        "fambly"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u11-baby",
+      "word": "baby",
+      "ttsText": "baby",
+      "image": "grade3/baby.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "This is my baby sister",
+        "The baby is small"
+      ],
+      "distractorIds": [
+        "g3u11-uncle",
+        "g3u11-aunt",
+        "g3u11-parents"
+      ],
+      "spokenVariants": [
+        "babe",
+        "babi"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u11-uncle",
+      "word": "uncle",
+      "ttsText": "uncle",
+      "image": "grade3/uncle.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "This is my uncle",
+        "My uncle is tall"
+      ],
+      "distractorIds": [
+        "g3u11-aunt",
+        "g3u11-parents",
+        "g3u11-father"
+      ],
+      "spokenVariants": [
+        "uncel",
+        "unkle"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u11-aunt",
+      "word": "aunt",
+      "ttsText": "aunt",
+      "image": "grade3/aunt.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "This is my aunt",
+        "My aunt is kind"
+      ],
+      "distractorIds": [
+        "g3u11-parents",
+        "g3u11-father",
+        "g3u11-mother"
+      ],
+      "spokenVariants": [
+        "ant",
+        "arnt"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u11-parents",
+      "word": "parents",
+      "ttsText": "parents",
+      "image": "grade3/parents.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "These are my parents",
+        "My parents are kind"
+      ],
+      "distractorIds": [
+        "g3u11-father",
+        "g3u11-mother",
+        "g3u11-brother"
+      ],
+      "spokenVariants": [
+        "parent",
+        "paren"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    }
+  ]
+}

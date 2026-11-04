@@ -1,0 +1,258 @@
+{
+  "grade": 4,
+  "unit": "u14",
+  "index": 14,
+  "title": "Daily activities",
+  "items": [
+    {
+      "id": "g4u14-wake",
+      "word": "wake",
+      "ttsText": "wake",
+      "image": "grade4/wake.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I wake up at six",
+        "Wake up early"
+      ],
+      "distractorIds": [
+        "g4u14-brush",
+        "g4u14-teeth",
+        "g4u14-wash"
+      ],
+      "spokenVariants": [
+        "weak",
+        "wait"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u14-brush",
+      "word": "brush",
+      "ttsText": "brush",
+      "image": "grade4/brush.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I brush my teeth",
+        "Brush your hair"
+      ],
+      "distractorIds": [
+        "g4u14-teeth",
+        "g4u14-wash",
+        "g4u14-study"
+      ],
+      "spokenVariants": [
+        "bush",
+        "rush"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u14-teeth",
+      "word": "teeth",
+      "ttsText": "teeth",
+      "image": "grade4/teeth.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I brush my teeth",
+        "Clean teeth are healthy"
+      ],
+      "distractorIds": [
+        "g4u14-wash",
+        "g4u14-study",
+        "g4u14-watch"
+      ],
+      "spokenVariants": [
+        "teef",
+        "teat"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u14-wash",
+      "word": "wash",
+      "ttsText": "wash",
+      "image": "grade4/wash.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I wash my face",
+        "Wash your hands"
+      ],
+      "distractorIds": [
+        "g4u14-study",
+        "g4u14-watch",
+        "g4u14-read"
+      ],
+      "spokenVariants": [
+        "watch",
+        "wish"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u14-study",
+      "word": "study",
+      "ttsText": "study",
+      "image": "grade4/study.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I study at night",
+        "We study English"
+      ],
+      "distractorIds": [
+        "g4u14-watch",
+        "g4u14-read",
+        "g4u14-clean"
+      ],
+      "spokenVariants": [
+        "studi",
+        "stud"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u14-watch",
+      "word": "watch",
+      "ttsText": "watch",
+      "image": "grade4/watch.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I watch television",
+        "We watch cartoons"
+      ],
+      "distractorIds": [
+        "g4u14-read",
+        "g4u14-clean",
+        "g4u14-sleep"
+      ],
+      "spokenVariants": [
+        "wash",
+        "wat"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u14-read",
+      "word": "read",
+      "ttsText": "read",
+      "image": "grade4/read.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I read a book",
+        "We read every day"
+      ],
+      "distractorIds": [
+        "g4u14-clean",
+        "g4u14-sleep",
+        "g4u14-shower"
+      ],
+      "spokenVariants": [
+        "reed",
+        "red"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u14-clean",
+      "word": "clean",
+      "ttsText": "clean",
+      "image": "grade4/clean.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I clean my room",
+        "Clean the house today"
+      ],
+      "distractorIds": [
+        "g4u14-sleep",
+        "g4u14-shower",
+        "g4u14-wake"
+      ],
+      "spokenVariants": [
+        "clin",
+        "lean"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u14-sleep",
+      "word": "sleep",
+      "ttsText": "sleep",
+      "image": "grade4/sleep.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I sleep at ten",
+        "Babies sleep a lot"
+      ],
+      "distractorIds": [
+        "g4u14-shower",
+        "g4u14-wake",
+        "g4u14-brush"
+      ],
+      "spokenVariants": [
+        "slip",
+        "sleap"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u14-shower",
+      "word": "shower",
+      "ttsText": "shower",
+      "image": "grade4/shower.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I take a shower",
+        "The shower is warm"
+      ],
+      "distractorIds": [
+        "g4u14-wake",
+        "g4u14-brush",
+        "g4u14-teeth"
+      ],
+      "spokenVariants": [
+        "shaw er",
+        "shour"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    }
+  ]
+}

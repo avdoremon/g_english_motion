@@ -1,0 +1,282 @@
+{
+  "grade": 5,
+  "unit": "u01",
+  "index": 1,
+  "title": "All about me",
+  "items": [
+    {
+      "id": "g5u01-address",
+      "word": "address",
+      "ttsText": "address",
+      "image": "grade5/address.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "What is your address",
+        "My address is on this card"
+      ],
+      "distractorIds": [
+        "g5u01-street",
+        "g5u01-village",
+        "g5u01-district"
+      ],
+      "spokenVariants": [
+        "adress"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u01-street",
+      "word": "street",
+      "ttsText": "street",
+      "image": "grade5/street.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I live in this street",
+        "This street is very long"
+      ],
+      "distractorIds": [
+        "g5u01-village",
+        "g5u01-district",
+        "g5u01-city"
+      ],
+      "spokenVariants": [
+        "stret",
+        "streat"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u01-village",
+      "word": "village",
+      "ttsText": "village",
+      "image": "grade5/village.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I live in a village",
+        "Her village is very quiet"
+      ],
+      "distractorIds": [
+        "g5u01-district",
+        "g5u01-city",
+        "g5u01-country"
+      ],
+      "spokenVariants": [
+        "villege",
+        "vilage"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u01-district",
+      "word": "district",
+      "ttsText": "district",
+      "image": "grade5/district.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "Which district do you live in",
+        "My district is very big"
+      ],
+      "distractorIds": [
+        "g5u01-city",
+        "g5u01-country",
+        "g5u01-phone"
+      ],
+      "spokenVariants": [
+        "distric",
+        "districk"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u01-city",
+      "word": "city",
+      "ttsText": "city",
+      "image": "grade5/city.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "She lives in this city",
+        "This city is very big"
+      ],
+      "distractorIds": [
+        "g5u01-country",
+        "g5u01-phone",
+        "g5u01-number"
+      ],
+      "spokenVariants": [
+        "citi",
+        "sity"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u01-country",
+      "word": "country",
+      "ttsText": "country",
+      "image": "grade5/country.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "Which country are you from",
+        "My country is very beautiful"
+      ],
+      "distractorIds": [
+        "g5u01-phone",
+        "g5u01-number",
+        "g5u01-age"
+      ],
+      "spokenVariants": [
+        "countree",
+        "contry"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u01-phone",
+      "word": "phone",
+      "ttsText": "phone",
+      "image": "grade5/phone.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "What is your phone number",
+        "This is my phone"
+      ],
+      "distractorIds": [
+        "g5u01-number",
+        "g5u01-age",
+        "g5u01-name"
+      ],
+      "spokenVariants": [
+        "fone",
+        "foan"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u01-number",
+      "word": "number",
+      "ttsText": "number",
+      "image": "grade5/number.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "My phone number is six",
+        "Write your number here"
+      ],
+      "distractorIds": [
+        "g5u01-age",
+        "g5u01-name",
+        "g5u01-hometown"
+      ],
+      "spokenVariants": [
+        "numba",
+        "numbar"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u01-age",
+      "word": "age",
+      "ttsText": "age",
+      "image": "grade5/age.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "What is your age",
+        "My age is ten"
+      ],
+      "distractorIds": [
+        "g5u01-name",
+        "g5u01-hometown",
+        "g5u01-address"
+      ],
+      "spokenVariants": [
+        "aij",
+        "eige"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u01-name",
+      "word": "name",
+      "ttsText": "name",
+      "image": "grade5/name.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "What is your name",
+        "My name is Nam"
+      ],
+      "distractorIds": [
+        "g5u01-hometown",
+        "g5u01-address",
+        "g5u01-street"
+      ],
+      "spokenVariants": [
+        "naim",
+        "neim"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u01-hometown",
+      "word": "hometown",
+      "ttsText": "hometown",
+      "image": "grade5/hometown.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "Where is your hometown",
+        "My hometown is very small"
+      ],
+      "distractorIds": [
+        "g5u01-address",
+        "g5u01-street",
+        "g5u01-village"
+      ],
+      "spokenVariants": [
+        "home town",
+        "hometon"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    }
+  ]
+}

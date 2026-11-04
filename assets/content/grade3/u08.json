@@ -1,0 +1,308 @@
+{
+  "grade": 3,
+  "unit": "u08",
+  "index": 8,
+  "title": "My school things",
+  "items": [
+    {
+      "id": "g3u08-pencil",
+      "word": "pencil",
+      "ttsText": "pencil",
+      "image": "grade3/pencil.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "This is my pencil",
+        "I have a new pencil"
+      ],
+      "distractorIds": [
+        "g3u08-pen",
+        "g3u08-rubber",
+        "g3u08-ruler"
+      ],
+      "spokenVariants": [
+        "pensil",
+        "pencel"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u08-pen",
+      "word": "pen",
+      "ttsText": "pen",
+      "image": "grade3/pen.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "This is my pen",
+        "I have a blue pen"
+      ],
+      "distractorIds": [
+        "g3u08-rubber",
+        "g3u08-ruler",
+        "g3u08-book"
+      ],
+      "spokenVariants": [
+        "pan",
+        "pin"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u08-rubber",
+      "word": "rubber",
+      "ttsText": "rubber",
+      "image": "grade3/rubber.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "This is my rubber",
+        "I have a small rubber"
+      ],
+      "distractorIds": [
+        "g3u08-ruler",
+        "g3u08-book",
+        "g3u08-bag"
+      ],
+      "spokenVariants": [
+        "rubba",
+        "robber"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u08-ruler",
+      "word": "ruler",
+      "ttsText": "ruler",
+      "image": "grade3/ruler.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "This is my ruler",
+        "I have a long ruler"
+      ],
+      "distractorIds": [
+        "g3u08-book",
+        "g3u08-bag",
+        "g3u08-notebook"
+      ],
+      "spokenVariants": [
+        "rula",
+        "roller"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u08-book",
+      "word": "book",
+      "ttsText": "book",
+      "image": "grade3/book.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "This is my book",
+        "I have a big book"
+      ],
+      "distractorIds": [
+        "g3u08-bag",
+        "g3u08-notebook",
+        "g3u08-sharpener"
+      ],
+      "spokenVariants": [
+        "buk",
+        "back"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u08-bag",
+      "word": "bag",
+      "ttsText": "bag",
+      "image": "grade3/bag.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "This is my bag",
+        "I have a red bag"
+      ],
+      "distractorIds": [
+        "g3u08-notebook",
+        "g3u08-sharpener",
+        "g3u08-crayon"
+      ],
+      "spokenVariants": [
+        "beg",
+        "back"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u08-notebook",
+      "word": "notebook",
+      "ttsText": "notebook",
+      "image": "grade3/notebook.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "This is my notebook",
+        "I have a new notebook"
+      ],
+      "distractorIds": [
+        "g3u08-sharpener",
+        "g3u08-crayon",
+        "g3u08-desk"
+      ],
+      "spokenVariants": [
+        "note book",
+        "notebuk"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u08-sharpener",
+      "word": "sharpener",
+      "ttsText": "sharpener",
+      "image": "grade3/sharpener.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "This is my sharpener",
+        "I have a small sharpener"
+      ],
+      "distractorIds": [
+        "g3u08-crayon",
+        "g3u08-desk",
+        "g3u08-chair"
+      ],
+      "spokenVariants": [
+        "sharpna",
+        "sharp near"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u08-crayon",
+      "word": "crayon",
+      "ttsText": "crayon",
+      "image": "grade3/crayon.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "This is my crayon",
+        "I have a green crayon"
+      ],
+      "distractorIds": [
+        "g3u08-desk",
+        "g3u08-chair",
+        "g3u08-board"
+      ],
+      "spokenVariants": [
+        "cray on",
+        "crayan"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u08-desk",
+      "word": "desk",
+      "ttsText": "desk",
+      "image": "grade3/desk.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "This is my desk",
+        "I have a small desk"
+      ],
+      "distractorIds": [
+        "g3u08-chair",
+        "g3u08-board",
+        "g3u08-pencil"
+      ],
+      "spokenVariants": [
+        "disk",
+        "dask"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u08-chair",
+      "word": "chair",
+      "ttsText": "chair",
+      "image": "grade3/chair.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "This is my chair",
+        "I have a blue chair"
+      ],
+      "distractorIds": [
+        "g3u08-board",
+        "g3u08-pencil",
+        "g3u08-pen"
+      ],
+      "spokenVariants": [
+        "share",
+        "cher"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u08-board",
+      "word": "board",
+      "ttsText": "board",
+      "image": "grade3/board.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "Look at the board",
+        "The board is big"
+      ],
+      "distractorIds": [
+        "g3u08-pencil",
+        "g3u08-pen",
+        "g3u08-rubber"
+      ],
+      "spokenVariants": [
+        "bored",
+        "bord"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    }
+  ]
+}

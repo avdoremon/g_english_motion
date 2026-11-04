@@ -1,0 +1,282 @@
+{
+  "grade": 5,
+  "unit": "u13",
+  "index": 13,
+  "title": "Our special days",
+  "items": [
+    {
+      "id": "g5u13-celebrate",
+      "word": "celebrate",
+      "ttsText": "celebrate",
+      "image": "grade5/celebrate.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "We celebrate Teachers Day in November",
+        "Do you celebrate Christmas"
+      ],
+      "distractorIds": [
+        "g5u13-festival",
+        "g5u13-party",
+        "g5u13-birthday"
+      ],
+      "spokenVariants": [
+        "celebrait",
+        "selebrate"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u13-festival",
+      "word": "festival",
+      "ttsText": "festival",
+      "image": "grade5/festival.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "We have a festival in autumn",
+        "The festival is very fun"
+      ],
+      "distractorIds": [
+        "g5u13-party",
+        "g5u13-birthday",
+        "g5u13-present"
+      ],
+      "spokenVariants": [
+        "festaval",
+        "festivel"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u13-party",
+      "word": "party",
+      "ttsText": "party",
+      "image": "grade5/party.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "We have a party at school",
+        "The party starts at six"
+      ],
+      "distractorIds": [
+        "g5u13-birthday",
+        "g5u13-present",
+        "g5u13-cake"
+      ],
+      "spokenVariants": [
+        "parti",
+        "partee"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u13-birthday",
+      "word": "birthday",
+      "ttsText": "birthday",
+      "image": "grade5/birthday.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "When is your birthday",
+        "My birthday is in May"
+      ],
+      "distractorIds": [
+        "g5u13-present",
+        "g5u13-cake",
+        "g5u13-card"
+      ],
+      "spokenVariants": [
+        "birth day",
+        "birthdey"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u13-present",
+      "word": "present",
+      "ttsText": "present",
+      "image": "grade5/present.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I give my friend a present",
+        "The present is in the box"
+      ],
+      "distractorIds": [
+        "g5u13-cake",
+        "g5u13-card",
+        "g5u13-candle"
+      ],
+      "spokenVariants": [
+        "presant",
+        "prezent"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u13-cake",
+      "word": "cake",
+      "ttsText": "cake",
+      "image": "grade5/cake.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "We eat cake on my birthday",
+        "The cake is very sweet"
+      ],
+      "distractorIds": [
+        "g5u13-card",
+        "g5u13-candle",
+        "g5u13-balloon"
+      ],
+      "spokenVariants": [
+        "kake",
+        "caik"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u13-card",
+      "word": "card",
+      "ttsText": "card",
+      "image": "grade5/card.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I make a card today",
+        "The card is very pretty"
+      ],
+      "distractorIds": [
+        "g5u13-candle",
+        "g5u13-balloon",
+        "g5u13-christmas"
+      ],
+      "spokenVariants": [
+        "kard",
+        "cart"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u13-candle",
+      "word": "candle",
+      "ttsText": "candle",
+      "image": "grade5/candle.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I light the candle now",
+        "Blow out the candle"
+      ],
+      "distractorIds": [
+        "g5u13-balloon",
+        "g5u13-christmas",
+        "g5u13-november"
+      ],
+      "spokenVariants": [
+        "candel",
+        "kandle"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u13-balloon",
+      "word": "balloon",
+      "ttsText": "balloon",
+      "image": "grade5/balloon.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I have a red balloon",
+        "The balloon is very big"
+      ],
+      "distractorIds": [
+        "g5u13-christmas",
+        "g5u13-november",
+        "g5u13-celebrate"
+      ],
+      "spokenVariants": [
+        "baloon",
+        "ballon"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u13-christmas",
+      "word": "christmas",
+      "ttsText": "christmas",
+      "image": "grade5/christmas.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "We celebrate Christmas in December",
+        "Christmas is a special day"
+      ],
+      "distractorIds": [
+        "g5u13-november",
+        "g5u13-celebrate",
+        "g5u13-festival"
+      ],
+      "spokenVariants": [
+        "chrismas",
+        "krismas"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u13-november",
+      "word": "november",
+      "ttsText": "november",
+      "image": "grade5/november.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "Teachers Day is in November",
+        "It is cold in November"
+      ],
+      "distractorIds": [
+        "g5u13-celebrate",
+        "g5u13-festival",
+        "g5u13-party"
+      ],
+      "spokenVariants": [
+        "novembar"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    }
+  ]
+}

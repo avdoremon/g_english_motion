@@ -1,0 +1,238 @@
+{
+  "grade": 2,
+  "unit": "u07",
+  "index": 7,
+  "title": "In the kitchen",
+  "items": [
+    {
+      "id": "g2u07-table",
+      "word": "table",
+      "ttsText": "table",
+      "image": "grade2/table.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u07-cup",
+        "g2u07-fork",
+        "g2u07-fridge"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u07-plate",
+      "word": "plate",
+      "ttsText": "plate",
+      "image": "grade2/plate.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u07-spoon",
+        "g2u07-knife",
+        "g2u07-stove"
+      ],
+      "spokenVariants": [
+        "play"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u07-bowl",
+      "word": "bowl",
+      "ttsText": "bowl",
+      "image": "grade2/bowl.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u07-fork",
+        "g2u07-fridge",
+        "g2u07-pot"
+      ],
+      "spokenVariants": [
+        "ball"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u07-cup",
+      "word": "cup",
+      "ttsText": "cup",
+      "image": "grade2/cup.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u07-knife",
+        "g2u07-stove",
+        "g2u07-bottle"
+      ],
+      "spokenVariants": [
+        "cap"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u07-spoon",
+      "word": "spoon",
+      "ttsText": "spoon",
+      "image": "grade2/spoon.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u07-fridge",
+        "g2u07-pot",
+        "g2u07-apple"
+      ],
+      "spokenVariants": [
+        "spun"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u07-fork",
+      "word": "fork",
+      "ttsText": "fork",
+      "image": "grade2/fork.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u07-stove",
+        "g2u07-bottle",
+        "g2u07-table"
+      ],
+      "spokenVariants": [
+        "folk"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u07-knife",
+      "word": "knife",
+      "ttsText": "knife",
+      "image": "grade2/knife.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u07-pot",
+        "g2u07-apple",
+        "g2u07-plate"
+      ],
+      "spokenVariants": [
+        "nife"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u07-fridge",
+      "word": "fridge",
+      "ttsText": "fridge",
+      "image": "grade2/fridge.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u07-bottle",
+        "g2u07-table",
+        "g2u07-bowl"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u07-stove",
+      "word": "stove",
+      "ttsText": "stove",
+      "image": "grade2/stove.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u07-apple",
+        "g2u07-plate",
+        "g2u07-cup"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u07-pot",
+      "word": "pot",
+      "ttsText": "pot",
+      "image": "grade2/pot.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u07-table",
+        "g2u07-bowl",
+        "g2u07-spoon"
+      ],
+      "spokenVariants": [
+        "pod"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u07-bottle",
+      "word": "bottle",
+      "ttsText": "bottle",
+      "image": "grade2/bottle.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u07-plate",
+        "g2u07-cup",
+        "g2u07-fork"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u07-apple",
+      "word": "apple",
+      "ttsText": "apple",
+      "image": "grade2/apple.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u07-bowl",
+        "g2u07-spoon",
+        "g2u07-knife"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,282 @@
+{
+  "grade": 5,
+  "unit": "u02",
+  "index": 2,
+  "title": "Our homes",
+  "items": [
+    {
+      "id": "g5u02-apartment",
+      "word": "apartment",
+      "ttsText": "apartment",
+      "image": "grade5/apartment.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "I live in an apartment",
+        "Our apartment is very high"
+      ],
+      "distractorIds": [
+        "g5u02-house",
+        "g5u02-villa",
+        "g5u02-cottage"
+      ],
+      "spokenVariants": [
+        "apartmant"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u02-house",
+      "word": "house",
+      "ttsText": "house",
+      "image": "grade5/house.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "This is my house",
+        "Their house is very big"
+      ],
+      "distractorIds": [
+        "g5u02-villa",
+        "g5u02-cottage",
+        "g5u02-countryside"
+      ],
+      "spokenVariants": [
+        "hows",
+        "hous"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u02-villa",
+      "word": "villa",
+      "ttsText": "villa",
+      "image": "grade5/villa.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "She lives in a villa",
+        "This villa has a pool"
+      ],
+      "distractorIds": [
+        "g5u02-cottage",
+        "g5u02-countryside",
+        "g5u02-city"
+      ],
+      "spokenVariants": [
+        "vila",
+        "vila"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u02-cottage",
+      "word": "cottage",
+      "ttsText": "cottage",
+      "image": "grade5/cottage.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "We live in a cottage",
+        "The cottage is near a lake"
+      ],
+      "distractorIds": [
+        "g5u02-countryside",
+        "g5u02-city",
+        "g5u02-town"
+      ],
+      "spokenVariants": [
+        "cotage",
+        "cottige"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u02-countryside",
+      "word": "countryside",
+      "ttsText": "countryside",
+      "image": "grade5/countryside.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "My uncle lives in the countryside",
+        "I love the countryside"
+      ],
+      "distractorIds": [
+        "g5u02-city",
+        "g5u02-town",
+        "g5u02-building"
+      ],
+      "spokenVariants": [
+        "country side",
+        "countrysied"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u02-city",
+      "word": "city",
+      "ttsText": "city",
+      "image": "grade5/city.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "My cousin lives in the city",
+        "The city is very noisy"
+      ],
+      "distractorIds": [
+        "g5u02-town",
+        "g5u02-building",
+        "g5u02-garden"
+      ],
+      "spokenVariants": [
+        "citi",
+        "sity"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u02-town",
+      "word": "town",
+      "ttsText": "town",
+      "image": "grade5/town.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I live in a small town",
+        "This town is very old"
+      ],
+      "distractorIds": [
+        "g5u02-building",
+        "g5u02-garden",
+        "g5u02-street"
+      ],
+      "spokenVariants": [
+        "tawn",
+        "toun"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u02-building",
+      "word": "building",
+      "ttsText": "building",
+      "image": "grade5/building.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "Our building has ten floors",
+        "That building is very tall"
+      ],
+      "distractorIds": [
+        "g5u02-garden",
+        "g5u02-street",
+        "g5u02-neighbour"
+      ],
+      "spokenVariants": [
+        "bilding",
+        "buildin"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u02-garden",
+      "word": "garden",
+      "ttsText": "garden",
+      "image": "grade5/garden.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "My house has a garden",
+        "The garden is full of flowers"
+      ],
+      "distractorIds": [
+        "g5u02-street",
+        "g5u02-neighbour",
+        "g5u02-apartment"
+      ],
+      "spokenVariants": [
+        "gardin",
+        "gardan"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u02-street",
+      "word": "street",
+      "ttsText": "street",
+      "image": "grade5/street.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "My house is on this street",
+        "The street is very busy"
+      ],
+      "distractorIds": [
+        "g5u02-neighbour",
+        "g5u02-apartment",
+        "g5u02-house"
+      ],
+      "spokenVariants": [
+        "stret",
+        "streat"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u02-neighbour",
+      "word": "neighbour",
+      "ttsText": "neighbour",
+      "image": "grade5/neighbour.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "My neighbour is very kind",
+        "She is my new neighbour"
+      ],
+      "distractorIds": [
+        "g5u02-apartment",
+        "g5u02-house",
+        "g5u02-villa"
+      ],
+      "spokenVariants": [
+        "neighbor",
+        "nayber"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    }
+  ]
+}

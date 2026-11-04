@@ -1,0 +1,283 @@
+{
+  "grade": 5,
+  "unit": "u05",
+  "index": 5,
+  "title": "My future job",
+  "items": [
+    {
+      "id": "g5u05-pilot",
+      "word": "pilot",
+      "ttsText": "pilot",
+      "image": "grade5/pilot.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I want to be a pilot",
+        "A pilot flies a plane"
+      ],
+      "distractorIds": [
+        "g5u05-doctor",
+        "g5u05-farmer",
+        "g5u05-engineer"
+      ],
+      "spokenVariants": [
+        "pylot",
+        "pilat"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u05-doctor",
+      "word": "doctor",
+      "ttsText": "doctor",
+      "image": "grade5/doctor.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "My aunt is a doctor",
+        "I want to be a doctor"
+      ],
+      "distractorIds": [
+        "g5u05-farmer",
+        "g5u05-engineer",
+        "g5u05-architect"
+      ],
+      "spokenVariants": [
+        "docter",
+        "doctah"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u05-farmer",
+      "word": "farmer",
+      "ttsText": "farmer",
+      "image": "grade5/farmer.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "My father is a farmer",
+        "A farmer grows rice"
+      ],
+      "distractorIds": [
+        "g5u05-engineer",
+        "g5u05-architect",
+        "g5u05-writer"
+      ],
+      "spokenVariants": [
+        "farma",
+        "farmar"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u05-engineer",
+      "word": "engineer",
+      "ttsText": "engineer",
+      "image": "grade5/engineer.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "I want to be an engineer",
+        "An engineer builds bridges"
+      ],
+      "distractorIds": [
+        "g5u05-architect",
+        "g5u05-writer",
+        "g5u05-singer"
+      ],
+      "spokenVariants": [
+        "enginear",
+        "engineerr"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u05-architect",
+      "word": "architect",
+      "ttsText": "architect",
+      "image": "grade5/architect.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "An architect designs buildings",
+        "I want to be an architect"
+      ],
+      "distractorIds": [
+        "g5u05-writer",
+        "g5u05-singer",
+        "g5u05-dentist"
+      ],
+      "spokenVariants": [
+        "architec",
+        "arkitect"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u05-writer",
+      "word": "writer",
+      "ttsText": "writer",
+      "image": "grade5/writer.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I want to be a writer",
+        "A writer writes stories"
+      ],
+      "distractorIds": [
+        "g5u05-singer",
+        "g5u05-dentist",
+        "g5u05-scientist"
+      ],
+      "spokenVariants": [
+        "rider",
+        "writter"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u05-singer",
+      "word": "singer",
+      "ttsText": "singer",
+      "image": "grade5/singer.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "She wants to be a singer",
+        "A singer sings songs"
+      ],
+      "distractorIds": [
+        "g5u05-dentist",
+        "g5u05-scientist",
+        "g5u05-teacher"
+      ],
+      "spokenVariants": [
+        "sinner",
+        "singa"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u05-dentist",
+      "word": "dentist",
+      "ttsText": "dentist",
+      "image": "grade5/dentist.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "A dentist checks your teeth",
+        "My uncle is a dentist"
+      ],
+      "distractorIds": [
+        "g5u05-scientist",
+        "g5u05-teacher",
+        "g5u05-nurse"
+      ],
+      "spokenVariants": [
+        "dentis",
+        "dentest"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u05-scientist",
+      "word": "scientist",
+      "ttsText": "scientist",
+      "image": "grade5/scientist.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "I want to be a scientist",
+        "A scientist does experiments"
+      ],
+      "distractorIds": [
+        "g5u05-teacher",
+        "g5u05-nurse",
+        "g5u05-pilot"
+      ],
+      "spokenVariants": [
+        "sciencist",
+        "scientis"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u05-teacher",
+      "word": "teacher",
+      "ttsText": "teacher",
+      "image": "grade5/teacher.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "My mother is a teacher",
+        "A teacher helps children learn"
+      ],
+      "distractorIds": [
+        "g5u05-nurse",
+        "g5u05-pilot",
+        "g5u05-doctor"
+      ],
+      "spokenVariants": [
+        "teachar",
+        "teach her"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u05-nurse",
+      "word": "nurse",
+      "ttsText": "nurse",
+      "image": "grade5/nurse.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "A nurse helps sick people",
+        "She wants to be a nurse"
+      ],
+      "distractorIds": [
+        "g5u05-pilot",
+        "g5u05-doctor",
+        "g5u05-farmer"
+      ],
+      "spokenVariants": [
+        "nerse",
+        "nurs"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    }
+  ]
+}

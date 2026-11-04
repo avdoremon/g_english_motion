@@ -1,0 +1,283 @@
+{
+  "grade": 5,
+  "unit": "u20",
+  "index": 20,
+  "title": "Our summer holiday",
+  "items": [
+    {
+      "id": "g5u20-holiday",
+      "word": "holiday",
+      "ttsText": "holiday",
+      "image": "grade5/holiday.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "I love the summer holiday",
+        "Where will you spend your holiday"
+      ],
+      "distractorIds": [
+        "g5u20-seaside",
+        "g5u20-swimsuit",
+        "g5u20-suitcase"
+      ],
+      "spokenVariants": [
+        "holliday",
+        "holidey"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u20-seaside",
+      "word": "seaside",
+      "ttsText": "seaside",
+      "image": "grade5/seaside.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "We will go to the seaside",
+        "I love the seaside"
+      ],
+      "distractorIds": [
+        "g5u20-swimsuit",
+        "g5u20-suitcase",
+        "g5u20-ticket"
+      ],
+      "spokenVariants": [
+        "sea side",
+        "seasaid"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u20-swimsuit",
+      "word": "swimsuit",
+      "ttsText": "swimsuit",
+      "image": "grade5/swimsuit.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I pack my swimsuit",
+        "My swimsuit is blue"
+      ],
+      "distractorIds": [
+        "g5u20-suitcase",
+        "g5u20-ticket",
+        "g5u20-hotel"
+      ],
+      "spokenVariants": [
+        "swim suit",
+        "swimsoot"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u20-suitcase",
+      "word": "suitcase",
+      "ttsText": "suitcase",
+      "image": "grade5/suitcase.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I pack my suitcase",
+        "My suitcase is very heavy"
+      ],
+      "distractorIds": [
+        "g5u20-ticket",
+        "g5u20-hotel",
+        "g5u20-sunscreen"
+      ],
+      "spokenVariants": [
+        "suit case",
+        "sootcase"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u20-ticket",
+      "word": "ticket",
+      "ttsText": "ticket",
+      "image": "grade5/ticket.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I buy a train ticket",
+        "Where is my ticket"
+      ],
+      "distractorIds": [
+        "g5u20-hotel",
+        "g5u20-sunscreen",
+        "g5u20-grandparents"
+      ],
+      "spokenVariants": [
+        "tikit",
+        "tiket"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u20-hotel",
+      "word": "hotel",
+      "ttsText": "hotel",
+      "image": "grade5/hotel.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "We will stay in a hotel",
+        "The hotel is near the beach"
+      ],
+      "distractorIds": [
+        "g5u20-sunscreen",
+        "g5u20-grandparents",
+        "g5u20-sandcastle"
+      ],
+      "spokenVariants": [
+        "hotell",
+        "hotal"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u20-sunscreen",
+      "word": "sunscreen",
+      "ttsText": "sunscreen",
+      "image": "grade5/sunscreen.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "Put on some sunscreen",
+        "I bring sunscreen to the beach"
+      ],
+      "distractorIds": [
+        "g5u20-grandparents",
+        "g5u20-sandcastle",
+        "g5u20-camera"
+      ],
+      "spokenVariants": [
+        "sun screen",
+        "sunscren"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u20-grandparents",
+      "word": "grandparents",
+      "ttsText": "grandparents",
+      "image": "grade5/grandparents.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "I will visit my grandparents",
+        "My grandparents live in the countryside"
+      ],
+      "distractorIds": [
+        "g5u20-sandcastle",
+        "g5u20-camera",
+        "g5u20-island"
+      ],
+      "spokenVariants": [
+        "grand parents",
+        "grandparence"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u20-sandcastle",
+      "word": "sandcastle",
+      "ttsText": "sandcastle",
+      "image": "grade5/sandcastle.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "We build a sandcastle",
+        "The sandcastle is very big"
+      ],
+      "distractorIds": [
+        "g5u20-camera",
+        "g5u20-island",
+        "g5u20-holiday"
+      ],
+      "spokenVariants": [
+        "sand castle",
+        "sandcastel"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u20-camera",
+      "word": "camera",
+      "ttsText": "camera",
+      "image": "grade5/camera.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "I take a camera with me",
+        "My camera is new"
+      ],
+      "distractorIds": [
+        "g5u20-island",
+        "g5u20-holiday",
+        "g5u20-seaside"
+      ],
+      "spokenVariants": [
+        "camra",
+        "kamera"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u20-island",
+      "word": "island",
+      "ttsText": "island",
+      "image": "grade5/island.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "We will visit an island",
+        "The island is very beautiful"
+      ],
+      "distractorIds": [
+        "g5u20-holiday",
+        "g5u20-seaside",
+        "g5u20-swimsuit"
+      ],
+      "spokenVariants": [
+        "iland",
+        "eyeland"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    }
+  ]
+}

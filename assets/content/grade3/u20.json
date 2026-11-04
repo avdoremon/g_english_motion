@@ -1,0 +1,308 @@
+{
+  "grade": 3,
+  "unit": "u20",
+  "index": 20,
+  "title": "At the zoo",
+  "items": [
+    {
+      "id": "g3u20-monkey",
+      "word": "monkey",
+      "ttsText": "monkey",
+      "image": "grade3/monkey.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I see a monkey",
+        "The monkey is funny"
+      ],
+      "distractorIds": [
+        "g3u20-elephant",
+        "g3u20-tiger",
+        "g3u20-lion"
+      ],
+      "spokenVariants": [
+        "munkey",
+        "monky"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u20-elephant",
+      "word": "elephant",
+      "ttsText": "elephant",
+      "image": "grade3/elephant.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "I see an elephant",
+        "The elephant is big"
+      ],
+      "distractorIds": [
+        "g3u20-tiger",
+        "g3u20-lion",
+        "g3u20-zebra"
+      ],
+      "spokenVariants": [
+        "elefant",
+        "elaphant"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u20-tiger",
+      "word": "tiger",
+      "ttsText": "tiger",
+      "image": "grade3/tiger.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I see a tiger",
+        "The tiger is strong"
+      ],
+      "distractorIds": [
+        "g3u20-lion",
+        "g3u20-zebra",
+        "g3u20-giraffe"
+      ],
+      "spokenVariants": [
+        "tighter",
+        "tigar"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u20-lion",
+      "word": "lion",
+      "ttsText": "lion",
+      "image": "grade3/lion.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I see a lion",
+        "The lion is strong"
+      ],
+      "distractorIds": [
+        "g3u20-zebra",
+        "g3u20-giraffe",
+        "g3u20-crocodile"
+      ],
+      "spokenVariants": [
+        "line",
+        "lying"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u20-zebra",
+      "word": "zebra",
+      "ttsText": "zebra",
+      "image": "grade3/zebra.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I see a zebra",
+        "The zebra has stripes"
+      ],
+      "distractorIds": [
+        "g3u20-giraffe",
+        "g3u20-crocodile",
+        "g3u20-kangaroo"
+      ],
+      "spokenVariants": [
+        "zibra",
+        "zeebra"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u20-giraffe",
+      "word": "giraffe",
+      "ttsText": "giraffe",
+      "image": "grade3/giraffe.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I see a giraffe",
+        "The giraffe is tall"
+      ],
+      "distractorIds": [
+        "g3u20-crocodile",
+        "g3u20-kangaroo",
+        "g3u20-bear"
+      ],
+      "spokenVariants": [
+        "jiraff",
+        "giraf"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u20-crocodile",
+      "word": "crocodile",
+      "ttsText": "crocodile",
+      "image": "grade3/crocodile.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "I see a crocodile",
+        "The crocodile is long"
+      ],
+      "distractorIds": [
+        "g3u20-kangaroo",
+        "g3u20-bear",
+        "g3u20-snake"
+      ],
+      "spokenVariants": [
+        "crocodial",
+        "crocadile"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u20-kangaroo",
+      "word": "kangaroo",
+      "ttsText": "kangaroo",
+      "image": "grade3/kangaroo.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "I see a kangaroo",
+        "The kangaroo can jump"
+      ],
+      "distractorIds": [
+        "g3u20-bear",
+        "g3u20-snake",
+        "g3u20-panda"
+      ],
+      "spokenVariants": [
+        "kangeroo",
+        "kanguru"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u20-bear",
+      "word": "bear",
+      "ttsText": "bear",
+      "image": "grade3/bear.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I see a bear",
+        "The bear is brown"
+      ],
+      "distractorIds": [
+        "g3u20-snake",
+        "g3u20-panda",
+        "g3u20-zoo"
+      ],
+      "spokenVariants": [
+        "bare",
+        "beer"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u20-snake",
+      "word": "snake",
+      "ttsText": "snake",
+      "image": "grade3/snake.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I see a snake",
+        "The snake is long"
+      ],
+      "distractorIds": [
+        "g3u20-panda",
+        "g3u20-zoo",
+        "g3u20-monkey"
+      ],
+      "spokenVariants": [
+        "snack",
+        "sneak"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u20-panda",
+      "word": "panda",
+      "ttsText": "panda",
+      "image": "grade3/panda.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I see a panda",
+        "The panda is black and white"
+      ],
+      "distractorIds": [
+        "g3u20-zoo",
+        "g3u20-monkey",
+        "g3u20-elephant"
+      ],
+      "spokenVariants": [
+        "pander",
+        "pandah"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u20-zoo",
+      "word": "zoo",
+      "ttsText": "zoo",
+      "image": "grade3/zoo.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "We go to the zoo",
+        "The zoo is big"
+      ],
+      "distractorIds": [
+        "g3u20-monkey",
+        "g3u20-elephant",
+        "g3u20-tiger"
+      ],
+      "spokenVariants": [
+        "zoom",
+        "zu"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    }
+  ]
+}

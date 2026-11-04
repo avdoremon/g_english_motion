@@ -1,0 +1,308 @@
+{
+  "grade": 3,
+  "unit": "u05",
+  "index": 5,
+  "title": "My hobbies",
+  "items": [
+    {
+      "id": "g3u05-hobby",
+      "word": "hobby",
+      "ttsText": "hobby",
+      "image": "grade3/hobby.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "What is your hobby",
+        "My hobby is singing"
+      ],
+      "distractorIds": [
+        "g3u05-cook",
+        "g3u05-draw",
+        "g3u05-paint"
+      ],
+      "spokenVariants": [
+        "hobbi",
+        "hobbie"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u05-cook",
+      "word": "cook",
+      "ttsText": "cook",
+      "image": "grade3/cook.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I like to cook",
+        "My mother can cook"
+      ],
+      "distractorIds": [
+        "g3u05-draw",
+        "g3u05-paint",
+        "g3u05-sing"
+      ],
+      "spokenVariants": [
+        "cock",
+        "cuk"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u05-draw",
+      "word": "draw",
+      "ttsText": "draw",
+      "image": "grade3/draw.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I like to draw",
+        "She can draw a cat"
+      ],
+      "distractorIds": [
+        "g3u05-paint",
+        "g3u05-sing",
+        "g3u05-dance"
+      ],
+      "spokenVariants": [
+        "dror",
+        "door"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u05-paint",
+      "word": "paint",
+      "ttsText": "paint",
+      "image": "grade3/paint.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I like to paint",
+        "He can paint a house"
+      ],
+      "distractorIds": [
+        "g3u05-sing",
+        "g3u05-dance",
+        "g3u05-swim"
+      ],
+      "spokenVariants": [
+        "pane",
+        "pent"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u05-sing",
+      "word": "sing",
+      "ttsText": "sing",
+      "image": "grade3/sing.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I like to sing",
+        "She can sing well"
+      ],
+      "distractorIds": [
+        "g3u05-dance",
+        "g3u05-swim",
+        "g3u05-skate"
+      ],
+      "spokenVariants": [
+        "sink",
+        "sin"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u05-dance",
+      "word": "dance",
+      "ttsText": "dance",
+      "image": "grade3/dance.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I like to dance",
+        "They can dance well"
+      ],
+      "distractorIds": [
+        "g3u05-swim",
+        "g3u05-skate",
+        "g3u05-cycle"
+      ],
+      "spokenVariants": [
+        "dans",
+        "dunce"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u05-swim",
+      "word": "swim",
+      "ttsText": "swim",
+      "image": "grade3/swim.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I like to swim",
+        "He can swim fast"
+      ],
+      "distractorIds": [
+        "g3u05-skate",
+        "g3u05-cycle",
+        "g3u05-read"
+      ],
+      "spokenVariants": [
+        "swin",
+        "sim"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u05-skate",
+      "word": "skate",
+      "ttsText": "skate",
+      "image": "grade3/skate.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I like to skate",
+        "We skate in the park"
+      ],
+      "distractorIds": [
+        "g3u05-cycle",
+        "g3u05-read",
+        "g3u05-run"
+      ],
+      "spokenVariants": [
+        "scate",
+        "skait"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u05-cycle",
+      "word": "cycle",
+      "ttsText": "cycle",
+      "image": "grade3/cycle.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I like to cycle",
+        "We cycle to school"
+      ],
+      "distractorIds": [
+        "g3u05-read",
+        "g3u05-run",
+        "g3u05-fish"
+      ],
+      "spokenVariants": [
+        "sicle",
+        "sigh cool"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u05-read",
+      "word": "read",
+      "ttsText": "read",
+      "image": "grade3/read.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I like to read",
+        "She can read books"
+      ],
+      "distractorIds": [
+        "g3u05-run",
+        "g3u05-fish",
+        "g3u05-hobby"
+      ],
+      "spokenVariants": [
+        "red",
+        "reed"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u05-run",
+      "word": "run",
+      "ttsText": "run",
+      "image": "grade3/run.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I like to run",
+        "He can run fast"
+      ],
+      "distractorIds": [
+        "g3u05-fish",
+        "g3u05-hobby",
+        "g3u05-cook"
+      ],
+      "spokenVariants": [
+        "ran",
+        "rum"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u05-fish",
+      "word": "fish",
+      "ttsText": "fish",
+      "image": "grade3/fish.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I like to fish",
+        "My father can fish"
+      ],
+      "distractorIds": [
+        "g3u05-hobby",
+        "g3u05-cook",
+        "g3u05-draw"
+      ],
+      "spokenVariants": [
+        "fiss",
+        "fesh"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,282 @@
+{
+  "grade": 5,
+  "unit": "u08",
+  "index": 8,
+  "title": "In our classroom",
+  "items": [
+    {
+      "id": "g5u08-board",
+      "word": "board",
+      "ttsText": "board",
+      "image": "grade5/board.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "The teacher writes on the board",
+        "Look at the board"
+      ],
+      "distractorIds": [
+        "g5u08-desk",
+        "g5u08-chair",
+        "g5u08-poster"
+      ],
+      "spokenVariants": [
+        "bored",
+        "bord"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u08-desk",
+      "word": "desk",
+      "ttsText": "desk",
+      "image": "grade5/desk.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "My desk is near the window",
+        "Put your book on the desk"
+      ],
+      "distractorIds": [
+        "g5u08-chair",
+        "g5u08-poster",
+        "g5u08-window"
+      ],
+      "spokenVariants": [
+        "dusk",
+        "dest"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u08-chair",
+      "word": "chair",
+      "ttsText": "chair",
+      "image": "grade5/chair.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "Sit on the chair please",
+        "This chair is too small"
+      ],
+      "distractorIds": [
+        "g5u08-poster",
+        "g5u08-window",
+        "g5u08-door"
+      ],
+      "spokenVariants": [
+        "cher",
+        "chare"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u08-poster",
+      "word": "poster",
+      "ttsText": "poster",
+      "image": "grade5/poster.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "A poster is on the wall",
+        "The poster is very colourful"
+      ],
+      "distractorIds": [
+        "g5u08-window",
+        "g5u08-door",
+        "g5u08-clock"
+      ],
+      "spokenVariants": [
+        "postar"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u08-window",
+      "word": "window",
+      "ttsText": "window",
+      "image": "grade5/window.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "Please open the window",
+        "The window is very big"
+      ],
+      "distractorIds": [
+        "g5u08-door",
+        "g5u08-clock",
+        "g5u08-map"
+      ],
+      "spokenVariants": [
+        "windo",
+        "windoe"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u08-door",
+      "word": "door",
+      "ttsText": "door",
+      "image": "grade5/door.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "Please close the door",
+        "The door is near the board"
+      ],
+      "distractorIds": [
+        "g5u08-clock",
+        "g5u08-map",
+        "g5u08-notebook"
+      ],
+      "spokenVariants": [
+        "dor",
+        "doar"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u08-clock",
+      "word": "clock",
+      "ttsText": "clock",
+      "image": "grade5/clock.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "The clock is on the wall",
+        "Look at the clock"
+      ],
+      "distractorIds": [
+        "g5u08-map",
+        "g5u08-notebook",
+        "g5u08-ruler"
+      ],
+      "spokenVariants": [
+        "klock",
+        "clok"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u08-map",
+      "word": "map",
+      "ttsText": "map",
+      "image": "grade5/map.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "A map is on the wall",
+        "Look at the map"
+      ],
+      "distractorIds": [
+        "g5u08-notebook",
+        "g5u08-ruler",
+        "g5u08-picture"
+      ],
+      "spokenVariants": [
+        "mapp",
+        "mep"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u08-notebook",
+      "word": "notebook",
+      "ttsText": "notebook",
+      "image": "grade5/notebook.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "Open your notebook please",
+        "My notebook is in my bag"
+      ],
+      "distractorIds": [
+        "g5u08-ruler",
+        "g5u08-picture",
+        "g5u08-board"
+      ],
+      "spokenVariants": [
+        "note book",
+        "notebok"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u08-ruler",
+      "word": "ruler",
+      "ttsText": "ruler",
+      "image": "grade5/ruler.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "Can I borrow your ruler",
+        "My ruler is on the desk"
+      ],
+      "distractorIds": [
+        "g5u08-picture",
+        "g5u08-board",
+        "g5u08-desk"
+      ],
+      "spokenVariants": [
+        "rular",
+        "rooler"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u08-picture",
+      "word": "picture",
+      "ttsText": "picture",
+      "image": "grade5/picture.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "Look at the picture",
+        "I draw a picture today"
+      ],
+      "distractorIds": [
+        "g5u08-board",
+        "g5u08-desk",
+        "g5u08-chair"
+      ],
+      "spokenVariants": [
+        "pitcher",
+        "picter"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    }
+  ]
+}

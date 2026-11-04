@@ -1,0 +1,233 @@
+{
+  "grade": 2,
+  "unit": "u05",
+  "index": 5,
+  "title": "In the classroom",
+  "items": [
+    {
+      "id": "g2u05-desk",
+      "word": "desk",
+      "ttsText": "desk",
+      "image": "grade2/desk.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u05-pen",
+        "g2u05-ruler",
+        "g2u05-bag"
+      ],
+      "spokenVariants": [
+        "disk"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u05-chair",
+      "word": "chair",
+      "ttsText": "chair",
+      "image": "grade2/chair.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u05-pencil",
+        "g2u05-eraser",
+        "g2u05-board"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u05-book",
+      "word": "book",
+      "ttsText": "book",
+      "image": "grade2/book.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u05-ruler",
+        "g2u05-bag",
+        "g2u05-teacher"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u05-pen",
+      "word": "pen",
+      "ttsText": "pen",
+      "image": "grade2/pen.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u05-eraser",
+        "g2u05-board",
+        "g2u05-clock"
+      ],
+      "spokenVariants": [
+        "pan"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u05-pencil",
+      "word": "pencil",
+      "ttsText": "pencil",
+      "image": "grade2/pencil.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u05-bag",
+        "g2u05-teacher",
+        "g2u05-crayon"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u05-ruler",
+      "word": "ruler",
+      "ttsText": "ruler",
+      "image": "grade2/ruler.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u05-board",
+        "g2u05-clock",
+        "g2u05-desk"
+      ],
+      "spokenVariants": [
+        "roller"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u05-eraser",
+      "word": "eraser",
+      "ttsText": "eraser",
+      "image": "grade2/eraser.png",
+      "syllables": 3,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u05-teacher",
+        "g2u05-crayon",
+        "g2u05-chair"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump"
+      ]
+    },
+    {
+      "id": "g2u05-bag",
+      "word": "bag",
+      "ttsText": "bag",
+      "image": "grade2/bag.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u05-clock",
+        "g2u05-desk",
+        "g2u05-book"
+      ],
+      "spokenVariants": [
+        "back"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u05-board",
+      "word": "board",
+      "ttsText": "board",
+      "image": "grade2/board.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u05-crayon",
+        "g2u05-chair",
+        "g2u05-pen"
+      ],
+      "spokenVariants": [
+        "bored"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u05-teacher",
+      "word": "teacher",
+      "ttsText": "teacher",
+      "image": "grade2/teacher.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u05-desk",
+        "g2u05-book",
+        "g2u05-pencil"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u05-clock",
+      "word": "clock",
+      "ttsText": "clock",
+      "image": "grade2/clock.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u05-chair",
+        "g2u05-pen",
+        "g2u05-ruler"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u05-crayon",
+      "word": "crayon",
+      "ttsText": "crayon",
+      "image": "grade2/crayon.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u05-book",
+        "g2u05-pencil",
+        "g2u05-eraser"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    }
+  ]
+}

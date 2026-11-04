@@ -1,0 +1,283 @@
+{
+  "grade": 5,
+  "unit": "u11",
+  "index": 11,
+  "title": "Family time",
+  "items": [
+    {
+      "id": "g5u11-dinner",
+      "word": "dinner",
+      "ttsText": "dinner",
+      "image": "grade5/dinner.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "We have dinner at seven",
+        "My mum cooks dinner"
+      ],
+      "distractorIds": [
+        "g5u11-cooking",
+        "g5u11-cleaning",
+        "g5u11-washing"
+      ],
+      "spokenVariants": [
+        "dinna",
+        "diner"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u11-cooking",
+      "word": "cooking",
+      "ttsText": "cooking",
+      "image": "grade5/cooking.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I help my mum with cooking",
+        "Cooking is fun"
+      ],
+      "distractorIds": [
+        "g5u11-cleaning",
+        "g5u11-washing",
+        "g5u11-dishes"
+      ],
+      "spokenVariants": [
+        "coking",
+        "cookin"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u11-cleaning",
+      "word": "cleaning",
+      "ttsText": "cleaning",
+      "image": "grade5/cleaning.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "We are cleaning the house",
+        "Cleaning is hard work"
+      ],
+      "distractorIds": [
+        "g5u11-washing",
+        "g5u11-dishes",
+        "g5u11-laundry"
+      ],
+      "spokenVariants": [
+        "cleanin",
+        "cleening"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u11-washing",
+      "word": "washing",
+      "ttsText": "washing",
+      "image": "grade5/washing.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I help with the washing up",
+        "She is washing the clothes"
+      ],
+      "distractorIds": [
+        "g5u11-dishes",
+        "g5u11-laundry",
+        "g5u11-kitchen"
+      ],
+      "spokenVariants": [
+        "wasing",
+        "washin"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u11-dishes",
+      "word": "dishes",
+      "ttsText": "dishes",
+      "image": "grade5/dishes.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I wash the dishes",
+        "Dad dries the dishes"
+      ],
+      "distractorIds": [
+        "g5u11-laundry",
+        "g5u11-kitchen",
+        "g5u11-weekend"
+      ],
+      "spokenVariants": [
+        "dishis",
+        "dishers"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u11-laundry",
+      "word": "laundry",
+      "ttsText": "laundry",
+      "image": "grade5/laundry.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "Mum does the laundry on Sunday",
+        "I help fold the laundry"
+      ],
+      "distractorIds": [
+        "g5u11-kitchen",
+        "g5u11-weekend",
+        "g5u11-movie"
+      ],
+      "spokenVariants": [
+        "landry",
+        "lawndry"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u11-kitchen",
+      "word": "kitchen",
+      "ttsText": "kitchen",
+      "image": "grade5/kitchen.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "We cook in the kitchen",
+        "The kitchen is very clean"
+      ],
+      "distractorIds": [
+        "g5u11-weekend",
+        "g5u11-movie",
+        "g5u11-sofa"
+      ],
+      "spokenVariants": [
+        "kitchin",
+        "kitcheon"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u11-weekend",
+      "word": "weekend",
+      "ttsText": "weekend",
+      "image": "grade5/weekend.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "We stay home at the weekend",
+        "I love the weekend"
+      ],
+      "distractorIds": [
+        "g5u11-movie",
+        "g5u11-sofa",
+        "g5u11-picnic"
+      ],
+      "spokenVariants": [
+        "week end",
+        "weekand"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u11-movie",
+      "word": "movie",
+      "ttsText": "movie",
+      "image": "grade5/movie.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "We watch a movie together",
+        "The movie is very funny"
+      ],
+      "distractorIds": [
+        "g5u11-sofa",
+        "g5u11-picnic",
+        "g5u11-dinner"
+      ],
+      "spokenVariants": [
+        "moovie",
+        "muvy"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u11-sofa",
+      "word": "sofa",
+      "ttsText": "sofa",
+      "image": "grade5/sofa.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "We sit on the sofa",
+        "The sofa is very soft"
+      ],
+      "distractorIds": [
+        "g5u11-picnic",
+        "g5u11-dinner",
+        "g5u11-cooking"
+      ],
+      "spokenVariants": [
+        "sofar",
+        "sofah"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u11-picnic",
+      "word": "picnic",
+      "ttsText": "picnic",
+      "image": "grade5/picnic.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "We have a picnic on Sunday",
+        "Our picnic is in the park"
+      ],
+      "distractorIds": [
+        "g5u11-dinner",
+        "g5u11-cooking",
+        "g5u11-cleaning"
+      ],
+      "spokenVariants": [
+        "pickneck",
+        "picknic"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    }
+  ]
+}

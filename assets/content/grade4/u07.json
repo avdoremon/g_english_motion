@@ -1,0 +1,254 @@
+{
+  "grade": 4,
+  "unit": "u07",
+  "index": 7,
+  "title": "Our timetable",
+  "items": [
+    {
+      "id": "g4u07-timetable",
+      "word": "timetable",
+      "ttsText": "timetable",
+      "image": "grade4/timetable.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "This is my timetable",
+        "Look at the timetable"
+      ],
+      "distractorIds": [
+        "g4u07-lesson",
+        "g4u07-subject",
+        "g4u07-class"
+      ],
+      "spokenVariants": [
+        "time table",
+        "timetabel"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot"
+      ]
+    },
+    {
+      "id": "g4u07-lesson",
+      "word": "lesson",
+      "ttsText": "lesson",
+      "image": "grade4/lesson.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "We have a maths lesson",
+        "The lesson starts now"
+      ],
+      "distractorIds": [
+        "g4u07-subject",
+        "g4u07-class",
+        "g4u07-vietnamese"
+      ],
+      "spokenVariants": [
+        "lessen",
+        "lesion"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u07-subject",
+      "word": "subject",
+      "ttsText": "subject",
+      "image": "grade4/subject.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "What subject do you like",
+        "Science is my subject"
+      ],
+      "distractorIds": [
+        "g4u07-class",
+        "g4u07-vietnamese",
+        "g4u07-maths"
+      ],
+      "spokenVariants": [
+        "sub ject",
+        "subjet"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u07-class",
+      "word": "class",
+      "ttsText": "class",
+      "image": "grade4/class.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "We have class today",
+        "Our class is small"
+      ],
+      "distractorIds": [
+        "g4u07-vietnamese",
+        "g4u07-maths",
+        "g4u07-english"
+      ],
+      "spokenVariants": [
+        "glass",
+        "clas"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u07-vietnamese",
+      "word": "vietnamese",
+      "ttsText": "vietnamese",
+      "image": "grade4/vietnamese.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "We have Vietnamese on Monday",
+        "I like Vietnamese class"
+      ],
+      "distractorIds": [
+        "g4u07-maths",
+        "g4u07-english",
+        "g4u07-history"
+      ],
+      "spokenVariants": [
+        "viet namese",
+        "vietnames"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot"
+      ]
+    },
+    {
+      "id": "g4u07-maths",
+      "word": "maths",
+      "ttsText": "maths",
+      "image": "grade4/maths.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "We have maths today",
+        "I like maths class"
+      ],
+      "distractorIds": [
+        "g4u07-english",
+        "g4u07-history",
+        "g4u07-geography"
+      ],
+      "spokenVariants": [
+        "mass",
+        "math"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u07-english",
+      "word": "english",
+      "ttsText": "english",
+      "image": "grade4/english.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "We have English on Friday",
+        "I like English class"
+      ],
+      "distractorIds": [
+        "g4u07-history",
+        "g4u07-geography",
+        "g4u07-break"
+      ],
+      "spokenVariants": [
+        "inglish",
+        "englis"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u07-history",
+      "word": "history",
+      "ttsText": "history",
+      "image": "grade4/history.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "I like history lessons",
+        "We have history today"
+      ],
+      "distractorIds": [
+        "g4u07-geography",
+        "g4u07-break",
+        "g4u07-timetable"
+      ],
+      "spokenVariants": [
+        "histry",
+        "his tory"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot"
+      ]
+    },
+    {
+      "id": "g4u07-geography",
+      "word": "geography",
+      "ttsText": "geography",
+      "image": "grade4/geography.png",
+      "syllables": 4,
+      "sentencePatterns": [
+        "We study geography on Wednesday",
+        "Geography is fun"
+      ],
+      "distractorIds": [
+        "g4u07-break",
+        "g4u07-timetable",
+        "g4u07-lesson"
+      ],
+      "spokenVariants": [
+        "geografy",
+        "jography"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot"
+      ]
+    },
+    {
+      "id": "g4u07-break",
+      "word": "break",
+      "ttsText": "break",
+      "image": "grade4/break.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "It is break time",
+        "We play at break"
+      ],
+      "distractorIds": [
+        "g4u07-timetable",
+        "g4u07-lesson",
+        "g4u07-subject"
+      ],
+      "spokenVariants": [
+        "brake",
+        "brick"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    }
+  ]
+}

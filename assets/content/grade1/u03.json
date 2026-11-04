@@ -1,0 +1,245 @@
+{
+  "grade": 1,
+  "unit": "u03",
+  "index": 3,
+  "title": "At the street market",
+  "items": [
+    {
+      "id": "g1u03-apple",
+      "word": "apple",
+      "ttsText": "apple",
+      "image": "grade1/apple.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u03-banana",
+        "g1u03-fish",
+        "g1u03-hat"
+      ],
+      "spokenVariants": [
+        "appel"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u03-banana",
+      "word": "banana",
+      "ttsText": "banana",
+      "image": "grade1/banana.png",
+      "syllables": 3,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u03-orange",
+        "g1u03-meat",
+        "g1u03-shoe"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump"
+      ]
+    },
+    {
+      "id": "g1u03-orange",
+      "word": "orange",
+      "ttsText": "orange",
+      "image": "grade1/orange.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u03-egg",
+        "g1u03-bag",
+        "g1u03-duck"
+      ],
+      "spokenVariants": [
+        "orang"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u03-egg",
+      "word": "egg",
+      "ttsText": "egg",
+      "image": "grade1/egg.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u03-fish",
+        "g1u03-hat",
+        "g1u03-hen"
+      ],
+      "spokenVariants": [
+        "eg"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u03-fish",
+      "word": "fish",
+      "ttsText": "fish",
+      "image": "grade1/fish.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u03-meat",
+        "g1u03-shoe",
+        "g1u03-box"
+      ],
+      "spokenVariants": [
+        "fis"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u03-meat",
+      "word": "meat",
+      "ttsText": "meat",
+      "image": "grade1/meat.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u03-bag",
+        "g1u03-duck",
+        "g1u03-apple"
+      ],
+      "spokenVariants": [
+        "mit"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u03-bag",
+      "word": "bag",
+      "ttsText": "bag",
+      "image": "grade1/bag.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u03-hat",
+        "g1u03-hen",
+        "g1u03-banana"
+      ],
+      "spokenVariants": [
+        "back"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u03-hat",
+      "word": "hat",
+      "ttsText": "hat",
+      "image": "grade1/hat.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u03-shoe",
+        "g1u03-box",
+        "g1u03-orange"
+      ],
+      "spokenVariants": [
+        "hut"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u03-shoe",
+      "word": "shoe",
+      "ttsText": "shoe",
+      "image": "grade1/shoe.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u03-duck",
+        "g1u03-apple",
+        "g1u03-egg"
+      ],
+      "spokenVariants": [
+        "shoo"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u03-duck",
+      "word": "duck",
+      "ttsText": "duck",
+      "image": "grade1/duck.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u03-hen",
+        "g1u03-banana",
+        "g1u03-fish"
+      ],
+      "spokenVariants": [
+        "dock"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u03-hen",
+      "word": "hen",
+      "ttsText": "hen",
+      "image": "grade1/hen.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u03-box",
+        "g1u03-orange",
+        "g1u03-meat"
+      ],
+      "spokenVariants": [
+        "then"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u03-box",
+      "word": "box",
+      "ttsText": "box",
+      "image": "grade1/box.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u03-apple",
+        "g1u03-egg",
+        "g1u03-bag"
+      ],
+      "spokenVariants": [
+        "bucks"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    }
+  ]
+}

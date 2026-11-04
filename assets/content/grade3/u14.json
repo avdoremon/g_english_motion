@@ -1,0 +1,308 @@
+{
+  "grade": 3,
+  "unit": "u14",
+  "index": 14,
+  "title": "My bedroom",
+  "items": [
+    {
+      "id": "g3u14-bed",
+      "word": "bed",
+      "ttsText": "bed",
+      "image": "grade3/bed.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "This is my bed",
+        "The bed is big"
+      ],
+      "distractorIds": [
+        "g3u14-lamp",
+        "g3u14-poster",
+        "g3u14-mirror"
+      ],
+      "spokenVariants": [
+        "bad",
+        "bid"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u14-lamp",
+      "word": "lamp",
+      "ttsText": "lamp",
+      "image": "grade3/lamp.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "There is a lamp",
+        "The lamp is on the desk"
+      ],
+      "distractorIds": [
+        "g3u14-poster",
+        "g3u14-mirror",
+        "g3u14-wall"
+      ],
+      "spokenVariants": [
+        "lamb",
+        "lap"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u14-poster",
+      "word": "poster",
+      "ttsText": "poster",
+      "image": "grade3/poster.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "There is a poster",
+        "The poster is on the wall"
+      ],
+      "distractorIds": [
+        "g3u14-mirror",
+        "g3u14-wall",
+        "g3u14-clock"
+      ],
+      "spokenVariants": [
+        "pastor",
+        "posta"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u14-mirror",
+      "word": "mirror",
+      "ttsText": "mirror",
+      "image": "grade3/mirror.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "There is a mirror",
+        "The mirror is on the wall"
+      ],
+      "distractorIds": [
+        "g3u14-wall",
+        "g3u14-clock",
+        "g3u14-picture"
+      ],
+      "spokenVariants": [
+        "mira",
+        "miror"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u14-wall",
+      "word": "wall",
+      "ttsText": "wall",
+      "image": "grade3/wall.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "The wall is white",
+        "The poster is on the wall"
+      ],
+      "distractorIds": [
+        "g3u14-clock",
+        "g3u14-picture",
+        "g3u14-fan"
+      ],
+      "spokenVariants": [
+        "war",
+        "wal"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u14-clock",
+      "word": "clock",
+      "ttsText": "clock",
+      "image": "grade3/clock.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "There is a clock",
+        "The clock is on the wall"
+      ],
+      "distractorIds": [
+        "g3u14-picture",
+        "g3u14-fan",
+        "g3u14-door"
+      ],
+      "spokenVariants": [
+        "clog",
+        "clack"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u14-picture",
+      "word": "picture",
+      "ttsText": "picture",
+      "image": "grade3/picture.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "There is a picture",
+        "The picture is on the wall"
+      ],
+      "distractorIds": [
+        "g3u14-fan",
+        "g3u14-door",
+        "g3u14-window"
+      ],
+      "spokenVariants": [
+        "pitcher",
+        "pickcha"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u14-fan",
+      "word": "fan",
+      "ttsText": "fan",
+      "image": "grade3/fan.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "There is a fan",
+        "The fan is on"
+      ],
+      "distractorIds": [
+        "g3u14-door",
+        "g3u14-window",
+        "g3u14-chair"
+      ],
+      "spokenVariants": [
+        "fun",
+        "fang"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u14-door",
+      "word": "door",
+      "ttsText": "door",
+      "image": "grade3/door.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "The door is brown",
+        "Close the door please"
+      ],
+      "distractorIds": [
+        "g3u14-window",
+        "g3u14-chair",
+        "g3u14-wardrobe"
+      ],
+      "spokenVariants": [
+        "dor",
+        "doar"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u14-window",
+      "word": "window",
+      "ttsText": "window",
+      "image": "grade3/window.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "The window is big",
+        "Open the window please"
+      ],
+      "distractorIds": [
+        "g3u14-chair",
+        "g3u14-wardrobe",
+        "g3u14-bed"
+      ],
+      "spokenVariants": [
+        "windo",
+        "windoh"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u14-chair",
+      "word": "chair",
+      "ttsText": "chair",
+      "image": "grade3/chair.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "The chair is blue",
+        "The chair is near the desk"
+      ],
+      "distractorIds": [
+        "g3u14-wardrobe",
+        "g3u14-bed",
+        "g3u14-lamp"
+      ],
+      "spokenVariants": [
+        "share",
+        "cher"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u14-wardrobe",
+      "word": "wardrobe",
+      "ttsText": "wardrobe",
+      "image": "grade3/wardrobe.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "There is a wardrobe",
+        "The wardrobe is big"
+      ],
+      "distractorIds": [
+        "g3u14-bed",
+        "g3u14-lamp",
+        "g3u14-poster"
+      ],
+      "spokenVariants": [
+        "war drobe",
+        "wardrobes"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    }
+  ]
+}

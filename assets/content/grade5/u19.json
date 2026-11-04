@@ -1,0 +1,283 @@
+{
+  "grade": 5,
+  "unit": "u19",
+  "index": 19,
+  "title": "Places of interest",
+  "items": [
+    {
+      "id": "g5u19-bay",
+      "word": "bay",
+      "ttsText": "bay",
+      "image": "grade5/bay.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "We visited Ha Long Bay",
+        "The bay is very beautiful"
+      ],
+      "distractorIds": [
+        "g5u19-citadel",
+        "g5u19-palace",
+        "g5u19-bridge"
+      ],
+      "spokenVariants": [
+        "bae",
+        "bey"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u19-citadel",
+      "word": "citadel",
+      "ttsText": "citadel",
+      "image": "grade5/citadel.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "We visited the old citadel",
+        "The citadel is in Hue"
+      ],
+      "distractorIds": [
+        "g5u19-palace",
+        "g5u19-bridge",
+        "g5u19-tower"
+      ],
+      "spokenVariants": [
+        "citadal",
+        "sitadel"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u19-palace",
+      "word": "palace",
+      "ttsText": "palace",
+      "image": "grade5/palace.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "The palace is very old",
+        "We visited the king palace"
+      ],
+      "distractorIds": [
+        "g5u19-bridge",
+        "g5u19-tower",
+        "g5u19-pagoda"
+      ],
+      "spokenVariants": [
+        "palis",
+        "palas"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u19-bridge",
+      "word": "bridge",
+      "ttsText": "bridge",
+      "image": "grade5/bridge.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "The bridge is very long",
+        "We walk across the bridge"
+      ],
+      "distractorIds": [
+        "g5u19-tower",
+        "g5u19-pagoda",
+        "g5u19-market"
+      ],
+      "spokenVariants": [
+        "brige",
+        "bridg"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u19-tower",
+      "word": "tower",
+      "ttsText": "tower",
+      "image": "grade5/tower.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "The tower is very tall",
+        "We climbed the tower"
+      ],
+      "distractorIds": [
+        "g5u19-pagoda",
+        "g5u19-market",
+        "g5u19-statue"
+      ],
+      "spokenVariants": [
+        "tauer",
+        "towa"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u19-pagoda",
+      "word": "pagoda",
+      "ttsText": "pagoda",
+      "image": "grade5/pagoda.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "The pagoda is very old",
+        "We visited a famous pagoda"
+      ],
+      "distractorIds": [
+        "g5u19-market",
+        "g5u19-statue",
+        "g5u19-beach"
+      ],
+      "spokenVariants": [
+        "pagoder",
+        "pagota"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u19-market",
+      "word": "market",
+      "ttsText": "market",
+      "image": "grade5/market.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "We shop at the market",
+        "The market is very busy"
+      ],
+      "distractorIds": [
+        "g5u19-statue",
+        "g5u19-beach",
+        "g5u19-mountain"
+      ],
+      "spokenVariants": [
+        "markit",
+        "marked"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u19-statue",
+      "word": "statue",
+      "ttsText": "statue",
+      "image": "grade5/statue.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "The statue is very big",
+        "We took photos of the statue"
+      ],
+      "distractorIds": [
+        "g5u19-beach",
+        "g5u19-mountain",
+        "g5u19-waterfall"
+      ],
+      "spokenVariants": [
+        "stachu",
+        "statu"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u19-beach",
+      "word": "beach",
+      "ttsText": "beach",
+      "image": "grade5/beach.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "The beach is very clean",
+        "We walk on the beach"
+      ],
+      "distractorIds": [
+        "g5u19-mountain",
+        "g5u19-waterfall",
+        "g5u19-bay"
+      ],
+      "spokenVariants": [
+        "beech",
+        "bitch"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u19-mountain",
+      "word": "mountain",
+      "ttsText": "mountain",
+      "image": "grade5/mountain.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "The mountain is very high",
+        "We climbed the mountain"
+      ],
+      "distractorIds": [
+        "g5u19-waterfall",
+        "g5u19-bay",
+        "g5u19-citadel"
+      ],
+      "spokenVariants": [
+        "mountin",
+        "mauntain"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u19-waterfall",
+      "word": "waterfall",
+      "ttsText": "waterfall",
+      "image": "grade5/waterfall.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "The waterfall is very high",
+        "We saw a big waterfall"
+      ],
+      "distractorIds": [
+        "g5u19-bay",
+        "g5u19-citadel",
+        "g5u19-palace"
+      ],
+      "spokenVariants": [
+        "water fall",
+        "waterfal"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    }
+  ]
+}

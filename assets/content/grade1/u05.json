@@ -1,0 +1,248 @@
+{
+  "grade": 1,
+  "unit": "u05",
+  "index": 5,
+  "title": "At the fish and chip shop",
+  "items": [
+    {
+      "id": "g1u05-fish",
+      "word": "fish",
+      "ttsText": "fish",
+      "image": "grade1/fish.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u05-chips",
+        "g1u05-juice",
+        "g1u05-plate"
+      ],
+      "spokenVariants": [
+        "fis"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u05-chips",
+      "word": "chips",
+      "ttsText": "chips",
+      "image": "grade1/chips.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u05-pizza",
+        "g1u05-water",
+        "g1u05-cup"
+      ],
+      "spokenVariants": [
+        "chip"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u05-pizza",
+      "word": "pizza",
+      "ttsText": "pizza",
+      "image": "grade1/pizza.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u05-burger",
+        "g1u05-salt",
+        "g1u05-bread"
+      ],
+      "spokenVariants": [
+        "pitsa"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u05-burger",
+      "word": "burger",
+      "ttsText": "burger",
+      "image": "grade1/burger.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u05-juice",
+        "g1u05-plate",
+        "g1u05-cake"
+      ],
+      "spokenVariants": [
+        "berger"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u05-juice",
+      "word": "juice",
+      "ttsText": "juice",
+      "image": "grade1/juice.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u05-water",
+        "g1u05-cup",
+        "g1u05-ice"
+      ],
+      "spokenVariants": [
+        "jews"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u05-water",
+      "word": "water",
+      "ttsText": "water",
+      "image": "grade1/water.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u05-salt",
+        "g1u05-bread",
+        "g1u05-fish"
+      ],
+      "spokenVariants": [
+        "wata"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u05-salt",
+      "word": "salt",
+      "ttsText": "salt",
+      "image": "grade1/salt.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u05-plate",
+        "g1u05-cake",
+        "g1u05-chips"
+      ],
+      "spokenVariants": [
+        "sault"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u05-plate",
+      "word": "plate",
+      "ttsText": "plate",
+      "image": "grade1/plate.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u05-cup",
+        "g1u05-ice",
+        "g1u05-pizza"
+      ],
+      "spokenVariants": [
+        "plait"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u05-cup",
+      "word": "cup",
+      "ttsText": "cup",
+      "image": "grade1/cup.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u05-bread",
+        "g1u05-fish",
+        "g1u05-burger"
+      ],
+      "spokenVariants": [
+        "cap"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u05-bread",
+      "word": "bread",
+      "ttsText": "bread",
+      "image": "grade1/bread.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u05-cake",
+        "g1u05-chips",
+        "g1u05-juice"
+      ],
+      "spokenVariants": [
+        "bred"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u05-cake",
+      "word": "cake",
+      "ttsText": "cake",
+      "image": "grade1/cake.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u05-ice",
+        "g1u05-pizza",
+        "g1u05-water"
+      ],
+      "spokenVariants": [
+        "cage"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u05-ice",
+      "word": "ice",
+      "ttsText": "ice",
+      "image": "grade1/ice.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u05-fish",
+        "g1u05-burger",
+        "g1u05-salt"
+      ],
+      "spokenVariants": [
+        "eyes"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    }
+  ]
+}

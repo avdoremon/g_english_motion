@@ -1,0 +1,235 @@
+{
+  "grade": 2,
+  "unit": "u16",
+  "index": 16,
+  "title": "At the campsite",
+  "items": [
+    {
+      "id": "g2u16-tent",
+      "word": "tent",
+      "ttsText": "tent",
+      "image": "grade2/tent.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u16-flashlight",
+        "g2u16-compass",
+        "g2u16-forest"
+      ],
+      "spokenVariants": [
+        "tend"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u16-campfire",
+      "word": "campfire",
+      "ttsText": "campfire",
+      "image": "grade2/campfire.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u16-map",
+        "g2u16-marshmallow",
+        "g2u16-lake"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u16-backpack",
+      "word": "backpack",
+      "ttsText": "backpack",
+      "image": "grade2/backpack.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u16-compass",
+        "g2u16-forest",
+        "g2u16-moon"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u16-flashlight",
+      "word": "flashlight",
+      "ttsText": "flashlight",
+      "image": "grade2/flashlight.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u16-marshmallow",
+        "g2u16-lake",
+        "g2u16-star"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u16-map",
+      "word": "map",
+      "ttsText": "map",
+      "image": "grade2/map.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u16-forest",
+        "g2u16-moon",
+        "g2u16-owl"
+      ],
+      "spokenVariants": [
+        "mop"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u16-compass",
+      "word": "compass",
+      "ttsText": "compass",
+      "image": "grade2/compass.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u16-lake",
+        "g2u16-star",
+        "g2u16-tent"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u16-marshmallow",
+      "word": "marshmallow",
+      "ttsText": "marshmallow",
+      "image": "grade2/marshmallow.png",
+      "syllables": 3,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u16-moon",
+        "g2u16-owl",
+        "g2u16-campfire"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump"
+      ]
+    },
+    {
+      "id": "g2u16-forest",
+      "word": "forest",
+      "ttsText": "forest",
+      "image": "grade2/forest.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u16-star",
+        "g2u16-tent",
+        "g2u16-backpack"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u16-lake",
+      "word": "lake",
+      "ttsText": "lake",
+      "image": "grade2/lake.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u16-owl",
+        "g2u16-campfire",
+        "g2u16-flashlight"
+      ],
+      "spokenVariants": [
+        "lack"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u16-moon",
+      "word": "moon",
+      "ttsText": "moon",
+      "image": "grade2/moon.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u16-tent",
+        "g2u16-backpack",
+        "g2u16-map"
+      ],
+      "spokenVariants": [
+        "mune"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u16-star",
+      "word": "star",
+      "ttsText": "star",
+      "image": "grade2/star.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u16-campfire",
+        "g2u16-flashlight",
+        "g2u16-compass"
+      ],
+      "spokenVariants": [
+        "stir"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u16-owl",
+      "word": "owl",
+      "ttsText": "owl",
+      "image": "grade2/owl.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u16-backpack",
+        "g2u16-map",
+        "g2u16-marshmallow"
+      ],
+      "spokenVariants": [
+        "old"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,257 @@
+{
+  "grade": 4,
+  "unit": "u11",
+  "index": 11,
+  "title": "My home",
+  "items": [
+    {
+      "id": "g4u11-house",
+      "word": "house",
+      "ttsText": "house",
+      "image": "grade4/house.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "This is my house",
+        "The house is big"
+      ],
+      "distractorIds": [
+        "g4u11-kitchen",
+        "g4u11-bedroom",
+        "g4u11-bathroom"
+      ],
+      "spokenVariants": [
+        "horse"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u11-kitchen",
+      "word": "kitchen",
+      "ttsText": "kitchen",
+      "image": "grade4/kitchen.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "Mum is in the kitchen",
+        "The kitchen is clean"
+      ],
+      "distractorIds": [
+        "g4u11-bedroom",
+        "g4u11-bathroom",
+        "g4u11-garden"
+      ],
+      "spokenVariants": [
+        "kitchin",
+        "chicken"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u11-bedroom",
+      "word": "bedroom",
+      "ttsText": "bedroom",
+      "image": "grade4/bedroom.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "This is my bedroom",
+        "My bedroom is small"
+      ],
+      "distractorIds": [
+        "g4u11-bathroom",
+        "g4u11-garden",
+        "g4u11-window"
+      ],
+      "spokenVariants": [
+        "bed room",
+        "bedrum"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u11-bathroom",
+      "word": "bathroom",
+      "ttsText": "bathroom",
+      "image": "grade4/bathroom.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "The bathroom is clean",
+        "Where is the bathroom"
+      ],
+      "distractorIds": [
+        "g4u11-garden",
+        "g4u11-window",
+        "g4u11-door"
+      ],
+      "spokenVariants": [
+        "bath room",
+        "bathrum"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u11-garden",
+      "word": "garden",
+      "ttsText": "garden",
+      "image": "grade4/garden.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "We have a garden",
+        "The garden is green"
+      ],
+      "distractorIds": [
+        "g4u11-window",
+        "g4u11-door",
+        "g4u11-sofa"
+      ],
+      "spokenVariants": [
+        "guarden",
+        "gardin"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u11-window",
+      "word": "window",
+      "ttsText": "window",
+      "image": "grade4/window.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "Open the window",
+        "The window is big"
+      ],
+      "distractorIds": [
+        "g4u11-door",
+        "g4u11-sofa",
+        "g4u11-table"
+      ],
+      "spokenVariants": [
+        "windo",
+        "win doe"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u11-door",
+      "word": "door",
+      "ttsText": "door",
+      "image": "grade4/door.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "Close the door",
+        "The door is brown"
+      ],
+      "distractorIds": [
+        "g4u11-sofa",
+        "g4u11-table",
+        "g4u11-lamp"
+      ],
+      "spokenVariants": [
+        "dor",
+        "dawn"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u11-sofa",
+      "word": "sofa",
+      "ttsText": "sofa",
+      "image": "grade4/sofa.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "The cat is on the sofa",
+        "This sofa is soft"
+      ],
+      "distractorIds": [
+        "g4u11-table",
+        "g4u11-lamp",
+        "g4u11-house"
+      ],
+      "spokenVariants": [
+        "so far",
+        "sofar"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u11-table",
+      "word": "table",
+      "ttsText": "table",
+      "image": "grade4/table.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "The book is on the table",
+        "This table is round"
+      ],
+      "distractorIds": [
+        "g4u11-lamp",
+        "g4u11-house",
+        "g4u11-kitchen"
+      ],
+      "spokenVariants": [
+        "tabel",
+        "taber"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u11-lamp",
+      "word": "lamp",
+      "ttsText": "lamp",
+      "image": "grade4/lamp.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "Turn on the lamp",
+        "The lamp is on the desk"
+      ],
+      "distractorIds": [
+        "g4u11-house",
+        "g4u11-kitchen",
+        "g4u11-bedroom"
+      ],
+      "spokenVariants": [
+        "lamb",
+        "lap"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    }
+  ]
+}

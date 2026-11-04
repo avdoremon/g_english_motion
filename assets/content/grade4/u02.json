@@ -1,0 +1,249 @@
+{
+  "grade": 4,
+  "unit": "u02",
+  "index": 2,
+  "title": "Time and daily routines",
+  "items": [
+    {
+      "id": "g4u02-time",
+      "word": "time",
+      "ttsText": "time",
+      "image": "grade4/time.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "What time is it",
+        "It is time for lunch"
+      ],
+      "distractorIds": [
+        "g4u02-clock",
+        "g4u02-morning",
+        "g4u02-afternoon"
+      ],
+      "spokenVariants": [
+        "thyme"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u02-clock",
+      "word": "clock",
+      "ttsText": "clock",
+      "image": "grade4/clock.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "Look at the clock",
+        "The clock is on the wall"
+      ],
+      "distractorIds": [
+        "g4u02-morning",
+        "g4u02-afternoon",
+        "g4u02-evening"
+      ],
+      "spokenVariants": [
+        "clog"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u02-morning",
+      "word": "morning",
+      "ttsText": "morning",
+      "image": "grade4/morning.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I get up in the morning",
+        "Good morning teacher"
+      ],
+      "distractorIds": [
+        "g4u02-afternoon",
+        "g4u02-evening",
+        "g4u02-breakfast"
+      ],
+      "spokenVariants": [
+        "mourning"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u02-afternoon",
+      "word": "afternoon",
+      "ttsText": "afternoon",
+      "image": "grade4/afternoon.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "Good afternoon class",
+        "I play in the afternoon"
+      ],
+      "distractorIds": [
+        "g4u02-evening",
+        "g4u02-breakfast",
+        "g4u02-lunch"
+      ],
+      "spokenVariants": [
+        "after noon"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot"
+      ]
+    },
+    {
+      "id": "g4u02-evening",
+      "word": "evening",
+      "ttsText": "evening",
+      "image": "grade4/evening.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "Good evening Mum",
+        "We eat in the evening"
+      ],
+      "distractorIds": [
+        "g4u02-breakfast",
+        "g4u02-lunch",
+        "g4u02-dinner"
+      ],
+      "spokenVariants": [
+        "even in",
+        "eve ning"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u02-breakfast",
+      "word": "breakfast",
+      "ttsText": "breakfast",
+      "image": "grade4/breakfast.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I have breakfast at six",
+        "Breakfast is ready"
+      ],
+      "distractorIds": [
+        "g4u02-lunch",
+        "g4u02-dinner",
+        "g4u02-bed"
+      ],
+      "spokenVariants": [
+        "break fast"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u02-lunch",
+      "word": "lunch",
+      "ttsText": "lunch",
+      "image": "grade4/lunch.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "It is time for lunch",
+        "I have lunch at school"
+      ],
+      "distractorIds": [
+        "g4u02-dinner",
+        "g4u02-bed",
+        "g4u02-homework"
+      ],
+      "spokenVariants": [
+        "launch"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u02-dinner",
+      "word": "dinner",
+      "ttsText": "dinner",
+      "image": "grade4/dinner.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "We have dinner at seven",
+        "Dinner is ready"
+      ],
+      "distractorIds": [
+        "g4u02-bed",
+        "g4u02-homework",
+        "g4u02-time"
+      ],
+      "spokenVariants": [
+        "diner"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u02-bed",
+      "word": "bed",
+      "ttsText": "bed",
+      "image": "grade4/bed.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I go to bed early",
+        "The bed is soft"
+      ],
+      "distractorIds": [
+        "g4u02-homework",
+        "g4u02-time",
+        "g4u02-clock"
+      ],
+      "spokenVariants": [
+        "bad",
+        "bet"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u02-homework",
+      "word": "homework",
+      "ttsText": "homework",
+      "image": "grade4/homework.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I do my homework",
+        "Homework is easy today"
+      ],
+      "distractorIds": [
+        "g4u02-time",
+        "g4u02-clock",
+        "g4u02-morning"
+      ],
+      "spokenVariants": [
+        "home work"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    }
+  ]
+}

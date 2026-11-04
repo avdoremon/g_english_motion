@@ -1,0 +1,232 @@
+{
+  "grade": 2,
+  "unit": "u13",
+  "index": 13,
+  "title": "In the maths class",
+  "items": [
+    {
+      "id": "g2u13-number",
+      "word": "number",
+      "ttsText": "number",
+      "image": "grade2/number.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u13-circle",
+        "g2u13-triangle",
+        "g2u13-heart"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u13-plus",
+      "word": "plus",
+      "ttsText": "plus",
+      "image": "grade2/plus.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u13-square",
+        "g2u13-star",
+        "g2u13-abacus"
+      ],
+      "spokenVariants": [
+        "plas"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u13-minus",
+      "word": "minus",
+      "ttsText": "minus",
+      "image": "grade2/minus.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u13-triangle",
+        "g2u13-heart",
+        "g2u13-chalk"
+      ],
+      "spokenVariants": [
+        "miners"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u13-circle",
+      "word": "circle",
+      "ttsText": "circle",
+      "image": "grade2/circle.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u13-star",
+        "g2u13-abacus",
+        "g2u13-coin"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u13-square",
+      "word": "square",
+      "ttsText": "square",
+      "image": "grade2/square.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u13-heart",
+        "g2u13-chalk",
+        "g2u13-graph"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u13-triangle",
+      "word": "triangle",
+      "ttsText": "triangle",
+      "image": "grade2/triangle.png",
+      "syllables": 3,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u13-abacus",
+        "g2u13-coin",
+        "g2u13-number"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump"
+      ]
+    },
+    {
+      "id": "g2u13-star",
+      "word": "star",
+      "ttsText": "star",
+      "image": "grade2/star.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u13-chalk",
+        "g2u13-graph",
+        "g2u13-plus"
+      ],
+      "spokenVariants": [
+        "stir"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u13-heart",
+      "word": "heart",
+      "ttsText": "heart",
+      "image": "grade2/heart.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u13-coin",
+        "g2u13-number",
+        "g2u13-minus"
+      ],
+      "spokenVariants": [
+        "hart"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u13-abacus",
+      "word": "abacus",
+      "ttsText": "abacus",
+      "image": "grade2/abacus.png",
+      "syllables": 3,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u13-graph",
+        "g2u13-plus",
+        "g2u13-circle"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump"
+      ]
+    },
+    {
+      "id": "g2u13-chalk",
+      "word": "chalk",
+      "ttsText": "chalk",
+      "image": "grade2/chalk.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u13-number",
+        "g2u13-minus",
+        "g2u13-square"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u13-coin",
+      "word": "coin",
+      "ttsText": "coin",
+      "image": "grade2/coin.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u13-plus",
+        "g2u13-circle",
+        "g2u13-triangle"
+      ],
+      "spokenVariants": [
+        "corn"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u13-graph",
+      "word": "graph",
+      "ttsText": "graph",
+      "image": "grade2/graph.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u13-minus",
+        "g2u13-square",
+        "g2u13-star"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    }
+  ]
+}

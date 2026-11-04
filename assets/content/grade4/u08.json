@@ -1,0 +1,257 @@
+{
+  "grade": 4,
+  "unit": "u08",
+  "index": 8,
+  "title": "My favourite subjects",
+  "items": [
+    {
+      "id": "g4u08-science",
+      "word": "science",
+      "ttsText": "science",
+      "image": "grade4/science.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "Science is my favourite subject",
+        "We have science on Monday"
+      ],
+      "distractorIds": [
+        "g4u08-music",
+        "g4u08-art",
+        "g4u08-sport"
+      ],
+      "spokenVariants": [
+        "sigh ence",
+        "sines"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u08-music",
+      "word": "music",
+      "ttsText": "music",
+      "image": "grade4/music.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I like music class",
+        "We sing in music"
+      ],
+      "distractorIds": [
+        "g4u08-art",
+        "g4u08-sport",
+        "g4u08-computer"
+      ],
+      "spokenVariants": [
+        "musik",
+        "music c"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u08-art",
+      "word": "art",
+      "ttsText": "art",
+      "image": "grade4/art.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I like art class",
+        "We paint in art"
+      ],
+      "distractorIds": [
+        "g4u08-sport",
+        "g4u08-computer",
+        "g4u08-drawing"
+      ],
+      "spokenVariants": [
+        "heart",
+        "are"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u08-sport",
+      "word": "sport",
+      "ttsText": "sport",
+      "image": "grade4/sport.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "My favourite sport is football",
+        "I like sport at school"
+      ],
+      "distractorIds": [
+        "g4u08-computer",
+        "g4u08-drawing",
+        "g4u08-story"
+      ],
+      "spokenVariants": [
+        "spot",
+        "support"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u08-computer",
+      "word": "computer",
+      "ttsText": "computer",
+      "image": "grade4/computer.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "I learn on the computer",
+        "We use a computer"
+      ],
+      "distractorIds": [
+        "g4u08-drawing",
+        "g4u08-story",
+        "g4u08-game"
+      ],
+      "spokenVariants": [
+        "compute er",
+        "computa"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot"
+      ]
+    },
+    {
+      "id": "g4u08-drawing",
+      "word": "drawing",
+      "ttsText": "drawing",
+      "image": "grade4/drawing.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I like drawing pictures",
+        "This drawing is nice"
+      ],
+      "distractorIds": [
+        "g4u08-story",
+        "g4u08-game",
+        "g4u08-teacher"
+      ],
+      "spokenVariants": [
+        "drawin",
+        "drawling"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u08-story",
+      "word": "story",
+      "ttsText": "story",
+      "image": "grade4/story.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I read a story",
+        "Tell me a story"
+      ],
+      "distractorIds": [
+        "g4u08-game",
+        "g4u08-teacher",
+        "g4u08-learn"
+      ],
+      "spokenVariants": [
+        "storey",
+        "stori"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u08-game",
+      "word": "game",
+      "ttsText": "game",
+      "image": "grade4/game.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "We play a game",
+        "This game is fun"
+      ],
+      "distractorIds": [
+        "g4u08-teacher",
+        "g4u08-learn",
+        "g4u08-science"
+      ],
+      "spokenVariants": [
+        "gain",
+        "gaim"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u08-teacher",
+      "word": "teacher",
+      "ttsText": "teacher",
+      "image": "grade4/teacher.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "My teacher is kind",
+        "The teacher likes music"
+      ],
+      "distractorIds": [
+        "g4u08-learn",
+        "g4u08-science",
+        "g4u08-music"
+      ],
+      "spokenVariants": [
+        "teach her",
+        "teecher"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u08-learn",
+      "word": "learn",
+      "ttsText": "learn",
+      "image": "grade4/learn.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "We learn new words",
+        "I learn English every day"
+      ],
+      "distractorIds": [
+        "g4u08-science",
+        "g4u08-music",
+        "g4u08-art"
+      ],
+      "spokenVariants": [
+        "lean",
+        "lern"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    }
+  ]
+}

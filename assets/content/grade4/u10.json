@@ -1,0 +1,257 @@
+{
+  "grade": 4,
+  "unit": "u10",
+  "index": 10,
+  "title": "Our summer holidays",
+  "items": [
+    {
+      "id": "g4u10-holiday",
+      "word": "holiday",
+      "ttsText": "holiday",
+      "image": "grade4/holiday.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "I like my summer holiday",
+        "The holiday was fun"
+      ],
+      "distractorIds": [
+        "g4u10-summer",
+        "g4u10-beach",
+        "g4u10-sea"
+      ],
+      "spokenVariants": [
+        "holliday",
+        "holy day"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot"
+      ]
+    },
+    {
+      "id": "g4u10-summer",
+      "word": "summer",
+      "ttsText": "summer",
+      "image": "grade4/summer.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I love summer",
+        "Summer is hot"
+      ],
+      "distractorIds": [
+        "g4u10-beach",
+        "g4u10-sea",
+        "g4u10-island"
+      ],
+      "spokenVariants": [
+        "sumer",
+        "summa"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u10-beach",
+      "word": "beach",
+      "ttsText": "beach",
+      "image": "grade4/beach.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I went to the beach",
+        "The beach is sunny"
+      ],
+      "distractorIds": [
+        "g4u10-sea",
+        "g4u10-island",
+        "g4u10-mountain"
+      ],
+      "spokenVariants": [
+        "peach",
+        "beech"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u10-sea",
+      "word": "sea",
+      "ttsText": "sea",
+      "image": "grade4/sea.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "We swim in the sea",
+        "The sea is blue"
+      ],
+      "distractorIds": [
+        "g4u10-island",
+        "g4u10-mountain",
+        "g4u10-cave"
+      ],
+      "spokenVariants": [
+        "see",
+        "c"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u10-island",
+      "word": "island",
+      "ttsText": "island",
+      "image": "grade4/island.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "We went to an island",
+        "The island is small"
+      ],
+      "distractorIds": [
+        "g4u10-mountain",
+        "g4u10-cave",
+        "g4u10-village"
+      ],
+      "spokenVariants": [
+        "iland",
+        "i land"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u10-mountain",
+      "word": "mountain",
+      "ttsText": "mountain",
+      "image": "grade4/mountain.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "We climbed the mountain",
+        "The mountain is high"
+      ],
+      "distractorIds": [
+        "g4u10-cave",
+        "g4u10-village",
+        "g4u10-trip"
+      ],
+      "spokenVariants": [
+        "mountin",
+        "mount in"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u10-cave",
+      "word": "cave",
+      "ttsText": "cave",
+      "image": "grade4/cave.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "We visited a cave",
+        "The cave is dark"
+      ],
+      "distractorIds": [
+        "g4u10-village",
+        "g4u10-trip",
+        "g4u10-photo"
+      ],
+      "spokenVariants": [
+        "gave",
+        "cage"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u10-village",
+      "word": "village",
+      "ttsText": "village",
+      "image": "grade4/village.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I visited a village",
+        "The village is quiet"
+      ],
+      "distractorIds": [
+        "g4u10-trip",
+        "g4u10-photo",
+        "g4u10-holiday"
+      ],
+      "spokenVariants": [
+        "vilage",
+        "villege"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u10-trip",
+      "word": "trip",
+      "ttsText": "trip",
+      "image": "grade4/trip.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "We took a trip",
+        "The trip was great"
+      ],
+      "distractorIds": [
+        "g4u10-photo",
+        "g4u10-holiday",
+        "g4u10-summer"
+      ],
+      "spokenVariants": [
+        "tip",
+        "trap"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u10-photo",
+      "word": "photo",
+      "ttsText": "photo",
+      "image": "grade4/photo.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I took a photo",
+        "This photo is nice"
+      ],
+      "distractorIds": [
+        "g4u10-holiday",
+        "g4u10-summer",
+        "g4u10-beach"
+      ],
+      "spokenVariants": [
+        "foto",
+        "pho to"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    }
+  ]
+}

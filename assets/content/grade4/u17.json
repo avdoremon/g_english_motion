@@ -1,0 +1,257 @@
+{
+  "grade": 4,
+  "unit": "u17",
+  "index": 17,
+  "title": "In the city",
+  "items": [
+    {
+      "id": "g4u17-city",
+      "word": "city",
+      "ttsText": "city",
+      "image": "grade4/city.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I live in a city",
+        "The city is big"
+      ],
+      "distractorIds": [
+        "g4u17-street",
+        "g4u17-bridge",
+        "g4u17-market"
+      ],
+      "spokenVariants": [
+        "citi",
+        "sity"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u17-street",
+      "word": "street",
+      "ttsText": "street",
+      "image": "grade4/street.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "The street is busy",
+        "I walk along the street"
+      ],
+      "distractorIds": [
+        "g4u17-bridge",
+        "g4u17-market",
+        "g4u17-hospital"
+      ],
+      "spokenVariants": [
+        "streets",
+        "strit"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u17-bridge",
+      "word": "bridge",
+      "ttsText": "bridge",
+      "image": "grade4/bridge.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "We cross the bridge",
+        "The bridge is long"
+      ],
+      "distractorIds": [
+        "g4u17-market",
+        "g4u17-hospital",
+        "g4u17-bank"
+      ],
+      "spokenVariants": [
+        "brig",
+        "bridges"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u17-market",
+      "word": "market",
+      "ttsText": "market",
+      "image": "grade4/market.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "Mum goes to the market",
+        "The market is noisy"
+      ],
+      "distractorIds": [
+        "g4u17-hospital",
+        "g4u17-bank",
+        "g4u17-station"
+      ],
+      "spokenVariants": [
+        "marked",
+        "markit"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u17-hospital",
+      "word": "hospital",
+      "ttsText": "hospital",
+      "image": "grade4/hospital.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "The hospital is near",
+        "My aunt works at a hospital"
+      ],
+      "distractorIds": [
+        "g4u17-bank",
+        "g4u17-station",
+        "g4u17-taxi"
+      ],
+      "spokenVariants": [
+        "hospitel",
+        "hospitle"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot"
+      ]
+    },
+    {
+      "id": "g4u17-bank",
+      "word": "bank",
+      "ttsText": "bank",
+      "image": "grade4/bank.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "The bank is open",
+        "Dad is at the bank"
+      ],
+      "distractorIds": [
+        "g4u17-station",
+        "g4u17-taxi",
+        "g4u17-traffic"
+      ],
+      "spokenVariants": [
+        "bang",
+        "bunk"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u17-station",
+      "word": "station",
+      "ttsText": "station",
+      "image": "grade4/station.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "The station is near",
+        "We wait at the station"
+      ],
+      "distractorIds": [
+        "g4u17-taxi",
+        "g4u17-traffic",
+        "g4u17-temple"
+      ],
+      "spokenVariants": [
+        "stations",
+        "stasion"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u17-taxi",
+      "word": "taxi",
+      "ttsText": "taxi",
+      "image": "grade4/taxi.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "We take a taxi",
+        "The taxi is yellow"
+      ],
+      "distractorIds": [
+        "g4u17-traffic",
+        "g4u17-temple",
+        "g4u17-city"
+      ],
+      "spokenVariants": [
+        "tacsi",
+        "tax e"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u17-traffic",
+      "word": "traffic",
+      "ttsText": "traffic",
+      "image": "grade4/traffic.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "The traffic is heavy",
+        "I see a lot of traffic"
+      ],
+      "distractorIds": [
+        "g4u17-temple",
+        "g4u17-city",
+        "g4u17-street"
+      ],
+      "spokenVariants": [
+        "trafic",
+        "traffick"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u17-temple",
+      "word": "temple",
+      "ttsText": "temple",
+      "image": "grade4/temple.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "We visit a temple",
+        "The temple is old"
+      ],
+      "distractorIds": [
+        "g4u17-city",
+        "g4u17-street",
+        "g4u17-bridge"
+      ],
+      "spokenVariants": [
+        "tempel",
+        "tempo"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    }
+  ]
+}

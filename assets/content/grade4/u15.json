@@ -1,0 +1,255 @@
+{
+  "grade": 4,
+  "unit": "u15",
+  "index": 15,
+  "title": "My family's weekends",
+  "items": [
+    {
+      "id": "g4u15-park",
+      "word": "park",
+      "ttsText": "park",
+      "image": "grade4/park.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "We go to the park",
+        "The park is green"
+      ],
+      "distractorIds": [
+        "g4u15-zoo",
+        "g4u15-cinema",
+        "g4u15-supermarket"
+      ],
+      "spokenVariants": [
+        "pack",
+        "bark"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u15-zoo",
+      "word": "zoo",
+      "ttsText": "zoo",
+      "image": "grade4/zoo.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "We visit the zoo",
+        "The zoo is big"
+      ],
+      "distractorIds": [
+        "g4u15-cinema",
+        "g4u15-supermarket",
+        "g4u15-museum"
+      ],
+      "spokenVariants": [
+        "zoom",
+        "zu"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u15-cinema",
+      "word": "cinema",
+      "ttsText": "cinema",
+      "image": "grade4/cinema.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "We go to the cinema",
+        "The cinema is new"
+      ],
+      "distractorIds": [
+        "g4u15-supermarket",
+        "g4u15-museum",
+        "g4u15-picnic"
+      ],
+      "spokenVariants": [
+        "sinema",
+        "cinemar"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot"
+      ]
+    },
+    {
+      "id": "g4u15-supermarket",
+      "word": "supermarket",
+      "ttsText": "supermarket",
+      "image": "grade4/supermarket.png",
+      "syllables": 4,
+      "sentencePatterns": [
+        "We go to the supermarket",
+        "The supermarket is busy"
+      ],
+      "distractorIds": [
+        "g4u15-museum",
+        "g4u15-picnic",
+        "g4u15-shopping"
+      ],
+      "spokenVariants": [
+        "super market",
+        "supermaket"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot"
+      ]
+    },
+    {
+      "id": "g4u15-museum",
+      "word": "museum",
+      "ttsText": "museum",
+      "image": "grade4/museum.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "We visit the museum",
+        "The museum is old"
+      ],
+      "distractorIds": [
+        "g4u15-picnic",
+        "g4u15-shopping",
+        "g4u15-grandma"
+      ],
+      "spokenVariants": [
+        "mew zeem",
+        "musium"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot"
+      ]
+    },
+    {
+      "id": "g4u15-picnic",
+      "word": "picnic",
+      "ttsText": "picnic",
+      "image": "grade4/picnic.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "We have a picnic",
+        "The picnic is fun"
+      ],
+      "distractorIds": [
+        "g4u15-shopping",
+        "g4u15-grandma",
+        "g4u15-grandpa"
+      ],
+      "spokenVariants": [
+        "pick nick",
+        "picnick"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u15-shopping",
+      "word": "shopping",
+      "ttsText": "shopping",
+      "image": "grade4/shopping.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "Mum goes shopping",
+        "We go shopping on Sunday"
+      ],
+      "distractorIds": [
+        "g4u15-grandma",
+        "g4u15-grandpa",
+        "g4u15-visit"
+      ],
+      "spokenVariants": [
+        "shoping",
+        "shop in"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u15-grandma",
+      "word": "grandma",
+      "ttsText": "grandma",
+      "image": "grade4/grandma.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I visit my grandma",
+        "Grandma cooks well"
+      ],
+      "distractorIds": [
+        "g4u15-grandpa",
+        "g4u15-visit",
+        "g4u15-park"
+      ],
+      "spokenVariants": [
+        "grand ma",
+        "grandmar"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u15-grandpa",
+      "word": "grandpa",
+      "ttsText": "grandpa",
+      "image": "grade4/grandpa.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I visit my grandpa",
+        "Grandpa reads a book"
+      ],
+      "distractorIds": [
+        "g4u15-visit",
+        "g4u15-park",
+        "g4u15-zoo"
+      ],
+      "spokenVariants": [
+        "grand pa",
+        "grandpar"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u15-visit",
+      "word": "visit",
+      "ttsText": "visit",
+      "image": "grade4/visit.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "We visit our friends",
+        "I visit my uncle"
+      ],
+      "distractorIds": [
+        "g4u15-park",
+        "g4u15-zoo",
+        "g4u15-cinema"
+      ],
+      "spokenVariants": [
+        "vizit",
+        "visits"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    }
+  ]
+}

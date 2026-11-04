@@ -1,0 +1,247 @@
+{
+  "grade": 4,
+  "unit": "u01",
+  "index": 1,
+  "title": "My friends",
+  "items": [
+    {
+      "id": "g4u01-friend",
+      "word": "friend",
+      "ttsText": "friend",
+      "image": "grade4/friend.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "Nice to see you friend",
+        "He is my friend"
+      ],
+      "distractorIds": [
+        "g4u01-again",
+        "g4u01-nice",
+        "g4u01-country"
+      ],
+      "spokenVariants": [
+        "frend"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u01-again",
+      "word": "again",
+      "ttsText": "again",
+      "image": "grade4/again.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "See you again",
+        "Nice to see you again"
+      ],
+      "distractorIds": [
+        "g4u01-nice",
+        "g4u01-country",
+        "g4u01-vietnam"
+      ],
+      "spokenVariants": [
+        "agen"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u01-nice",
+      "word": "nice",
+      "ttsText": "nice",
+      "image": "grade4/nice.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "Nice to see you",
+        "She is very nice"
+      ],
+      "distractorIds": [
+        "g4u01-country",
+        "g4u01-vietnam",
+        "g4u01-japan"
+      ],
+      "spokenVariants": [
+        "nise"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u01-country",
+      "word": "country",
+      "ttsText": "country",
+      "image": "grade4/country.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "Which country are you from",
+        "My country is beautiful"
+      ],
+      "distractorIds": [
+        "g4u01-vietnam",
+        "g4u01-japan",
+        "g4u01-america"
+      ],
+      "spokenVariants": [
+        "cuntry"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u01-vietnam",
+      "word": "vietnam",
+      "ttsText": "vietnam",
+      "image": "grade4/vietnam.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I am from Vietnam",
+        "Vietnam is my country"
+      ],
+      "distractorIds": [
+        "g4u01-japan",
+        "g4u01-america",
+        "g4u01-england"
+      ],
+      "spokenVariants": [
+        "viet nam",
+        "vietnum"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u01-japan",
+      "word": "japan",
+      "ttsText": "japan",
+      "image": "grade4/japan.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "He is from Japan",
+        "Japan is far away"
+      ],
+      "distractorIds": [
+        "g4u01-america",
+        "g4u01-england",
+        "g4u01-australia"
+      ],
+      "spokenVariants": [
+        "japon"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u01-america",
+      "word": "america",
+      "ttsText": "america",
+      "image": "grade4/america.png",
+      "syllables": 4,
+      "sentencePatterns": [
+        "She is from America",
+        "America is a big country"
+      ],
+      "distractorIds": [
+        "g4u01-england",
+        "g4u01-australia",
+        "g4u01-malaysia"
+      ],
+      "spokenVariants": [
+        "amarica"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot"
+      ]
+    },
+    {
+      "id": "g4u01-england",
+      "word": "england",
+      "ttsText": "england",
+      "image": "grade4/england.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I am from England",
+        "England has a big city"
+      ],
+      "distractorIds": [
+        "g4u01-australia",
+        "g4u01-malaysia",
+        "g4u01-friend"
+      ],
+      "spokenVariants": [
+        "ingland"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u01-australia",
+      "word": "australia",
+      "ttsText": "australia",
+      "image": "grade4/australia.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "Tom is from Australia",
+        "Australia has kangaroos"
+      ],
+      "distractorIds": [
+        "g4u01-malaysia",
+        "g4u01-friend",
+        "g4u01-again"
+      ],
+      "spokenVariants": [
+        "australya"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot"
+      ]
+    },
+    {
+      "id": "g4u01-malaysia",
+      "word": "malaysia",
+      "ttsText": "malaysia",
+      "image": "grade4/malaysia.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "Where is Malaysia",
+        "They are from Malaysia"
+      ],
+      "distractorIds": [
+        "g4u01-friend",
+        "g4u01-again",
+        "g4u01-nice"
+      ],
+      "spokenVariants": [
+        "ma laysia",
+        "malaisia"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot"
+      ]
+    }
+  ]
+}

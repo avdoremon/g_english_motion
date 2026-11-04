@@ -1,0 +1,246 @@
+{
+  "grade": 1,
+  "unit": "u12",
+  "index": 12,
+  "title": "At the lake",
+  "items": [
+    {
+      "id": "g1u12-lake",
+      "word": "lake",
+      "ttsText": "lake",
+      "image": "grade1/lake.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u12-boat",
+        "g1u12-swan",
+        "g1u12-sun"
+      ],
+      "spokenVariants": [
+        "lace"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u12-boat",
+      "word": "boat",
+      "ttsText": "boat",
+      "image": "grade1/boat.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u12-duck",
+        "g1u12-frog",
+        "g1u12-cloud"
+      ],
+      "spokenVariants": [
+        "boot"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u12-duck",
+      "word": "duck",
+      "ttsText": "duck",
+      "image": "grade1/duck.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u12-fish",
+        "g1u12-tree",
+        "g1u12-bird"
+      ],
+      "spokenVariants": [
+        "dock"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u12-fish",
+      "word": "fish",
+      "ttsText": "fish",
+      "image": "grade1/fish.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u12-swan",
+        "g1u12-sun",
+        "g1u12-rock"
+      ],
+      "spokenVariants": [
+        "fist"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u12-swan",
+      "word": "swan",
+      "ttsText": "swan",
+      "image": "grade1/swan.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u12-frog",
+        "g1u12-cloud",
+        "g1u12-sand"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u12-frog",
+      "word": "frog",
+      "ttsText": "frog",
+      "image": "grade1/frog.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u12-tree",
+        "g1u12-bird",
+        "g1u12-lake"
+      ],
+      "spokenVariants": [
+        "frock"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u12-tree",
+      "word": "tree",
+      "ttsText": "tree",
+      "image": "grade1/tree.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u12-sun",
+        "g1u12-rock",
+        "g1u12-boat"
+      ],
+      "spokenVariants": [
+        "three"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u12-sun",
+      "word": "sun",
+      "ttsText": "sun",
+      "image": "grade1/sun.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u12-cloud",
+        "g1u12-sand",
+        "g1u12-duck"
+      ],
+      "spokenVariants": [
+        "son"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u12-cloud",
+      "word": "cloud",
+      "ttsText": "cloud",
+      "image": "grade1/cloud.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u12-bird",
+        "g1u12-lake",
+        "g1u12-fish"
+      ],
+      "spokenVariants": [
+        "clown"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u12-bird",
+      "word": "bird",
+      "ttsText": "bird",
+      "image": "grade1/bird.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u12-rock",
+        "g1u12-boat",
+        "g1u12-swan"
+      ],
+      "spokenVariants": [
+        "bud"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u12-rock",
+      "word": "rock",
+      "ttsText": "rock",
+      "image": "grade1/rock.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u12-sand",
+        "g1u12-duck",
+        "g1u12-frog"
+      ],
+      "spokenVariants": [
+        "rack"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u12-sand",
+      "word": "sand",
+      "ttsText": "sand",
+      "image": "grade1/sand.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u12-lake",
+        "g1u12-fish",
+        "g1u12-tree"
+      ],
+      "spokenVariants": [
+        "send"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    }
+  ]
+}

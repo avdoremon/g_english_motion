@@ -1,0 +1,245 @@
+{
+  "grade": 1,
+  "unit": "u13",
+  "index": 13,
+  "title": "In the school canteen",
+  "items": [
+    {
+      "id": "g1u13-rice",
+      "word": "rice",
+      "ttsText": "rice",
+      "image": "grade1/rice.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u13-soup",
+        "g1u13-egg",
+        "g1u13-apple"
+      ],
+      "spokenVariants": [
+        "rise"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u13-soup",
+      "word": "soup",
+      "ttsText": "soup",
+      "image": "grade1/soup.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u13-bread",
+        "g1u13-fish",
+        "g1u13-banana"
+      ],
+      "spokenVariants": [
+        "soap"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u13-bread",
+      "word": "bread",
+      "ttsText": "bread",
+      "image": "grade1/bread.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u13-milk",
+        "g1u13-meat",
+        "g1u13-juice"
+      ],
+      "spokenVariants": [
+        "bred"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u13-milk",
+      "word": "milk",
+      "ttsText": "milk",
+      "image": "grade1/milk.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u13-egg",
+        "g1u13-apple",
+        "g1u13-spoon"
+      ],
+      "spokenVariants": [
+        "mill"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u13-egg",
+      "word": "egg",
+      "ttsText": "egg",
+      "image": "grade1/egg.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u13-fish",
+        "g1u13-banana",
+        "g1u13-bowl"
+      ],
+      "spokenVariants": [
+        "eg"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u13-fish",
+      "word": "fish",
+      "ttsText": "fish",
+      "image": "grade1/fish.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u13-meat",
+        "g1u13-juice",
+        "g1u13-rice"
+      ],
+      "spokenVariants": [
+        "fist"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u13-meat",
+      "word": "meat",
+      "ttsText": "meat",
+      "image": "grade1/meat.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u13-apple",
+        "g1u13-spoon",
+        "g1u13-soup"
+      ],
+      "spokenVariants": [
+        "meet"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u13-apple",
+      "word": "apple",
+      "ttsText": "apple",
+      "image": "grade1/apple.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u13-banana",
+        "g1u13-bowl",
+        "g1u13-bread"
+      ],
+      "spokenVariants": [
+        "appel"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u13-banana",
+      "word": "banana",
+      "ttsText": "banana",
+      "image": "grade1/banana.png",
+      "syllables": 3,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u13-juice",
+        "g1u13-rice",
+        "g1u13-milk"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump"
+      ]
+    },
+    {
+      "id": "g1u13-juice",
+      "word": "juice",
+      "ttsText": "juice",
+      "image": "grade1/juice.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u13-spoon",
+        "g1u13-soup",
+        "g1u13-egg"
+      ],
+      "spokenVariants": [
+        "jews"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u13-spoon",
+      "word": "spoon",
+      "ttsText": "spoon",
+      "image": "grade1/spoon.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u13-bowl",
+        "g1u13-bread",
+        "g1u13-fish"
+      ],
+      "spokenVariants": [
+        "spoom"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u13-bowl",
+      "word": "bowl",
+      "ttsText": "bowl",
+      "image": "grade1/bowl.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u13-rice",
+        "g1u13-milk",
+        "g1u13-meat"
+      ],
+      "spokenVariants": [
+        "ball"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    }
+  ]
+}

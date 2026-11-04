@@ -1,0 +1,307 @@
+{
+  "grade": 3,
+  "unit": "u15",
+  "index": 15,
+  "title": "At the dining table",
+  "items": [
+    {
+      "id": "g3u15-milk",
+      "word": "milk",
+      "ttsText": "milk",
+      "image": "grade3/milk.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I like milk",
+        "Do you like milk"
+      ],
+      "distractorIds": [
+        "g3u15-water",
+        "g3u15-bread",
+        "g3u15-rice"
+      ],
+      "spokenVariants": [
+        "melk"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u15-water",
+      "word": "water",
+      "ttsText": "water",
+      "image": "grade3/water.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I like water",
+        "Do you like water"
+      ],
+      "distractorIds": [
+        "g3u15-bread",
+        "g3u15-rice",
+        "g3u15-fish"
+      ],
+      "spokenVariants": [
+        "wata",
+        "wotter"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u15-bread",
+      "word": "bread",
+      "ttsText": "bread",
+      "image": "grade3/bread.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I like bread",
+        "Do you like bread"
+      ],
+      "distractorIds": [
+        "g3u15-rice",
+        "g3u15-fish",
+        "g3u15-chicken"
+      ],
+      "spokenVariants": [
+        "bred",
+        "bed"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u15-rice",
+      "word": "rice",
+      "ttsText": "rice",
+      "image": "grade3/rice.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I like rice",
+        "Do you like rice"
+      ],
+      "distractorIds": [
+        "g3u15-fish",
+        "g3u15-chicken",
+        "g3u15-juice"
+      ],
+      "spokenVariants": [
+        "rise",
+        "rais"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u15-fish",
+      "word": "fish",
+      "ttsText": "fish",
+      "image": "grade3/fish.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I like fish",
+        "Do you like fish"
+      ],
+      "distractorIds": [
+        "g3u15-chicken",
+        "g3u15-juice",
+        "g3u15-egg"
+      ],
+      "spokenVariants": [
+        "fiss",
+        "fesh"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u15-chicken",
+      "word": "chicken",
+      "ttsText": "chicken",
+      "image": "grade3/chicken.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I like chicken",
+        "Do you like chicken"
+      ],
+      "distractorIds": [
+        "g3u15-juice",
+        "g3u15-egg",
+        "g3u15-noodles"
+      ],
+      "spokenVariants": [
+        "chickin",
+        "chikken"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u15-juice",
+      "word": "juice",
+      "ttsText": "juice",
+      "image": "grade3/juice.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I like juice",
+        "Do you like juice"
+      ],
+      "distractorIds": [
+        "g3u15-egg",
+        "g3u15-noodles",
+        "g3u15-hungry"
+      ],
+      "spokenVariants": [
+        "jews",
+        "juse"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u15-egg",
+      "word": "egg",
+      "ttsText": "egg",
+      "image": "grade3/egg.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I like egg",
+        "This egg is big"
+      ],
+      "distractorIds": [
+        "g3u15-noodles",
+        "g3u15-hungry",
+        "g3u15-thirsty"
+      ],
+      "spokenVariants": [
+        "ag",
+        "eg"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u15-noodles",
+      "word": "noodles",
+      "ttsText": "noodles",
+      "image": "grade3/noodles.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I like noodles",
+        "Do you like noodles"
+      ],
+      "distractorIds": [
+        "g3u15-hungry",
+        "g3u15-thirsty",
+        "g3u15-cake"
+      ],
+      "spokenVariants": [
+        "noodle",
+        "noodels"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u15-hungry",
+      "word": "hungry",
+      "ttsText": "hungry",
+      "image": "grade3/hungry.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I am hungry",
+        "Are you hungry"
+      ],
+      "distractorIds": [
+        "g3u15-thirsty",
+        "g3u15-cake",
+        "g3u15-milk"
+      ],
+      "spokenVariants": [
+        "hungary",
+        "hungri"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u15-thirsty",
+      "word": "thirsty",
+      "ttsText": "thirsty",
+      "image": "grade3/thirsty.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I am thirsty",
+        "Are you thirsty"
+      ],
+      "distractorIds": [
+        "g3u15-cake",
+        "g3u15-milk",
+        "g3u15-water"
+      ],
+      "spokenVariants": [
+        "thursty",
+        "thirsti"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u15-cake",
+      "word": "cake",
+      "ttsText": "cake",
+      "image": "grade3/cake.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I like cake",
+        "Do you like cake"
+      ],
+      "distractorIds": [
+        "g3u15-milk",
+        "g3u15-water",
+        "g3u15-bread"
+      ],
+      "spokenVariants": [
+        "kake",
+        "cack"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    }
+  ]
+}

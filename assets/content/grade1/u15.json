@@ -1,0 +1,246 @@
+{
+  "grade": 1,
+  "unit": "u15",
+  "index": 15,
+  "title": "At the football match",
+  "items": [
+    {
+      "id": "g1u15-football",
+      "word": "football",
+      "ttsText": "football",
+      "image": "grade1/football.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u15-goal",
+        "g1u15-shirt",
+        "g1u15-whistle"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u15-goal",
+      "word": "goal",
+      "ttsText": "goal",
+      "image": "grade1/goal.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u15-player",
+        "g1u15-shoe",
+        "g1u15-fan"
+      ],
+      "spokenVariants": [
+        "gold"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u15-player",
+      "word": "player",
+      "ttsText": "player",
+      "image": "grade1/player.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u15-net",
+        "g1u15-boot",
+        "g1u15-flag"
+      ],
+      "spokenVariants": [
+        "plair"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u15-net",
+      "word": "net",
+      "ttsText": "net",
+      "image": "grade1/net.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u15-shirt",
+        "g1u15-whistle",
+        "g1u15-drum"
+      ],
+      "spokenVariants": [
+        "nut"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u15-shirt",
+      "word": "shirt",
+      "ttsText": "shirt",
+      "image": "grade1/shirt.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u15-shoe",
+        "g1u15-fan",
+        "g1u15-cup"
+      ],
+      "spokenVariants": [
+        "short"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u15-shoe",
+      "word": "shoe",
+      "ttsText": "shoe",
+      "image": "grade1/shoe.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u15-boot",
+        "g1u15-flag",
+        "g1u15-football"
+      ],
+      "spokenVariants": [
+        "shoo"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u15-boot",
+      "word": "boot",
+      "ttsText": "boot",
+      "image": "grade1/boot.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u15-whistle",
+        "g1u15-drum",
+        "g1u15-goal"
+      ],
+      "spokenVariants": [
+        "but"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u15-whistle",
+      "word": "whistle",
+      "ttsText": "whistle",
+      "image": "grade1/whistle.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u15-fan",
+        "g1u15-cup",
+        "g1u15-player"
+      ],
+      "spokenVariants": [
+        "wissle"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u15-fan",
+      "word": "fan",
+      "ttsText": "fan",
+      "image": "grade1/fan.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u15-flag",
+        "g1u15-football",
+        "g1u15-net"
+      ],
+      "spokenVariants": [
+        "van"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u15-flag",
+      "word": "flag",
+      "ttsText": "flag",
+      "image": "grade1/flag.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u15-drum",
+        "g1u15-goal",
+        "g1u15-shirt"
+      ],
+      "spokenVariants": [
+        "flack"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u15-drum",
+      "word": "drum",
+      "ttsText": "drum",
+      "image": "grade1/drum.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u15-cup",
+        "g1u15-player",
+        "g1u15-shoe"
+      ],
+      "spokenVariants": [
+        "dram"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u15-cup",
+      "word": "cup",
+      "ttsText": "cup",
+      "image": "grade1/cup.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u15-football",
+        "g1u15-net",
+        "g1u15-boot"
+      ],
+      "spokenVariants": [
+        "cap"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    }
+  ]
+}

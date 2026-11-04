@@ -1,0 +1,248 @@
+{
+  "grade": 1,
+  "unit": "u06",
+  "index": 6,
+  "title": "In the classroom",
+  "items": [
+    {
+      "id": "g1u06-pen",
+      "word": "pen",
+      "ttsText": "pen",
+      "image": "grade1/pen.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u06-pencil",
+        "g1u06-bag",
+        "g1u06-chair"
+      ],
+      "spokenVariants": [
+        "pan"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u06-pencil",
+      "word": "pencil",
+      "ttsText": "pencil",
+      "image": "grade1/pencil.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u06-ruler",
+        "g1u06-book",
+        "g1u06-board"
+      ],
+      "spokenVariants": [
+        "pensil"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u06-ruler",
+      "word": "ruler",
+      "ttsText": "ruler",
+      "image": "grade1/ruler.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u06-rubber",
+        "g1u06-desk",
+        "g1u06-teacher"
+      ],
+      "spokenVariants": [
+        "roller"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u06-rubber",
+      "word": "rubber",
+      "ttsText": "rubber",
+      "image": "grade1/rubber.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u06-bag",
+        "g1u06-chair",
+        "g1u06-paper"
+      ],
+      "spokenVariants": [
+        "rubba"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u06-bag",
+      "word": "bag",
+      "ttsText": "bag",
+      "image": "grade1/bag.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u06-book",
+        "g1u06-board",
+        "g1u06-crayon"
+      ],
+      "spokenVariants": [
+        "back"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u06-book",
+      "word": "book",
+      "ttsText": "book",
+      "image": "grade1/book.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u06-desk",
+        "g1u06-teacher",
+        "g1u06-pen"
+      ],
+      "spokenVariants": [
+        "buck"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u06-desk",
+      "word": "desk",
+      "ttsText": "desk",
+      "image": "grade1/desk.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u06-chair",
+        "g1u06-paper",
+        "g1u06-pencil"
+      ],
+      "spokenVariants": [
+        "disk"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u06-chair",
+      "word": "chair",
+      "ttsText": "chair",
+      "image": "grade1/chair.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u06-board",
+        "g1u06-crayon",
+        "g1u06-ruler"
+      ],
+      "spokenVariants": [
+        "care"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u06-board",
+      "word": "board",
+      "ttsText": "board",
+      "image": "grade1/board.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u06-teacher",
+        "g1u06-pen",
+        "g1u06-rubber"
+      ],
+      "spokenVariants": [
+        "bored"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u06-teacher",
+      "word": "teacher",
+      "ttsText": "teacher",
+      "image": "grade1/teacher.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u06-paper",
+        "g1u06-pencil",
+        "g1u06-bag"
+      ],
+      "spokenVariants": [
+        "teacha"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u06-paper",
+      "word": "paper",
+      "ttsText": "paper",
+      "image": "grade1/paper.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u06-crayon",
+        "g1u06-ruler",
+        "g1u06-book"
+      ],
+      "spokenVariants": [
+        "pepper"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u06-crayon",
+      "word": "crayon",
+      "ttsText": "crayon",
+      "image": "grade1/crayon.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u06-pen",
+        "g1u06-rubber",
+        "g1u06-desk"
+      ],
+      "spokenVariants": [
+        "crayan"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    }
+  ]
+}

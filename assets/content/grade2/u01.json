@@ -1,0 +1,248 @@
+{
+  "grade": 2,
+  "unit": "u01",
+  "index": 1,
+  "title": "At my birthday party",
+  "items": [
+    {
+      "id": "g2u01-cake",
+      "word": "cake",
+      "ttsText": "cake",
+      "image": "grade2/cake.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u01-present",
+        "g2u01-hat",
+        "g2u01-card"
+      ],
+      "spokenVariants": [
+        "kake"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u01-candle",
+      "word": "candle",
+      "ttsText": "candle",
+      "image": "grade2/candle.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u01-gift",
+        "g2u01-song",
+        "g2u01-candy"
+      ],
+      "spokenVariants": [
+        "kandle"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u01-balloon",
+      "word": "balloon",
+      "ttsText": "balloon",
+      "image": "grade2/balloon.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u01-hat",
+        "g2u01-card",
+        "g2u01-juice"
+      ],
+      "spokenVariants": [
+        "baloon"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u01-present",
+      "word": "present",
+      "ttsText": "present",
+      "image": "grade2/present.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u01-song",
+        "g2u01-candy",
+        "g2u01-drum"
+      ],
+      "spokenVariants": [
+        "presents"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u01-gift",
+      "word": "gift",
+      "ttsText": "gift",
+      "image": "grade2/gift.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u01-card",
+        "g2u01-juice",
+        "g2u01-clown"
+      ],
+      "spokenVariants": [
+        "gif"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u01-hat",
+      "word": "hat",
+      "ttsText": "hat",
+      "image": "grade2/hat.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u01-candy",
+        "g2u01-drum",
+        "g2u01-cake"
+      ],
+      "spokenVariants": [
+        "hut"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u01-song",
+      "word": "song",
+      "ttsText": "song",
+      "image": "grade2/song.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u01-juice",
+        "g2u01-clown",
+        "g2u01-candle"
+      ],
+      "spokenVariants": [
+        "sung"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u01-card",
+      "word": "card",
+      "ttsText": "card",
+      "image": "grade2/card.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u01-drum",
+        "g2u01-cake",
+        "g2u01-balloon"
+      ],
+      "spokenVariants": [
+        "cart"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u01-candy",
+      "word": "candy",
+      "ttsText": "candy",
+      "image": "grade2/candy.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u01-clown",
+        "g2u01-candle",
+        "g2u01-present"
+      ],
+      "spokenVariants": [
+        "kandy"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u01-juice",
+      "word": "juice",
+      "ttsText": "juice",
+      "image": "grade2/juice.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u01-cake",
+        "g2u01-balloon",
+        "g2u01-gift"
+      ],
+      "spokenVariants": [
+        "deuce"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u01-drum",
+      "word": "drum",
+      "ttsText": "drum",
+      "image": "grade2/drum.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u01-candle",
+        "g2u01-present",
+        "g2u01-hat"
+      ],
+      "spokenVariants": [
+        "dram"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u01-clown",
+      "word": "clown",
+      "ttsText": "clown",
+      "image": "grade2/clown.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u01-balloon",
+        "g2u01-gift",
+        "g2u01-song"
+      ],
+      "spokenVariants": [
+        "crown"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    }
+  ]
+}

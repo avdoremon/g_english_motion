@@ -1,0 +1,246 @@
+{
+  "grade": 1,
+  "unit": "u14",
+  "index": 14,
+  "title": "In the toy shop",
+  "items": [
+    {
+      "id": "g1u14-doll",
+      "word": "doll",
+      "ttsText": "doll",
+      "image": "grade1/doll.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u14-robot",
+        "g1u14-car",
+        "g1u14-drum"
+      ],
+      "spokenVariants": [
+        "dull"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u14-robot",
+      "word": "robot",
+      "ttsText": "robot",
+      "image": "grade1/robot.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u14-teddy",
+        "g1u14-train",
+        "g1u14-puzzle"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u14-teddy",
+      "word": "teddy",
+      "ttsText": "teddy",
+      "image": "grade1/teddy.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u14-ball",
+        "g1u14-kite",
+        "g1u14-block"
+      ],
+      "spokenVariants": [
+        "tedi"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u14-ball",
+      "word": "ball",
+      "ttsText": "ball",
+      "image": "grade1/ball.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u14-car",
+        "g1u14-drum",
+        "g1u14-boat"
+      ],
+      "spokenVariants": [
+        "bowl"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u14-car",
+      "word": "car",
+      "ttsText": "car",
+      "image": "grade1/car.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u14-train",
+        "g1u14-puzzle",
+        "g1u14-plane"
+      ],
+      "spokenVariants": [
+        "cart"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u14-train",
+      "word": "train",
+      "ttsText": "train",
+      "image": "grade1/train.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u14-kite",
+        "g1u14-block",
+        "g1u14-doll"
+      ],
+      "spokenVariants": [
+        "trane"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u14-kite",
+      "word": "kite",
+      "ttsText": "kite",
+      "image": "grade1/kite.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u14-drum",
+        "g1u14-boat",
+        "g1u14-robot"
+      ],
+      "spokenVariants": [
+        "kit"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u14-drum",
+      "word": "drum",
+      "ttsText": "drum",
+      "image": "grade1/drum.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u14-puzzle",
+        "g1u14-plane",
+        "g1u14-teddy"
+      ],
+      "spokenVariants": [
+        "dram"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u14-puzzle",
+      "word": "puzzle",
+      "ttsText": "puzzle",
+      "image": "grade1/puzzle.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u14-block",
+        "g1u14-doll",
+        "g1u14-ball"
+      ],
+      "spokenVariants": [
+        "pazzle"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u14-block",
+      "word": "block",
+      "ttsText": "block",
+      "image": "grade1/block.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u14-boat",
+        "g1u14-robot",
+        "g1u14-car"
+      ],
+      "spokenVariants": [
+        "black"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u14-boat",
+      "word": "boat",
+      "ttsText": "boat",
+      "image": "grade1/boat.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u14-plane",
+        "g1u14-teddy",
+        "g1u14-train"
+      ],
+      "spokenVariants": [
+        "boot"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u14-plane",
+      "word": "plane",
+      "ttsText": "plane",
+      "image": "grade1/plane.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u14-doll",
+        "g1u14-ball",
+        "g1u14-kite"
+      ],
+      "spokenVariants": [
+        "plan"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    }
+  ]
+}

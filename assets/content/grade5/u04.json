@@ -1,0 +1,281 @@
+{
+  "grade": 5,
+  "unit": "u04",
+  "index": 4,
+  "title": "Our free-time activities",
+  "items": [
+    {
+      "id": "g5u04-cinema",
+      "word": "cinema",
+      "ttsText": "cinema",
+      "image": "grade5/cinema.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "We go to the cinema",
+        "I like the cinema"
+      ],
+      "distractorIds": [
+        "g5u04-shopping",
+        "g5u04-camping",
+        "g5u04-fishing"
+      ],
+      "spokenVariants": [
+        "sinema",
+        "cinemma"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u04-shopping",
+      "word": "shopping",
+      "ttsText": "shopping",
+      "image": "grade5/shopping.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "My mum goes shopping on Sundays",
+        "I like going shopping"
+      ],
+      "distractorIds": [
+        "g5u04-camping",
+        "g5u04-fishing",
+        "g5u04-chess"
+      ],
+      "spokenVariants": [
+        "shoping",
+        "shopin"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u04-camping",
+      "word": "camping",
+      "ttsText": "camping",
+      "image": "grade5/camping.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "We go camping in summer",
+        "I love going camping"
+      ],
+      "distractorIds": [
+        "g5u04-fishing",
+        "g5u04-chess",
+        "g5u04-comics"
+      ],
+      "spokenVariants": [
+        "kamping"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u04-fishing",
+      "word": "fishing",
+      "ttsText": "fishing",
+      "image": "grade5/fishing.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "My dad goes fishing on Sundays",
+        "I like going fishing"
+      ],
+      "distractorIds": [
+        "g5u04-chess",
+        "g5u04-comics",
+        "g5u04-internet"
+      ],
+      "spokenVariants": [
+        "fising",
+        "fishin"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u04-chess",
+      "word": "chess",
+      "ttsText": "chess",
+      "image": "grade5/chess.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I like playing chess",
+        "My brother plays chess well"
+      ],
+      "distractorIds": [
+        "g5u04-comics",
+        "g5u04-internet",
+        "g5u04-television"
+      ],
+      "spokenVariants": [
+        "ches",
+        "chest"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u04-comics",
+      "word": "comics",
+      "ttsText": "comics",
+      "image": "grade5/comics.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I like reading comics",
+        "She reads comics every day"
+      ],
+      "distractorIds": [
+        "g5u04-internet",
+        "g5u04-television",
+        "g5u04-swimming"
+      ],
+      "spokenVariants": [
+        "comix",
+        "comic"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u04-internet",
+      "word": "internet",
+      "ttsText": "internet",
+      "image": "grade5/internet.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "I surf the internet at weekends",
+        "The internet is very useful"
+      ],
+      "distractorIds": [
+        "g5u04-television",
+        "g5u04-swimming",
+        "g5u04-hiking"
+      ],
+      "spokenVariants": [
+        "intranet",
+        "in ternet"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u04-television",
+      "word": "television",
+      "ttsText": "television",
+      "image": "grade5/television.png",
+      "syllables": 4,
+      "sentencePatterns": [
+        "We watch television every evening",
+        "The television is on"
+      ],
+      "distractorIds": [
+        "g5u04-swimming",
+        "g5u04-hiking",
+        "g5u04-cooking"
+      ],
+      "spokenVariants": [
+        "tv",
+        "televison"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot"
+      ]
+    },
+    {
+      "id": "g5u04-swimming",
+      "word": "swimming",
+      "ttsText": "swimming",
+      "image": "grade5/swimming.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I go swimming on Saturdays",
+        "She likes swimming very much"
+      ],
+      "distractorIds": [
+        "g5u04-hiking",
+        "g5u04-cooking",
+        "g5u04-cinema"
+      ],
+      "spokenVariants": [
+        "swiming",
+        "swimin"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u04-hiking",
+      "word": "hiking",
+      "ttsText": "hiking",
+      "image": "grade5/hiking.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "We go hiking in the mountains",
+        "My family likes hiking"
+      ],
+      "distractorIds": [
+        "g5u04-cooking",
+        "g5u04-cinema",
+        "g5u04-shopping"
+      ],
+      "spokenVariants": [
+        "hicking",
+        "hikin"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u04-cooking",
+      "word": "cooking",
+      "ttsText": "cooking",
+      "image": "grade5/cooking.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "My mum likes cooking dinner",
+        "I enjoy cooking with her"
+      ],
+      "distractorIds": [
+        "g5u04-cinema",
+        "g5u04-shopping",
+        "g5u04-camping"
+      ],
+      "spokenVariants": [
+        "coking",
+        "cookin"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    }
+  ]
+}

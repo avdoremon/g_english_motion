@@ -1,0 +1,258 @@
+{
+  "grade": 4,
+  "unit": "u13",
+  "index": 13,
+  "title": "Appearance",
+  "items": [
+    {
+      "id": "g4u13-tall",
+      "word": "tall",
+      "ttsText": "tall",
+      "image": "grade4/tall.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "He is tall",
+        "My brother is very tall"
+      ],
+      "distractorIds": [
+        "g4u13-short",
+        "g4u13-slim",
+        "g4u13-strong"
+      ],
+      "spokenVariants": [
+        "tool",
+        "toll"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u13-short",
+      "word": "short",
+      "ttsText": "short",
+      "image": "grade4/short.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "She is short",
+        "The girl is short"
+      ],
+      "distractorIds": [
+        "g4u13-slim",
+        "g4u13-strong",
+        "g4u13-young"
+      ],
+      "spokenVariants": [
+        "shot",
+        "shirt"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u13-slim",
+      "word": "slim",
+      "ttsText": "slim",
+      "image": "grade4/slim.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "My sister is slim",
+        "He is tall and slim"
+      ],
+      "distractorIds": [
+        "g4u13-strong",
+        "g4u13-young",
+        "g4u13-old"
+      ],
+      "spokenVariants": [
+        "slimm",
+        "slam"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u13-strong",
+      "word": "strong",
+      "ttsText": "strong",
+      "image": "grade4/strong.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "My dad is strong",
+        "He is a strong man"
+      ],
+      "distractorIds": [
+        "g4u13-young",
+        "g4u13-old",
+        "g4u13-hair"
+      ],
+      "spokenVariants": [
+        "strung",
+        "strongg"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u13-young",
+      "word": "young",
+      "ttsText": "young",
+      "image": "grade4/young.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "She is young",
+        "The young boy is happy"
+      ],
+      "distractorIds": [
+        "g4u13-old",
+        "g4u13-hair",
+        "g4u13-long"
+      ],
+      "spokenVariants": [
+        "yung",
+        "jung"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u13-old",
+      "word": "old",
+      "ttsText": "old",
+      "image": "grade4/old.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "My grandpa is old",
+        "The old man is kind"
+      ],
+      "distractorIds": [
+        "g4u13-hair",
+        "g4u13-long",
+        "g4u13-curly"
+      ],
+      "spokenVariants": [
+        "owed",
+        "hold"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u13-hair",
+      "word": "hair",
+      "ttsText": "hair",
+      "image": "grade4/hair.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "She has long hair",
+        "He has short hair"
+      ],
+      "distractorIds": [
+        "g4u13-long",
+        "g4u13-curly",
+        "g4u13-glasses"
+      ],
+      "spokenVariants": [
+        "hare",
+        "her"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u13-long",
+      "word": "long",
+      "ttsText": "long",
+      "image": "grade4/long.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "She has long hair",
+        "The river is long"
+      ],
+      "distractorIds": [
+        "g4u13-curly",
+        "g4u13-glasses",
+        "g4u13-tall"
+      ],
+      "spokenVariants": [
+        "lung",
+        "lone"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u13-curly",
+      "word": "curly",
+      "ttsText": "curly",
+      "image": "grade4/curly.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "He has curly hair",
+        "Her hair is curly"
+      ],
+      "distractorIds": [
+        "g4u13-glasses",
+        "g4u13-tall",
+        "g4u13-short"
+      ],
+      "spokenVariants": [
+        "curley",
+        "kurly"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u13-glasses",
+      "word": "glasses",
+      "ttsText": "glasses",
+      "image": "grade4/glasses.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "He wears glasses",
+        "My teacher has glasses"
+      ],
+      "distractorIds": [
+        "g4u13-tall",
+        "g4u13-short",
+        "g4u13-slim"
+      ],
+      "spokenVariants": [
+        "glass is",
+        "glasess"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    }
+  ]
+}

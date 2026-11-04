@@ -1,0 +1,228 @@
+{
+  "grade": 2,
+  "unit": "u14",
+  "index": 14,
+  "title": "At home",
+  "items": [
+    {
+      "id": "g2u14-sofa",
+      "word": "sofa",
+      "ttsText": "sofa",
+      "image": "grade2/sofa.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u14-door",
+        "g2u14-radio",
+        "g2u14-television"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u14-lamp",
+      "word": "lamp",
+      "ttsText": "lamp",
+      "image": "grade2/lamp.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u14-window",
+        "g2u14-phone",
+        "g2u14-mirror"
+      ],
+      "spokenVariants": [
+        "lamb"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u14-bed",
+      "word": "bed",
+      "ttsText": "bed",
+      "image": "grade2/bed.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u14-radio",
+        "g2u14-television",
+        "g2u14-carpet"
+      ],
+      "spokenVariants": [
+        "bad"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u14-door",
+      "word": "door",
+      "ttsText": "door",
+      "image": "grade2/door.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u14-phone",
+        "g2u14-mirror",
+        "g2u14-shelf"
+      ],
+      "spokenVariants": [
+        "dor"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u14-window",
+      "word": "window",
+      "ttsText": "window",
+      "image": "grade2/window.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u14-television",
+        "g2u14-carpet",
+        "g2u14-stairs"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u14-radio",
+      "word": "radio",
+      "ttsText": "radio",
+      "image": "grade2/radio.png",
+      "syllables": 3,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u14-mirror",
+        "g2u14-shelf",
+        "g2u14-sofa"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump"
+      ]
+    },
+    {
+      "id": "g2u14-phone",
+      "word": "phone",
+      "ttsText": "phone",
+      "image": "grade2/phone.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u14-carpet",
+        "g2u14-stairs",
+        "g2u14-lamp"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u14-television",
+      "word": "television",
+      "ttsText": "television",
+      "image": "grade2/television.png",
+      "syllables": 4,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u14-shelf",
+        "g2u14-sofa",
+        "g2u14-bed"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump"
+      ]
+    },
+    {
+      "id": "g2u14-mirror",
+      "word": "mirror",
+      "ttsText": "mirror",
+      "image": "grade2/mirror.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u14-stairs",
+        "g2u14-lamp",
+        "g2u14-door"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u14-carpet",
+      "word": "carpet",
+      "ttsText": "carpet",
+      "image": "grade2/carpet.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u14-sofa",
+        "g2u14-bed",
+        "g2u14-window"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u14-shelf",
+      "word": "shelf",
+      "ttsText": "shelf",
+      "image": "grade2/shelf.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u14-lamp",
+        "g2u14-door",
+        "g2u14-radio"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u14-stairs",
+      "word": "stairs",
+      "ttsText": "stairs",
+      "image": "grade2/stairs.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u14-bed",
+        "g2u14-window",
+        "g2u14-phone"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    }
+  ]
+}

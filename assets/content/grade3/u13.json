@@ -1,0 +1,306 @@
+{
+  "grade": 3,
+  "unit": "u13",
+  "index": 13,
+  "title": "My house",
+  "items": [
+    {
+      "id": "g3u13-house",
+      "word": "house",
+      "ttsText": "house",
+      "image": "grade3/house.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "This is my house",
+        "My house is big"
+      ],
+      "distractorIds": [
+        "g3u13-garden",
+        "g3u13-kitchen",
+        "g3u13-bathroom"
+      ],
+      "spokenVariants": [
+        "haus"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u13-garden",
+      "word": "garden",
+      "ttsText": "garden",
+      "image": "grade3/garden.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "There is a garden",
+        "The garden is big"
+      ],
+      "distractorIds": [
+        "g3u13-kitchen",
+        "g3u13-bathroom",
+        "g3u13-bedroom"
+      ],
+      "spokenVariants": [
+        "gardin",
+        "garten"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u13-kitchen",
+      "word": "kitchen",
+      "ttsText": "kitchen",
+      "image": "grade3/kitchen.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "This is the kitchen",
+        "My mother cooks in the kitchen"
+      ],
+      "distractorIds": [
+        "g3u13-bathroom",
+        "g3u13-bedroom",
+        "g3u13-yard"
+      ],
+      "spokenVariants": [
+        "kitchin",
+        "kitchn"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u13-bathroom",
+      "word": "bathroom",
+      "ttsText": "bathroom",
+      "image": "grade3/bathroom.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "This is the bathroom",
+        "The bathroom is small"
+      ],
+      "distractorIds": [
+        "g3u13-bedroom",
+        "g3u13-yard",
+        "g3u13-gate"
+      ],
+      "spokenVariants": [
+        "bath room",
+        "bathrum"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u13-bedroom",
+      "word": "bedroom",
+      "ttsText": "bedroom",
+      "image": "grade3/bedroom.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "This is my bedroom",
+        "The bedroom is nice"
+      ],
+      "distractorIds": [
+        "g3u13-yard",
+        "g3u13-gate",
+        "g3u13-fence"
+      ],
+      "spokenVariants": [
+        "bed room",
+        "bedrum"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u13-yard",
+      "word": "yard",
+      "ttsText": "yard",
+      "image": "grade3/yard.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "There is a yard",
+        "The yard is big"
+      ],
+      "distractorIds": [
+        "g3u13-gate",
+        "g3u13-fence",
+        "g3u13-roof"
+      ],
+      "spokenVariants": [
+        "yar"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u13-gate",
+      "word": "gate",
+      "ttsText": "gate",
+      "image": "grade3/gate.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "There is a gate",
+        "The gate is big"
+      ],
+      "distractorIds": [
+        "g3u13-fence",
+        "g3u13-roof",
+        "g3u13-door"
+      ],
+      "spokenVariants": [
+        "get",
+        "gait"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u13-fence",
+      "word": "fence",
+      "ttsText": "fence",
+      "image": "grade3/fence.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "There is a fence",
+        "The fence is white"
+      ],
+      "distractorIds": [
+        "g3u13-roof",
+        "g3u13-door",
+        "g3u13-window"
+      ],
+      "spokenVariants": [
+        "fents",
+        "fense"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u13-roof",
+      "word": "roof",
+      "ttsText": "roof",
+      "image": "grade3/roof.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "The roof is red",
+        "Look at the roof"
+      ],
+      "distractorIds": [
+        "g3u13-door",
+        "g3u13-window",
+        "g3u13-pond"
+      ],
+      "spokenVariants": [
+        "rough",
+        "ruff"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u13-door",
+      "word": "door",
+      "ttsText": "door",
+      "image": "grade3/door.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "The door is brown",
+        "Open the door please"
+      ],
+      "distractorIds": [
+        "g3u13-window",
+        "g3u13-pond",
+        "g3u13-house"
+      ],
+      "spokenVariants": [
+        "dor",
+        "doar"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u13-window",
+      "word": "window",
+      "ttsText": "window",
+      "image": "grade3/window.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "The window is big",
+        "Open the window please"
+      ],
+      "distractorIds": [
+        "g3u13-pond",
+        "g3u13-house",
+        "g3u13-garden"
+      ],
+      "spokenVariants": [
+        "windo",
+        "windoh"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u13-pond",
+      "word": "pond",
+      "ttsText": "pond",
+      "image": "grade3/pond.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "There is a pond",
+        "The pond is small"
+      ],
+      "distractorIds": [
+        "g3u13-house",
+        "g3u13-garden",
+        "g3u13-kitchen"
+      ],
+      "spokenVariants": [
+        "pound",
+        "pon"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,308 @@
+{
+  "grade": 3,
+  "unit": "u10",
+  "index": 10,
+  "title": "Break time activities",
+  "items": [
+    {
+      "id": "g3u10-football",
+      "word": "football",
+      "ttsText": "football",
+      "image": "grade3/football.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I play football",
+        "Let us play football"
+      ],
+      "distractorIds": [
+        "g3u10-basketball",
+        "g3u10-badminton",
+        "g3u10-volleyball"
+      ],
+      "spokenVariants": [
+        "foot ball",
+        "footbal"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u10-basketball",
+      "word": "basketball",
+      "ttsText": "basketball",
+      "image": "grade3/basketball.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "I play basketball",
+        "Let us play basketball"
+      ],
+      "distractorIds": [
+        "g3u10-badminton",
+        "g3u10-volleyball",
+        "g3u10-chess"
+      ],
+      "spokenVariants": [
+        "basket ball",
+        "basketbal"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u10-badminton",
+      "word": "badminton",
+      "ttsText": "badminton",
+      "image": "grade3/badminton.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "I play badminton",
+        "Let us play badminton"
+      ],
+      "distractorIds": [
+        "g3u10-volleyball",
+        "g3u10-chess",
+        "g3u10-skip"
+      ],
+      "spokenVariants": [
+        "badmington",
+        "bad minton"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u10-volleyball",
+      "word": "volleyball",
+      "ttsText": "volleyball",
+      "image": "grade3/volleyball.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "I play volleyball",
+        "Let us play volleyball"
+      ],
+      "distractorIds": [
+        "g3u10-chess",
+        "g3u10-skip",
+        "g3u10-kite"
+      ],
+      "spokenVariants": [
+        "volley ball",
+        "volleybal"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u10-chess",
+      "word": "chess",
+      "ttsText": "chess",
+      "image": "grade3/chess.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I play chess",
+        "Let us play chess"
+      ],
+      "distractorIds": [
+        "g3u10-skip",
+        "g3u10-kite",
+        "g3u10-ball"
+      ],
+      "spokenVariants": [
+        "chest",
+        "ches"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u10-skip",
+      "word": "skip",
+      "ttsText": "skip",
+      "image": "grade3/skip.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I like to skip",
+        "We skip at break time"
+      ],
+      "distractorIds": [
+        "g3u10-kite",
+        "g3u10-ball",
+        "g3u10-tennis"
+      ],
+      "spokenVariants": [
+        "skipp",
+        "scip"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u10-kite",
+      "word": "kite",
+      "ttsText": "kite",
+      "image": "grade3/kite.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I fly my kite",
+        "The kite is high"
+      ],
+      "distractorIds": [
+        "g3u10-ball",
+        "g3u10-tennis",
+        "g3u10-play"
+      ],
+      "spokenVariants": [
+        "kight",
+        "kit"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u10-ball",
+      "word": "ball",
+      "ttsText": "ball",
+      "image": "grade3/ball.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I kick the ball",
+        "Throw me the ball"
+      ],
+      "distractorIds": [
+        "g3u10-tennis",
+        "g3u10-play",
+        "g3u10-catch"
+      ],
+      "spokenVariants": [
+        "bowl",
+        "bal"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u10-tennis",
+      "word": "tennis",
+      "ttsText": "tennis",
+      "image": "grade3/tennis.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I play table tennis",
+        "Let us play tennis"
+      ],
+      "distractorIds": [
+        "g3u10-play",
+        "g3u10-catch",
+        "g3u10-rope"
+      ],
+      "spokenVariants": [
+        "tenis",
+        "tennys"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u10-play",
+      "word": "play",
+      "ttsText": "play",
+      "image": "grade3/play.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "Let us play now",
+        "We play at break time"
+      ],
+      "distractorIds": [
+        "g3u10-catch",
+        "g3u10-rope",
+        "g3u10-football"
+      ],
+      "spokenVariants": [
+        "pray",
+        "pley"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u10-catch",
+      "word": "catch",
+      "ttsText": "catch",
+      "image": "grade3/catch.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I can catch the ball",
+        "Catch the ball please"
+      ],
+      "distractorIds": [
+        "g3u10-rope",
+        "g3u10-football",
+        "g3u10-basketball"
+      ],
+      "spokenVariants": [
+        "cat",
+        "cats"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u10-rope",
+      "word": "rope",
+      "ttsText": "rope",
+      "image": "grade3/rope.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I jump the rope",
+        "This is a long rope"
+      ],
+      "distractorIds": [
+        "g3u10-football",
+        "g3u10-basketball",
+        "g3u10-badminton"
+      ],
+      "spokenVariants": [
+        "robe",
+        "roap"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    }
+  ]
+}

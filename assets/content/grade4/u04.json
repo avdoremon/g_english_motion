@@ -1,0 +1,257 @@
+{
+  "grade": 4,
+  "unit": "u04",
+  "index": 4,
+  "title": "My birthday party",
+  "items": [
+    {
+      "id": "g4u04-birthday",
+      "word": "birthday",
+      "ttsText": "birthday",
+      "image": "grade4/birthday.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "Happy birthday to you",
+        "My birthday is in May"
+      ],
+      "distractorIds": [
+        "g4u04-party",
+        "g4u04-cake",
+        "g4u04-candle"
+      ],
+      "spokenVariants": [
+        "birth day",
+        "birfday"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot"
+      ]
+    },
+    {
+      "id": "g4u04-party",
+      "word": "party",
+      "ttsText": "party",
+      "image": "grade4/party.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I have a birthday party",
+        "The party is fun"
+      ],
+      "distractorIds": [
+        "g4u04-cake",
+        "g4u04-candle",
+        "g4u04-balloon"
+      ],
+      "spokenVariants": [
+        "potty",
+        "parti"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u04-cake",
+      "word": "cake",
+      "ttsText": "cake",
+      "image": "grade4/cake.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I like chocolate cake",
+        "Mum makes a big cake"
+      ],
+      "distractorIds": [
+        "g4u04-candle",
+        "g4u04-balloon",
+        "g4u04-present"
+      ],
+      "spokenVariants": [
+        "kake",
+        "cache"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u04-candle",
+      "word": "candle",
+      "ttsText": "candle",
+      "image": "grade4/candle.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "Blow out the candle",
+        "I light the candle"
+      ],
+      "distractorIds": [
+        "g4u04-balloon",
+        "g4u04-present",
+        "g4u04-juice"
+      ],
+      "spokenVariants": [
+        "kandle",
+        "candel"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u04-balloon",
+      "word": "balloon",
+      "ttsText": "balloon",
+      "image": "grade4/balloon.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I have a red balloon",
+        "The balloon is big"
+      ],
+      "distractorIds": [
+        "g4u04-present",
+        "g4u04-juice",
+        "g4u04-sweet"
+      ],
+      "spokenVariants": [
+        "baloon",
+        "ballon"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u04-present",
+      "word": "present",
+      "ttsText": "present",
+      "image": "grade4/present.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "This present is for you",
+        "I like my present"
+      ],
+      "distractorIds": [
+        "g4u04-juice",
+        "g4u04-sweet",
+        "g4u04-sandwich"
+      ],
+      "spokenVariants": [
+        "prezent",
+        "presents"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u04-juice",
+      "word": "juice",
+      "ttsText": "juice",
+      "image": "grade4/juice.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "Would you like some juice",
+        "I drink orange juice"
+      ],
+      "distractorIds": [
+        "g4u04-sweet",
+        "g4u04-sandwich",
+        "g4u04-biscuit"
+      ],
+      "spokenVariants": [
+        "jews",
+        "jus"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u04-sweet",
+      "word": "sweet",
+      "ttsText": "sweet",
+      "image": "grade4/sweet.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "Would you like a sweet",
+        "The cake is sweet"
+      ],
+      "distractorIds": [
+        "g4u04-sandwich",
+        "g4u04-biscuit",
+        "g4u04-birthday"
+      ],
+      "spokenVariants": [
+        "suite",
+        "sweat"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u04-sandwich",
+      "word": "sandwich",
+      "ttsText": "sandwich",
+      "image": "grade4/sandwich.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I eat a sandwich",
+        "The sandwich is nice"
+      ],
+      "distractorIds": [
+        "g4u04-biscuit",
+        "g4u04-birthday",
+        "g4u04-party"
+      ],
+      "spokenVariants": [
+        "sand which",
+        "sanwich"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u04-biscuit",
+      "word": "biscuit",
+      "ttsText": "biscuit",
+      "image": "grade4/biscuit.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "Would you like a biscuit",
+        "I like this biscuit"
+      ],
+      "distractorIds": [
+        "g4u04-birthday",
+        "g4u04-party",
+        "g4u04-cake"
+      ],
+      "spokenVariants": [
+        "biskit",
+        "bisket"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    }
+  ]
+}

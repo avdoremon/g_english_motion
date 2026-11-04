@@ -1,0 +1,281 @@
+{
+  "grade": 5,
+  "unit": "u03",
+  "index": 3,
+  "title": "My foreign friends",
+  "items": [
+    {
+      "id": "g5u03-japan",
+      "word": "japan",
+      "ttsText": "japan",
+      "image": "grade5/japan.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "He is from Japan",
+        "My friend lives in Japan"
+      ],
+      "distractorIds": [
+        "g5u03-australia",
+        "g5u03-malaysia",
+        "g5u03-england"
+      ],
+      "spokenVariants": [
+        "japon",
+        "jah pan"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u03-australia",
+      "word": "australia",
+      "ttsText": "australia",
+      "image": "grade5/australia.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "She is from Australia",
+        "Is he from Australia"
+      ],
+      "distractorIds": [
+        "g5u03-malaysia",
+        "g5u03-england",
+        "g5u03-america"
+      ],
+      "spokenVariants": [
+        "astralia",
+        "australya"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u03-malaysia",
+      "word": "malaysia",
+      "ttsText": "malaysia",
+      "image": "grade5/malaysia.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "My friend is from Malaysia",
+        "Malaysia is a hot country"
+      ],
+      "distractorIds": [
+        "g5u03-england",
+        "g5u03-america",
+        "g5u03-singapore"
+      ],
+      "spokenVariants": [
+        "malaysha",
+        "malasia"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u03-england",
+      "word": "england",
+      "ttsText": "england",
+      "image": "grade5/england.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "Tom is from England",
+        "England is far from Viet Nam"
+      ],
+      "distractorIds": [
+        "g5u03-america",
+        "g5u03-singapore",
+        "g5u03-korea"
+      ],
+      "spokenVariants": [
+        "ingland",
+        "englan"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u03-america",
+      "word": "america",
+      "ttsText": "america",
+      "image": "grade5/america.png",
+      "syllables": 4,
+      "sentencePatterns": [
+        "She is from America",
+        "My uncle lives in America"
+      ],
+      "distractorIds": [
+        "g5u03-singapore",
+        "g5u03-korea",
+        "g5u03-thailand"
+      ],
+      "spokenVariants": [
+        "amerika"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot"
+      ]
+    },
+    {
+      "id": "g5u03-singapore",
+      "word": "singapore",
+      "ttsText": "singapore",
+      "image": "grade5/singapore.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "Linda is from Singapore",
+        "Singapore is a small country"
+      ],
+      "distractorIds": [
+        "g5u03-korea",
+        "g5u03-thailand",
+        "g5u03-canada"
+      ],
+      "spokenVariants": [
+        "singapor",
+        "sing a pore"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u03-korea",
+      "word": "korea",
+      "ttsText": "korea",
+      "image": "grade5/korea.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "He is from Korea",
+        "I like food from Korea"
+      ],
+      "distractorIds": [
+        "g5u03-thailand",
+        "g5u03-canada",
+        "g5u03-india"
+      ],
+      "spokenVariants": [
+        "corea",
+        "kerria"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u03-thailand",
+      "word": "thailand",
+      "ttsText": "thailand",
+      "image": "grade5/thailand.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "Where is Thailand",
+        "My teacher is from Thailand"
+      ],
+      "distractorIds": [
+        "g5u03-canada",
+        "g5u03-india",
+        "g5u03-france"
+      ],
+      "spokenVariants": [
+        "thiland",
+        "tie land"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u03-canada",
+      "word": "canada",
+      "ttsText": "canada",
+      "image": "grade5/canada.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "She is from Canada",
+        "Canada is a big country"
+      ],
+      "distractorIds": [
+        "g5u03-india",
+        "g5u03-france",
+        "g5u03-japan"
+      ],
+      "spokenVariants": [
+        "kanada",
+        "canadah"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u03-india",
+      "word": "india",
+      "ttsText": "india",
+      "image": "grade5/india.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "He comes from India",
+        "India is a big country"
+      ],
+      "distractorIds": [
+        "g5u03-france",
+        "g5u03-japan",
+        "g5u03-australia"
+      ],
+      "spokenVariants": [
+        "indea",
+        "indya"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u03-france",
+      "word": "france",
+      "ttsText": "france",
+      "image": "grade5/france.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "She is from France",
+        "Paris is in France"
+      ],
+      "distractorIds": [
+        "g5u03-japan",
+        "g5u03-australia",
+        "g5u03-malaysia"
+      ],
+      "spokenVariants": [
+        "frans",
+        "franse"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    }
+  ]
+}

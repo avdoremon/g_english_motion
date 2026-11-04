@@ -1,0 +1,244 @@
+{
+  "grade": 1,
+  "unit": "u08",
+  "index": 8,
+  "title": "In the park",
+  "items": [
+    {
+      "id": "g1u08-slide",
+      "word": "slide",
+      "ttsText": "slide",
+      "image": "grade1/slide.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u08-swing",
+        "g1u08-ball",
+        "g1u08-tree"
+      ],
+      "spokenVariants": [
+        "side"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u08-swing",
+      "word": "swing",
+      "ttsText": "swing",
+      "image": "grade1/swing.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u08-seesaw",
+        "g1u08-kite",
+        "g1u08-dog"
+      ],
+      "spokenVariants": [
+        "sing"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u08-seesaw",
+      "word": "seesaw",
+      "ttsText": "seesaw",
+      "image": "grade1/seesaw.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u08-bench",
+        "g1u08-bike",
+        "g1u08-lake"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u08-bench",
+      "word": "bench",
+      "ttsText": "bench",
+      "image": "grade1/bench.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u08-ball",
+        "g1u08-tree",
+        "g1u08-sun"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u08-ball",
+      "word": "ball",
+      "ttsText": "ball",
+      "image": "grade1/ball.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u08-kite",
+        "g1u08-dog",
+        "g1u08-bird"
+      ],
+      "spokenVariants": [
+        "bowl"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u08-kite",
+      "word": "kite",
+      "ttsText": "kite",
+      "image": "grade1/kite.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u08-bike",
+        "g1u08-lake",
+        "g1u08-slide"
+      ],
+      "spokenVariants": [
+        "kit"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u08-bike",
+      "word": "bike",
+      "ttsText": "bike",
+      "image": "grade1/bike.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u08-tree",
+        "g1u08-sun",
+        "g1u08-swing"
+      ],
+      "spokenVariants": [
+        "bite"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u08-tree",
+      "word": "tree",
+      "ttsText": "tree",
+      "image": "grade1/tree.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u08-dog",
+        "g1u08-bird",
+        "g1u08-seesaw"
+      ],
+      "spokenVariants": [
+        "three"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u08-dog",
+      "word": "dog",
+      "ttsText": "dog",
+      "image": "grade1/dog.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u08-lake",
+        "g1u08-slide",
+        "g1u08-bench"
+      ],
+      "spokenVariants": [
+        "dug"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u08-lake",
+      "word": "lake",
+      "ttsText": "lake",
+      "image": "grade1/lake.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u08-sun",
+        "g1u08-swing",
+        "g1u08-ball"
+      ],
+      "spokenVariants": [
+        "lace"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u08-sun",
+      "word": "sun",
+      "ttsText": "sun",
+      "image": "grade1/sun.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u08-bird",
+        "g1u08-seesaw",
+        "g1u08-kite"
+      ],
+      "spokenVariants": [
+        "son"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u08-bird",
+      "word": "bird",
+      "ttsText": "bird",
+      "image": "grade1/bird.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u08-slide",
+        "g1u08-bench",
+        "g1u08-bike"
+      ],
+      "spokenVariants": [
+        "bed"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    }
+  ]
+}
