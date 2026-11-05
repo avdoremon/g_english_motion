@@ -69,6 +69,19 @@ class AppTheme {
           shape: const StadiumBorder(),
         ),
       ),
+      // The secondary choice on the camera-problem screen is an
+      // OutlinedButton: it must be as big and as readable as every other
+      // button a child has to hit from an arm's length.
+      outlinedButtonTheme: OutlinedButtonThemeData(
+        style: OutlinedButton.styleFrom(
+          foregroundColor: text,
+          minimumSize: const Size(minTarget * 2, minTarget),
+          padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
+          textStyle: textTheme.labelLarge!.copyWith(color: text),
+          side: const BorderSide(color: accent, width: 3),
+          shape: const StadiumBorder(),
+        ),
+      ),
       iconButtonTheme: IconButtonThemeData(
         style: IconButton.styleFrom(
           minimumSize: const Size(minTarget, minTarget),

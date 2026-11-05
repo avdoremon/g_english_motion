@@ -8,6 +8,7 @@ import '../../session/level_session.dart';
 import '../mascot/tin_tin.dart';
 import '../theme/app_theme.dart';
 import 'play_header.dart';
+import 'round_verdict.dart';
 
 /// The LaneJump play screen (Space Cadets, canvas B "Lane"): header (level,
 /// progress, timer ring, score), the prompt, one lane per choice and Tin Tin
@@ -119,10 +120,9 @@ class _PromptArea extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final t = Theme.of(context).textTheme;
     final q = body.question;
     final c = body.controller;
-    final ok = body.session.lastResult == RoundResult.correct;
+    final result = body.session.lastResult;
     return LayoutBuilder(
       builder: (context, box) => Row(
         children: [
@@ -135,25 +135,9 @@ class _PromptArea extends StatelessWidget {
               ),
             ),
           ),
-          if (body._feedback)
-            Row(
-              key: const ValueKey('feedback-label'),
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(
-                  ok ? Icons.check_circle : Icons.cancel,
-                  size: 56,
-                  color: ok ? AppTheme.green : AppTheme.pink,
-                ),
-                const SizedBox(width: 8),
-                Text(ok ? 'Đúng' : 'Sai', style: t.titleLarge),
-                const SizedBox(width: 16),
-              ],
-            ),
+          if (body._feedback) RoundVerdict(result: result, iconSize: 56),
           TinTin(
-            state: !body._feedback
-                ? TinTinState.idle
-                : (ok ? TinTinState.happy : TinTinState.sad),
+            state: RoundVerdict.mascotFor(result, feedback: body._feedback),
             size: box.maxHeight.clamp(64.0, 140.0),
             pulse: body.session.index,
           ),

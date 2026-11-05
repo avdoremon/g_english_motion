@@ -155,20 +155,23 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget _gradeTile(int g, TextTheme t) {
     final playable = HomeScreen.playableGrades.contains(g);
     final selected = g == _grade;
+    void pick() => setState(() {
+      _grade = g;
+      _level = null;
+    });
+    // onTap on the Semantics itself: excludeSemantics drops the child's own
+    // tap action, so without it TalkBack would announce a button whose
+    // double-tap does nothing.
     return Semantics(
       button: true,
       enabled: playable,
       selected: selected,
       label: playable ? 'Lớp $g' : 'Lớp $g, sắp có',
+      onTap: playable ? pick : null,
       excludeSemantics: true,
       child: GestureDetector(
         key: ValueKey('grade-$g'),
-        onTap: playable
-            ? () => setState(() {
-                _grade = g;
-                _level = null;
-              })
-            : null,
+        onTap: playable ? pick : null,
         child: Container(
           constraints: const BoxConstraints(minWidth: 120, minHeight: 72),
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -201,15 +204,18 @@ class _HomeScreenState extends State<HomeScreen> {
     final unlocked = store.isUnlocked(_grade, l);
     final stars = store.starsFor(_grade, l);
     final selected = unlocked && l == current;
+    void pick() => setState(() => _level = l);
+    // See _gradeTile: the announced button must really act on a tap.
     return Semantics(
       button: true,
       enabled: unlocked,
       selected: selected,
       label: unlocked ? 'Cấp $l, $stars sao' : 'Cấp $l, chưa mở khóa',
+      onTap: unlocked ? pick : null,
       excludeSemantics: true,
       child: GestureDetector(
         key: ValueKey('level-$l'),
-        onTap: unlocked ? () => setState(() => _level = l) : null,
+        onTap: unlocked ? pick : null,
         child: Container(
           width: 96,
           padding: const EdgeInsets.symmetric(vertical: 8),

@@ -49,6 +49,20 @@ enum GamePhase {
 /// hand; production uses a periodic stream.
 typedef TickerFactory = Stream<Duration> Function();
 
+/// Lets the welcome line be spoken once per APP session. A controller is
+/// built per level, so a flag inside it would greet the child again at every
+/// level; the app owns one gate and hands it to each controller.
+class WelcomeGate {
+  bool _done = false;
+
+  /// True exactly once (for the first caller), false afterwards.
+  bool take() {
+    if (_done) return false;
+    _done = true;
+    return true;
+  }
+}
+
 /// Orchestrates one play-through (grades 1-2 LaneJump, grades 3-5 DragSpell
 /// and SkyShoot):
 /// permission -> calibration -> plan -> [LevelSession] -> result.
@@ -90,6 +104,7 @@ class GameController extends ChangeNotifier {
     required AudioService audio,
     required TickerFactory ticker,
     Random? rng,
+    WelcomeGate? welcome,
     this.castLatency = defaultCastLatency,
     Calibrator Function()? calibratorFactory,
     this.feedbackTime = const Duration(milliseconds: 2500),
@@ -103,6 +118,7 @@ class GameController extends ChangeNotifier {
        _audio = audio,
        _tickerFactory = ticker,
        _rng = rng ?? Random(),
+       _welcome = welcome ?? WelcomeGate(),
        _calibratorFactory = calibratorFactory ?? Calibrator.new;
 
   static const maxTickStep = Duration(milliseconds: 250);
@@ -143,6 +159,10 @@ class GameController extends ChangeNotifier {
   final AudioService _audio;
   final TickerFactory _tickerFactory;
   final Random _rng;
+
+  /// Shared with every other controller of this app session: the welcome
+  /// line is said once, not at every level.
+  final WelcomeGate _welcome;
   final Calibrator Function() _calibratorFactory;
 
   // Sync so GameShell reacts inside the dispatch (see class docs).
@@ -190,13 +210,13 @@ class GameController extends ChangeNotifier {
   Future<PermissionOutcome>? _startFuture;
   Future<void>? _inputStopped;
   bool _cameraStarting = false;
-  bool _welcomed = false;
 
   /// First moments of each question: jumps are ignored (spec: 500 ms).
   static const confirmGrace = Duration(milliseconds: 500);
 
   SessionPhase? _lastSessionPhase;
   bool _lastTileHints = false;
+  bool _lastPromptHint = false;
   bool _disposed = false;
   bool _finishHandled = false;
   Future<void> _persisted = Future<void>.value();
@@ -235,6 +255,11 @@ class GameController extends ChangeNotifier {
   /// [LevelSession.showTileHints]). Listeners are notified when it flips
   /// (e.g. `partial` crossing 50% of the time limit), not on every tick.
   bool get showTileHints => _session?.showTileHints ?? false;
+
+  /// Whether the hint picture beside the prompt is shown right now (see
+  /// [LevelSession.showPromptHint]). Listeners are notified when it flips,
+  /// so the DragSpell / SkyShoot prompt does not rebuild on every tick.
+  bool get showPromptHint => _session?.showPromptHint ?? false;
 
   /// Input events (including synthetic presence events) for GameShell.
   Stream<GameInputEvent> get events => _events.stream;
@@ -283,9 +308,9 @@ class GameController extends ChangeNotifier {
       return PermissionOutcome.granted;
     }
     _setPhase(GamePhase.requestingPermission);
-    // Once per controller: a retry from the permission screen re-enters here.
-    if (!_welcomed) {
-      _welcomed = true;
+    // Once per app session: a retry from the permission screen re-enters
+    // here, and a new level builds a new controller.
+    if (_welcome.take()) {
       unawaited(_audio.playLine(VoiceLine.welcome));
     }
     PermissionOutcome outcome;
@@ -704,8 +729,11 @@ class GameController extends ChangeNotifier {
     }
     if (now == SessionPhase.finished && !_finishHandled) _onFinished(s);
     final hints = s.showTileHints;
-    final hintsChanged = hints != _lastTileHints;
+    final promptHint = s.showPromptHint;
+    final hintsChanged =
+        hints != _lastTileHints || promptHint != _lastPromptHint;
     _lastTileHints = hints;
+    _lastPromptHint = promptHint;
     if (before != now || hintsChanged) notifyListeners();
   }
 
@@ -771,7 +799,30 @@ class GameController extends ChangeNotifier {
       unawaited(_audio.playLine(line));
       return;
     }
-    unawaited(_explain(s.current.question));
+    // A timeout opens with the neutral line: the child is told the time ran
+    // out, never that the answer was wrong (it may never have been seen).
+    unawaited(
+      _explain(
+        s.current,
+        s.isReview,
+        opening: result == RoundResult.timeout
+            ? VoiceLine.outOfTime
+            : VoiceLine.tryAgain,
+      ),
+    );
+  }
+
+  /// Whether an explanation started for [pq] may still speak: the controller
+  /// is alive and the session is still on that question's feedback (a pause
+  /// keeps it there). Once the session has moved on to the next question the
+  /// rest of the explanation is dropped instead of talking over its prompt.
+  bool _stillExplaining(PlannedQuestion pq, bool review) {
+    final s = _session;
+    if (_disposed || s == null) return false;
+    if (s.phase != SessionPhase.feedback && s.phase != SessionPhase.paused) {
+      return false;
+    }
+    return identical(s.current, pq) && s.isReview == review;
   }
 
   /// The recorded word clip may stand in for the spoken text only when the
@@ -783,23 +834,35 @@ class GameController extends ChangeNotifier {
     _ => q.itemId,
   };
 
-  Future<void> _explain(Question q) async {
-    await _audio.playLine(VoiceLine.tryAgain);
-    // Left the screen meanwhile: never speak on the next one.
-    if (_disposed) return;
+  Future<void> _explain(
+    PlannedQuestion pq,
+    bool review, {
+    required VoiceLine opening,
+  }) async {
+    final q = pq.question;
+    await _audio.playLine(opening);
+    // Left the screen, or the next question is already up: never speak over
+    // it (the legs together outlast the 2.5 s feedback once clips ship).
+    if (!_stillExplaining(pq, review)) return;
     try {
       switch (q) {
         case ChoiceQuestion():
           final correct = _repo.byId(q.choices[q.correctIndex].itemId);
-          if (!_disposed) await _audio.explainAnswer(correct);
+          if (_stillExplaining(pq, review)) {
+            await _audio.explainAnswer(correct);
+          }
         case SpellQuestion():
-          if (!_disposed) await _audio.explainAnswer(_repo.byId(q.itemId));
+          if (_stillExplaining(pq, review)) {
+            await _audio.explainAnswer(_repo.byId(q.itemId));
+          }
         case OrderQuestion():
           await _audio.playLine(VoiceLine.theAnswerIs);
-          if (!_disposed) await _audio.sayEnglish(q.answer.join(' '));
+          if (_stillExplaining(pq, review)) {
+            await _audio.sayEnglish(q.answer.join(' '));
+          }
       }
     } on StateError {
-      // Unknown id: the tryAgain line alone is fine.
+      // Unknown id: the opening line alone is fine.
     }
   }
 

@@ -5,15 +5,25 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO"/>
     <uses-feature android:name="android.hardware.camera" android:required="false"/>
     <uses-feature android:name="android.hardware.camera.front" android:required="false"/>
+    <!-- allowBackup="false": everything the child does stays on this device,
+         so Android Auto Backup must not copy stars, progress or question
+         history to Google's servers. -->
     <application
         android:label="Tin Tin English"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+        android:allowBackup="false"
+        android:fullBackupContent="false">
+        <!-- screenOrientation="sensorLandscape": the game is landscape only;
+             without it a cold start in portrait flashes the portrait launch
+             theme before main.dart locks the orientation (configChanges
+             below already covers orientation changes). -->
         <activity
             android:name=".MainActivity"
             android:exported="true"
             android:launchMode="singleTop"
             android:taskAffinity=""
+            android:screenOrientation="sensorLandscape"
             android:theme="@style/LaunchTheme"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
             android:hardwareAccelerated="true"

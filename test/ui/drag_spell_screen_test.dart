@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:g_english_motion/content/content_repository.dart';
 import 'package:g_english_motion/content/curriculum.dart';
 import 'package:g_english_motion/content/models.dart';
 import 'package:g_english_motion/content/question_models.dart';
@@ -9,6 +11,7 @@ import 'package:g_english_motion/levels/level_config.dart';
 import 'package:g_english_motion/modes/drag_spell.dart';
 import 'package:g_english_motion/modes/round.dart';
 import 'package:g_english_motion/session/level_session.dart';
+import 'package:g_english_motion/ui/mascot/tin_tin.dart';
 import 'package:g_english_motion/ui/screens/drag_spell_screen.dart';
 import 'package:g_english_motion/ui/screens/play_screen.dart';
 import 'package:g_english_motion/ui/theme/app_theme.dart';
@@ -33,6 +36,39 @@ const _partialHints = LevelConfig(
   window: UnitWindow.currentPlus2,
 );
 
+/// A grade-3 repo whose items can ONLY be asked as [OrderQuestion]: the word
+/// itself is not letters-only, so `spellWord` is never eligible.
+ContentRepository orderRepo(List<String> sentences) => ContentRepository([
+  Unit(
+    grade: 3,
+    index: 1,
+    id: 'u01',
+    title: 'g3u1',
+    items: [
+      for (var i = 0; i < sentences.length; i++)
+        ContentItem(
+          id: 'g3u1o$i',
+          word: 'cụm từ $i',
+          ttsText: sentences[i],
+          sentencePatterns: [sentences[i]],
+          modes: const [ModeKind.dragSpell],
+        ),
+    ],
+  ),
+]);
+
+/// The font size the child really sees: the paragraph's own size, scaled by
+/// the text scaler and by every transform above it (a [FittedBox] included;
+/// its shrink shows up as a painted width smaller than the laid-out one).
+double renderedFontSize(WidgetTester tester, Finder textFinder) {
+  final p = tester.renderObject<RenderParagraph>(textFinder);
+  final base = (p.text as TextSpan).style!.fontSize!;
+  final painted = tester.getRect(textFinder).width;
+  final scale = p.size.width <= 0 ? 1.0 : painted / p.size.width;
+  // Rounded: the measured scale of an unscaled paragraph is 1 ± float noise.
+  return ((p.textScaler.scale(base) * scale) * 1e6).roundToDouble() / 1e6;
+}
+
 void main() {
   late GameHarness h;
   var clock = Duration.zero;
@@ -45,6 +81,7 @@ void main() {
     bool images = true,
     bool useScreen = true,
     List<String> words = harnessWords,
+    ContentRepository? repo,
   }) async {
     clock = Duration.zero;
     elapsed = Duration.zero;
@@ -57,6 +94,7 @@ void main() {
         level: level,
         withImages: images,
         words: words,
+        repo: repo,
       );
       await h.startAndCalibrate();
     });
@@ -236,6 +274,34 @@ void main() {
     await finish(tester);
   });
 
+  testWidgets('the cursor is placed from the board size of the frame being '
+      'built, not of the previous one', (tester) async {
+    await boot(tester);
+    await holdOn(
+      tester,
+      find.byKey(const ValueKey('tile-0')),
+      const Duration(milliseconds: 200),
+    );
+    // Put the cursor in the middle and let the screen pick it up.
+    clock += const Duration(milliseconds: 100);
+    elapsed += const Duration(milliseconds: 100);
+    h.controller.debugInject(CursorMoved(0.5, 0.5, at: clock));
+    sendFrame();
+    h.tickCtl.add(elapsed);
+    await tester.pump();
+    final cursor = find.byKey(const ValueKey('cursor'));
+    expect(cursor, findsOneWidget);
+    expect(tester.getCenter(cursor).dx, closeTo(640, 1));
+    expect(tester.getCenter(cursor).dy, closeTo(360, 1));
+    // The screen gets smaller: the very next frame must already place the
+    // cursor in the new board, with no second frame needed.
+    await tester.binding.setSurfaceSize(const Size(800, 360));
+    await tester.pump();
+    expect(tester.getCenter(cursor).dx, closeTo(400, 1));
+    expect(tester.getCenter(cursor).dy, closeTo(180, 1));
+    await finish(tester);
+  });
+
   testWidgets('a stale cursor holds nothing', (tester) async {
     await boot(tester);
     await holdOn(
@@ -305,6 +371,33 @@ void main() {
     expect(round().slots[0], isNull);
     expect(round().carryingTile, 0);
     expect(find.byKey(const ValueKey('carrying')), findsOneWidget);
+    await finish(tester);
+  });
+
+  testWidgets('a timeout shows a neutral Hết giờ, not Sai, with an idle '
+      'Tin Tin', (tester) async {
+    await boot(tester);
+    await tester.runAsync(
+      () => h.run(
+        const Duration(seconds: 120),
+        stopWhen: () => session().phase == SessionPhase.feedback,
+      ),
+    );
+    await tester.pump();
+    expect(session().lastResult, RoundResult.timeout);
+    final label = find.byKey(const ValueKey('feedback-label'));
+    expect(
+      find.descendant(of: label, matching: find.text('Hết giờ')),
+      findsOneWidget,
+    );
+    expect(find.text('Sai'), findsNothing);
+    expect(find.text('Đúng'), findsNothing);
+    expect(find.byIcon(Icons.cancel), findsNothing);
+    expect(
+      find.descendant(of: label, matching: find.byIcon(Icons.hourglass_bottom)),
+      findsOneWidget,
+    );
+    expect(tester.widget<TinTin>(find.byType(TinTin)).state, TinTinState.idle);
     await finish(tester);
   });
 
@@ -384,6 +477,96 @@ void main() {
       });
     }
   }
+
+  group('sentence ordering (OrderQuestion)', () {
+    // Six words, one of them 11 characters long: the worst shipped shape.
+    const long = 'This book is a very interesting';
+    final sentences = [for (var i = 0; i < 8; i++) long];
+
+    for (final size in const [Size(800, 360), Size(1280, 720)]) {
+      final label = '${size.width.toInt()}x${size.height.toInt()}';
+      testWidgets('word tiles stay readable (>= 28 sp) at $label', (
+        tester,
+      ) async {
+        await boot(tester, size: size, repo: orderRepo(sentences));
+        expect(question(), isA<OrderQuestion>());
+        final n = round().tiles.length;
+        expect(n, 6);
+        expect(
+          round().tiles.map((t) => t.length).reduce((a, b) => a > b ? a : b),
+          greaterThanOrEqualTo(11),
+        );
+        for (var i = 0; i < n; i++) {
+          final tile = find.byKey(ValueKey('tile-$i'));
+          final text = find.descendant(of: tile, matching: find.byType(Text));
+          expect(text, findsOneWidget, reason: 'tile-$i');
+          expect(
+            renderedFontSize(
+              tester,
+              find.descendant(of: tile, matching: find.byType(RichText)),
+            ),
+            greaterThanOrEqualTo(28),
+            reason: 'tile-$i "${round().tiles[i]}"',
+          );
+          final r = tester.getRect(tile);
+          expect(r.height, greaterThanOrEqualTo(48), reason: 'tile-$i');
+          expect(r.width, greaterThanOrEqualTo(48), reason: 'tile-$i');
+          expect(r.right, lessThanOrEqualTo(size.width), reason: 'tile-$i');
+          expect(r.bottom, lessThanOrEqualTo(size.height), reason: 'tile-$i');
+          final slot = tester.getRect(find.byKey(ValueKey('slot-$i')));
+          expect(slot.height, greaterThanOrEqualTo(48), reason: 'slot-$i');
+          expect(slot.width, greaterThanOrEqualTo(48), reason: 'slot-$i');
+          expect(slot.right, lessThanOrEqualTo(size.width), reason: 'slot-$i');
+          expect(
+            slot.bottom,
+            lessThanOrEqualTo(size.height),
+            reason: 'slot-$i',
+          );
+        }
+        expect(tester.takeException(), isNull);
+        await finish(tester);
+      });
+
+      testWidgets('a dropped word stays readable in its slot at $label', (
+        tester,
+      ) async {
+        await boot(tester, size: size, repo: orderRepo(sentences));
+        final i = round().tiles.indexWhere((t) => t.length >= 11);
+        expect(i, greaterThanOrEqualTo(0));
+        await tap(tester, 'tile-$i');
+        await tap(tester, 'slot-0');
+        expect(round().slots[0], round().tiles[i]);
+        expect(
+          renderedFontSize(
+            tester,
+            find.descendant(
+              of: find.byKey(const ValueKey('slot-0')),
+              matching: find.byType(RichText),
+            ),
+          ),
+          greaterThanOrEqualTo(28),
+        );
+        expect(tester.takeException(), isNull);
+        await finish(tester);
+      });
+    }
+
+    testWidgets('solving a sentence by taps is Đúng and reveals the answer', (
+      tester,
+    ) async {
+      await boot(
+        tester,
+        size: const Size(800, 360),
+        repo: orderRepo(sentences),
+      );
+      await solveByTaps(tester);
+      await tap(tester, 'check-button');
+      expect(session().lastResult, RoundResult.correct);
+      expect(find.text('Đúng'), findsOneWidget);
+      expect(find.byKey(const ValueKey('answer-reveal')), findsOneWidget);
+      await finish(tester);
+    });
+  });
 
   testWidgets('PlayScreen routes a dragSpell question to DragSpellScreen', (
     tester,

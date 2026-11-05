@@ -72,6 +72,12 @@ class HarnessClips implements ClipPlayer {
   /// Playing this asset never completes on its own (only stop() ends it).
   final String? hangPath;
   final _gate = Completer<bool>();
+
+  /// Lets the hanging clip finish, as a long real one would: late.
+  void finishHanging() {
+    if (!_gate.isCompleted) _gate.complete(false);
+  }
+
   @override
   Future<bool> play(String assetPath) async {
     if (assetPath == hangPath) return _gate.future;
@@ -141,6 +147,7 @@ class GameHarness {
     this.store,
     this.source,
     this.audio,
+    this.clips,
     this.ttsLog,
     this.captions,
     this.controller,
@@ -176,9 +183,10 @@ class GameHarness {
       hangStop: hangStop,
     );
     final ttsLog = <String>[];
+    final clips = HarnessClips(hangPath: hangClip);
     final audio = AudioService(
       HarnessTts(ttsLog, hang: hangTts),
-      HarnessClips(hangPath: hangClip),
+      clips,
       assetExists: (p) => p == hangClip,
       speechTimeout: const Duration(seconds: 30),
       clipTimeout: const Duration(seconds: 30),
@@ -213,6 +221,7 @@ class GameHarness {
       store,
       source,
       audio,
+      clips,
       ttsLog,
       captions,
       controller,
@@ -224,6 +233,7 @@ class GameHarness {
   final ProgressStore store;
   final CountingSource source;
   final AudioService audio;
+  final HarnessClips clips;
   final List<String> ttsLog;
   final List<String> captions;
   final GameController controller;

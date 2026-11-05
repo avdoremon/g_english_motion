@@ -4,14 +4,14 @@ import 'package:flutter/widgets.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
 import '../../audio/audio_service.dart';
-import '../../audio/voice_lines.dart';
 import '../../input/game_input_event.dart';
+import '../../progress/progress_store.dart';
 import '../../session/pausable_session.dart';
-import 'banner_slot.dart';
-import 'caption_strip.dart';
 import 'pause_overlay.dart';
+import 'play_surface.dart';
 
 export '../../session/pausable_session.dart';
+export 'play_surface.dart' show BreakTimerFactory;
 
 /// Keeps the screen awake while playing.
 abstract interface class Wakelock {
@@ -30,14 +30,16 @@ class WakelockPlusAdapter implements Wakelock {
 final Stopwatch _sw = Stopwatch()..start();
 Duration _monotonic() => _sw.elapsed;
 
-typedef BreakTimerFactory = Timer Function(Duration d, void Function() cb);
-
-/// Wraps the playing area: wakelock, a caption strip (what the voice says), lifecycle + player-lost pausing, and a
-/// single "take a break" reminder after [breakAfter] of PLAY time (the clock
-/// stops while the session is paused and resumes with the remaining time).
+/// Wraps the playing area of a CAMERA play flow: wakelock, the pose camera
+/// host, lifecycle + player-lost pausing, and - through [PlaySurface] - the
+/// caption strip and the "take a break" reminder after every [breakAfter] of
+/// play time (the clock stops while the session is paused, and what was
+/// played is banked in [store], so going Home between two short levels does
+/// not restart the 20 minutes).
 ///
 /// The session is running only while the app is active AND the player is in
-/// frame; pause()/resume() are called only on changes of that state.
+/// frame AND no modal ([pausedByDialog]) or break reminder is up;
+/// pause()/resume() are called only on changes of that state.
 ///
 /// [timerFactory] is compared by identity: pass a stable reference (a
 /// tear-off or field), not a fresh closure per build, or the break clock
@@ -45,9 +47,7 @@ typedef BreakTimerFactory = Timer Function(Duration d, void Function() cb);
 ///
 /// [events]/[session] may be swapped (didUpdateWidget resubscribes / pauses a
 /// new session if currently not running). Changing [breakAfter] or
-/// [timerFactory] restarts the break clock; a shell keyed per level therefore
-/// restarts the 20-minute clock, so the app must keep ONE shell for the whole
-/// play session (Task 14b).
+/// [timerFactory] restarts the break clock.
 class GameShell extends StatefulWidget {
   const GameShell({
     super.key,
@@ -55,11 +55,13 @@ class GameShell extends StatefulWidget {
     required this.events,
     required this.audio,
     this.session,
+    this.store,
     this.wakelock = const WakelockPlusAdapter(),
     this.breakAfter = const Duration(minutes: 20),
     this.timerFactory = Timer.new,
     this.elapsed = _monotonic,
     this.showBanner = false,
+    this.pausedByDialog = false,
     this.captionFilter,
     this.captionReset,
     this.cameraHost,
@@ -70,12 +72,22 @@ class GameShell extends StatefulWidget {
   final Stream<GameInputEvent> events;
   final AudioService audio;
   final Wakelock wakelock;
+
+  /// Where play time is banked between play flows (null: not counted).
+  final ProgressStore? store;
   final Duration breakAfter;
   final BreakTimerFactory timerFactory;
 
   /// Monotonic clock used to measure play time (injectable for tests).
   final Duration Function() elapsed;
   final bool showBanner;
+
+  /// The app has a modal open over the game (the "leave the game?"
+  /// confirmation): the session is paused for as long as it is, so the
+  /// question cannot time out and no jump is graded while a grown-up reads
+  /// the dialog. It goes through the same pause/resume pairing as a lost
+  /// player, so the two can never unpause each other.
+  final bool pausedByDialog;
 
   /// Captions for which this returns false are not shown in the strip.
   final bool Function(String caption)? captionFilter;
@@ -94,16 +106,15 @@ class GameShell extends StatefulWidget {
 
 class _GameShellState extends State<GameShell> with WidgetsBindingObserver {
   StreamSubscription<GameInputEvent>? _sub;
-  Timer? _breakTimer;
-  Duration? _armedAt;
-  late Duration _remaining;
   bool _playerLost = false;
+  bool _breakVisible = false;
   bool _appActive =
       (WidgetsBinding.instance.lifecycleState ?? AppLifecycleState.resumed) ==
       AppLifecycleState.resumed;
-  bool _breakShown = false;
+  late bool _wasRunning;
 
-  bool get _running => _appActive && !_playerLost;
+  bool get _running =>
+      _appActive && !_playerLost && !_breakVisible && !widget.pausedByDialog;
 
   @override
   void initState() {
@@ -111,8 +122,7 @@ class _GameShellState extends State<GameShell> with WidgetsBindingObserver {
     WidgetsBinding.instance.addObserver(this);
     unawaited(_enableWakelock());
     _sub = widget.events.listen(_onEvent);
-    _remaining = widget.breakAfter;
-    _armBreak();
+    _wasRunning = _running;
   }
 
   Future<void> _enableWakelock() async {
@@ -123,47 +133,34 @@ class _GameShellState extends State<GameShell> with WidgetsBindingObserver {
     }
   }
 
-  void _armBreak() {
-    _breakTimer?.cancel();
-    _breakTimer = null;
-    if (_breakShown) return;
-    _armedAt = widget.elapsed();
-    _breakTimer = widget.timerFactory(_remaining, _onBreak);
-  }
-
-  void _disarmBreak() {
-    if (_breakTimer == null) return;
-    _breakTimer!.cancel();
-    _breakTimer = null;
-    final spent = widget.elapsed() - _armedAt!;
-    _remaining -= spent;
-    if (_remaining < Duration.zero) _remaining = Duration.zero;
-  }
-
-  void _onBreak() {
-    if (_breakShown || !mounted) return;
-    _breakShown = true;
-    _breakTimer = null;
-    unawaited(widget.audio.playLine(VoiceLine.takeABreak));
-  }
-
-  /// Applies a change of app/player state, calling the session only when the
-  /// running state actually flips.
+  /// Applies a change of app / player / dialog / break state, calling the
+  /// session only when the running state actually flips. The break clock
+  /// itself follows [PlaySurface.paused].
   void _update({bool? appActive, bool? playerLost}) {
-    final before = _running;
     if (appActive != null) _appActive = appActive;
     if (playerLost != null && playerLost != _playerLost) {
       setState(() => _playerLost = playerLost);
     }
     final after = _running;
-    if (before == after) return;
+    if (after == _wasRunning) return;
+    _wasRunning = after;
     if (after) {
       widget.session?.resume();
-      _armBreak();
     } else {
       widget.session?.pause();
-      _disarmBreak();
     }
+  }
+
+  void _onBreakDue() {
+    if (!mounted) return;
+    setState(() => _breakVisible = true);
+    _update();
+  }
+
+  void _dismissBreak() {
+    if (!mounted || !_breakVisible) return;
+    setState(() => _breakVisible = false);
+    _update();
   }
 
   void _onEvent(GameInputEvent e) {
@@ -188,15 +185,9 @@ class _GameShellState extends State<GameShell> with WidgetsBindingObserver {
       // A new stream starts with the player assumed present.
       _update(playerLost: false);
     }
+    if (old.pausedByDialog != widget.pausedByDialog) _update();
     if (old.session != widget.session && !_running) {
       widget.session?.pause();
-    }
-    if (old.breakAfter != widget.breakAfter ||
-        old.timerFactory != widget.timerFactory) {
-      _breakTimer?.cancel();
-      _breakTimer = null;
-      _remaining = widget.breakAfter;
-      if (_running) _armBreak();
     }
   }
 
@@ -204,7 +195,6 @@ class _GameShellState extends State<GameShell> with WidgetsBindingObserver {
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
     _sub?.cancel();
-    _breakTimer?.cancel();
     unawaited(widget.wakelock.disable());
     super.dispose();
   }
@@ -218,23 +208,28 @@ class _GameShellState extends State<GameShell> with WidgetsBindingObserver {
       children: [
         Positioned.fill(
           key: const ValueKey('shell-content'),
-          child: Column(
-            children: [
-              Expanded(child: widget.child),
-              CaptionStrip(
-                captions: widget.audio.captions,
-                filter: widget.captionFilter,
-                clearOn: widget.captionReset,
-              ),
-              if (widget.showBanner) const BannerSlot(),
-            ],
+          child: PlaySurface(
+            audio: widget.audio,
+            store: widget.store,
+            breakAfter: widget.breakAfter,
+            timerFactory: widget.timerFactory,
+            elapsed: widget.elapsed,
+            showBanner: widget.showBanner,
+            captionFilter: widget.captionFilter,
+            captionReset: widget.captionReset,
+            paused: !_running,
+            breakVisible: _breakVisible,
+            onBreakDue: _onBreakDue,
+            onDismissBreak: _dismissBreak,
+            overlay: _playerLost
+                ? const PauseOverlay(
+                    key: ValueKey('shell-pause-overlay'),
+                    message: 'Em đâu rồi? Quay lại khung hình nhé',
+                  )
+                : null,
+            child: widget.child,
           ),
         ),
-        if (_playerLost)
-          const Positioned.fill(
-            key: ValueKey('shell-pause-overlay'),
-            child: PauseOverlay(message: 'Em đâu rồi? Quay lại khung hình nhé'),
-          ),
         if (widget.cameraHost case final host?)
           Positioned(
             key: const ValueKey('shell-camera-host'),

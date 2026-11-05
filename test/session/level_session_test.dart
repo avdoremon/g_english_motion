@@ -627,6 +627,25 @@ void main() {
       expect(h.session.showTileHints, isFalse);
     });
 
+    test('showPromptHint: the prompt picture of DragSpell / SkyShoot follows '
+        'the same rule, whatever the question form', () {
+      final full = Harness(2, hints: HintMode.full)..session.begin();
+      expect(full.session.showPromptHint, isTrue);
+
+      final none = Harness(2, hints: HintMode.none)..session.begin();
+      none.session.onPromptFinished();
+      none.session.tick(const Duration(seconds: 9));
+      expect(none.session.showPromptHint, isFalse);
+
+      final partial = Harness(2, hints: HintMode.partial)..session.begin();
+      expect(partial.session.showPromptHint, isFalse);
+      partial.session.onPromptFinished();
+      partial.session.tick(const Duration(milliseconds: 4900));
+      expect(partial.session.showPromptHint, isFalse);
+      partial.session.tick(const Duration(milliseconds: 100));
+      expect(partial.session.showPromptHint, isTrue);
+    });
+
     test('picture-based forms are unaffected in every mode', () {
       for (final form in [
         QuestionForm.seePicturePickWord,

@@ -40,6 +40,15 @@ void main() {
     );
   });
 
+  test('Auto Backup is off: the child\'s stars and history stay on the '
+      'device', () {
+    expect(manifest, contains('android:allowBackup="false"'));
+  });
+
+  test('the activity starts in landscape, like the game', () {
+    expect(manifest, contains('android:screenOrientation="sensorLandscape"'));
+  });
+
   test('app label is Tin Tin English', () {
     expect(manifest, contains('android:label="Tin Tin English"'));
   });

@@ -15,6 +15,7 @@ import '../mascot/tin_tin.dart';
 import '../theme/app_theme.dart';
 import 'lane_jump_screen.dart' show ItemPicture;
 import 'play_header.dart';
+import 'round_verdict.dart';
 
 final Stopwatch _sw = Stopwatch()..start();
 Duration _monotonic() => _sw.elapsed;
@@ -225,92 +226,99 @@ class _DragSpellScreenState extends State<DragSpellScreen> {
     DragSpellRound round,
   ) {
     final feedback = s.phase == SessionPhase.feedback;
-    return Stack(
-      key: _boardKey,
-      children: [
-        Positioned.fill(
-          child: SafeArea(
-            child: LayoutBuilder(
-              builder: (context, box) {
-                final compact = box.maxHeight < 420;
-                final gap = compact ? 6.0 : 12.0;
-                final inner = box.maxWidth - 48;
-                final checkW = compact ? 150.0 : 200.0;
-                final n = round.tiles.length;
-                final slotsPer = _cellsPerRow(n, inner);
-                final trayW = inner - 16 - checkW;
-                final trayPer = _cellsPerRow(n, trayW);
-                final slotRows = _rowCount(n, inner);
-                final trayRows = _rowCount(n, trayW);
-                return Padding(
-                  padding: compact
-                      ? const EdgeInsets.fromLTRB(24, 6, 24, 8)
-                      : const EdgeInsets.fromLTRB(24, 12, 24, 16),
-                  child: Column(
-                    children: [
-                      PlayHeader(
-                        controller: widget.controller,
-                        session: s,
-                        onExit: widget.onExit,
-                      ),
-                      SizedBox(height: gap),
-                      Expanded(
-                        flex: 2,
-                        child: _PromptRow(
+    // The board's own size comes from this LayoutBuilder, never from its
+    // render object: reading that during build gives the PREVIOUS frame's
+    // size (Size.zero on the first one), which would misplace the cursor.
+    return LayoutBuilder(
+      builder: (context, board) => Stack(
+        key: _boardKey,
+        children: [
+          Positioned.fill(
+            child: SafeArea(
+              child: LayoutBuilder(
+                builder: (context, box) {
+                  final compact = box.maxHeight < 420;
+                  final gap = compact ? 6.0 : 12.0;
+                  final inner = box.maxWidth - 48;
+                  final checkW = compact ? 150.0 : 200.0;
+                  final n = round.tiles.length;
+                  // Cells are sized from the text, not from the touch target
+                  // alone: a whole word needs a wider cell than a letter.
+                  final minCell = _minCellWidth(round.tiles);
+                  final slotsPer = _cellsPerRow(n, inner, minCell);
+                  final trayW = inner - 16 - checkW;
+                  final trayPer = _cellsPerRow(n, trayW, minCell);
+                  final slotRows = _rowCount(n, inner, minCell);
+                  final trayRows = _rowCount(n, trayW, minCell);
+                  return Padding(
+                    padding: compact
+                        ? const EdgeInsets.fromLTRB(24, 6, 24, 8)
+                        : const EdgeInsets.fromLTRB(24, 12, 24, 16),
+                    child: Column(
+                      children: [
+                        PlayHeader(
                           controller: widget.controller,
                           session: s,
-                          question: q,
-                          round: round,
-                          feedback: feedback,
+                          onExit: widget.onExit,
                         ),
-                      ),
-                      SizedBox(height: gap),
-                      Expanded(
-                        flex: 2 * slotRows + 1,
-                        child: _Slots(
-                          screen: this,
-                          round: round,
-                          perRow: slotsPer,
+                        SizedBox(height: gap),
+                        Expanded(
+                          flex: 2,
+                          child: _PromptRow(
+                            controller: widget.controller,
+                            session: s,
+                            question: q,
+                            round: round,
+                            feedback: feedback,
+                          ),
                         ),
-                      ),
-                      SizedBox(height: gap),
-                      Expanded(
-                        flex: 2 * trayRows + 1,
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: _Tray(
-                                screen: this,
-                                round: round,
-                                perRow: trayPer,
+                        SizedBox(height: gap),
+                        Expanded(
+                          flex: 2 * slotRows + 1,
+                          child: _Slots(
+                            screen: this,
+                            round: round,
+                            perRow: slotsPer,
+                          ),
+                        ),
+                        SizedBox(height: gap),
+                        Expanded(
+                          flex: 2 * trayRows + 1,
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: _Tray(
+                                  screen: this,
+                                  round: round,
+                                  perRow: trayPer,
+                                ),
                               ),
-                            ),
-                            const SizedBox(width: 16),
-                            SizedBox(
-                              width: checkW,
-                              child: _CheckButton(
-                                screen: this,
-                                enabled: round.isFull,
+                              const SizedBox(width: 16),
+                              SizedBox(
+                                width: checkW,
+                                child: _CheckButton(
+                                  screen: this,
+                                  enabled: round.isFull,
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                );
-              },
+                      ],
+                    ),
+                  );
+                },
+              ),
             ),
           ),
-        ),
-        if (_cursorVisible && _cursor != null) _cursorOverlay(round),
-      ],
+          if (_cursorVisible && _cursor != null)
+            _cursorOverlay(round, board.biggest),
+        ],
+      ),
     );
   }
 
-  Widget _cursorOverlay(DragSpellRound round) {
-    final board = _boardKey.currentContext?.findRenderObject();
-    final size = board is RenderBox && board.hasSize ? board.size : Size.zero;
+  Widget _cursorOverlay(DragSpellRound round, Size size) {
     final c = _cursor!;
     const d = 72.0;
     final holding = _progress.targetId != null;
@@ -400,30 +408,25 @@ class _PromptRow extends StatelessWidget {
   final bool feedback;
 
   /// The picture of the asked item, when the level's hint mode allows it.
+  ///
+  /// Driven by [GameController.showPromptHint], which notifies only when the
+  /// flag flips: the 60 Hz tick must not rebuild this picture.
   Widget? _hint() {
     final q = question;
     final id = q is SpellQuestion ? q.imageItemId : q.itemId;
     if (id == null || session.hintMode == HintMode.none) return null;
     final item = controller.itemFor(id);
     if (ItemPicture.assetFor(item) == null) return null;
-    return ListenableBuilder(
-      listenable: controller.hudTick,
-      builder: (context, _) {
-        final show =
-            session.hintMode == HintMode.full ||
-            session.roundElapsedFraction >= LevelSession.partialHintAt;
-        if (!show) return const SizedBox.shrink();
-        return Padding(
-          padding: const EdgeInsets.only(right: 16),
-          child: ItemPicture(
-            key: const ValueKey('hint-picture'),
-            item: item,
-            size: 96,
-            // Never the word: a screen reader would announce the answer.
-            semanticLabel: 'Hình gợi ý',
-          ),
-        );
-      },
+    if (!controller.showPromptHint) return null;
+    return Padding(
+      padding: const EdgeInsets.only(right: 16),
+      child: ItemPicture(
+        key: const ValueKey('hint-picture'),
+        item: item,
+        size: 96,
+        // Never the word: a screen reader would announce the answer.
+        semanticLabel: 'Hình gợi ý',
+      ),
     );
   }
 
@@ -435,7 +438,7 @@ class _PromptRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = Theme.of(context).textTheme;
-    final ok = session.lastResult == RoundResult.correct;
+    final result = session.lastResult;
     final spell = question is SpellQuestion;
     final hint = _hint();
     return LayoutBuilder(
@@ -486,25 +489,9 @@ class _PromptRow extends StatelessWidget {
                 ],
               ),
             ),
-          if (feedback)
-            Row(
-              key: const ValueKey('feedback-label'),
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(
-                  ok ? Icons.check_circle : Icons.cancel,
-                  size: 48,
-                  color: ok ? AppTheme.green : AppTheme.pink,
-                ),
-                const SizedBox(width: 8),
-                Text(ok ? 'Đúng' : 'Sai', style: t.titleLarge),
-                const SizedBox(width: 16),
-              ],
-            ),
+          if (feedback) RoundVerdict(result: result),
           TinTin(
-            state: !feedback
-                ? TinTinState.idle
-                : (ok ? TinTinState.happy : TinTinState.sad),
+            state: RoundVerdict.mascotFor(result, feedback: feedback),
             size: box.maxHeight.clamp(56.0, 120.0),
             pulse: session.index,
           ),
@@ -587,15 +574,11 @@ class _Chip extends StatelessWidget {
           ),
           child: text == null
               ? const SizedBox.shrink()
-              : FittedBox(
-                  fit: BoxFit.scaleDown,
-                  child: Text(
-                    text!,
-                    maxLines: 1,
-                    style: solid
-                        ? t.titleLarge!.copyWith(color: AppTheme.background)
-                        : t.titleLarge,
-                  ),
+              : _TileText(
+                  text: text!,
+                  style: solid
+                      ? t.titleLarge!.copyWith(color: AppTheme.background)
+                      : t.titleLarge!,
                 ),
         ),
       ),
@@ -603,22 +586,85 @@ class _Chip extends StatelessWidget {
   }
 }
 
+/// A tile's text at the largest size that fits its cell, and never below
+/// [minTileFont]: a whole word shrunk to fit a letter-sized cell cannot be
+/// read from 2-3 m, which is the only distance this game is played from.
+///
+/// The size is measured (so the device's real font metrics decide, not an
+/// estimate); the floor is explicit, and in the worst case the word is
+/// ellipsized instead of scaled below it. Cells are sized from the text too
+/// ([_minCellWidth]), so the floor is a last resort, not the normal case.
+class _TileText extends StatelessWidget {
+  const _TileText({required this.text, required this.style});
+
+  final String text;
+  final TextStyle style;
+
+  /// Smallest font a word tile may be drawn at.
+  static const double minTileFont = 28;
+
+  @override
+  Widget build(BuildContext context) {
+    final scaler = MediaQuery.textScalerOf(context);
+    final base = style.fontSize ?? minTileFont;
+    return LayoutBuilder(
+      builder: (context, box) {
+        var size = base;
+        if (box.hasBoundedWidth && base > minTileFont) {
+          final tp = TextPainter(
+            text: TextSpan(text: text, style: style),
+            textDirection: TextDirection.ltr,
+            maxLines: 1,
+            textScaler: scaler,
+          )..layout();
+          final fitW = tp.width <= 0 ? 1.0 : box.maxWidth / tp.width;
+          final fitH = (box.hasBoundedHeight && tp.height > 0)
+              ? box.maxHeight / tp.height
+              : 1.0;
+          final fit = math.min(fitW, fitH);
+          if (fit < 1) size = math.max(minTileFont, base * fit);
+        }
+        return Text(
+          text,
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+          style: style.copyWith(fontSize: size),
+        );
+      },
+    );
+  }
+}
+
 const double _cellGap = 10;
 const double _rowGap = 8;
 
-/// Cells per row so that every cell is at least [AppTheme.minTarget] wide in
-/// [width] px, spread evenly over as many rows as that needs.
-int _cellsPerRow(int n, double width) {
+/// Width a cell needs so that the longest of [texts] can be drawn at
+/// [_TileText.minTileFont]: about half an em per character plus the chip's
+/// horizontal padding (2x6) and border (2x4). Never below the touch target.
+///
+/// Single letters (spelling) land on [AppTheme.minTarget] as before; whole
+/// words (sentence ordering) make the cells wider and the rows fewer, which
+/// the tray/slot flex factors already follow.
+double _minCellWidth(List<String> texts) {
+  var chars = 1;
+  for (final t in texts) {
+    if (t.length > chars) chars = t.length;
+  }
+  final w = 0.5 * _TileText.minTileFont * chars + 20;
+  return w < AppTheme.minTarget ? AppTheme.minTarget : w;
+}
+
+/// Cells per row so that every cell is at least [minCell] wide in [width] px,
+/// spread evenly over as many rows as that needs.
+int _cellsPerRow(int n, double width, double minCell) {
   if (n <= 0) return 1;
-  final fit = ((width + _cellGap) / (AppTheme.minTarget + _cellGap))
-      .floor()
-      .clamp(1, n);
+  final fit = ((width + _cellGap) / (minCell + _cellGap)).floor().clamp(1, n);
   final rows = (n + fit - 1) ~/ fit;
   return (n + rows - 1) ~/ rows;
 }
 
-int _rowCount(int n, double width) {
-  final per = _cellsPerRow(n, width);
+int _rowCount(int n, double width, double minCell) {
+  final per = _cellsPerRow(n, width, minCell);
   return n <= 0 ? 1 : (n + per - 1) ~/ per;
 }
 

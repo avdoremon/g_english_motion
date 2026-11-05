@@ -123,6 +123,25 @@ class LevelSession implements PausableSession {
     };
   }
 
+  /// Whether the hint picture next to the PROMPT is shown (DragSpell and
+  /// SkyShoot): always with [HintMode.full], after half of the time limit
+  /// with [HintMode.partial], never with [HintMode.none]. Unlike
+  /// [showTileHints] this does not depend on the question form - the picture
+  /// belongs to the asked item, which the child is trying to name.
+  ///
+  /// Flag, not a per-frame computation on the screens: the controller
+  /// notifies when it flips, so the hint subtree is not rebuilt at 60 Hz.
+  bool get showPromptHint {
+    if (!_begun || _queue.isEmpty || _phase == SessionPhase.finished) {
+      return false;
+    }
+    return switch (level.hints) {
+      HintMode.full => true,
+      HintMode.partial => roundElapsedFraction >= partialHintAt,
+      HintMode.none => false,
+    };
+  }
+
   /// Position among the non-review questions (0-based, capped at the count).
   int get index => _pos < plan.length ? _pos : plan.length;
 

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/semantics.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:g_english_motion/progress/progress_store.dart';
 import 'package:g_english_motion/speech/speech_source.dart';
@@ -158,6 +159,30 @@ void main() {
       expect(played, isEmpty);
     },
   );
+
+  testWidgets('grade and level tiles are buttons TalkBack can activate', (
+    tester,
+  ) async {
+    unawaited(store.saveStars(1, 1, 2));
+    unawaited(store.saveStars(3, 1, 1)); // unlocks level 2 of grade 3
+    await pump(tester);
+    final h = tester.ensureSemantics();
+    for (final label in ['Lớp 3', 'Cấp 2, 0 sao']) {
+      final node = tester.getSemantics(find.bySemanticsLabel(label));
+      expect(
+        node.getSemanticsData().hasAction(SemanticsAction.tap),
+        isTrue,
+        reason: '"$label" is announced as a button, so it must act on tap',
+      );
+    }
+    tester.semantics.tap(find.semantics.byLabel('Lớp 3'));
+    await tester.pump();
+    tester.semantics.tap(find.semantics.byLabel('Cấp 2, 0 sao'));
+    await tester.pump();
+    await tester.tap(find.byKey(const ValueKey('play')));
+    expect(played, [(3, 2)], reason: 'both tiles reacted to a semantics tap');
+    h.dispose();
+  });
 
   testWidgets('parent button, big text and tap targets', (tester) async {
     await pump(tester);

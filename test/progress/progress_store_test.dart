@@ -73,7 +73,11 @@ void main() {
     final (_, s) = await make();
     expect(s.currentUnit(1), 1);
     expect(s.confirmGesture, ConfirmGesture.jump);
-    expect(s.sayItEnabled, isTrue);
+    expect(
+      s.sayItEnabled,
+      isFalse,
+      reason: 'the parent switch is what asks for the microphone',
+    );
     expect(s.safetyAcknowledged, isFalse);
   });
 
@@ -182,7 +186,7 @@ void main() {
     expect(s.isUnlocked(1, 2), isFalse);
     expect(s.currentUnit(1), 1);
     expect(s.confirmGesture, ConfirmGesture.jump);
-    expect(s.sayItEnabled, isTrue);
+    expect(s.sayItEnabled, isFalse);
     expect(s.safetyAcknowledged, isFalse);
     expect(s.recentIds(), isEmpty);
     expect(s.wrongIds(), isEmpty);
@@ -206,12 +210,12 @@ void main() {
     final fs = [
       s.setCurrentUnit(1, 5),
       s.setConfirmGesture(ConfirmGesture.raiseHands),
-      s.setSayItEnabled(false),
+      s.setSayItEnabled(true),
       s.acknowledgeSafety(),
     ];
     expect(s.currentUnit(1), 5);
     expect(s.confirmGesture, ConfirmGesture.raiseHands);
-    expect(s.sayItEnabled, isFalse);
+    expect(s.sayItEnabled, isTrue);
     expect(s.safetyAcknowledged, isTrue);
     await Future.wait(fs);
   });
@@ -228,6 +232,65 @@ void main() {
       'history.recent': ['a', 'b', 'a', 'c'],
     });
     expect(s.recentIds(), ['b', 'a', 'c']);
+  });
+
+  group('play time towards the break reminder', () {
+    final t0 = DateTime.utc(2026, 11, 5, 9);
+
+    test('starts empty and adds up across play flows', () async {
+      final (_, s) = await make();
+      expect(s.playedTowardsBreak(now: t0), Duration.zero);
+      await s.addPlayTime(const Duration(minutes: 7), now: t0);
+      final t1 = t0.add(const Duration(minutes: 7));
+      expect(s.playedTowardsBreak(now: t1), const Duration(minutes: 7));
+      // A second flow (a new shell) continues the same count.
+      await s.addPlayTime(const Duration(minutes: 5), now: t1);
+      expect(
+        s.playedTowardsBreak(now: t1.add(const Duration(minutes: 5))),
+        const Duration(minutes: 12),
+      );
+    });
+
+    test('a real break (a long gap) starts from zero again', () async {
+      final (_, s) = await make();
+      await s.addPlayTime(const Duration(minutes: 12), now: t0);
+      final soon = t0.add(const Duration(minutes: 9, seconds: 59));
+      expect(s.playedTowardsBreak(now: soon), const Duration(minutes: 12));
+      final later = t0.add(const Duration(minutes: 10));
+      expect(s.playedTowardsBreak(now: later), Duration.zero);
+      expect(ProgressStore.breakGap, const Duration(minutes: 10));
+    });
+
+    test('a clock that jumped backwards is treated as a break', () async {
+      final (_, s) = await make();
+      await s.addPlayTime(const Duration(minutes: 12), now: t0);
+      expect(
+        s.playedTowardsBreak(now: t0.subtract(const Duration(hours: 2))),
+        Duration.zero,
+      );
+    });
+
+    test('resetPlayTime clears the count after a reminder', () async {
+      final (_, s) = await make();
+      await s.addPlayTime(const Duration(minutes: 20), now: t0);
+      await s.resetPlayTime(now: t0);
+      expect(s.playedTowardsBreak(now: t0), Duration.zero);
+    });
+
+    test('corrupted values fall back to zero', () async {
+      final (_, s) = await make({
+        'progress.playMs': 'nonsense',
+        'progress.playAt': 'nonsense',
+      });
+      expect(s.playedTowardsBreak(now: t0), Duration.zero);
+    });
+
+    test('survives a restart with the same store contents', () async {
+      final (p, s) = await make();
+      await s.addPlayTime(const Duration(minutes: 6), now: t0);
+      final fresh = ProgressStore(p);
+      expect(fresh.playedTowardsBreak(now: t0), const Duration(minutes: 6));
+    });
   });
 
   test('writes to the same key are serialized (slow first write)', () async {

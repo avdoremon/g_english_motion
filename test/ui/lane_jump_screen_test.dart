@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_test/flutter_test.dart';
+import 'package:g_english_motion/app/app.dart' show ClampedTextScale;
 import 'package:g_english_motion/content/question_models.dart';
 import 'package:g_english_motion/content/curriculum.dart';
 import 'package:g_english_motion/input/game_input_event.dart';
 import 'package:g_english_motion/levels/level_config.dart';
+import 'package:g_english_motion/modes/round.dart';
 import 'package:g_english_motion/session/level_session.dart';
 import 'package:g_english_motion/ui/mascot/tin_tin.dart';
 import 'package:g_english_motion/ui/screens/lane_jump_screen.dart';
@@ -28,6 +30,8 @@ void main() {
     await tester.pumpWidget(
       MaterialApp(
         theme: AppTheme.dark(),
+        // Like the app: the system font setting is capped here too.
+        builder: (context, child) => ClampedTextScale(child: child!),
         home: Scaffold(body: LaneJumpScreen(controller: h.controller)),
       ),
     );
@@ -162,6 +166,33 @@ void main() {
     await finish(tester);
   });
 
+  testWidgets('a timeout shows a neutral Hết giờ, not Sai, with an idle '
+      'Tin Tin', (tester) async {
+    await boot(tester);
+    await tester.runAsync(
+      () => h.run(
+        const Duration(seconds: 120),
+        stopWhen: () => h.controller.session!.phase == SessionPhase.feedback,
+      ),
+    );
+    await tester.pump();
+    expect(h.controller.session!.lastResult, RoundResult.timeout);
+    final label = find.byKey(const ValueKey('feedback-label'));
+    expect(
+      find.descendant(of: label, matching: find.text('Hết giờ')),
+      findsOneWidget,
+    );
+    expect(find.text('Sai'), findsNothing);
+    expect(find.text('Đúng'), findsNothing);
+    expect(find.byIcon(Icons.cancel), findsNothing);
+    expect(
+      find.descendant(of: label, matching: find.byIcon(Icons.hourglass_bottom)),
+      findsOneWidget,
+    );
+    expect(tester.widget<TinTin>(find.byType(TinTin)).state, TinTinState.idle);
+    await finish(tester);
+  });
+
   testWidgets('fits a small landscape phone (800x360) without overflow', (
     tester,
   ) async {
@@ -171,6 +202,31 @@ void main() {
     await tester.pump();
     expect(tester.takeException(), isNull);
     await tester.pump(const Duration(seconds: 6));
+    await finish(tester);
+  });
+
+  testWidgets('the biggest system font setting keeps the word line inside '
+      'the height reserved for it', (tester) async {
+    tester.platformDispatcher.textScaleFactorTestValue = 1.3;
+    addTearDown(tester.platformDispatcher.clearTextScaleFactorTestValue);
+    await boot(tester, size: const Size(800, 360));
+    final ctx = tester.element(find.byType(LaneJumpScreen));
+    expect(
+      MediaQuery.textScalerOf(ctx).scale(100),
+      lessThanOrEqualTo(100 * ClampedTextScale.maxScale + 0.001),
+      reason: 'the clamp must be in force',
+    );
+    for (var i = 0; i < 3; i++) {
+      final words = find.descendant(of: lane(i), matching: find.byType(Text));
+      for (final w in words.evaluate()) {
+        expect(
+          tester.getSize(find.byWidget(w.widget)).height,
+          lessThanOrEqualTo(50),
+          reason: 'lane $i text must fit its reserved line',
+        );
+      }
+    }
+    expect(tester.takeException(), isNull);
     await finish(tester);
   });
 

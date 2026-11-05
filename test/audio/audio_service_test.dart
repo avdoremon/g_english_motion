@@ -345,7 +345,7 @@ void main() {
       expect(l.assetPath, 'assets/audio/vi/${l.name}.m4a');
       expect(l.caption, isNotEmpty);
     }
-    expect(VoiceLine.values.length, 14);
+    expect(VoiceLine.values.length, 15);
   });
 
   test('captions is a broadcast stream', () {

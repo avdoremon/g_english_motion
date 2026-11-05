@@ -8,6 +8,10 @@ enum VoiceLine {
   correct2('Đúng rồi, tuyệt vời!'),
   correct3('Chính xác! Em làm tốt lắm!'),
   tryAgain('Chưa đúng rồi, thử lại nhé!'),
+
+  /// A round that ran out of time: neutral on purpose. The child may simply
+  /// not have been seen jumping, so nothing here says they were wrong.
+  outOfTime('Hết giờ rồi, câu sau nhé!'),
   theAnswerIs('Đáp án đúng là'),
   jumpToChoose('Đứng vào làn em chọn rồi nhảy lên nhé'),
   raiseHandsToChoose('Giơ hai tay lên để chọn'),

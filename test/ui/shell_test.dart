@@ -9,7 +9,9 @@ import 'package:g_english_motion/input/game_input_event.dart';
 import 'package:g_english_motion/input/pose_frame_source.dart';
 import 'package:g_english_motion/progress/progress_store.dart';
 import 'package:g_english_motion/ui/shell/banner_slot.dart';
+import 'package:g_english_motion/ui/shell/break_reminder.dart';
 import 'package:g_english_motion/ui/shell/calibration_screen.dart';
+import 'package:g_english_motion/ui/shell/caption_strip.dart';
 import 'package:g_english_motion/ui/shell/game_shell.dart';
 import 'package:g_english_motion/ui/shell/pause_overlay.dart';
 import 'package:g_english_motion/ui/shell/permission_screen.dart';
@@ -262,6 +264,7 @@ void main() {
       PausableSession? sess,
       Stream<GameInputEvent>? ev,
       Wakelock? wl,
+      ProgressStore? store,
     }) => _app(
       GameShell(
         session: sess ?? session,
@@ -269,6 +272,7 @@ void main() {
         elapsed: () => clock,
         audio: audio,
         wakelock: wl ?? wakelock,
+        store: store,
         breakAfter: const Duration(minutes: 20),
         timerFactory: (d, cb) {
           final t = _FakeTimer(d, cb);
@@ -279,6 +283,16 @@ void main() {
         child: const Text('PLAYFIELD'),
       ),
     );
+
+    /// Fires the armed break timer and lets the audio future run.
+    Future<void> fireBreak(WidgetTester tester) async {
+      final t = timers.lastWhere((x) => x.isActive);
+      await tester.runAsync(() async {
+        t.fire();
+        await Future<void>.delayed(const Duration(milliseconds: 20));
+      });
+      await tester.pump();
+    }
 
     testWidgets('shows what the voice says in a caption strip', (tester) async {
       await tester.pumpWidget(
@@ -456,6 +470,29 @@ void main() {
       await tester.pumpWidget(const SizedBox());
     });
 
+    testWidgets('the pause overlay never covers the caption strip', (
+      tester,
+    ) async {
+      await tester.pumpWidget(shell());
+      events.add(const PlayerLost(at: Duration.zero));
+      await _settle(tester);
+      expect(find.byType(PauseOverlay), findsOneWidget);
+      final overlay = tester.getRect(find.byType(PauseOverlay));
+      final strip = tester.getRect(find.byType(CaptionStrip));
+      expect(
+        overlay.overlaps(strip),
+        isFalse,
+        reason: 'a line spoken as the child steps out must stay readable',
+      );
+      // And a caption that arrives while paused is shown.
+      await tester.runAsync(() async {
+        await audio.playLine(VoiceLine.standStill);
+      });
+      await tester.pump();
+      expect(find.text(VoiceLine.standStill.caption), findsOneWidget);
+      await tester.pumpWidget(const SizedBox());
+    });
+
     testWidgets('other events are ignored', (tester) async {
       await tester.pumpWidget(shell());
       events.add(const LaneChanged(1, at: Duration.zero));
@@ -465,24 +502,69 @@ void main() {
       await tester.pumpWidget(const SizedBox());
     });
 
-    testWidgets('break reminder plays exactly once after breakAfter', (
-      tester,
-    ) async {
+    testWidgets('the break reminder is visible, pauses the game, is dismissed '
+        'by a grown-up and comes back after every breakAfter', (tester) async {
       await tester.pumpWidget(shell());
       expect(timers, hasLength(1));
       expect(timers.single.duration, const Duration(minutes: 20));
-      // AudioService chains real futures: let them run on the real clock.
-      await tester.runAsync(() async {
-        timers.single.fire();
-        await Future<void>.delayed(const Duration(milliseconds: 20));
-      });
+      await fireBreak(tester);
+      // Spoken AND shown: the reminder is not audio-only any more.
       expect(captions, [VoiceLine.takeABreak.caption]);
-      await tester.runAsync(() async {
-        timers.single.fire();
-        await Future<void>.delayed(const Duration(milliseconds: 20));
-      });
-      expect(captions, hasLength(1));
-      expect(timers, hasLength(1));
+      expect(find.byType(BreakReminder), findsOneWidget);
+      expect(
+        find.descendant(
+          of: find.byType(BreakReminder),
+          matching: find.text(BreakReminder.message),
+        ),
+        findsOneWidget,
+      );
+      expect(session.log, ['pause'], reason: 'the game waits');
+      // The caption strip is still readable under it.
+      expect(
+        tester
+            .getRect(find.byType(BreakReminder))
+            .overlaps(tester.getRect(find.byType(CaptionStrip))),
+        isFalse,
+      );
+      // A grown-up dismisses it; the game resumes and the clock restarts.
+      await tester.tap(find.byKey(const ValueKey('break-dismiss')));
+      await tester.pump();
+      expect(find.byType(BreakReminder), findsNothing);
+      expect(session.log, ['pause', 'resume']);
+      final armed = timers.lastWhere((t) => t.isActive);
+      expect(armed.duration, const Duration(minutes: 20));
+      // ... and it reminds again after the next 20 minutes.
+      await fireBreak(tester);
+      expect(captions, hasLength(2));
+      expect(find.byType(BreakReminder), findsOneWidget);
+      await tester.pumpWidget(const SizedBox());
+    });
+
+    testWidgets('play time is banked in the store, so going Home between two '
+        'short levels does not restart the 20 minutes', (tester) async {
+      SharedPreferences.setMockInitialValues({});
+      final store = ProgressStore(await SharedPreferences.getInstance());
+      await tester.pumpWidget(shell(store: store));
+      clock += const Duration(minutes: 8);
+      // Leaving the play flow (a new shell per flow) banks what was played.
+      await tester.pumpWidget(const SizedBox());
+      expect(store.playedTowardsBreak(), const Duration(minutes: 8));
+      // The next flow continues the same 20 minutes.
+      clock = Duration.zero;
+      timers.clear();
+      await tester.pumpWidget(shell(store: store));
+      expect(timers.single.duration, const Duration(minutes: 12));
+      await tester.pumpWidget(const SizedBox());
+    });
+
+    testWidgets('a reminder clears the banked play time', (tester) async {
+      SharedPreferences.setMockInitialValues({});
+      final store = ProgressStore(await SharedPreferences.getInstance());
+      await store.addPlayTime(const Duration(minutes: 5));
+      await tester.pumpWidget(shell(store: store));
+      expect(timers.single.duration, const Duration(minutes: 15));
+      await fireBreak(tester);
+      expect(store.playedTowardsBreak(), Duration.zero);
       await tester.pumpWidget(const SizedBox());
     });
 

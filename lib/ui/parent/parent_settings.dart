@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import '../../content/content_repository.dart';
 import '../../input/confirm_gesture.dart';
 import '../../progress/progress_store.dart';
-import '../theme/app_theme.dart';
 
 class ParentSettings extends StatefulWidget {
   const ParentSettings({
@@ -137,13 +136,15 @@ class _ParentSettingsState extends State<ParentSettings> {
             },
           ),
           const SizedBox(height: 8),
-          // Placeholder: the policy text is bundled locally later (no network).
+          // A plain line, not a link: there is no policy page to open yet,
+          // and a line that looks tappable but does nothing reads as a bug.
+          // When the policy ships it will be a bundled local asset (no
+          // network) opened from a real button here.
           Text(
-            'Chính sách quyền riêng tư',
-            style: t.bodyMedium?.copyWith(
-              color: AppTheme.accent,
-              decoration: TextDecoration.underline,
-            ),
+            'Chính sách quyền riêng tư: ứng dụng không gửi dữ liệu đi đâu. '
+            'Hình ảnh camera và âm thanh micro chỉ được xử lý trên máy này '
+            'và không được lưu lại.',
+            style: t.bodyMedium,
           ),
         ],
       ),

@@ -66,7 +66,9 @@ Full facts and sources: [pose-plugin-evaluation.md](pose-plugin-evaluation.md).
   Check every unit against the printed textbook before release.
 - **Placeholder art.** Word pictures are generated placeholder cards (see
   `assets/images/LICENSES.md`); real artwork will replace them under the same
-  file names.
+  file names. Each card shows a neutral shape derived from a hash of the word
+  (never its initial letter, which would let a child who knows the alphabet
+  answer "which picture is ...?" without recognising the picture).
 
 ## Implemented but unverified on a device
 
@@ -76,13 +78,23 @@ Full facts and sources: [pose-plugin-evaluation.md](pose-plugin-evaluation.md).
 - **SayIt** uses the `speech_to_text` plugin restricted to on-device
   recognition (API 31+ and an installed English pack). If the phone has no
   on-device recogniser the entry is hidden; it never falls back to cloud.
-  The parent must switch it on in settings, which is when the mic permission is
-  requested. Known small gaps: no message when the mic is permanently denied;
-  SayIt stars are not saved.
+  SayIt is **off until a parent switches it on** in the parent area, which is
+  the only place the microphone is ever requested (that switch going off ->
+  on is what asks the OS). Known small gaps: no message when the mic is
+  permanently denied; SayIt stars are not saved.
 - A SkyShoot round with no pull for 20 s ends as a timeout.
-- DragSpell tray/slot cells are laid out from the available width (>= 56 px
-  wide, wrapping to more rows); on 800x360 the row height of long words
-  stays >= 48 px but can be below the 56 px target.
+- DragSpell tray/slot cells are laid out from the text they must hold (about
+  half an em per character at the 28 sp floor, never below the 56 px touch
+  target), wrapping to more rows; on 800x360 the row height of long words
+  stays >= 48 px but can be below the 56 px target. A word longer than its
+  cell is drawn at the 28 sp floor and ellipsized rather than shrunk further.
+- The "take a break" reminder repeats after every 20 minutes of play time,
+  which is accumulated in the store across play flows and reset after 10
+  minutes without play.
+- The privacy-policy line in the parent area is plain text, not a link:
+  there is no policy page yet (it will be a bundled local asset, no network).
+- The system font setting is capped at 1.1x
+  (`ClampedTextScale`): the play screens reserve fixed pixel heights for text.
 - Gradle/AGP compatibility is verified by CI (debug APK builds); nothing has
   been run on a device.
 

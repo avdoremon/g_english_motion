@@ -353,18 +353,53 @@ void main() {
       },
     );
 
-    test('timeout is treated as wrong (own timeout only)', () async {
+    test('timeout scores 0 but is never called wrong: the neutral outOfTime '
+        'line, then the answer', () async {
       await playing();
       final answer = c().session!.current.question.ttsText;
       await h.run(const Duration(seconds: 21));
       expect(c().session!.lastResult, RoundResult.timeout);
       expect(c().score, 0);
       expect(h.captions.sublist(h.captions.length - 3), [
-        VoiceLine.tryAgain.caption,
+        VoiceLine.outOfTime.caption,
         VoiceLine.theAnswerIs.caption,
         answer,
       ]);
+      expect(h.captions, isNot(contains(VoiceLine.tryAgain.caption)));
     });
+
+    test(
+      'showPromptHint flips once and notifies then, not on every tick',
+      () async {
+        h = await GameHarness.create(
+          level: const LevelConfig(
+            level: 3,
+            questionCount: 8,
+            baseTime: Duration(seconds: 15),
+            choiceCount: 3,
+            hints: HintMode.partial,
+            window: UnitWindow.current,
+          ),
+          withImages: true,
+        );
+        await h.startAndCalibrate();
+        expect(c().showPromptHint, isFalse);
+        var notified = 0;
+        c().addListener(() => notified++);
+        await h.run(
+          const Duration(seconds: 30),
+          stopWhen: () => c().showPromptHint,
+        );
+        expect(c().showPromptHint, isTrue);
+        expect(notified, greaterThan(0), reason: 'the flip must rebuild once');
+        // Already on: the 60 Hz tick must not notify (and so not rebuild the
+        // picture) again.
+        notified = 0;
+        await h.run(const Duration(seconds: 1));
+        expect(c().showPromptHint, isTrue);
+        expect(notified, 0);
+      },
+    );
 
     test('an unsure confirmation (lane out of range) is not graded', () async {
       await playing();
@@ -731,6 +766,22 @@ void main() {
         expect(h.frames.hasListener, isFalse);
       },
     );
+
+    test('an explanation still speaking when the next question starts does '
+        'not run into it', () async {
+      h = await GameHarness.create(hangClip: VoiceLine.tryAgain.assetPath);
+      await h.startAndCalibrate();
+      await h.answerInLane((correctIndex() + 1) % 3);
+      expect(h.captions, contains(VoiceLine.tryAgain.caption));
+      final asked = c().session!.current;
+      // The session advances after feedbackTime; it never waits for audio.
+      await h.run(const Duration(milliseconds: 2700));
+      expect(c().session!.current, isNot(same(asked)));
+      // The first leg finishes late, with the next question already up.
+      h.clips.finishHanging();
+      await pumpEventQueue();
+      expect(h.captions, isNot(contains(VoiceLine.theAnswerIs.caption)));
+    });
 
     test('dispose during a long tryAgain never explains the answer', () async {
       h = await GameHarness.create(hangClip: VoiceLine.tryAgain.assetPath);

@@ -4,7 +4,10 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:g_english_motion/app/app.dart';
+import 'package:g_english_motion/ui/shell/break_reminder.dart';
+import 'package:g_english_motion/ui/shell/caption_strip.dart';
 import 'package:g_english_motion/audio/audio_service.dart';
+import 'package:g_english_motion/audio/voice_lines.dart';
 import 'package:g_english_motion/content/content_repository.dart';
 import 'package:g_english_motion/content/models.dart';
 import 'package:g_english_motion/input/pose_frame_source.dart';
@@ -126,22 +129,39 @@ void main() {
   late AudioService audio;
   late SpeechSession session;
 
-  Future<void> pumpScreen(WidgetTester tester, SayItLevel level) async {
+  late List<String> captions;
+  late List<_FakeTimer> timers;
+
+  Future<void> pumpScreen(
+    WidgetTester tester,
+    SayItLevel level, {
+    Size size = const Size(1280, 720),
+  }) async {
     src = FakeSource();
     tts = GateTts();
     audio = AudioService(tts, NoClips(), assetExists: (_) => false);
+    captions = [];
+    final capSub = audio.captions.listen(captions.add);
+    addTearDown(capSub.cancel);
+    timers = [];
     session = SpeechSession(src, audio, relistenDelay: Duration.zero);
-    await tester.binding.setSurfaceSize(const Size(1280, 720));
+    await tester.binding.setSurfaceSize(size);
     addTearDown(() => tester.binding.setSurfaceSize(null));
     await tester.pumpWidget(
       MaterialApp(
         theme: AppTheme.dark(),
+        builder: (context, child) => ClampedTextScale(child: child!),
         home: SayItScreen(
           level: level,
           speech: session,
           audio: audio,
           onExit: () {},
           onPlayAgain: () {},
+          timerFactory: (d, cb) {
+            final t = _FakeTimer(d, cb);
+            timers.add(t);
+            return t;
+          },
         ),
       ),
     );
@@ -365,6 +385,86 @@ void main() {
     expect(audio.muted, isFalse);
   });
 
+  testWidgets('what Tin Tin says is also readable: a caption after a judged '
+      'word', (t) async {
+    await pumpScreen(t, levelWith(WordMotion.fallDown));
+    expect(find.byType(CaptionStrip), findsOneWidget);
+    await t.runAsync(() async {
+      src.hear('cat');
+      await Future<void>.delayed(const Duration(milliseconds: 50));
+    });
+    await t.pump();
+    expect(captions, contains(VoiceLine.correct1.caption));
+    expect(
+      find.descendant(
+        of: find.byType(CaptionStrip),
+        matching: find.text(VoiceLine.correct1.caption),
+      ),
+      findsOneWidget,
+      reason: 'every spoken line must also appear as a caption',
+    );
+  });
+
+  testWidgets('SayIt reminds about a break too, visibly', (t) async {
+    await pumpScreen(t, levelWith(WordMotion.fallDown));
+    expect(timers, isNotEmpty);
+    expect(timers.first.duration, const Duration(minutes: 20));
+    await t.runAsync(() async {
+      timers.first.fire();
+      await Future<void>.delayed(const Duration(milliseconds: 20));
+    });
+    await t.pump();
+    expect(find.byType(BreakReminder), findsOneWidget);
+    expect(captions, contains(VoiceLine.takeABreak.caption));
+    // The word stands still while the reminder is up and the mic is closed.
+    final before = t.getCenter(word);
+    await advance(t, const Duration(seconds: 2));
+    expect(t.getCenter(word), before);
+    await t.tap(find.byKey(const ValueKey('break-dismiss')));
+    await t.pump();
+    expect(find.byType(BreakReminder), findsNothing);
+    await advance(t, const Duration(seconds: 2));
+    expect(t.getCenter(word).dy, greaterThan(before.dy));
+  });
+
+  for (final size in const [Size(1280, 720), Size(800, 360)]) {
+    final label = '${size.width.toInt()}x${size.height.toInt()}';
+    testWidgets('the judged word card fits $label, verdict included', (
+      t,
+    ) async {
+      await pumpScreen(t, levelWith(WordMotion.fallDown), size: size);
+      src.hear('cat');
+      await t.pump();
+      expect(verdict, findsOneWidget);
+      expect(t.takeException(), isNull);
+      final card = t.getRect(word);
+      final v = t.getRect(verdict);
+      expect(card.top, greaterThanOrEqualTo(0), reason: 'card clipped on top');
+      expect(
+        v.bottom,
+        lessThanOrEqualTo(size.height),
+        reason: 'the Đúng/Sai row is the one thing the child must see',
+      );
+      expect(
+        t.getRect(find.byType(CaptionStrip)).overlaps(v),
+        isFalse,
+        reason: 'the verdict and the captions must not overlap',
+      );
+    });
+
+    testWidgets('the judged word card fits $label at the largest font '
+        'setting', (t) async {
+      t.platformDispatcher.textScaleFactorTestValue = 1.3;
+      addTearDown(t.platformDispatcher.clearTextScaleFactorTestValue);
+      await pumpScreen(t, levelWith(WordMotion.fallDown), size: size);
+      src.hear('cat');
+      await t.pump();
+      expect(verdict, findsOneWidget);
+      expect(t.takeException(), isNull);
+      expect(t.getRect(verdict).bottom, lessThanOrEqualTo(size.height));
+    });
+  }
+
   group('in the app', () {
     late ProgressStore store;
     late FakeSource speech;
@@ -473,6 +573,20 @@ void main() {
       expect(speech.checks, 0, reason: 'no microphone question when off');
     });
   });
+}
+
+class _FakeTimer implements Timer {
+  _FakeTimer(this.duration, this.cb);
+  final Duration duration;
+  final void Function() cb;
+  bool cancelled = false;
+  @override
+  void cancel() => cancelled = true;
+  void fire() => cb();
+  @override
+  bool get isActive => !cancelled;
+  @override
+  int get tick => 0;
 }
 
 class _NoWakelock implements Wakelock {

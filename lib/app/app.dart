@@ -86,6 +86,9 @@ class AppDependencies {
   /// Longest wait for a previous controller to release the camera.
   final Duration closeTimeout;
 
+  /// Says the welcome line once per app session (shared by every controller).
+  final WelcomeGate welcome = WelcomeGate();
+
   /// Test seam: builds the controller (default: the real one).
   final GameController Function(
     int grade,
@@ -137,6 +140,27 @@ class AppDependencies {
   }
 }
 
+/// Caps the system font-size setting for the whole app.
+///
+/// The play screens reserve fixed pixel heights for text (the caption strip,
+/// the LaneJump word line, the SkyShoot status row, the SayIt stage): at the
+/// upper end of the Android font-size slider (about 1.3, more on some Samsung
+/// configurations) those boxes run out of headroom, which in a release build
+/// clips or overlaps text instead of throwing. Text is already 28 sp and up,
+/// so a small cap costs the child nothing.
+class ClampedTextScale extends StatelessWidget {
+  const ClampedTextScale({super.key, required this.child});
+
+  /// Largest text scale the layout is designed for.
+  static const double maxScale = 1.1;
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) =>
+      MediaQuery.withClampedTextScaling(maxScaleFactor: maxScale, child: child);
+}
+
 class GEnglishMotionApp extends StatelessWidget {
   const GEnglishMotionApp({super.key, required this.deps});
 
@@ -148,6 +172,7 @@ class GEnglishMotionApp extends StatelessWidget {
       title: 'Tin Tin English',
       debugShowCheckedModeBanner: false,
       theme: AppTheme.dark(),
+      builder: (context, child) => ClampedTextScale(child: child!),
       home: _Root(deps: deps),
     );
   }
@@ -227,6 +252,10 @@ class _RootState extends State<_Root> with WidgetsBindingObserver {
   /// Owned by the app session so re-entering the parent area cannot reset
   /// the wrong-answer count or skip a running lockout.
   final GateLockout _gateLockout = GateLockout();
+
+  /// The "leave the game?" confirmation is open: the shell pauses the session
+  /// while it is, so the question cannot time out behind the dialog.
+  bool _backDialog = false;
 
   @override
   void initState() {
@@ -370,6 +399,7 @@ class _RootState extends State<_Root> with WidgetsBindingObserver {
           audio: _d.audio,
           ticker: _d.ticker,
           rng: _d.rng,
+          welcome: _d.welcome,
         );
     final old = _ctl;
     setState(() {
@@ -502,6 +532,8 @@ class _RootState extends State<_Root> with WidgetsBindingObserver {
             level: sayIt.game,
             speech: sayIt.session,
             audio: _d.audio,
+            // Same break reminder as the camera modes, same 20 minutes.
+            store: _d.store,
             onExit: _exitSayIt,
             onPlayAgain: () => _beginSayIt(sayIt.grade, sayIt.level),
           ),
@@ -537,6 +569,10 @@ class _RootState extends State<_Root> with WidgetsBindingObserver {
             session: ctl.session,
             audio: _d.audio,
             wakelock: _d.wakelock,
+            // Play time is banked here, so the break reminder survives a
+            // trip Home between two short levels.
+            store: _d.store,
+            pausedByDialog: _backDialog,
             captionFilter: ctl.shouldShowCaption,
             captionReset: ctl.captionReset,
             cameraHost: _d.cameraHost,
@@ -552,18 +588,24 @@ class _RootState extends State<_Root> with WidgetsBindingObserver {
       _goHome();
       return;
     }
+    // Pause first: the ticker keeps running behind a modal, so without this
+    // the question times out (and a jump is graded) while a grown-up reads
+    // the dialog - even when they choose to stay.
+    setState(() => _backDialog = true);
     final leave = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
         backgroundColor: AppTheme.background,
         title: const Text('Thoát trò chơi?'),
         actions: [
-          TextButton(
+          // Staying is the emphasised choice: leaving is the destructive one
+          // and must not be the button the dialog invites.
+          FilledButton(
             key: const ValueKey('stay'),
             onPressed: () => Navigator.of(ctx).pop(false),
             child: const Text('Ở lại'),
           ),
-          FilledButton(
+          TextButton(
             key: const ValueKey('leave'),
             onPressed: () => Navigator.of(ctx).pop(true),
             child: const Text('Thoát'),
@@ -571,7 +613,9 @@ class _RootState extends State<_Root> with WidgetsBindingObserver {
         ],
       ),
     );
-    if (leave == true && mounted && _ctl == ctl) _goHome();
+    if (!mounted) return;
+    setState(() => _backDialog = false);
+    if (leave == true && _ctl == ctl) _goHome();
   }
 
   Widget _exitOverlay(Widget child) => Stack(

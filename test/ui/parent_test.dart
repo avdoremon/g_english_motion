@@ -329,14 +329,17 @@ void main() {
       sayItAsked = 0;
       await tester.pumpWidget(settings());
       final toggle = find.byKey(const ValueKey('toggle-sayit'));
-      await tester.tap(toggle); // on -> off
-      await tester.pump();
+      // A fresh install starts off: nothing was asked of the OS yet.
       expect(store.sayItEnabled, isFalse);
       expect(sayItAsked, 0);
       await tester.tap(toggle); // off -> on
       await tester.pump();
       expect(store.sayItEnabled, isTrue);
       expect(sayItAsked, 1);
+      await tester.tap(toggle); // on -> off
+      await tester.pump();
+      expect(store.sayItEnabled, isFalse);
+      expect(sayItAsked, 1, reason: 'switching off asks nothing');
       await tester.pumpAndSettle();
     });
 
@@ -367,10 +370,10 @@ void main() {
       await tester.pump();
       expect(store.confirmGesture, ConfirmGesture.jump);
 
-      expect(store.sayItEnabled, isTrue);
+      expect(store.sayItEnabled, isFalse);
       await tester.tap(find.byKey(const ValueKey('toggle-sayit')));
       await tester.pump();
-      expect(store.sayItEnabled, isFalse);
+      expect(store.sayItEnabled, isTrue);
       await tester.pumpAndSettle();
     });
 
@@ -409,10 +412,28 @@ void main() {
       h.dispose();
     });
 
-    testWidgets('shows labels and privacy link text', (tester) async {
+    testWidgets('shows labels and a privacy note that does not pretend to be '
+        'a link', (tester) async {
       await tester.pumpWidget(settings());
       expect(find.text('Chế độ không nhảy (giơ hai tay)'), findsOneWidget);
-      expect(find.text('Chính sách quyền riêng tư'), findsOneWidget);
+      final note = find.textContaining('quyền riêng tư');
+      expect(note, findsOneWidget);
+      final style = tester.widget<Text>(note).style;
+      expect(
+        style?.decoration,
+        isNot(TextDecoration.underline),
+        reason: 'nothing may look tappable while nothing happens on a tap',
+      );
+      expect(style?.color, isNot(AppTheme.accent));
+      // And it really is not tappable: no gesture detector around it.
+      expect(
+        find.ancestor(of: note, matching: find.byType(InkWell)),
+        findsNothing,
+      );
+      expect(
+        find.ancestor(of: note, matching: find.byType(GestureDetector)),
+        findsNothing,
+      );
     });
   });
 }

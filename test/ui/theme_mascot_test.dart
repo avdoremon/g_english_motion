@@ -22,6 +22,34 @@ void main() {
     expect(t.textTheme.bodyLarge!.fontFamily, 'Baloo 2');
   });
 
+  testWidgets('every themed button reaches the 56 dp target, outlined too', (
+    tester,
+  ) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        theme: AppTheme.dark(),
+        home: Scaffold(
+          body: Column(
+            children: [
+              FilledButton(onPressed: () {}, child: const Text('A')),
+              OutlinedButton(onPressed: () {}, child: const Text('B')),
+            ],
+          ),
+        ),
+      ),
+    );
+    for (final f in [find.byType(FilledButton), find.byType(OutlinedButton)]) {
+      expect(
+        tester.getSize(f).height,
+        greaterThanOrEqualTo(AppTheme.minTarget),
+        reason: '$f',
+      );
+    }
+    final style = AppTheme.dark().outlinedButtonTheme.style;
+    expect(style, isNotNull);
+    expect(style!.textStyle?.resolve({})?.fontSize, greaterThanOrEqualTo(28));
+  });
+
   for (final s in TinTinState.values) {
     testWidgets('TinTin renders $s with semantics and settles', (tester) async {
       await tester.pumpWidget(

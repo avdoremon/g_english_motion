@@ -12,6 +12,8 @@ import '../input/confirm_gesture.dart';
 /// - `progress.confirmGesture`           string (ConfirmGesture.name)
 /// - `progress.sayIt`                    bool
 /// - `progress.safetyAck`                bool
+/// - `progress.playMs`                   int (play time towards a break)
+/// - `progress.playAt`                   int (ms since epoch, last update)
 /// - `history.recent`                    string list, oldest -> newest
 /// - `history.wrong`                     string list (set)
 ///
@@ -38,6 +40,12 @@ class ProgressStore implements HistoryStore {
   static const _gestureKey = 'progress.confirmGesture';
   static const _sayItKey = 'progress.sayIt';
   static const _safetyKey = 'progress.safetyAck';
+  static const _playMsKey = 'progress.playMs';
+  static const _playAtKey = 'progress.playAt';
+
+  /// A gap without play this long counts as a real break: the play time
+  /// banked towards the next "take a break" reminder starts from zero.
+  static const breakGap = Duration(minutes: 10);
 
   static String _starsKey(int g, int l) => 'progress.stars.g$g.l$l';
   static String _unitKey(int g) => 'progress.unit.g$g';
@@ -141,12 +149,52 @@ class ProgressStore implements HistoryStore {
 
   Future<void> setConfirmGesture(ConfirmGesture g) => _set(_gestureKey, g.name);
 
+  /// Whether the parent allows SayIt (the microphone mode).
+  ///
+  /// Off until a parent switches it on: that switch is the ONLY place the
+  /// microphone is ever requested, so a default of "on" meant a fresh
+  /// install showed the parent a switch that was already on while the Home
+  /// entry stayed hidden (the OS was never asked) and the only way out was
+  /// toggling it off and on again.
   bool get sayItEnabled {
     final v = _get(_sayItKey);
-    return v is bool ? v : true;
+    return v is bool ? v : false;
   }
 
   Future<void> setSayItEnabled(bool v) => _set(_sayItKey, v);
+
+  // ---- play time towards the break reminder ----
+  //
+  // Kept in the store, not in the shell: the shell is built per play flow, so
+  // going Home between two short levels would otherwise restart the
+  // 20-minute clock and the child would never be reminded.
+
+  /// Play time banked towards the next break reminder. A gap of at least
+  /// [breakGap] since the last update (or a clock that went backwards) counts
+  /// as a real break and starts from zero.
+  Duration playedTowardsBreak({DateTime? now}) {
+    final ms = _get(_playMsKey);
+    final at = _get(_playAtKey);
+    if (ms is! int || at is! int || ms <= 0) return Duration.zero;
+    final gap = (now ?? DateTime.now()).millisecondsSinceEpoch - at;
+    if (gap < 0 || gap >= breakGap.inMilliseconds) return Duration.zero;
+    return Duration(milliseconds: ms);
+  }
+
+  /// Adds [d] of play time to the count (and marks it as "played just now").
+  Future<void> addPlayTime(Duration d, {DateTime? now}) {
+    final t = now ?? DateTime.now();
+    final banked =
+        playedTowardsBreak(now: t) + (d < Duration.zero ? Duration.zero : d);
+    _set(_playMsKey, banked.inMilliseconds);
+    return _set(_playAtKey, t.millisecondsSinceEpoch);
+  }
+
+  /// Starts the count over (the reminder was just shown).
+  Future<void> resetPlayTime({DateTime? now}) {
+    _set(_playMsKey, 0);
+    return _set(_playAtKey, (now ?? DateTime.now()).millisecondsSinceEpoch);
+  }
 
   bool get safetyAcknowledged {
     final v = _get(_safetyKey);

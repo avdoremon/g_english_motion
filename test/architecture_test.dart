@@ -137,6 +137,16 @@ void main() {
     expect(scan(Directory('/nonexistent/lib')).scanned, 0);
   });
 
+  test('pubspec describes this app, not the Flutter template', () {
+    final pubspec = File('pubspec.yaml').readAsStringSync();
+    final desc = RegExp(
+      r'^description:\s*(.+)$',
+      multiLine: true,
+    ).firstMatch(pubspec)!.group(1)!.trim();
+    expect(desc, isNot(contains('A new Flutter project')));
+    expect(desc.length, greaterThan(20));
+  });
+
   test('pubspec scanner flags network packages', () {
     const bad = '''
 name: x

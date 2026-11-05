@@ -13,6 +13,7 @@ import '../mascot/tin_tin.dart';
 import '../theme/app_theme.dart';
 import 'lane_jump_screen.dart' show ItemPicture;
 import 'play_header.dart';
+import 'round_verdict.dart';
 
 /// The SkyShoot play screen (grades 3-5): answers drift in the sky, an arrow
 /// sweeps along the bottom; jump (or raise both hands) to shoot, then pull
@@ -136,34 +137,27 @@ class _StatusRow extends StatelessWidget {
   final SkyShootRound round;
   final bool feedback;
 
+  /// Driven by [GameController.showPromptHint], which notifies only when the
+  /// flag flips: the 60 Hz tick must not rebuild this picture.
   Widget? _hint() {
     final id = question.promptImageItemId;
     if (id == null || session.hintMode == HintMode.none) return null;
-    return ListenableBuilder(
-      listenable: controller.hudTick,
-      builder: (context, _) {
-        final show =
-            session.hintMode == HintMode.full ||
-            session.roundElapsedFraction >= LevelSession.partialHintAt;
-        if (!show) return const SizedBox.shrink();
-        return Padding(
-          padding: const EdgeInsets.only(right: 16),
-          child: ItemPicture(
-            key: const ValueKey('hint-picture'),
-            item: controller.itemFor(id),
-            size: 72,
-            semanticLabel: 'Hình gợi ý',
-          ),
-        );
-      },
+    if (!controller.showPromptHint) return null;
+    return Padding(
+      padding: const EdgeInsets.only(right: 16),
+      child: ItemPicture(
+        key: const ValueKey('hint-picture'),
+        item: controller.itemFor(id),
+        size: 72,
+        semanticLabel: 'Hình gợi ý',
+      ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
     final t = Theme.of(context).textTheme;
-    final ok = session.lastResult == RoundResult.correct;
-    final timedOut = session.lastResult == RoundResult.timeout;
+    final result = session.lastResult;
     final blank = question.form == QuestionForm.fillBlank;
     final hint = _hint();
     return LayoutBuilder(
@@ -219,34 +213,9 @@ class _StatusRow extends StatelessWidget {
           ),
           const SizedBox(width: 16),
           if (feedback)
-            Row(
-              key: const ValueKey('feedback-label'),
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(
-                  ok
-                      ? Icons.check_circle
-                      : (timedOut ? Icons.hourglass_bottom : Icons.cancel),
-                  size: 44,
-                  color: ok
-                      ? AppTheme.green
-                      : (timedOut ? AppTheme.muted : AppTheme.pink),
-                ),
-                const SizedBox(width: 8),
-                // A timeout is never "wrong": the child may not have understood.
-                Text(
-                  ok ? 'Đúng' : (timedOut ? 'Hết giờ' : 'Sai'),
-                  style: t.titleLarge,
-                ),
-                const SizedBox(width: 12),
-              ],
-            ),
+            RoundVerdict(result: result, iconSize: 44, trailing: 12),
           TinTin(
-            state: !feedback
-                ? TinTinState.idle
-                : (ok
-                      ? TinTinState.happy
-                      : (timedOut ? TinTinState.idle : TinTinState.sad)),
+            state: RoundVerdict.mascotFor(result, feedback: feedback),
             size: box.maxHeight.clamp(56.0, 100.0),
             pulse: session.index,
           ),

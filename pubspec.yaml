@@ -1,5 +1,5 @@
 name: g_english_motion
-description: "A new Flutter project."
+description: "Tin Tin English: a motion-controlled English learning game for Vietnamese primary school children (grades 1-5), played in front of the phone's camera and mirrored to a TV."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev

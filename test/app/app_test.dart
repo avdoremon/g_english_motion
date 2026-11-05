@@ -6,13 +6,19 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:g_english_motion/app/app.dart';
 import 'package:g_english_motion/app/game_controller.dart';
 import 'package:g_english_motion/audio/audio_service.dart';
+import 'package:g_english_motion/audio/voice_lines.dart';
 import 'package:g_english_motion/content/content_repository.dart';
+import 'package:g_english_motion/content/models.dart' show ModeKind;
 import 'package:g_english_motion/content/curriculum.dart';
 import 'package:g_english_motion/input/plugin_pose_frame_source.dart';
 import 'package:g_english_motion/input/pose_frame_source.dart';
 import 'package:g_english_motion/input/pose_types.dart';
 import 'package:g_english_motion/levels/level_config.dart';
 import 'package:g_english_motion/progress/progress_store.dart';
+import 'package:g_english_motion/session/level_session.dart';
+import 'package:g_english_motion/speech/speech_source.dart';
+import 'package:g_english_motion/speech/word_judge.dart';
+import 'package:g_english_motion/ui/screens/say_it_screen.dart';
 import 'package:g_english_motion/ui/shell/game_shell.dart';
 import 'package:g_english_motion/ui/shell/pose_camera_host.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -22,10 +28,40 @@ import '../helpers/game_harness.dart';
 import '../helpers/synthetic_poses.dart';
 
 class _NoWakelock implements Wakelock {
+  _NoWakelock();
+  final log = <String>[];
   @override
-  Future<void> enable() async {}
+  Future<void> enable() async => log.add('enable');
   @override
-  Future<void> disable() async {}
+  Future<void> disable() async => log.add('disable');
+}
+
+/// On-device speech that answers whatever the test wants, and records every
+/// availability check (and whether it asked the OS for the microphone).
+class _FakeSpeech implements SpeechSource {
+  _FakeSpeech({this.availability = SpeechAvailability.available});
+  SpeechAvailability availability;
+  int checks = 0, asked = 0, cancels = 0;
+  final List<int> ids = [];
+  final List<StreamController<RecognitionResult>> streams = [];
+
+  @override
+  Future<SpeechAvailability> check({bool askPermission = false}) async {
+    checks++;
+    if (askPermission) asked++;
+    return availability;
+  }
+
+  @override
+  Stream<RecognitionResult> listenOnce({required int sessionId}) {
+    ids.add(sessionId);
+    final c = StreamController<RecognitionResult>();
+    streams.add(c);
+    return c.stream;
+  }
+
+  @override
+  Future<void> stop() async => cancels++;
 }
 
 class _ThrowingStart extends GameController {
@@ -46,6 +82,8 @@ class _ThrowingStart extends GameController {
 void main() {
   late ProgressStore store;
   late FakePoseFrameSource source;
+  late List<String> captions;
+  late _NoWakelock wakelock;
 
   Future<void> pumpApp(
     WidgetTester tester, {
@@ -56,9 +94,13 @@ void main() {
     VoidCallback? openSettings,
     GameController Function(int, LevelConfig, AppDependencies)?
     controllerFactory,
+    SpeechSource? speech,
+    bool? sayItEnabled,
   }) async {
     SharedPreferences.setMockInitialValues({
       if (safetyAcked) 'progress.safetyAck': true,
+      if (sayItEnabled ?? false) 'progress.sayIt': true,
+      if (sayItEnabled == false) 'progress.sayIt': false,
     });
     store = ProgressStore(await SharedPreferences.getInstance());
     source = FakePoseFrameSource.fromStream(
@@ -70,6 +112,10 @@ void main() {
       HarnessClips(),
       assetExists: (_) => false,
     );
+    captions = [];
+    final capSub = audio.captions.listen(captions.add);
+    addTearDown(capSub.cancel);
+    wakelock = _NoWakelock();
     await tester.binding.setSurfaceSize(const Size(1280, 720));
     addTearDown(() => tester.binding.setSurfaceSize(null));
     await tester.pumpWidget(
@@ -81,9 +127,10 @@ void main() {
           levels: const [harnessLevel],
           sourceFactory: () => source,
           ticker: () => const Stream<Duration>.empty(),
-          wakelock: _NoWakelock(),
+          wakelock: wakelock,
           openSettings: openSettings,
           controllerFactory: controllerFactory,
+          speech: speech,
         ),
       ),
     );
@@ -293,6 +340,20 @@ void main() {
     expect(find.text('Có lỗi rồi, em thử lại sau nhé!'), findsOneWidget);
   });
 
+  testWidgets('the welcome line greets the child once per app session, not '
+      'once per level', (tester) async {
+    await pumpApp(tester);
+    for (var i = 0; i < 2; i++) {
+      await tester.tap(find.byKey(const ValueKey('play')));
+      await tester.pump();
+      await tester.pump();
+      await tester.tap(find.byKey(const ValueKey('exit')));
+      await tester.pump();
+      await tester.pump(const Duration(seconds: 1));
+    }
+    expect(captions.where((c) => c == VoiceLine.welcome.caption), hasLength(1));
+  });
+
   testWidgets('camera unavailable shows the unavailable message', (
     tester,
   ) async {
@@ -302,6 +363,239 @@ void main() {
     await tester.pump();
     expect(find.text('Camera chưa sẵn sàng trên máy này'), findsOneWidget);
     expect(find.text('Thử lại'), findsOneWidget);
+  });
+
+  testWidgets('the back dialog pauses the game and does not push "Thoát"', (
+    tester,
+  ) async {
+    SharedPreferences.setMockInitialValues({'progress.safetyAck': true});
+    store = ProgressStore(await SharedPreferences.getInstance());
+    final sources = <_RecSource>[];
+    final ticks = StreamController<Duration>.broadcast(sync: true);
+    addTearDown(ticks.close);
+    late GameController ctl;
+    await tester.binding.setSurfaceSize(const Size(1280, 720));
+    addTearDown(() => tester.binding.setSurfaceSize(null));
+    await tester.pumpWidget(
+      GEnglishMotionApp(
+        deps: AppDependencies(
+          store: store,
+          audio: AudioService(
+            HarnessTts([]),
+            HarnessClips(),
+            assetExists: (_) => false,
+          ),
+          repo: ContentRepository([harnessUnit()]),
+          levels: const [harnessLevel],
+          sourceFactory: () {
+            final src = _RecSource(sources.length + 1, []);
+            sources.add(src);
+            return src;
+          },
+          ticker: () => ticks.stream,
+          wakelock: _NoWakelock(),
+          controllerFactory: (grade, level, d) => ctl = GameController(
+            grade: grade,
+            level: level,
+            store: d.store,
+            repo: d.repo,
+            audio: d.audio,
+            ticker: d.ticker,
+            welcome: d.welcome,
+          ),
+        ),
+      ),
+    );
+    await tester.tap(find.byKey(const ValueKey('play')));
+    await tester.pump();
+    await tester.pump();
+    var t = Duration.zero;
+    Future<void> step() async {
+      t += const Duration(milliseconds: 33);
+      sources.last.framesCtl.add(PoseFrame([makePose()], t));
+      ticks.add(t);
+      await tester.pump(const Duration(milliseconds: 33));
+    }
+
+    for (var i = 0; i < 400 && ctl.phase != GamePhase.playing; i++) {
+      await step();
+    }
+    expect(ctl.phase, GamePhase.playing);
+    for (var i = 0; i < 20 && ctl.session!.phase != SessionPhase.playing; i++) {
+      await step();
+    }
+    expect(ctl.session!.phase, SessionPhase.playing);
+
+    // A system back while playing: the confirmation must pause the round.
+    await tester.binding.handlePopRoute();
+    await tester.pumpAndSettle();
+    expect(find.text('Thoát trò chơi?'), findsOneWidget);
+
+    final left = ctl.session!.round.remaining;
+    for (var i = 0; i < 30; i++) {
+      await step();
+    }
+    expect(
+      ctl.session!.round.remaining,
+      left,
+      reason: 'the clock must stand still while the grown-up decides',
+    );
+    expect(ctl.session!.phase, SessionPhase.paused);
+
+    // The destructive choice is not the emphasised one.
+    expect(
+      tester.widget(find.byKey(const ValueKey('stay'))),
+      isA<FilledButton>(),
+      reason: '"Ở lại" is the emphasised button',
+    );
+    expect(
+      tester.widget(find.byKey(const ValueKey('leave'))),
+      isNot(isA<FilledButton>()),
+      reason: '"Thoát" must not invite a tap',
+    );
+
+    // Staying resumes the round.
+    await tester.tap(find.byKey(const ValueKey('stay')));
+    await tester.pumpAndSettle();
+    expect(find.text('Thoát trò chơi?'), findsNothing);
+    expect(ctl.session!.phase, SessionPhase.playing);
+    for (var i = 0; i < 10; i++) {
+      await step();
+    }
+    expect(ctl.session!.round.remaining, lessThan(left));
+    await tester.tap(find.byKey(const ValueKey('exit')));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 600));
+  });
+
+  testWidgets('a huge system font setting is clamped: the fixed text boxes '
+      'keep their headroom', (tester) async {
+    tester.platformDispatcher.textScaleFactorTestValue = 1.3;
+    addTearDown(tester.platformDispatcher.clearTextScaleFactorTestValue);
+    await pumpApp(tester);
+    final ctx = tester.element(find.byKey(const ValueKey('play')));
+    expect(
+      MediaQuery.textScalerOf(ctx).scale(100),
+      lessThanOrEqualTo(100 * ClampedTextScale.maxScale),
+    );
+    expect(tester.takeException(), isNull);
+  });
+
+  group('SayIt wiring', () {
+    final entry = find.byKey(const ValueKey('sayit-entry'));
+    // Words the SayIt generator can pick.
+    final sayItRepo = ContentRepository([
+      harnessUnit(modes: const [ModeKind.laneJump, ModeKind.sayIt]),
+    ]);
+
+    /// Answers the parent gate's multiplication question.
+    Future<void> passGate(WidgetTester tester) async {
+      final text = tester
+          .widgetList<Text>(find.byType(Text))
+          .map((w) => w.data ?? '')
+          .firstWhere((d) => RegExp(r'^\d+ × \d+ = \?$').hasMatch(d));
+      final m = RegExp(r'^(\d+) × (\d+)').firstMatch(text)!;
+      final answer = int.parse(m.group(1)!) * int.parse(m.group(2)!);
+      for (final d in '$answer'.split('')) {
+        await tester.tap(find.byKey(ValueKey('key-$d')));
+        await tester.pump();
+      }
+      await tester.tap(find.byKey(const ValueKey('key-ok')));
+      await tester.pumpAndSettle();
+    }
+
+    testWidgets('a fresh install: nothing is offered and the OS is never '
+        'asked behind the parent\'s back', (tester) async {
+      final speech = _FakeSpeech();
+      await pumpApp(tester, speech: speech);
+      expect(
+        store.sayItEnabled,
+        isFalse,
+        reason: 'what the parent sees switched off is what Home offers',
+      );
+      expect(entry, findsNothing);
+      expect(speech.asked, 0, reason: 'no microphone question on first launch');
+    });
+
+    for (final a in [
+      SpeechAvailability.noOnDeviceRecognizer,
+      SpeechAvailability.noPermission,
+    ]) {
+      testWidgets('the entry stays hidden for $a', (tester) async {
+        final speech = _FakeSpeech(availability: a);
+        await pumpApp(tester, speech: speech, sayItEnabled: true);
+        expect(entry, findsNothing);
+        expect(speech.asked, 0);
+      });
+    }
+
+    testWidgets('the parent area is the only place that asks for the '
+        'microphone, and switching it on reveals the entry', (tester) async {
+      final speech = _FakeSpeech();
+      await pumpApp(tester, speech: speech, sayItEnabled: false);
+      expect(entry, findsNothing);
+      expect(speech.asked, 0);
+      await tester.tap(find.byKey(const ValueKey('parent-button')));
+      await tester.pumpAndSettle();
+      await passGate(tester);
+      await tester.tap(find.byKey(const ValueKey('toggle-sayit')));
+      await tester.pumpAndSettle();
+      expect(store.sayItEnabled, isTrue);
+      expect(speech.asked, 1, reason: 'asked behind the parent gate, once');
+      await tester.tap(find.byTooltip('Quay lại'));
+      await tester.pumpAndSettle();
+      expect(entry, findsOneWidget);
+    });
+
+    testWidgets('leaving SayIt cancels the listening session and drops the '
+        'wakelock', (tester) async {
+      final speech = _FakeSpeech();
+      await pumpApp(
+        tester,
+        speech: speech,
+        sayItEnabled: true,
+        repo: sayItRepo,
+      );
+      // The availability check is async: Home shows the entry once it is in.
+      await tester.pump();
+      await tester.pump();
+      expect(entry, findsOneWidget);
+      await tester.tap(entry);
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 50));
+      expect(find.byType(SayItScreen), findsOneWidget);
+      expect(find.byType(GameShell), findsNothing, reason: 'no camera');
+      expect(find.byType(PoseCameraHost), findsNothing);
+      expect(speech.ids, isNotEmpty, reason: 'the microphone is open');
+      expect(wakelock.log, contains('enable'));
+      await tester.tap(find.byKey(const ValueKey('exit')));
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 50));
+      expect(find.byType(SayItScreen), findsNothing);
+      expect(speech.cancels, greaterThan(0), reason: 'listening is cancelled');
+      expect(wakelock.log.last, 'disable');
+    });
+
+    testWidgets('back out of SayIt leaves it the same way', (tester) async {
+      final speech = _FakeSpeech();
+      await pumpApp(
+        tester,
+        speech: speech,
+        sayItEnabled: true,
+        repo: sayItRepo,
+      );
+      await tester.pump();
+      await tester.pump();
+      await tester.tap(entry);
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 50));
+      expect(find.byType(SayItScreen), findsOneWidget);
+      await tester.binding.handlePopRoute();
+      await tester.pumpAndSettle();
+      expect(find.byType(SayItScreen), findsNothing);
+      expect(find.byKey(const ValueKey('play')), findsOneWidget);
+      expect(speech.cancels, greaterThan(0));
+    });
   });
 
   testWidgets('parent button opens the gate', (tester) async {
