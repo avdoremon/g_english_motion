@@ -1,0 +1,246 @@
+{
+  "grade": 2,
+  "unit": "u14",
+  "index": 14,
+  "title": "At home",
+  "items": [
+    {
+      "id": "g2u14-home",
+      "word": "home",
+      "ttsText": "home",
+      "image": "grade2/home.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u14-grandmother",
+        "g2u14-grandfather",
+        "g2u14-father"
+      ],
+      "spokenVariants": [
+        "hom",
+        "hone"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u14-brother",
+      "word": "brother",
+      "ttsText": "brother",
+      "image": "grade2/brother.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u14-age",
+        "g2u14-mother",
+        "g2u14-sofa"
+      ],
+      "spokenVariants": [
+        "brudder",
+        "bruder"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u14-sister",
+      "word": "sister",
+      "ttsText": "sister",
+      "image": "grade2/sister.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u14-grandfather",
+        "g2u14-father",
+        "g2u14-bed"
+      ],
+      "spokenVariants": [
+        "sista",
+        "cister"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u14-grandmother",
+      "word": "grandmother",
+      "ttsText": "grandmother",
+      "image": "grade2/grandmother.png",
+      "syllables": 3,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u14-mother",
+        "g2u14-sofa",
+        "g2u14-lamp"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump"
+      ]
+    },
+    {
+      "id": "g2u14-age",
+      "word": "age",
+      "ttsText": "age",
+      "image": "grade2/age.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u14-father",
+        "g2u14-bed",
+        "g2u14-door"
+      ],
+      "spokenVariants": [
+        "aid",
+        "eight"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u14-grandfather",
+      "word": "grandfather",
+      "ttsText": "grandfather",
+      "image": "grade2/grandfather.png",
+      "syllables": 3,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u14-sofa",
+        "g2u14-lamp",
+        "g2u14-home"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump"
+      ]
+    },
+    {
+      "id": "g2u14-mother",
+      "word": "mother",
+      "ttsText": "mother",
+      "image": "grade2/mother.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u14-bed",
+        "g2u14-door",
+        "g2u14-brother"
+      ],
+      "spokenVariants": [
+        "mudder",
+        "muther"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u14-father",
+      "word": "father",
+      "ttsText": "father",
+      "image": "grade2/father.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u14-lamp",
+        "g2u14-home",
+        "g2u14-sister"
+      ],
+      "spokenVariants": [
+        "fada",
+        "farther"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u14-sofa",
+      "word": "sofa",
+      "ttsText": "sofa",
+      "image": "grade2/sofa.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u14-door",
+        "g2u14-brother",
+        "g2u14-grandmother"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u14-bed",
+      "word": "bed",
+      "ttsText": "bed",
+      "image": "grade2/bed.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u14-home",
+        "g2u14-sister",
+        "g2u14-age"
+      ],
+      "spokenVariants": [
+        "bad"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u14-lamp",
+      "word": "lamp",
+      "ttsText": "lamp",
+      "image": "grade2/lamp.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u14-brother",
+        "g2u14-grandmother",
+        "g2u14-grandfather"
+      ],
+      "spokenVariants": [
+        "lamb"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u14-door",
+      "word": "door",
+      "ttsText": "door",
+      "image": "grade2/door.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u14-sister",
+        "g2u14-age",
+        "g2u14-mother"
+      ],
+      "spokenVariants": [
+        "dor"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,208 @@
+{
+  "grade": 1,
+  "unit": "u09",
+  "index": 9,
+  "title": "In the shop",
+  "items": [
+    {
+      "id": "g1u09-clock",
+      "word": "clock",
+      "ttsText": "clock",
+      "image": "grade1/clock.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u09-lock",
+        "g1u09-pot",
+        "g1u09-one"
+      ],
+      "spokenVariants": [
+        "clog"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u09-lock",
+      "word": "lock",
+      "ttsText": "lock",
+      "image": "grade1/lock.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u09-mop",
+        "g1u09-shop",
+        "g1u09-two"
+      ],
+      "spokenVariants": [
+        "lack"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u09-mop",
+      "word": "mop",
+      "ttsText": "mop",
+      "image": "grade1/mop.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u09-pot",
+        "g1u09-one",
+        "g1u09-three"
+      ],
+      "spokenVariants": [
+        "map"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u09-pot",
+      "word": "pot",
+      "ttsText": "pot",
+      "image": "grade1/pot.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u09-shop",
+        "g1u09-two",
+        "g1u09-four"
+      ],
+      "spokenVariants": [
+        "pat"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u09-shop",
+      "word": "shop",
+      "ttsText": "shop",
+      "image": "grade1/shop.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u09-one",
+        "g1u09-three",
+        "g1u09-five"
+      ],
+      "spokenVariants": [
+        "shock"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u09-one",
+      "word": "one",
+      "ttsText": "one",
+      "image": "grade1/one.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u09-two",
+        "g1u09-four",
+        "g1u09-clock"
+      ],
+      "spokenVariants": [
+        "won"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u09-two",
+      "word": "two",
+      "ttsText": "two",
+      "image": "grade1/two.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u09-three",
+        "g1u09-five",
+        "g1u09-lock"
+      ],
+      "spokenVariants": [
+        "too"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u09-three",
+      "word": "three",
+      "ttsText": "three",
+      "image": "grade1/three.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u09-four",
+        "g1u09-clock",
+        "g1u09-mop"
+      ],
+      "spokenVariants": [
+        "tree"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u09-four",
+      "word": "four",
+      "ttsText": "four",
+      "image": "grade1/four.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u09-five",
+        "g1u09-lock",
+        "g1u09-pot"
+      ],
+      "spokenVariants": [
+        "for"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u09-five",
+      "word": "five",
+      "ttsText": "five",
+      "image": "grade1/five.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u09-clock",
+        "g1u09-mop",
+        "g1u09-shop"
+      ],
+      "spokenVariants": [
+        "fife"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    }
+  ]
+}

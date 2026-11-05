@@ -1,0 +1,206 @@
+{
+  "grade": 1,
+  "unit": "u12",
+  "index": 12,
+  "title": "At the lake",
+  "items": [
+    {
+      "id": "g1u12-lake",
+      "word": "lake",
+      "ttsText": "lake",
+      "image": "grade1/lake.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u12-leaf",
+        "g1u12-fall",
+        "g1u12-duck"
+      ],
+      "spokenVariants": [
+        "lace"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u12-leaf",
+      "word": "leaf",
+      "ttsText": "leaf",
+      "image": "grade1/leaf.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u12-lemon",
+        "g1u12-boat",
+        "g1u12-fish"
+      ],
+      "spokenVariants": [
+        "leave"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u12-lemon",
+      "word": "lemon",
+      "ttsText": "lemon",
+      "image": "grade1/lemon.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u12-fall",
+        "g1u12-duck",
+        "g1u12-swan"
+      ],
+      "spokenVariants": [
+        "lemin"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u12-fall",
+      "word": "fall",
+      "ttsText": "fall",
+      "image": "grade1/fall.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u12-boat",
+        "g1u12-fish",
+        "g1u12-frog"
+      ],
+      "spokenVariants": [
+        "fell"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u12-boat",
+      "word": "boat",
+      "ttsText": "boat",
+      "image": "grade1/boat.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u12-duck",
+        "g1u12-swan",
+        "g1u12-tree"
+      ],
+      "spokenVariants": [
+        "boot"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u12-duck",
+      "word": "duck",
+      "ttsText": "duck",
+      "image": "grade1/duck.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u12-fish",
+        "g1u12-frog",
+        "g1u12-lake"
+      ],
+      "spokenVariants": [
+        "dock"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u12-fish",
+      "word": "fish",
+      "ttsText": "fish",
+      "image": "grade1/fish.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u12-swan",
+        "g1u12-tree",
+        "g1u12-leaf"
+      ],
+      "spokenVariants": [
+        "fis"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u12-swan",
+      "word": "swan",
+      "ttsText": "swan",
+      "image": "grade1/swan.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u12-frog",
+        "g1u12-lake",
+        "g1u12-lemon"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u12-frog",
+      "word": "frog",
+      "ttsText": "frog",
+      "image": "grade1/frog.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u12-tree",
+        "g1u12-leaf",
+        "g1u12-fall"
+      ],
+      "spokenVariants": [
+        "frock"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u12-tree",
+      "word": "tree",
+      "ttsText": "tree",
+      "image": "grade1/tree.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u12-lake",
+        "g1u12-lemon",
+        "g1u12-boat"
+      ],
+      "spokenVariants": [
+        "three"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,283 @@
+{
+  "grade": 3,
+  "unit": "u05",
+  "index": 5,
+  "title": "My hobbies",
+  "items": [
+    {
+      "id": "g3u05-hobby",
+      "word": "hobby",
+      "ttsText": "hobby",
+      "image": "grade3/hobby.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "What is your hobby",
+        "My hobby is singing"
+      ],
+      "distractorIds": [
+        "g3u05-singing",
+        "g3u05-drawing",
+        "g3u05-running"
+      ],
+      "spokenVariants": [
+        "hobbi",
+        "hobbie"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u05-singing",
+      "word": "singing",
+      "ttsText": "singing",
+      "image": "grade3/singing.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "My hobby is singing",
+        "I like singing songs"
+      ],
+      "distractorIds": [
+        "g3u05-dancing",
+        "g3u05-swimming",
+        "g3u05-painting"
+      ],
+      "spokenVariants": [
+        "singin",
+        "sing in"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u05-dancing",
+      "word": "dancing",
+      "ttsText": "dancing",
+      "image": "grade3/dancing.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "My hobby is dancing",
+        "She likes dancing a lot"
+      ],
+      "distractorIds": [
+        "g3u05-drawing",
+        "g3u05-running",
+        "g3u05-walking"
+      ],
+      "spokenVariants": [
+        "dancin",
+        "dance in"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u05-drawing",
+      "word": "drawing",
+      "ttsText": "drawing",
+      "image": "grade3/drawing.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "My hobby is drawing",
+        "I like drawing pictures"
+      ],
+      "distractorIds": [
+        "g3u05-swimming",
+        "g3u05-painting",
+        "g3u05-cooking"
+      ],
+      "spokenVariants": [
+        "drawin",
+        "draw in"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u05-swimming",
+      "word": "swimming",
+      "ttsText": "swimming",
+      "image": "grade3/swimming.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "My hobby is swimming",
+        "I like swimming a lot"
+      ],
+      "distractorIds": [
+        "g3u05-running",
+        "g3u05-walking",
+        "g3u05-reading"
+      ],
+      "spokenVariants": [
+        "swimmin",
+        "swim in"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u05-running",
+      "word": "running",
+      "ttsText": "running",
+      "image": "grade3/running.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "My hobby is running",
+        "He likes running fast"
+      ],
+      "distractorIds": [
+        "g3u05-painting",
+        "g3u05-cooking",
+        "g3u05-cycling"
+      ],
+      "spokenVariants": [
+        "runnin",
+        "run in"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u05-painting",
+      "word": "painting",
+      "ttsText": "painting",
+      "image": "grade3/painting.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "My hobby is painting",
+        "She likes painting flowers"
+      ],
+      "distractorIds": [
+        "g3u05-walking",
+        "g3u05-reading",
+        "g3u05-hobby"
+      ],
+      "spokenVariants": [
+        "paintin",
+        "paint in"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u05-walking",
+      "word": "walking",
+      "ttsText": "walking",
+      "image": "grade3/walking.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "My hobby is walking",
+        "They like walking here"
+      ],
+      "distractorIds": [
+        "g3u05-cooking",
+        "g3u05-cycling",
+        "g3u05-singing"
+      ],
+      "spokenVariants": [
+        "walkin",
+        "walk in"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u05-cooking",
+      "word": "cooking",
+      "ttsText": "cooking",
+      "image": "grade3/cooking.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "My hobby is cooking",
+        "Mum likes cooking rice"
+      ],
+      "distractorIds": [
+        "g3u05-reading",
+        "g3u05-hobby",
+        "g3u05-dancing"
+      ],
+      "spokenVariants": [
+        "cookin",
+        "cook in"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u05-reading",
+      "word": "reading",
+      "ttsText": "reading",
+      "image": "grade3/reading.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "My hobby is reading",
+        "I like reading books"
+      ],
+      "distractorIds": [
+        "g3u05-cycling",
+        "g3u05-singing",
+        "g3u05-drawing"
+      ],
+      "spokenVariants": [
+        "readin",
+        "red in"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u05-cycling",
+      "word": "cycling",
+      "ttsText": "cycling",
+      "image": "grade3/cycling.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "My hobby is cycling",
+        "They like cycling here"
+      ],
+      "distractorIds": [
+        "g3u05-hobby",
+        "g3u05-dancing",
+        "g3u05-swimming"
+      ],
+      "spokenVariants": [
+        "cyclin",
+        "psyching"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    }
+  ]
+}

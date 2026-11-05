@@ -1,0 +1,306 @@
+{
+  "grade": 5,
+  "unit": "u03",
+  "index": 3,
+  "title": "My foreign friends",
+  "items": [
+    {
+      "id": "g5u03-australian",
+      "word": "australian",
+      "ttsText": "australian",
+      "image": "grade5/australian.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "He is Australian",
+        "My friend is Australian"
+      ],
+      "distractorIds": [
+        "g5u03-malaysian",
+        "g5u03-american",
+        "g5u03-japanese"
+      ],
+      "spokenVariants": [
+        "austrailian",
+        "australien"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u03-malaysian",
+      "word": "malaysian",
+      "ttsText": "malaysian",
+      "image": "grade5/malaysian.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "She is Malaysian",
+        "My friend is Malaysian"
+      ],
+      "distractorIds": [
+        "g5u03-american",
+        "g5u03-japanese",
+        "g5u03-japan"
+      ],
+      "spokenVariants": [
+        "malaysion",
+        "malaishan"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u03-american",
+      "word": "american",
+      "ttsText": "american",
+      "image": "grade5/american.png",
+      "syllables": 4,
+      "sentencePatterns": [
+        "He is American",
+        "My teacher is American"
+      ],
+      "distractorIds": [
+        "g5u03-japanese",
+        "g5u03-japan",
+        "g5u03-australia"
+      ],
+      "spokenVariants": [
+        "americun",
+        "amerikan"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot"
+      ]
+    },
+    {
+      "id": "g5u03-japanese",
+      "word": "japanese",
+      "ttsText": "japanese",
+      "image": "grade5/japanese.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "She is Japanese",
+        "My friend is Japanese"
+      ],
+      "distractorIds": [
+        "g5u03-japan",
+        "g5u03-australia",
+        "g5u03-malaysia"
+      ],
+      "spokenVariants": [
+        "japanis",
+        "japaneese"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u03-japan",
+      "word": "japan",
+      "ttsText": "japan",
+      "image": "grade5/japan.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "He is from Japan",
+        "I want to visit Japan"
+      ],
+      "distractorIds": [
+        "g5u03-australia",
+        "g5u03-malaysia",
+        "g5u03-america"
+      ],
+      "spokenVariants": [
+        "japon",
+        "jaban"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u03-australia",
+      "word": "australia",
+      "ttsText": "australia",
+      "image": "grade5/australia.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "She is from Australia",
+        "Australia is a big country"
+      ],
+      "distractorIds": [
+        "g5u03-malaysia",
+        "g5u03-america",
+        "g5u03-friendly"
+      ],
+      "spokenVariants": [
+        "austrailia",
+        "ostralia"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u03-malaysia",
+      "word": "malaysia",
+      "ttsText": "malaysia",
+      "image": "grade5/malaysia.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "He is from Malaysia",
+        "Malaysia is a hot country"
+      ],
+      "distractorIds": [
+        "g5u03-america",
+        "g5u03-friendly",
+        "g5u03-helpful"
+      ],
+      "spokenVariants": [
+        "malaisia",
+        "malaysha"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u03-america",
+      "word": "america",
+      "ttsText": "america",
+      "image": "grade5/america.png",
+      "syllables": 4,
+      "sentencePatterns": [
+        "She is from America",
+        "America is very far away"
+      ],
+      "distractorIds": [
+        "g5u03-friendly",
+        "g5u03-helpful",
+        "g5u03-clever"
+      ],
+      "spokenVariants": [
+        "amerika",
+        "americo"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot"
+      ]
+    },
+    {
+      "id": "g5u03-friendly",
+      "word": "friendly",
+      "ttsText": "friendly",
+      "image": "grade5/friendly.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "She is a friendly girl",
+        "He is very friendly"
+      ],
+      "distractorIds": [
+        "g5u03-helpful",
+        "g5u03-clever",
+        "g5u03-active"
+      ],
+      "spokenVariants": [
+        "frendly",
+        "friendley"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u03-helpful",
+      "word": "helpful",
+      "ttsText": "helpful",
+      "image": "grade5/helpful.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "He is a helpful boy",
+        "She is very helpful"
+      ],
+      "distractorIds": [
+        "g5u03-clever",
+        "g5u03-active",
+        "g5u03-australian"
+      ],
+      "spokenVariants": [
+        "helpfull",
+        "helpfool"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u03-clever",
+      "word": "clever",
+      "ttsText": "clever",
+      "image": "grade5/clever.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "She is a clever girl",
+        "He is very clever"
+      ],
+      "distractorIds": [
+        "g5u03-active",
+        "g5u03-australian",
+        "g5u03-malaysian"
+      ],
+      "spokenVariants": [
+        "clevor",
+        "cleva"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u03-active",
+      "word": "active",
+      "ttsText": "active",
+      "image": "grade5/active.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "He is an active boy",
+        "She is very active"
+      ],
+      "distractorIds": [
+        "g5u03-australian",
+        "g5u03-malaysian",
+        "g5u03-american"
+      ],
+      "spokenVariants": [
+        "aktive",
+        "activ"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    }
+  ]
+}

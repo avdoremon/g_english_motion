@@ -1,0 +1,208 @@
+{
+  "grade": 1,
+  "unit": "u02",
+  "index": 2,
+  "title": "In the dining room",
+  "items": [
+    {
+      "id": "g1u02-cake",
+      "word": "cake",
+      "ttsText": "cake",
+      "image": "grade1/cake.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u02-car",
+        "g1u02-cup",
+        "g1u02-chair"
+      ],
+      "spokenVariants": [
+        "cage"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u02-car",
+      "word": "car",
+      "ttsText": "car",
+      "image": "grade1/car.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u02-cat",
+        "g1u02-table",
+        "g1u02-spoon"
+      ],
+      "spokenVariants": [
+        "card"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u02-cat",
+      "word": "cat",
+      "ttsText": "cat",
+      "image": "grade1/cat.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u02-cup",
+        "g1u02-chair",
+        "g1u02-mug"
+      ],
+      "spokenVariants": [
+        "cut"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u02-cup",
+      "word": "cup",
+      "ttsText": "cup",
+      "image": "grade1/cup.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u02-table",
+        "g1u02-spoon",
+        "g1u02-napkin"
+      ],
+      "spokenVariants": [
+        "cap"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u02-table",
+      "word": "table",
+      "ttsText": "table",
+      "image": "grade1/table.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u02-chair",
+        "g1u02-mug",
+        "g1u02-plate"
+      ],
+      "spokenVariants": [
+        "tabel"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u02-chair",
+      "word": "chair",
+      "ttsText": "chair",
+      "image": "grade1/chair.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u02-spoon",
+        "g1u02-napkin",
+        "g1u02-cake"
+      ],
+      "spokenVariants": [
+        "care"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u02-spoon",
+      "word": "spoon",
+      "ttsText": "spoon",
+      "image": "grade1/spoon.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u02-mug",
+        "g1u02-plate",
+        "g1u02-car"
+      ],
+      "spokenVariants": [
+        "spoom"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u02-mug",
+      "word": "mug",
+      "ttsText": "mug",
+      "image": "grade1/mug.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u02-napkin",
+        "g1u02-cake",
+        "g1u02-cat"
+      ],
+      "spokenVariants": [
+        "mark"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u02-napkin",
+      "word": "napkin",
+      "ttsText": "napkin",
+      "image": "grade1/napkin.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u02-plate",
+        "g1u02-car",
+        "g1u02-cup"
+      ],
+      "spokenVariants": [
+        "naptin"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u02-plate",
+      "word": "plate",
+      "ttsText": "plate",
+      "image": "grade1/plate.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u02-cake",
+        "g1u02-cat",
+        "g1u02-table"
+      ],
+      "spokenVariants": [
+        "plait"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    }
+  ]
+}

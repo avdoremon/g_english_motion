@@ -1,0 +1,206 @@
+{
+  "grade": 1,
+  "unit": "u14",
+  "index": 14,
+  "title": "In the toy shop",
+  "items": [
+    {
+      "id": "g1u14-teddy",
+      "word": "teddy",
+      "ttsText": "teddy",
+      "image": "grade1/teddy.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u14-tiger",
+        "g1u14-turtle",
+        "g1u14-toy"
+      ],
+      "spokenVariants": [
+        "tedi"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u14-tiger",
+      "word": "tiger",
+      "ttsText": "tiger",
+      "image": "grade1/tiger.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u14-top",
+        "g1u14-shelf",
+        "g1u14-doll"
+      ],
+      "spokenVariants": [
+        "tigger"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u14-top",
+      "word": "top",
+      "ttsText": "top",
+      "image": "grade1/top.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u14-turtle",
+        "g1u14-toy",
+        "g1u14-robot"
+      ],
+      "spokenVariants": [
+        "tap"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u14-turtle",
+      "word": "turtle",
+      "ttsText": "turtle",
+      "image": "grade1/turtle.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u14-shelf",
+        "g1u14-doll",
+        "g1u14-ball"
+      ],
+      "spokenVariants": [
+        "tertle"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u14-shelf",
+      "word": "shelf",
+      "ttsText": "shelf",
+      "image": "grade1/shelf.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u14-toy",
+        "g1u14-robot",
+        "g1u14-train"
+      ],
+      "spokenVariants": [
+        "shell"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u14-toy",
+      "word": "toy",
+      "ttsText": "toy",
+      "image": "grade1/toy.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u14-doll",
+        "g1u14-ball",
+        "g1u14-teddy"
+      ],
+      "spokenVariants": [
+        "toi"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u14-doll",
+      "word": "doll",
+      "ttsText": "doll",
+      "image": "grade1/doll.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u14-robot",
+        "g1u14-train",
+        "g1u14-tiger"
+      ],
+      "spokenVariants": [
+        "dull"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u14-robot",
+      "word": "robot",
+      "ttsText": "robot",
+      "image": "grade1/robot.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u14-ball",
+        "g1u14-teddy",
+        "g1u14-top"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u14-ball",
+      "word": "ball",
+      "ttsText": "ball",
+      "image": "grade1/ball.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u14-train",
+        "g1u14-tiger",
+        "g1u14-turtle"
+      ],
+      "spokenVariants": [
+        "bowl"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u14-train",
+      "word": "train",
+      "ttsText": "train",
+      "image": "grade1/train.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u14-teddy",
+        "g1u14-top",
+        "g1u14-shelf"
+      ],
+      "spokenVariants": [
+        "trane"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,255 @@
+{
+  "grade": 4,
+  "unit": "u16",
+  "index": 16,
+  "title": "Weather",
+  "items": [
+    {
+      "id": "g4u16-weather",
+      "word": "weather",
+      "ttsText": "weather",
+      "image": "grade4/weather.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "What is the weather like",
+        "The weather is nice"
+      ],
+      "distractorIds": [
+        "g4u16-sunny",
+        "g4u16-windy",
+        "g4u16-bakery"
+      ],
+      "spokenVariants": [
+        "whether",
+        "wether"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u16-sunny",
+      "word": "sunny",
+      "ttsText": "sunny",
+      "image": "grade4/sunny.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "It is sunny today",
+        "The sunny day is hot"
+      ],
+      "distractorIds": [
+        "g4u16-rainy",
+        "g4u16-cloudy",
+        "g4u16-bookshop"
+      ],
+      "spokenVariants": [
+        "sonny",
+        "suny"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u16-rainy",
+      "word": "rainy",
+      "ttsText": "rainy",
+      "image": "grade4/rainy.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "It is rainy today",
+        "I hate rainy days"
+      ],
+      "distractorIds": [
+        "g4u16-windy",
+        "g4u16-bakery",
+        "g4u16-supermarket"
+      ],
+      "spokenVariants": [
+        "rainey",
+        "rany"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u16-windy",
+      "word": "windy",
+      "ttsText": "windy",
+      "image": "grade4/windy.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "It is windy today",
+        "The windy day is cool"
+      ],
+      "distractorIds": [
+        "g4u16-cloudy",
+        "g4u16-bookshop",
+        "g4u16-beach"
+      ],
+      "spokenVariants": [
+        "windi",
+        "wendy"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u16-cloudy",
+      "word": "cloudy",
+      "ttsText": "cloudy",
+      "image": "grade4/cloudy.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "It is cloudy today",
+        "The sky is cloudy"
+      ],
+      "distractorIds": [
+        "g4u16-bakery",
+        "g4u16-supermarket",
+        "g4u16-cinema"
+      ],
+      "spokenVariants": [
+        "clowdy",
+        "cloudi"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u16-bakery",
+      "word": "bakery",
+      "ttsText": "bakery",
+      "image": "grade4/bakery.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "Let us go to the bakery",
+        "The bakery is near"
+      ],
+      "distractorIds": [
+        "g4u16-bookshop",
+        "g4u16-beach",
+        "g4u16-weather"
+      ],
+      "spokenVariants": [
+        "bake ery",
+        "baker"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot"
+      ]
+    },
+    {
+      "id": "g4u16-bookshop",
+      "word": "bookshop",
+      "ttsText": "bookshop",
+      "image": "grade4/bookshop.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "Let us go to the bookshop",
+        "The bookshop is open"
+      ],
+      "distractorIds": [
+        "g4u16-supermarket",
+        "g4u16-cinema",
+        "g4u16-sunny"
+      ],
+      "spokenVariants": [
+        "book shop",
+        "bookshops"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u16-supermarket",
+      "word": "supermarket",
+      "ttsText": "supermarket",
+      "image": "grade4/supermarket.png",
+      "syllables": 4,
+      "sentencePatterns": [
+        "We go to the supermarket",
+        "The supermarket is big"
+      ],
+      "distractorIds": [
+        "g4u16-beach",
+        "g4u16-weather",
+        "g4u16-rainy"
+      ],
+      "spokenVariants": [
+        "super market",
+        "supermarkets"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot"
+      ]
+    },
+    {
+      "id": "g4u16-beach",
+      "word": "beach",
+      "ttsText": "beach",
+      "image": "grade4/beach.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "It is sunny at the beach",
+        "Let us go to the beach"
+      ],
+      "distractorIds": [
+        "g4u16-cinema",
+        "g4u16-sunny",
+        "g4u16-windy"
+      ],
+      "spokenVariants": [
+        "beech",
+        "peach"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u16-cinema",
+      "word": "cinema",
+      "ttsText": "cinema",
+      "image": "grade4/cinema.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "Let us go to the cinema",
+        "We went to the cinema"
+      ],
+      "distractorIds": [
+        "g4u16-weather",
+        "g4u16-rainy",
+        "g4u16-cloudy"
+      ],
+      "spokenVariants": [
+        "sinema",
+        "cinemas"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot"
+      ]
+    }
+  ]
+}

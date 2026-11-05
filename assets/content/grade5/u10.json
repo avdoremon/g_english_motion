@@ -1,0 +1,308 @@
+{
+  "grade": 5,
+  "unit": "u10",
+  "index": 10,
+  "title": "Our school trip",
+  "items": [
+    {
+      "id": "g5u10-hill",
+      "word": "hill",
+      "ttsText": "hill",
+      "image": "grade5/hill.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "We went to Ba Na hill",
+        "The hill is very high"
+      ],
+      "distractorIds": [
+        "g5u10-lake",
+        "g5u10-park",
+        "g5u10-pagoda"
+      ],
+      "spokenVariants": [
+        "hil",
+        "hell"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u10-lake",
+      "word": "lake",
+      "ttsText": "lake",
+      "image": "grade5/lake.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "We walked around the lake",
+        "The lake is very big"
+      ],
+      "distractorIds": [
+        "g5u10-park",
+        "g5u10-pagoda",
+        "g5u10-zoo"
+      ],
+      "spokenVariants": [
+        "lak",
+        "laik"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u10-park",
+      "word": "park",
+      "ttsText": "park",
+      "image": "grade5/park.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "We went to the park",
+        "The park is very green"
+      ],
+      "distractorIds": [
+        "g5u10-pagoda",
+        "g5u10-zoo",
+        "g5u10-museum"
+      ],
+      "spokenVariants": [
+        "pack",
+        "parc"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u10-pagoda",
+      "word": "pagoda",
+      "ttsText": "pagoda",
+      "image": "grade5/pagoda.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "We went to the pagoda",
+        "The pagoda is very old"
+      ],
+      "distractorIds": [
+        "g5u10-zoo",
+        "g5u10-museum",
+        "g5u10-bus"
+      ],
+      "spokenVariants": [
+        "pagoder",
+        "pegoda"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u10-zoo",
+      "word": "zoo",
+      "ttsText": "zoo",
+      "image": "grade5/zoo.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "We went to the zoo",
+        "The zoo has many animals"
+      ],
+      "distractorIds": [
+        "g5u10-museum",
+        "g5u10-bus",
+        "g5u10-train"
+      ],
+      "spokenVariants": [
+        "zu",
+        "zoh"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u10-museum",
+      "word": "museum",
+      "ttsText": "museum",
+      "image": "grade5/museum.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "We went to the museum",
+        "The museum is very old"
+      ],
+      "distractorIds": [
+        "g5u10-bus",
+        "g5u10-train",
+        "g5u10-coach"
+      ],
+      "spokenVariants": [
+        "musium",
+        "myuseum"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u10-bus",
+      "word": "bus",
+      "ttsText": "bus",
+      "image": "grade5/bus.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "We went by bus",
+        "The bus is very big"
+      ],
+      "distractorIds": [
+        "g5u10-train",
+        "g5u10-coach",
+        "g5u10-photo"
+      ],
+      "spokenVariants": [
+        "buss",
+        "buz"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u10-train",
+      "word": "train",
+      "ttsText": "train",
+      "image": "grade5/train.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "We went by train",
+        "The train is very fast"
+      ],
+      "distractorIds": [
+        "g5u10-coach",
+        "g5u10-photo",
+        "g5u10-beach"
+      ],
+      "spokenVariants": [
+        "trane",
+        "trein"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u10-coach",
+      "word": "coach",
+      "ttsText": "coach",
+      "image": "grade5/coach.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "We went by coach",
+        "The coach is very comfortable"
+      ],
+      "distractorIds": [
+        "g5u10-photo",
+        "g5u10-beach",
+        "g5u10-tree"
+      ],
+      "spokenVariants": [
+        "couch",
+        "coche"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u10-photo",
+      "word": "photo",
+      "ttsText": "photo",
+      "image": "grade5/photo.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "We took many photos",
+        "I like this photo"
+      ],
+      "distractorIds": [
+        "g5u10-beach",
+        "g5u10-tree",
+        "g5u10-hill"
+      ],
+      "spokenVariants": [
+        "foto",
+        "photto"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u10-beach",
+      "word": "beach",
+      "ttsText": "beach",
+      "image": "grade5/beach.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "We cleaned up the beach",
+        "The beach is very long"
+      ],
+      "distractorIds": [
+        "g5u10-tree",
+        "g5u10-hill",
+        "g5u10-lake"
+      ],
+      "spokenVariants": [
+        "beech",
+        "beatch"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u10-tree",
+      "word": "tree",
+      "ttsText": "tree",
+      "image": "grade5/tree.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "We planted a tree",
+        "The tree is very tall"
+      ],
+      "distractorIds": [
+        "g5u10-hill",
+        "g5u10-lake",
+        "g5u10-park"
+      ],
+      "spokenVariants": [
+        "tri",
+        "tre"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    }
+  ]
+}

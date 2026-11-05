@@ -1,0 +1,304 @@
+{
+  "grade": 4,
+  "unit": "u04",
+  "index": 4,
+  "title": "My birthday party",
+  "items": [
+    {
+      "id": "g4u04-birthday",
+      "word": "birthday",
+      "ttsText": "birthday",
+      "image": "grade4/birthday.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "Happy birthday to you",
+        "My birthday is in May"
+      ],
+      "distractorIds": [
+        "g4u04-juice",
+        "g4u04-february",
+        "g4u04-april"
+      ],
+      "spokenVariants": [
+        "birth day",
+        "birfday"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot"
+      ]
+    },
+    {
+      "id": "g4u04-juice",
+      "word": "juice",
+      "ttsText": "juice",
+      "image": "grade4/juice.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "Would you like some juice",
+        "I drink orange juice"
+      ],
+      "distractorIds": [
+        "g4u04-january",
+        "g4u04-march",
+        "g4u04-may"
+      ],
+      "spokenVariants": [
+        "jews",
+        "jus"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u04-january",
+      "word": "january",
+      "ttsText": "january",
+      "image": "grade4/january.png",
+      "syllables": 4,
+      "sentencePatterns": [
+        "My birthday is in January",
+        "It is in January"
+      ],
+      "distractorIds": [
+        "g4u04-february",
+        "g4u04-april",
+        "g4u04-chips"
+      ],
+      "spokenVariants": [
+        "januari",
+        "jan you airy"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot"
+      ]
+    },
+    {
+      "id": "g4u04-february",
+      "word": "february",
+      "ttsText": "february",
+      "image": "grade4/february.png",
+      "syllables": 4,
+      "sentencePatterns": [
+        "Her birthday is in February",
+        "It is in February"
+      ],
+      "distractorIds": [
+        "g4u04-march",
+        "g4u04-may",
+        "g4u04-grape"
+      ],
+      "spokenVariants": [
+        "febuary",
+        "febwary"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot"
+      ]
+    },
+    {
+      "id": "g4u04-march",
+      "word": "march",
+      "ttsText": "march",
+      "image": "grade4/march.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "My birthday is in March",
+        "It is in March"
+      ],
+      "distractorIds": [
+        "g4u04-april",
+        "g4u04-chips",
+        "g4u04-jam"
+      ],
+      "spokenVariants": [
+        "marge",
+        "mars"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u04-april",
+      "word": "april",
+      "ttsText": "april",
+      "image": "grade4/april.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "My birthday is in April",
+        "It is in April"
+      ],
+      "distractorIds": [
+        "g4u04-may",
+        "g4u04-grape",
+        "g4u04-water"
+      ],
+      "spokenVariants": [
+        "aprill",
+        "ay pril"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u04-may",
+      "word": "may",
+      "ttsText": "may",
+      "image": "grade4/may.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "My birthday is in May",
+        "It is in May"
+      ],
+      "distractorIds": [
+        "g4u04-chips",
+        "g4u04-jam",
+        "g4u04-lemonade"
+      ],
+      "spokenVariants": [
+        "me",
+        "mey"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u04-chips",
+      "word": "chips",
+      "ttsText": "chips",
+      "image": "grade4/chips.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I like chips",
+        "We have some chips"
+      ],
+      "distractorIds": [
+        "g4u04-grape",
+        "g4u04-water",
+        "g4u04-birthday"
+      ],
+      "spokenVariants": [
+        "ships",
+        "chip"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u04-grape",
+      "word": "grape",
+      "ttsText": "grape",
+      "image": "grade4/grape.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I like grape juice",
+        "Here is a grape"
+      ],
+      "distractorIds": [
+        "g4u04-jam",
+        "g4u04-lemonade",
+        "g4u04-juice"
+      ],
+      "spokenVariants": [
+        "great",
+        "grain"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u04-jam",
+      "word": "jam",
+      "ttsText": "jam",
+      "image": "grade4/jam.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I like jam",
+        "There is some jam"
+      ],
+      "distractorIds": [
+        "g4u04-water",
+        "g4u04-birthday",
+        "g4u04-january"
+      ],
+      "spokenVariants": [
+        "jan",
+        "gem"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u04-water",
+      "word": "water",
+      "ttsText": "water",
+      "image": "grade4/water.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I want some water",
+        "Here is some water"
+      ],
+      "distractorIds": [
+        "g4u04-lemonade",
+        "g4u04-juice",
+        "g4u04-february"
+      ],
+      "spokenVariants": [
+        "wata",
+        "waters"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u04-lemonade",
+      "word": "lemonade",
+      "ttsText": "lemonade",
+      "image": "grade4/lemonade.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "I want some lemonade",
+        "Do you like lemonade"
+      ],
+      "distractorIds": [
+        "g4u04-birthday",
+        "g4u04-january",
+        "g4u04-march"
+      ],
+      "spokenVariants": [
+        "lemon aid",
+        "lemonaid"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot"
+      ]
+    }
+  ]
+}

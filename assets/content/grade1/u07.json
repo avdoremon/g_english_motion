@@ -1,0 +1,208 @@
+{
+  "grade": 1,
+  "unit": "u07",
+  "index": 7,
+  "title": "In the garden",
+  "items": [
+    {
+      "id": "g1u07-garden",
+      "word": "garden",
+      "ttsText": "garden",
+      "image": "grade1/garden.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u07-gate",
+        "g1u07-goat",
+        "g1u07-tree"
+      ],
+      "spokenVariants": [
+        "gardin"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u07-gate",
+      "word": "gate",
+      "ttsText": "gate",
+      "image": "grade1/gate.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u07-girl",
+        "g1u07-flower",
+        "g1u07-grass"
+      ],
+      "spokenVariants": [
+        "get"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u07-girl",
+      "word": "girl",
+      "ttsText": "girl",
+      "image": "grade1/girl.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u07-goat",
+        "g1u07-tree",
+        "g1u07-bee"
+      ],
+      "spokenVariants": [
+        "gull"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u07-goat",
+      "word": "goat",
+      "ttsText": "goat",
+      "image": "grade1/goat.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u07-flower",
+        "g1u07-grass",
+        "g1u07-bird"
+      ],
+      "spokenVariants": [
+        "got"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u07-flower",
+      "word": "flower",
+      "ttsText": "flower",
+      "image": "grade1/flower.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u07-tree",
+        "g1u07-bee",
+        "g1u07-frog"
+      ],
+      "spokenVariants": [
+        "flour"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u07-tree",
+      "word": "tree",
+      "ttsText": "tree",
+      "image": "grade1/tree.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u07-grass",
+        "g1u07-bird",
+        "g1u07-garden"
+      ],
+      "spokenVariants": [
+        "three"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u07-grass",
+      "word": "grass",
+      "ttsText": "grass",
+      "image": "grade1/grass.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u07-bee",
+        "g1u07-frog",
+        "g1u07-gate"
+      ],
+      "spokenVariants": [
+        "glass"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u07-bee",
+      "word": "bee",
+      "ttsText": "bee",
+      "image": "grade1/bee.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u07-bird",
+        "g1u07-garden",
+        "g1u07-girl"
+      ],
+      "spokenVariants": [
+        "be"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u07-bird",
+      "word": "bird",
+      "ttsText": "bird",
+      "image": "grade1/bird.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u07-frog",
+        "g1u07-gate",
+        "g1u07-goat"
+      ],
+      "spokenVariants": [
+        "bud"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u07-frog",
+      "word": "frog",
+      "ttsText": "frog",
+      "image": "grade1/frog.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u07-garden",
+        "g1u07-girl",
+        "g1u07-flower"
+      ],
+      "spokenVariants": [
+        "frock"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,249 @@
+{
+  "grade": 2,
+  "unit": "u15",
+  "index": 15,
+  "title": "In the clothes shop",
+  "items": [
+    {
+      "id": "g2u15-shop",
+      "word": "shop",
+      "ttsText": "shop",
+      "image": "grade2/shop.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u15-shoe",
+        "g2u15-red",
+        "g2u15-dress"
+      ],
+      "spokenVariants": [
+        "shot",
+        "chop"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u15-shirt",
+      "word": "shirt",
+      "ttsText": "shirt",
+      "image": "grade2/shirt.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u15-blue",
+        "g2u15-black",
+        "g2u15-skirt"
+      ],
+      "spokenVariants": [
+        "short"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u15-shorts",
+      "word": "shorts",
+      "ttsText": "shorts",
+      "image": "grade2/shorts.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u15-red",
+        "g2u15-dress",
+        "g2u15-socks"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u15-shoe",
+      "word": "shoe",
+      "ttsText": "shoe",
+      "image": "grade2/shoe.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u15-black",
+        "g2u15-skirt",
+        "g2u15-jacket"
+      ],
+      "spokenVariants": [
+        "shu",
+        "shoo"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u15-blue",
+      "word": "blue",
+      "ttsText": "blue",
+      "image": "grade2/blue.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u15-dress",
+        "g2u15-socks",
+        "g2u15-cap"
+      ],
+      "spokenVariants": [
+        "blu",
+        "blew"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u15-red",
+      "word": "red",
+      "ttsText": "red",
+      "image": "grade2/red.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u15-skirt",
+        "g2u15-jacket",
+        "g2u15-shop"
+      ],
+      "spokenVariants": [
+        "rad",
+        "read"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u15-black",
+      "word": "black",
+      "ttsText": "black",
+      "image": "grade2/black.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u15-socks",
+        "g2u15-cap",
+        "g2u15-shirt"
+      ],
+      "spokenVariants": [
+        "blak",
+        "block"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u15-dress",
+      "word": "dress",
+      "ttsText": "dress",
+      "image": "grade2/dress.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u15-jacket",
+        "g2u15-shop",
+        "g2u15-shorts"
+      ],
+      "spokenVariants": [
+        "tress"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u15-skirt",
+      "word": "skirt",
+      "ttsText": "skirt",
+      "image": "grade2/skirt.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u15-cap",
+        "g2u15-shirt",
+        "g2u15-shoe"
+      ],
+      "spokenVariants": [
+        "scurt"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u15-socks",
+      "word": "socks",
+      "ttsText": "socks",
+      "image": "grade2/socks.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u15-shop",
+        "g2u15-shorts",
+        "g2u15-blue"
+      ],
+      "spokenVariants": [
+        "sacks"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u15-jacket",
+      "word": "jacket",
+      "ttsText": "jacket",
+      "image": "grade2/jacket.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u15-shirt",
+        "g2u15-shoe",
+        "g2u15-red"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u15-cap",
+      "word": "cap",
+      "ttsText": "cap",
+      "image": "grade2/cap.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u15-shorts",
+        "g2u15-blue",
+        "g2u15-black"
+      ],
+      "spokenVariants": [
+        "cop"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    }
+  ]
+}

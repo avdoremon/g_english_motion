@@ -1,0 +1,283 @@
+{
+  "grade": 3,
+  "unit": "u20",
+  "index": 20,
+  "title": "At the zoo",
+  "items": [
+    {
+      "id": "g3u20-zoo",
+      "word": "zoo",
+      "ttsText": "zoo",
+      "image": "grade3/zoo.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "We go to the zoo",
+        "The zoo is big"
+      ],
+      "distractorIds": [
+        "g3u20-tiger",
+        "g3u20-monkey",
+        "g3u20-elephant"
+      ],
+      "spokenVariants": [
+        "zoom",
+        "zu"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u20-tiger",
+      "word": "tiger",
+      "ttsText": "tiger",
+      "image": "grade3/tiger.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I see a tiger",
+        "The tiger is strong"
+      ],
+      "distractorIds": [
+        "g3u20-horse",
+        "g3u20-peacock",
+        "g3u20-parrot"
+      ],
+      "spokenVariants": [
+        "tighter",
+        "tigar"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u20-horse",
+      "word": "horse",
+      "ttsText": "horse",
+      "image": "grade3/horse.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I can see a horse",
+        "The horse is big"
+      ],
+      "distractorIds": [
+        "g3u20-monkey",
+        "g3u20-elephant",
+        "g3u20-count"
+      ],
+      "spokenVariants": [
+        "hose",
+        "hoss"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u20-monkey",
+      "word": "monkey",
+      "ttsText": "monkey",
+      "image": "grade3/monkey.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I see a monkey",
+        "The monkey is funny"
+      ],
+      "distractorIds": [
+        "g3u20-peacock",
+        "g3u20-parrot",
+        "g3u20-climb"
+      ],
+      "spokenVariants": [
+        "munkey",
+        "monky"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u20-peacock",
+      "word": "peacock",
+      "ttsText": "peacock",
+      "image": "grade3/peacock.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I can see a peacock",
+        "The peacock is pretty"
+      ],
+      "distractorIds": [
+        "g3u20-elephant",
+        "g3u20-count",
+        "g3u20-swing"
+      ],
+      "spokenVariants": [
+        "pea cock",
+        "peacok"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u20-elephant",
+      "word": "elephant",
+      "ttsText": "elephant",
+      "image": "grade3/elephant.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "I see an elephant",
+        "The elephant is big"
+      ],
+      "distractorIds": [
+        "g3u20-parrot",
+        "g3u20-climb",
+        "g3u20-jump"
+      ],
+      "spokenVariants": [
+        "elefant",
+        "elaphant"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u20-parrot",
+      "word": "parrot",
+      "ttsText": "parrot",
+      "image": "grade3/parrot.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I have a parrot",
+        "The parrot can talk"
+      ],
+      "distractorIds": [
+        "g3u20-count",
+        "g3u20-swing",
+        "g3u20-zoo"
+      ],
+      "spokenVariants": [
+        "parrott",
+        "paret"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u20-count",
+      "word": "count",
+      "ttsText": "count",
+      "image": "grade3/count.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I can count",
+        "The parrot can count"
+      ],
+      "distractorIds": [
+        "g3u20-climb",
+        "g3u20-jump",
+        "g3u20-tiger"
+      ],
+      "spokenVariants": [
+        "come",
+        "kount"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u20-climb",
+      "word": "climb",
+      "ttsText": "climb",
+      "image": "grade3/climb.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I can climb a tree",
+        "We climb the hill"
+      ],
+      "distractorIds": [
+        "g3u20-swing",
+        "g3u20-zoo",
+        "g3u20-horse"
+      ],
+      "spokenVariants": [
+        "clime",
+        "climbed"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u20-swing",
+      "word": "swing",
+      "ttsText": "swing",
+      "image": "grade3/swing.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I play on the swing",
+        "We swing in the park"
+      ],
+      "distractorIds": [
+        "g3u20-jump",
+        "g3u20-tiger",
+        "g3u20-monkey"
+      ],
+      "spokenVariants": [
+        "string",
+        "swin"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u20-jump",
+      "word": "jump",
+      "ttsText": "jump",
+      "image": "grade3/jump.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I can jump",
+        "The rabbit can jump"
+      ],
+      "distractorIds": [
+        "g3u20-zoo",
+        "g3u20-horse",
+        "g3u20-peacock"
+      ],
+      "spokenVariants": [
+        "jam",
+        "chump"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    }
+  ]
+}

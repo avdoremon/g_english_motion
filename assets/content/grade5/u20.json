@@ -1,0 +1,307 @@
+{
+  "grade": 5,
+  "unit": "u20",
+  "index": 20,
+  "title": "Our summer holiday",
+  "items": [
+    {
+      "id": "g5u20-river",
+      "word": "river",
+      "ttsText": "river",
+      "image": "grade5/river.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I will visit Huong River",
+        "The river is very long"
+      ],
+      "distractorIds": [
+        "g5u20-cave",
+        "g5u20-island",
+        "g5u20-aquarium"
+      ],
+      "spokenVariants": [
+        "rivar",
+        "riva"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u20-cave",
+      "word": "cave",
+      "ttsText": "cave",
+      "image": "grade5/cave.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I will visit Phong Nha Cave",
+        "The cave is very big"
+      ],
+      "distractorIds": [
+        "g5u20-island",
+        "g5u20-aquarium",
+        "g5u20-beach"
+      ],
+      "spokenVariants": [
+        "cade",
+        "caive"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u20-island",
+      "word": "island",
+      "ttsText": "island",
+      "image": "grade5/island.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I will visit Phu Quoc Island",
+        "The island is very beautiful"
+      ],
+      "distractorIds": [
+        "g5u20-aquarium",
+        "g5u20-beach",
+        "g5u20-hill"
+      ],
+      "spokenVariants": [
+        "iland",
+        "ireland"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u20-aquarium",
+      "word": "aquarium",
+      "ttsText": "aquarium",
+      "image": "grade5/aquarium.png",
+      "syllables": 4,
+      "sentencePatterns": [
+        "I will visit the aquarium",
+        "The aquarium has many fish"
+      ],
+      "distractorIds": [
+        "g5u20-beach",
+        "g5u20-hill",
+        "g5u20-pagoda"
+      ],
+      "spokenVariants": [
+        "aquarim",
+        "akwarium"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot"
+      ]
+    },
+    {
+      "id": "g5u20-beach",
+      "word": "beach",
+      "ttsText": "beach",
+      "image": "grade5/beach.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I will go to Khe Beach",
+        "The beach is very long"
+      ],
+      "distractorIds": [
+        "g5u20-hill",
+        "g5u20-pagoda",
+        "g5u20-lake"
+      ],
+      "spokenVariants": [
+        "beech",
+        "beatch"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u20-hill",
+      "word": "hill",
+      "ttsText": "hill",
+      "image": "grade5/hill.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I will visit Ba Na hill",
+        "The hill is very high"
+      ],
+      "distractorIds": [
+        "g5u20-pagoda",
+        "g5u20-lake",
+        "g5u20-camping"
+      ],
+      "spokenVariants": [
+        "hil",
+        "hell"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u20-pagoda",
+      "word": "pagoda",
+      "ttsText": "pagoda",
+      "image": "grade5/pagoda.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "I will visit Huong Pagoda",
+        "The pagoda is very old"
+      ],
+      "distractorIds": [
+        "g5u20-lake",
+        "g5u20-camping",
+        "g5u20-club"
+      ],
+      "spokenVariants": [
+        "pagoder",
+        "pegoda"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u20-lake",
+      "word": "lake",
+      "ttsText": "lake",
+      "image": "grade5/lake.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I will visit Hoan Kiem Lake",
+        "The lake is very big"
+      ],
+      "distractorIds": [
+        "g5u20-camping",
+        "g5u20-club",
+        "g5u20-farm"
+      ],
+      "spokenVariants": [
+        "lak",
+        "laik"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u20-camping",
+      "word": "camping",
+      "ttsText": "camping",
+      "image": "grade5/camping.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I am going camping this summer",
+        "Camping is very fun"
+      ],
+      "distractorIds": [
+        "g5u20-club",
+        "g5u20-farm",
+        "g5u20-holiday"
+      ],
+      "spokenVariants": [
+        "campin",
+        "kamping"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u20-club",
+      "word": "club",
+      "ttsText": "club",
+      "image": "grade5/club.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I will join an English club",
+        "The club is very fun"
+      ],
+      "distractorIds": [
+        "g5u20-farm",
+        "g5u20-holiday",
+        "g5u20-river"
+      ],
+      "spokenVariants": [
+        "clob",
+        "clubb"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u20-farm",
+      "word": "farm",
+      "ttsText": "farm",
+      "image": "grade5/farm.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I will visit a farm",
+        "The farm is very big"
+      ],
+      "distractorIds": [
+        "g5u20-holiday",
+        "g5u20-river",
+        "g5u20-cave"
+      ],
+      "spokenVariants": [
+        "fam",
+        "farme"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u20-holiday",
+      "word": "holiday",
+      "ttsText": "holiday",
+      "image": "grade5/holiday.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "Our summer holiday starts next week",
+        "The holiday is almost here"
+      ],
+      "distractorIds": [
+        "g5u20-river",
+        "g5u20-cave",
+        "g5u20-island"
+      ],
+      "spokenVariants": [
+        "holidai",
+        "holliday"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,307 @@
+{
+  "grade": 5,
+  "unit": "u02",
+  "index": 2,
+  "title": "Our homes",
+  "items": [
+    {
+      "id": "g5u02-street",
+      "word": "street",
+      "ttsText": "street",
+      "image": "grade5/street.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I live in this street",
+        "This street is very long"
+      ],
+      "distractorIds": [
+        "g5u02-road",
+        "g5u02-village",
+        "g5u02-city"
+      ],
+      "spokenVariants": [
+        "stret",
+        "streat"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u02-road",
+      "word": "road",
+      "ttsText": "road",
+      "image": "grade5/road.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I live on King Road",
+        "This road is very long"
+      ],
+      "distractorIds": [
+        "g5u02-village",
+        "g5u02-city",
+        "g5u02-building"
+      ],
+      "spokenVariants": [
+        "rode",
+        "rowd"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u02-village",
+      "word": "village",
+      "ttsText": "village",
+      "image": "grade5/village.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I live in a village",
+        "Her village is very quiet"
+      ],
+      "distractorIds": [
+        "g5u02-city",
+        "g5u02-building",
+        "g5u02-flat"
+      ],
+      "spokenVariants": [
+        "villege",
+        "vilage"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u02-city",
+      "word": "city",
+      "ttsText": "city",
+      "image": "grade5/city.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "She lives in this city",
+        "This city is very big"
+      ],
+      "distractorIds": [
+        "g5u02-building",
+        "g5u02-flat",
+        "g5u02-house"
+      ],
+      "spokenVariants": [
+        "citi",
+        "sity"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u02-building",
+      "word": "building",
+      "ttsText": "building",
+      "image": "grade5/building.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "Do you live in this building",
+        "This building is very tall"
+      ],
+      "distractorIds": [
+        "g5u02-flat",
+        "g5u02-house",
+        "g5u02-tower"
+      ],
+      "spokenVariants": [
+        "bilding",
+        "bilding"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u02-flat",
+      "word": "flat",
+      "ttsText": "flat",
+      "image": "grade5/flat.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "Do you live in that flat",
+        "My flat is very small"
+      ],
+      "distractorIds": [
+        "g5u02-house",
+        "g5u02-tower",
+        "g5u02-villa"
+      ],
+      "spokenVariants": [
+        "flatt",
+        "flet"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u02-house",
+      "word": "house",
+      "ttsText": "house",
+      "image": "grade5/house.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I live in a house",
+        "This house is very big"
+      ],
+      "distractorIds": [
+        "g5u02-tower",
+        "g5u02-villa",
+        "g5u02-cottage"
+      ],
+      "spokenVariants": [
+        "hous",
+        "howse"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u02-tower",
+      "word": "tower",
+      "ttsText": "tower",
+      "image": "grade5/tower.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "Do you live in that tower",
+        "This tower is very tall"
+      ],
+      "distractorIds": [
+        "g5u02-villa",
+        "g5u02-cottage",
+        "g5u02-apartment"
+      ],
+      "spokenVariants": [
+        "towa"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u02-villa",
+      "word": "villa",
+      "ttsText": "villa",
+      "image": "grade5/villa.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "Do you live in this villa",
+        "The villa is very beautiful"
+      ],
+      "distractorIds": [
+        "g5u02-cottage",
+        "g5u02-apartment",
+        "g5u02-castle"
+      ],
+      "spokenVariants": [
+        "vila",
+        "villah"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u02-cottage",
+      "word": "cottage",
+      "ttsText": "cottage",
+      "image": "grade5/cottage.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I live in a cottage",
+        "The cottage is very small"
+      ],
+      "distractorIds": [
+        "g5u02-apartment",
+        "g5u02-castle",
+        "g5u02-street"
+      ],
+      "spokenVariants": [
+        "cotage",
+        "cottige"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u02-apartment",
+      "word": "apartment",
+      "ttsText": "apartment",
+      "image": "grade5/apartment.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "I live in an apartment",
+        "My apartment is on this street"
+      ],
+      "distractorIds": [
+        "g5u02-castle",
+        "g5u02-street",
+        "g5u02-road"
+      ],
+      "spokenVariants": [
+        "apartmint",
+        "apartmen"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u02-castle",
+      "word": "castle",
+      "ttsText": "castle",
+      "image": "grade5/castle.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "The castle is very big",
+        "I live in a castle"
+      ],
+      "distractorIds": [
+        "g5u02-street",
+        "g5u02-road",
+        "g5u02-village"
+      ],
+      "spokenVariants": [
+        "cassel",
+        "kassel"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    }
+  ]
+}

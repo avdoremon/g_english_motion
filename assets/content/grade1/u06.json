@@ -1,0 +1,208 @@
+{
+  "grade": 1,
+  "unit": "u06",
+  "index": 6,
+  "title": "In the classroom",
+  "items": [
+    {
+      "id": "g1u06-bell",
+      "word": "bell",
+      "ttsText": "bell",
+      "image": "grade1/bell.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u06-board",
+        "g1u06-pencil",
+        "g1u06-drawing"
+      ],
+      "spokenVariants": [
+        "bill"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u06-board",
+      "word": "board",
+      "ttsText": "board",
+      "image": "grade1/board.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u06-pen",
+        "g1u06-classroom",
+        "g1u06-red"
+      ],
+      "spokenVariants": [
+        "bored"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u06-pen",
+      "word": "pen",
+      "ttsText": "pen",
+      "image": "grade1/pen.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u06-pencil",
+        "g1u06-drawing",
+        "g1u06-ruler"
+      ],
+      "spokenVariants": [
+        "pan"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u06-pencil",
+      "word": "pencil",
+      "ttsText": "pencil",
+      "image": "grade1/pencil.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u06-classroom",
+        "g1u06-red",
+        "g1u06-rubber"
+      ],
+      "spokenVariants": [
+        "pensil"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u06-classroom",
+      "word": "classroom",
+      "ttsText": "classroom",
+      "image": "grade1/classroom.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u06-drawing",
+        "g1u06-ruler",
+        "g1u06-teacher"
+      ],
+      "spokenVariants": [
+        "classrum"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u06-drawing",
+      "word": "drawing",
+      "ttsText": "drawing",
+      "image": "grade1/drawing.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u06-red",
+        "g1u06-rubber",
+        "g1u06-bell"
+      ],
+      "spokenVariants": [
+        "drawin"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u06-red",
+      "word": "red",
+      "ttsText": "red",
+      "image": "grade1/red.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u06-ruler",
+        "g1u06-teacher",
+        "g1u06-board"
+      ],
+      "spokenVariants": [
+        "read"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u06-ruler",
+      "word": "ruler",
+      "ttsText": "ruler",
+      "image": "grade1/ruler.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u06-rubber",
+        "g1u06-bell",
+        "g1u06-pen"
+      ],
+      "spokenVariants": [
+        "roller"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u06-rubber",
+      "word": "rubber",
+      "ttsText": "rubber",
+      "image": "grade1/rubber.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u06-teacher",
+        "g1u06-board",
+        "g1u06-pencil"
+      ],
+      "spokenVariants": [
+        "rubba"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u06-teacher",
+      "word": "teacher",
+      "ttsText": "teacher",
+      "image": "grade1/teacher.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u06-bell",
+        "g1u06-pen",
+        "g1u06-classroom"
+      ],
+      "spokenVariants": [
+        "teacha"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    }
+  ]
+}

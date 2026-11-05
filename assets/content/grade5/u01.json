@@ -1,0 +1,306 @@
+{
+  "grade": 5,
+  "unit": "u01",
+  "index": 1,
+  "title": "All about me",
+  "items": [
+    {
+      "id": "g5u01-city",
+      "word": "city",
+      "ttsText": "city",
+      "image": "grade5/city.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I live in the city",
+        "This city is very big"
+      ],
+      "distractorIds": [
+        "g5u01-countryside",
+        "g5u01-village",
+        "g5u01-mountain"
+      ],
+      "spokenVariants": [
+        "citi",
+        "sity"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u01-countryside",
+      "word": "countryside",
+      "ttsText": "countryside",
+      "image": "grade5/countryside.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "I live in the countryside",
+        "The countryside is very quiet"
+      ],
+      "distractorIds": [
+        "g5u01-village",
+        "g5u01-mountain",
+        "g5u01-tennis"
+      ],
+      "spokenVariants": [
+        "countrysid",
+        "contrysid"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u01-village",
+      "word": "village",
+      "ttsText": "village",
+      "image": "grade5/village.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I live in a village",
+        "Her village is very quiet"
+      ],
+      "distractorIds": [
+        "g5u01-mountain",
+        "g5u01-tennis",
+        "g5u01-basketball"
+      ],
+      "spokenVariants": [
+        "villege",
+        "vilage"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u01-mountain",
+      "word": "mountain",
+      "ttsText": "mountain",
+      "image": "grade5/mountain.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I live near a mountain",
+        "This mountain is very high"
+      ],
+      "distractorIds": [
+        "g5u01-tennis",
+        "g5u01-basketball",
+        "g5u01-dolphin"
+      ],
+      "spokenVariants": [
+        "mountin",
+        "mauntin"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u01-tennis",
+      "word": "tennis",
+      "ttsText": "tennis",
+      "image": "grade5/tennis.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "Table tennis is my favourite",
+        "I like tennis very much"
+      ],
+      "distractorIds": [
+        "g5u01-basketball",
+        "g5u01-dolphin",
+        "g5u01-sandwich"
+      ],
+      "spokenVariants": [
+        "tenis"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u01-basketball",
+      "word": "basketball",
+      "ttsText": "basketball",
+      "image": "grade5/basketball.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "I play basketball at school",
+        "Basketball is my favourite sport"
+      ],
+      "distractorIds": [
+        "g5u01-dolphin",
+        "g5u01-sandwich",
+        "g5u01-pizza"
+      ],
+      "spokenVariants": [
+        "basketbal"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u01-dolphin",
+      "word": "dolphin",
+      "ttsText": "dolphin",
+      "image": "grade5/dolphin.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "My favourite animal is dolphin",
+        "A dolphin can swim fast"
+      ],
+      "distractorIds": [
+        "g5u01-sandwich",
+        "g5u01-pizza",
+        "g5u01-pink"
+      ],
+      "spokenVariants": [
+        "dolfin",
+        "dolphen"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u01-sandwich",
+      "word": "sandwich",
+      "ttsText": "sandwich",
+      "image": "grade5/sandwich.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I like a sandwich",
+        "My favourite food is sandwich"
+      ],
+      "distractorIds": [
+        "g5u01-pizza",
+        "g5u01-pink",
+        "g5u01-green"
+      ],
+      "spokenVariants": [
+        "sanwich",
+        "sandwitch"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u01-pizza",
+      "word": "pizza",
+      "ttsText": "pizza",
+      "image": "grade5/pizza.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "My favourite food is pizza",
+        "I like pizza very much"
+      ],
+      "distractorIds": [
+        "g5u01-pink",
+        "g5u01-green",
+        "g5u01-purple"
+      ],
+      "spokenVariants": [
+        "pitza",
+        "peetza"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u01-pink",
+      "word": "pink",
+      "ttsText": "pink",
+      "image": "grade5/pink.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "My favourite colour is pink",
+        "I like pink very much"
+      ],
+      "distractorIds": [
+        "g5u01-green",
+        "g5u01-purple",
+        "g5u01-city"
+      ],
+      "spokenVariants": [
+        "pinc",
+        "pingk"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u01-green",
+      "word": "green",
+      "ttsText": "green",
+      "image": "grade5/green.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "My favourite colour is green",
+        "The grass is green"
+      ],
+      "distractorIds": [
+        "g5u01-purple",
+        "g5u01-city",
+        "g5u01-countryside"
+      ],
+      "spokenVariants": [
+        "grean",
+        "gree"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u01-purple",
+      "word": "purple",
+      "ttsText": "purple",
+      "image": "grade5/purple.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I like purple very much",
+        "My bag is purple"
+      ],
+      "distractorIds": [
+        "g5u01-city",
+        "g5u01-countryside",
+        "g5u01-village"
+      ],
+      "spokenVariants": [
+        "perple",
+        "purpel"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    }
+  ]
+}

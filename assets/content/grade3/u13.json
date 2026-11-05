@@ -1,0 +1,281 @@
+{
+  "grade": 3,
+  "unit": "u13",
+  "index": 13,
+  "title": "My house",
+  "items": [
+    {
+      "id": "g3u13-house",
+      "word": "house",
+      "ttsText": "house",
+      "image": "grade3/house.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "This is my house",
+        "My house is big"
+      ],
+      "distractorIds": [
+        "g3u13-livingroom",
+        "g3u13-kitchen",
+        "g3u13-table"
+      ],
+      "spokenVariants": [
+        "haus"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u13-livingroom",
+      "word": "livingroom",
+      "ttsText": "living room",
+      "image": "grade3/livingroom.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "This is the living room",
+        "We sit in the living room"
+      ],
+      "distractorIds": [
+        "g3u13-bedroom",
+        "g3u13-bathroom",
+        "g3u13-chair"
+      ],
+      "spokenVariants": [
+        "living room",
+        "leaving room"
+      ],
+      "modes": [
+        "dragSpell",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u13-bedroom",
+      "word": "bedroom",
+      "ttsText": "bedroom",
+      "image": "grade3/bedroom.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "This is my bedroom",
+        "The bedroom is nice"
+      ],
+      "distractorIds": [
+        "g3u13-kitchen",
+        "g3u13-table",
+        "g3u13-book"
+      ],
+      "spokenVariants": [
+        "bed room",
+        "bedrum"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u13-kitchen",
+      "word": "kitchen",
+      "ttsText": "kitchen",
+      "image": "grade3/kitchen.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "This is the kitchen",
+        "My mother cooks in the kitchen"
+      ],
+      "distractorIds": [
+        "g3u13-bathroom",
+        "g3u13-chair",
+        "g3u13-lamp"
+      ],
+      "spokenVariants": [
+        "kitchin",
+        "kitchn"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u13-bathroom",
+      "word": "bathroom",
+      "ttsText": "bathroom",
+      "image": "grade3/bathroom.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "This is the bathroom",
+        "The bathroom is small"
+      ],
+      "distractorIds": [
+        "g3u13-table",
+        "g3u13-book",
+        "g3u13-door"
+      ],
+      "spokenVariants": [
+        "bath room",
+        "bathrum"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u13-table",
+      "word": "table",
+      "ttsText": "table",
+      "image": "grade3/table.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "The table is here",
+        "The book is on the table"
+      ],
+      "distractorIds": [
+        "g3u13-chair",
+        "g3u13-lamp",
+        "g3u13-window"
+      ],
+      "spokenVariants": [
+        "tayble",
+        "tabel"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u13-chair",
+      "word": "chair",
+      "ttsText": "chair",
+      "image": "grade3/chair.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "This is my chair",
+        "I have a blue chair"
+      ],
+      "distractorIds": [
+        "g3u13-book",
+        "g3u13-door",
+        "g3u13-house"
+      ],
+      "spokenVariants": [
+        "share",
+        "cher"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u13-book",
+      "word": "book",
+      "ttsText": "book",
+      "image": "grade3/book.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "Open your book please",
+        "Close your book now"
+      ],
+      "distractorIds": [
+        "g3u13-lamp",
+        "g3u13-window",
+        "g3u13-livingroom"
+      ],
+      "spokenVariants": [
+        "buk",
+        "back"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u13-lamp",
+      "word": "lamp",
+      "ttsText": "lamp",
+      "image": "grade3/lamp.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "There is a lamp",
+        "The lamp is on the desk"
+      ],
+      "distractorIds": [
+        "g3u13-door",
+        "g3u13-house",
+        "g3u13-bedroom"
+      ],
+      "spokenVariants": [
+        "lamb",
+        "lap"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u13-door",
+      "word": "door",
+      "ttsText": "door",
+      "image": "grade3/door.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "The door is brown",
+        "Open the door please"
+      ],
+      "distractorIds": [
+        "g3u13-window",
+        "g3u13-livingroom",
+        "g3u13-kitchen"
+      ],
+      "spokenVariants": [
+        "dor",
+        "doar"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u13-window",
+      "word": "window",
+      "ttsText": "window",
+      "image": "grade3/window.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "The window is big",
+        "Open the window please"
+      ],
+      "distractorIds": [
+        "g3u13-house",
+        "g3u13-bedroom",
+        "g3u13-bathroom"
+      ],
+      "spokenVariants": [
+        "windo",
+        "windoh"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    }
+  ]
+}

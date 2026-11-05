@@ -1,0 +1,282 @@
+{
+  "grade": 3,
+  "unit": "u17",
+  "index": 17,
+  "title": "Our toys",
+  "items": [
+    {
+      "id": "g3u17-toy",
+      "word": "toy",
+      "ttsText": "toy",
+      "image": "grade3/toy.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "This is my toy",
+        "I like this toy"
+      ],
+      "distractorIds": [
+        "g3u17-car",
+        "g3u17-train",
+        "g3u17-truck"
+      ],
+      "spokenVariants": [
+        "tory",
+        "boy"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u17-car",
+      "word": "car",
+      "ttsText": "car",
+      "image": "grade3/car.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I have a car",
+        "The car is blue"
+      ],
+      "distractorIds": [
+        "g3u17-kite",
+        "g3u17-plane",
+        "g3u17-bus"
+      ],
+      "spokenVariants": [
+        "cart"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u17-kite",
+      "word": "kite",
+      "ttsText": "kite",
+      "image": "grade3/kite.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I have a kite",
+        "The kite is high"
+      ],
+      "distractorIds": [
+        "g3u17-train",
+        "g3u17-truck",
+        "g3u17-ship"
+      ],
+      "spokenVariants": [
+        "kight",
+        "kit"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u17-train",
+      "word": "train",
+      "ttsText": "train",
+      "image": "grade3/train.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I have a train",
+        "The train is long"
+      ],
+      "distractorIds": [
+        "g3u17-plane",
+        "g3u17-bus",
+        "g3u17-teddy"
+      ],
+      "spokenVariants": [
+        "chain",
+        "trane"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u17-plane",
+      "word": "plane",
+      "ttsText": "plane",
+      "image": "grade3/plane.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I have a plane",
+        "The plane is white"
+      ],
+      "distractorIds": [
+        "g3u17-truck",
+        "g3u17-ship",
+        "g3u17-ball"
+      ],
+      "spokenVariants": [
+        "plain",
+        "plan"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u17-truck",
+      "word": "truck",
+      "ttsText": "truck",
+      "image": "grade3/truck.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I have a truck",
+        "The truck is yellow"
+      ],
+      "distractorIds": [
+        "g3u17-bus",
+        "g3u17-teddy",
+        "g3u17-doll"
+      ],
+      "spokenVariants": [
+        "track",
+        "trock"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u17-bus",
+      "word": "bus",
+      "ttsText": "bus",
+      "image": "grade3/bus.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "This is a toy bus",
+        "The bus is red"
+      ],
+      "distractorIds": [
+        "g3u17-ship",
+        "g3u17-ball",
+        "g3u17-toy"
+      ],
+      "spokenVariants": [
+        "boss",
+        "buss"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u17-ship",
+      "word": "ship",
+      "ttsText": "ship",
+      "image": "grade3/ship.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I have a ship",
+        "The ship is big"
+      ],
+      "distractorIds": [
+        "g3u17-teddy",
+        "g3u17-doll",
+        "g3u17-car"
+      ],
+      "spokenVariants": [
+        "sheep",
+        "chip"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u17-teddy",
+      "word": "teddy",
+      "ttsText": "teddy",
+      "image": "grade3/teddy.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I have a teddy bear",
+        "The teddy is brown"
+      ],
+      "distractorIds": [
+        "g3u17-ball",
+        "g3u17-toy",
+        "g3u17-kite"
+      ],
+      "spokenVariants": [
+        "teddi",
+        "tedi"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u17-ball",
+      "word": "ball",
+      "ttsText": "ball",
+      "image": "grade3/ball.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I have a ball",
+        "The ball is red"
+      ],
+      "distractorIds": [
+        "g3u17-doll",
+        "g3u17-car",
+        "g3u17-train"
+      ],
+      "spokenVariants": [
+        "bowl",
+        "bal"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u17-doll",
+      "word": "doll",
+      "ttsText": "doll",
+      "image": "grade3/doll.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I have a doll",
+        "The doll is pretty"
+      ],
+      "distractorIds": [
+        "g3u17-toy",
+        "g3u17-kite",
+        "g3u17-plane"
+      ],
+      "spokenVariants": [
+        "dole",
+        "dall"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    }
+  ]
+}

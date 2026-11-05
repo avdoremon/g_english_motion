@@ -1,0 +1,308 @@
+{
+  "grade": 5,
+  "unit": "u14",
+  "index": 14,
+  "title": "Staying healthy",
+  "items": [
+    {
+      "id": "g5u14-exercise",
+      "word": "exercise",
+      "ttsText": "exercise",
+      "image": "grade5/exercise.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "He does morning exercise",
+        "Exercise is good for you"
+      ],
+      "distractorIds": [
+        "g5u14-sports",
+        "g5u14-juice",
+        "g5u14-healthy"
+      ],
+      "spokenVariants": [
+        "exersise",
+        "exercize"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u14-sports",
+      "word": "sports",
+      "ttsText": "sports",
+      "image": "grade5/sports.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "She plays sports every day",
+        "He likes playing sports"
+      ],
+      "distractorIds": [
+        "g5u14-juice",
+        "g5u14-healthy",
+        "g5u14-vegetables"
+      ],
+      "spokenVariants": [
+        "sport",
+        "spots"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u14-juice",
+      "word": "juice",
+      "ttsText": "juice",
+      "image": "grade5/juice.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "He drinks fresh juice",
+        "I drink orange juice"
+      ],
+      "distractorIds": [
+        "g5u14-healthy",
+        "g5u14-vegetables",
+        "g5u14-yoga"
+      ],
+      "spokenVariants": [
+        "jus",
+        "juce"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u14-healthy",
+      "word": "healthy",
+      "ttsText": "healthy",
+      "image": "grade5/healthy.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "She eats healthy food",
+        "Fruit is healthy food"
+      ],
+      "distractorIds": [
+        "g5u14-vegetables",
+        "g5u14-yoga",
+        "g5u14-badminton"
+      ],
+      "spokenVariants": [
+        "helthy",
+        "healty"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u14-vegetables",
+      "word": "vegetables",
+      "ttsText": "vegetables",
+      "image": "grade5/vegetables.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "She eats vegetables every day",
+        "I like vegetables very much"
+      ],
+      "distractorIds": [
+        "g5u14-yoga",
+        "g5u14-badminton",
+        "g5u14-swim"
+      ],
+      "spokenVariants": [
+        "vegetabels",
+        "vegtables"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u14-yoga",
+      "word": "yoga",
+      "ttsText": "yoga",
+      "image": "grade5/yoga.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "She does yoga",
+        "He does yoga twice a week"
+      ],
+      "distractorIds": [
+        "g5u14-badminton",
+        "g5u14-swim",
+        "g5u14-jogging"
+      ],
+      "spokenVariants": [
+        "yoger",
+        "yogha"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u14-badminton",
+      "word": "badminton",
+      "ttsText": "badminton",
+      "image": "grade5/badminton.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "He plays badminton",
+        "I play badminton once a week"
+      ],
+      "distractorIds": [
+        "g5u14-swim",
+        "g5u14-jogging",
+        "g5u14-water"
+      ],
+      "spokenVariants": [
+        "badmington",
+        "batminton"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u14-swim",
+      "word": "swim",
+      "ttsText": "swim",
+      "image": "grade5/swim.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "He likes to swim",
+        "I swim three times a week"
+      ],
+      "distractorIds": [
+        "g5u14-jogging",
+        "g5u14-water",
+        "g5u14-orange"
+      ],
+      "spokenVariants": [
+        "swin",
+        "swimm"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u14-jogging",
+      "word": "jogging",
+      "ttsText": "jogging",
+      "image": "grade5/jogging.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "He goes jogging in the park",
+        "I like jogging every day"
+      ],
+      "distractorIds": [
+        "g5u14-water",
+        "g5u14-orange",
+        "g5u14-morning"
+      ],
+      "spokenVariants": [
+        "joging",
+        "jogin"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u14-water",
+      "word": "water",
+      "ttsText": "water",
+      "image": "grade5/water.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "He drinks a lot of water",
+        "Water is good for you"
+      ],
+      "distractorIds": [
+        "g5u14-orange",
+        "g5u14-morning",
+        "g5u14-exercise"
+      ],
+      "spokenVariants": [
+        "wotter",
+        "wata"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u14-orange",
+      "word": "orange",
+      "ttsText": "orange",
+      "image": "grade5/orange.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I drink orange juice",
+        "The orange is sweet"
+      ],
+      "distractorIds": [
+        "g5u14-morning",
+        "g5u14-exercise",
+        "g5u14-sports"
+      ],
+      "spokenVariants": [
+        "oringe",
+        "orenj"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u14-morning",
+      "word": "morning",
+      "ttsText": "morning",
+      "image": "grade5/morning.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "He does exercise every morning",
+        "I get up in the morning"
+      ],
+      "distractorIds": [
+        "g5u14-exercise",
+        "g5u14-sports",
+        "g5u14-juice"
+      ],
+      "spokenVariants": [
+        "mourning",
+        "morn"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    }
+  ]
+}

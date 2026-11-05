@@ -1,0 +1,258 @@
+{
+  "grade": 4,
+  "unit": "u20",
+  "index": 20,
+  "title": "At summer camp",
+  "items": [
+    {
+      "id": "g4u20-camp",
+      "word": "camp",
+      "ttsText": "camp",
+      "image": "grade4/camp.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "We go to summer camp",
+        "The camp is fun"
+      ],
+      "distractorIds": [
+        "g4u20-tent",
+        "g4u20-campsite",
+        "g4u20-song"
+      ],
+      "spokenVariants": [
+        "camb",
+        "kemp"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u20-tent",
+      "word": "tent",
+      "ttsText": "tent",
+      "image": "grade4/tent.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "We sleep in a tent",
+        "The tent is small"
+      ],
+      "distractorIds": [
+        "g4u20-campfire",
+        "g4u20-photo",
+        "g4u20-story"
+      ],
+      "spokenVariants": [
+        "tint",
+        "tank"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u20-campfire",
+      "word": "campfire",
+      "ttsText": "campfire",
+      "image": "grade4/campfire.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "We sit around the campfire",
+        "The campfire is warm"
+      ],
+      "distractorIds": [
+        "g4u20-campsite",
+        "g4u20-song",
+        "g4u20-cards"
+      ],
+      "spokenVariants": [
+        "camp fire",
+        "campfier"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u20-campsite",
+      "word": "campsite",
+      "ttsText": "campsite",
+      "image": "grade4/campsite.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "We are at the campsite",
+        "The campsite is big"
+      ],
+      "distractorIds": [
+        "g4u20-photo",
+        "g4u20-story",
+        "g4u20-build"
+      ],
+      "spokenVariants": [
+        "camp site",
+        "campside"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u20-photo",
+      "word": "photo",
+      "ttsText": "photo",
+      "image": "grade4/photo.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I take a photo",
+        "He takes a photo"
+      ],
+      "distractorIds": [
+        "g4u20-song",
+        "g4u20-cards",
+        "g4u20-email"
+      ],
+      "spokenVariants": [
+        "foto",
+        "photos"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u20-song",
+      "word": "song",
+      "ttsText": "song",
+      "image": "grade4/song.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "We sing a song",
+        "I like this song"
+      ],
+      "distractorIds": [
+        "g4u20-story",
+        "g4u20-build",
+        "g4u20-camp"
+      ],
+      "spokenVariants": [
+        "son",
+        "sung"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u20-story",
+      "word": "story",
+      "ttsText": "story",
+      "image": "grade4/story.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I tell a story",
+        "Tell us a story"
+      ],
+      "distractorIds": [
+        "g4u20-cards",
+        "g4u20-email",
+        "g4u20-tent"
+      ],
+      "spokenVariants": [
+        "storey",
+        "stori"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u20-cards",
+      "word": "cards",
+      "ttsText": "cards",
+      "image": "grade4/cards.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "We play cards",
+        "They play cards"
+      ],
+      "distractorIds": [
+        "g4u20-build",
+        "g4u20-camp",
+        "g4u20-campfire"
+      ],
+      "spokenVariants": [
+        "cars",
+        "card"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u20-build",
+      "word": "build",
+      "ttsText": "build",
+      "image": "grade4/build.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "We build a campfire",
+        "Let us build a tent"
+      ],
+      "distractorIds": [
+        "g4u20-email",
+        "g4u20-tent",
+        "g4u20-campsite"
+      ],
+      "spokenVariants": [
+        "bill",
+        "billed"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u20-email",
+      "word": "email",
+      "ttsText": "email",
+      "image": "grade4/email.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I email my friends",
+        "We email our grandparents"
+      ],
+      "distractorIds": [
+        "g4u20-camp",
+        "g4u20-campfire",
+        "g4u20-photo"
+      ],
+      "spokenVariants": [
+        "he mail",
+        "e mail"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    }
+  ]
+}

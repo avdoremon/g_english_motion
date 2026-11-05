@@ -1,0 +1,250 @@
+{
+  "grade": 2,
+  "unit": "u13",
+  "index": 13,
+  "title": "In the maths class",
+  "items": [
+    {
+      "id": "g2u13-number",
+      "word": "number",
+      "ttsText": "number",
+      "image": "grade2/number.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u13-eleven",
+        "g2u13-thirteen",
+        "g2u13-fifteen"
+      ],
+      "spokenVariants": [
+        "nomber",
+        "numba"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u13-maths",
+      "word": "maths",
+      "ttsText": "maths",
+      "image": "grade2/maths.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u13-twelve",
+        "g2u13-fourteen",
+        "g2u13-plus"
+      ],
+      "spokenVariants": [
+        "math",
+        "mats"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u13-ten",
+      "word": "ten",
+      "ttsText": "ten",
+      "image": "grade2/ten.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u13-thirteen",
+        "g2u13-fifteen",
+        "g2u13-minus"
+      ],
+      "spokenVariants": [
+        "tan",
+        "den"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u13-eleven",
+      "word": "eleven",
+      "ttsText": "eleven",
+      "image": "grade2/eleven.png",
+      "syllables": 3,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u13-fourteen",
+        "g2u13-plus",
+        "g2u13-circle"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump"
+      ]
+    },
+    {
+      "id": "g2u13-twelve",
+      "word": "twelve",
+      "ttsText": "twelve",
+      "image": "grade2/twelve.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u13-fifteen",
+        "g2u13-minus",
+        "g2u13-star"
+      ],
+      "spokenVariants": [
+        "twelf",
+        "tell"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u13-thirteen",
+      "word": "thirteen",
+      "ttsText": "thirteen",
+      "image": "grade2/thirteen.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u13-plus",
+        "g2u13-circle",
+        "g2u13-number"
+      ],
+      "spokenVariants": [
+        "thirty",
+        "thirtin"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u13-fourteen",
+      "word": "fourteen",
+      "ttsText": "fourteen",
+      "image": "grade2/fourteen.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u13-minus",
+        "g2u13-star",
+        "g2u13-maths"
+      ],
+      "spokenVariants": [
+        "forty",
+        "fortin"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u13-fifteen",
+      "word": "fifteen",
+      "ttsText": "fifteen",
+      "image": "grade2/fifteen.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u13-circle",
+        "g2u13-number",
+        "g2u13-ten"
+      ],
+      "spokenVariants": [
+        "fifty",
+        "fiftin"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u13-plus",
+      "word": "plus",
+      "ttsText": "plus",
+      "image": "grade2/plus.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u13-star",
+        "g2u13-maths",
+        "g2u13-eleven"
+      ],
+      "spokenVariants": [
+        "plas"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u13-minus",
+      "word": "minus",
+      "ttsText": "minus",
+      "image": "grade2/minus.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u13-number",
+        "g2u13-ten",
+        "g2u13-twelve"
+      ],
+      "spokenVariants": [
+        "miners"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u13-circle",
+      "word": "circle",
+      "ttsText": "circle",
+      "image": "grade2/circle.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u13-maths",
+        "g2u13-eleven",
+        "g2u13-thirteen"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u13-star",
+      "word": "star",
+      "ttsText": "star",
+      "image": "grade2/star.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u13-ten",
+        "g2u13-twelve",
+        "g2u13-fourteen"
+      ],
+      "spokenVariants": [
+        "stir"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    }
+  ]
+}

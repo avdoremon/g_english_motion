@@ -1,0 +1,282 @@
+{
+  "grade": 3,
+  "unit": "u07",
+  "index": 7,
+  "title": "Classroom instructions",
+  "items": [
+    {
+      "id": "g3u07-open",
+      "word": "open",
+      "ttsText": "open",
+      "image": "grade3/open.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "Open your book please",
+        "Please open the door"
+      ],
+      "distractorIds": [
+        "g3u07-close",
+        "g3u07-sit",
+        "g3u07-go"
+      ],
+      "spokenVariants": [
+        "opan",
+        "oben"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u07-close",
+      "word": "close",
+      "ttsText": "close",
+      "image": "grade3/close.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "Close your book please",
+        "Please close the door"
+      ],
+      "distractorIds": [
+        "g3u07-stand",
+        "g3u07-come",
+        "g3u07-speak"
+      ],
+      "spokenVariants": [
+        "clothes",
+        "cloze"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u07-stand",
+      "word": "stand",
+      "ttsText": "stand",
+      "image": "grade3/stand.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "Stand up please",
+        "Please stand up now"
+      ],
+      "distractorIds": [
+        "g3u07-sit",
+        "g3u07-go",
+        "g3u07-book"
+      ],
+      "spokenVariants": [
+        "stan",
+        "sand"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u07-sit",
+      "word": "sit",
+      "ttsText": "sit",
+      "image": "grade3/sit.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "Sit down please",
+        "Please sit down now"
+      ],
+      "distractorIds": [
+        "g3u07-come",
+        "g3u07-speak",
+        "g3u07-please"
+      ],
+      "spokenVariants": [
+        "set",
+        "seat"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u07-come",
+      "word": "come",
+      "ttsText": "come",
+      "image": "grade3/come.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "Come in please",
+        "Please come here now"
+      ],
+      "distractorIds": [
+        "g3u07-go",
+        "g3u07-book",
+        "g3u07-english"
+      ],
+      "spokenVariants": [
+        "cum",
+        "calm"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u07-go",
+      "word": "go",
+      "ttsText": "go",
+      "image": "grade3/go.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "Please go to the board",
+        "Go to your seat"
+      ],
+      "distractorIds": [
+        "g3u07-speak",
+        "g3u07-please",
+        "g3u07-vietnamese"
+      ],
+      "spokenVariants": [
+        "goh",
+        "ghost"
+      ],
+      "modes": [
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u07-speak",
+      "word": "speak",
+      "ttsText": "speak",
+      "image": "grade3/speak.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "Speak English please",
+        "Please speak up"
+      ],
+      "distractorIds": [
+        "g3u07-book",
+        "g3u07-english",
+        "g3u07-open"
+      ],
+      "spokenVariants": [
+        "speek",
+        "spic"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u07-book",
+      "word": "book",
+      "ttsText": "book",
+      "image": "grade3/book.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "Open your book please",
+        "Close your book now"
+      ],
+      "distractorIds": [
+        "g3u07-please",
+        "g3u07-vietnamese",
+        "g3u07-close"
+      ],
+      "spokenVariants": [
+        "buk",
+        "back"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u07-please",
+      "word": "please",
+      "ttsText": "please",
+      "image": "grade3/please.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "Sit down please",
+        "Come in please"
+      ],
+      "distractorIds": [
+        "g3u07-english",
+        "g3u07-open",
+        "g3u07-stand"
+      ],
+      "spokenVariants": [
+        "pleas",
+        "police"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u07-english",
+      "word": "english",
+      "ttsText": "English",
+      "image": "grade3/english.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "Speak English please",
+        "I like English"
+      ],
+      "distractorIds": [
+        "g3u07-vietnamese",
+        "g3u07-close",
+        "g3u07-sit"
+      ],
+      "spokenVariants": [
+        "inglish",
+        "englis"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u07-vietnamese",
+      "word": "vietnamese",
+      "ttsText": "Vietnamese",
+      "image": "grade3/vietnamese.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "Do not speak Vietnamese",
+        "Speak Vietnamese please"
+      ],
+      "distractorIds": [
+        "g3u07-open",
+        "g3u07-stand",
+        "g3u07-come"
+      ],
+      "spokenVariants": [
+        "vietnam ease",
+        "vietnameese"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,307 @@
+{
+  "grade": 4,
+  "unit": "u11",
+  "index": 11,
+  "title": "My home",
+  "items": [
+    {
+      "id": "g4u11-house",
+      "word": "house",
+      "ttsText": "house",
+      "image": "grade4/house.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "This is my house",
+        "The house is big"
+      ],
+      "distractorIds": [
+        "g4u11-door",
+        "g4u11-street",
+        "g4u11-town"
+      ],
+      "spokenVariants": [
+        "horse"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u11-door",
+      "word": "door",
+      "ttsText": "door",
+      "image": "grade4/door.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "Close the door",
+        "The door is brown"
+      ],
+      "distractorIds": [
+        "g4u11-village",
+        "g4u11-road",
+        "g4u11-flat"
+      ],
+      "spokenVariants": [
+        "dor",
+        "dawn"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u11-village",
+      "word": "village",
+      "ttsText": "village",
+      "image": "grade4/village.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I live in a village",
+        "What is the village like"
+      ],
+      "distractorIds": [
+        "g4u11-street",
+        "g4u11-town",
+        "g4u11-map"
+      ],
+      "spokenVariants": [
+        "villa",
+        "villege"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u11-street",
+      "word": "street",
+      "ttsText": "street",
+      "image": "grade4/street.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I live in this street",
+        "Le Loi is a street"
+      ],
+      "distractorIds": [
+        "g4u11-road",
+        "g4u11-flat",
+        "g4u11-busy"
+      ],
+      "spokenVariants": [
+        "strit",
+        "streets"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u11-road",
+      "word": "road",
+      "ttsText": "road",
+      "image": "grade4/road.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I live at Hoa Binh Road",
+        "The road is busy"
+      ],
+      "distractorIds": [
+        "g4u11-town",
+        "g4u11-map",
+        "g4u11-quiet"
+      ],
+      "spokenVariants": [
+        "load",
+        "rode"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u11-town",
+      "word": "town",
+      "ttsText": "town",
+      "image": "grade4/town.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "My town is very quiet",
+        "What is the town like"
+      ],
+      "distractorIds": [
+        "g4u11-flat",
+        "g4u11-busy",
+        "g4u11-noisy"
+      ],
+      "spokenVariants": [
+        "tawn",
+        "down"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u11-flat",
+      "word": "flat",
+      "ttsText": "flat",
+      "image": "grade4/flat.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I live in a flat",
+        "The flat is quite small"
+      ],
+      "distractorIds": [
+        "g4u11-map",
+        "g4u11-quiet",
+        "g4u11-river"
+      ],
+      "spokenVariants": [
+        "fat",
+        "plat"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u11-map",
+      "word": "map",
+      "ttsText": "map",
+      "image": "grade4/map.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "Look at the map",
+        "This is my map"
+      ],
+      "distractorIds": [
+        "g4u11-busy",
+        "g4u11-noisy",
+        "g4u11-house"
+      ],
+      "spokenVariants": [
+        "mop",
+        "mapp"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u11-busy",
+      "word": "busy",
+      "ttsText": "busy",
+      "image": "grade4/busy.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "The street is busy",
+        "It is very busy"
+      ],
+      "distractorIds": [
+        "g4u11-quiet",
+        "g4u11-river",
+        "g4u11-door"
+      ],
+      "spokenVariants": [
+        "bizzy",
+        "bushy"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u11-quiet",
+      "word": "quiet",
+      "ttsText": "quiet",
+      "image": "grade4/quiet.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "The village is quiet",
+        "It is very quiet"
+      ],
+      "distractorIds": [
+        "g4u11-noisy",
+        "g4u11-house",
+        "g4u11-village"
+      ],
+      "spokenVariants": [
+        "quite",
+        "quiat"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u11-noisy",
+      "word": "noisy",
+      "ttsText": "noisy",
+      "image": "grade4/noisy.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "The town is noisy",
+        "It is very noisy"
+      ],
+      "distractorIds": [
+        "g4u11-river",
+        "g4u11-door",
+        "g4u11-street"
+      ],
+      "spokenVariants": [
+        "noisey",
+        "noisy ee"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u11-river",
+      "word": "river",
+      "ttsText": "river",
+      "image": "grade4/river.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "The river is long",
+        "I live near the river"
+      ],
+      "distractorIds": [
+        "g4u11-house",
+        "g4u11-village",
+        "g4u11-road"
+      ],
+      "spokenVariants": [
+        "rivar",
+        "liver"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    }
+  ]
+}

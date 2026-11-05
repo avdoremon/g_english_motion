@@ -1,0 +1,258 @@
+{
+  "grade": 3,
+  "unit": "u08",
+  "index": 8,
+  "title": "My school things",
+  "items": [
+    {
+      "id": "g3u08-pen",
+      "word": "pen",
+      "ttsText": "pen",
+      "image": "grade3/pen.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "This is my pen",
+        "I have a blue pen"
+      ],
+      "distractorIds": [
+        "g3u08-ruler",
+        "g3u08-bag",
+        "g3u08-notebook"
+      ],
+      "spokenVariants": [
+        "pan",
+        "pin"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u08-ruler",
+      "word": "ruler",
+      "ttsText": "ruler",
+      "image": "grade3/ruler.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "This is my ruler",
+        "I have a long ruler"
+      ],
+      "distractorIds": [
+        "g3u08-book",
+        "g3u08-pencil",
+        "g3u08-eraser"
+      ],
+      "spokenVariants": [
+        "rula",
+        "roller"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u08-book",
+      "word": "book",
+      "ttsText": "book",
+      "image": "grade3/book.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "This is my book",
+        "I have a big book"
+      ],
+      "distractorIds": [
+        "g3u08-bag",
+        "g3u08-notebook",
+        "g3u08-crayon"
+      ],
+      "spokenVariants": [
+        "buk",
+        "back"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u08-bag",
+      "word": "bag",
+      "ttsText": "bag",
+      "image": "grade3/bag.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "This is my bag",
+        "I have a red bag"
+      ],
+      "distractorIds": [
+        "g3u08-pencil",
+        "g3u08-eraser",
+        "g3u08-case"
+      ],
+      "spokenVariants": [
+        "beg",
+        "back"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u08-pencil",
+      "word": "pencil",
+      "ttsText": "pencil",
+      "image": "grade3/pencil.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "This is my pencil",
+        "I have a new pencil"
+      ],
+      "distractorIds": [
+        "g3u08-notebook",
+        "g3u08-crayon",
+        "g3u08-desk"
+      ],
+      "spokenVariants": [
+        "pensil",
+        "pencel"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u08-notebook",
+      "word": "notebook",
+      "ttsText": "notebook",
+      "image": "grade3/notebook.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "This is my notebook",
+        "I have a new notebook"
+      ],
+      "distractorIds": [
+        "g3u08-eraser",
+        "g3u08-case",
+        "g3u08-pen"
+      ],
+      "spokenVariants": [
+        "note book",
+        "notebuk"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u08-eraser",
+      "word": "eraser",
+      "ttsText": "eraser",
+      "image": "grade3/eraser.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "I have an eraser",
+        "The eraser is small"
+      ],
+      "distractorIds": [
+        "g3u08-crayon",
+        "g3u08-desk",
+        "g3u08-ruler"
+      ],
+      "spokenVariants": [
+        "erasa",
+        "erazer"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u08-crayon",
+      "word": "crayon",
+      "ttsText": "crayon",
+      "image": "grade3/crayon.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "This is my crayon",
+        "I have a green crayon"
+      ],
+      "distractorIds": [
+        "g3u08-case",
+        "g3u08-pen",
+        "g3u08-book"
+      ],
+      "spokenVariants": [
+        "cray on",
+        "crayan"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u08-case",
+      "word": "case",
+      "ttsText": "case",
+      "image": "grade3/case.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I have a pencil case",
+        "The case is blue"
+      ],
+      "distractorIds": [
+        "g3u08-desk",
+        "g3u08-ruler",
+        "g3u08-bag"
+      ],
+      "spokenVariants": [
+        "kase",
+        "cage"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u08-desk",
+      "word": "desk",
+      "ttsText": "desk",
+      "image": "grade3/desk.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "This is my desk",
+        "I have a small desk"
+      ],
+      "distractorIds": [
+        "g3u08-pen",
+        "g3u08-book",
+        "g3u08-pencil"
+      ],
+      "spokenVariants": [
+        "disk",
+        "dask"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    }
+  ]
+}

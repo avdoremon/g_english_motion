@@ -1,0 +1,208 @@
+{
+  "grade": 1,
+  "unit": "u01",
+  "index": 1,
+  "title": "In the school playground",
+  "items": [
+    {
+      "id": "g1u01-ball",
+      "word": "ball",
+      "ttsText": "ball",
+      "image": "grade1/ball.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u01-bike",
+        "g1u01-school",
+        "g1u01-slide"
+      ],
+      "spokenVariants": [
+        "bowl"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u01-bike",
+      "word": "bike",
+      "ttsText": "bike",
+      "image": "grade1/bike.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u01-book",
+        "g1u01-kite",
+        "g1u01-swing"
+      ],
+      "spokenVariants": [
+        "bite"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u01-book",
+      "word": "book",
+      "ttsText": "book",
+      "image": "grade1/book.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u01-school",
+        "g1u01-slide",
+        "g1u01-rope"
+      ],
+      "spokenVariants": [
+        "buck"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u01-school",
+      "word": "school",
+      "ttsText": "school",
+      "image": "grade1/school.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u01-kite",
+        "g1u01-swing",
+        "g1u01-boy"
+      ],
+      "spokenVariants": [
+        "skool"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u01-kite",
+      "word": "kite",
+      "ttsText": "kite",
+      "image": "grade1/kite.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u01-slide",
+        "g1u01-rope",
+        "g1u01-girl"
+      ],
+      "spokenVariants": [
+        "kit"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u01-slide",
+      "word": "slide",
+      "ttsText": "slide",
+      "image": "grade1/slide.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u01-swing",
+        "g1u01-boy",
+        "g1u01-ball"
+      ],
+      "spokenVariants": [
+        "side"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u01-swing",
+      "word": "swing",
+      "ttsText": "swing",
+      "image": "grade1/swing.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u01-rope",
+        "g1u01-girl",
+        "g1u01-bike"
+      ],
+      "spokenVariants": [
+        "sing"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u01-rope",
+      "word": "rope",
+      "ttsText": "rope",
+      "image": "grade1/rope.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u01-boy",
+        "g1u01-ball",
+        "g1u01-book"
+      ],
+      "spokenVariants": [
+        "robe"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u01-boy",
+      "word": "boy",
+      "ttsText": "boy",
+      "image": "grade1/boy.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u01-girl",
+        "g1u01-bike",
+        "g1u01-school"
+      ],
+      "spokenVariants": [
+        "buy"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u01-girl",
+      "word": "girl",
+      "ttsText": "girl",
+      "image": "grade1/girl.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u01-ball",
+        "g1u01-book",
+        "g1u01-kite"
+      ],
+      "spokenVariants": [
+        "gull"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    }
+  ]
+}

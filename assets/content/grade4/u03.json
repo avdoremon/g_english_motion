@@ -1,0 +1,281 @@
+{
+  "grade": 4,
+  "unit": "u03",
+  "index": 3,
+  "title": "My week",
+  "items": [
+    {
+      "id": "g4u03-monday",
+      "word": "monday",
+      "ttsText": "monday",
+      "image": "grade4/monday.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "Today is Monday",
+        "I go to school on Monday"
+      ],
+      "distractorIds": [
+        "g4u03-tuesday",
+        "g4u03-thursday",
+        "g4u03-saturday"
+      ],
+      "spokenVariants": [
+        "mon day",
+        "munday"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u03-tuesday",
+      "word": "tuesday",
+      "ttsText": "tuesday",
+      "image": "grade4/tuesday.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "Tuesday comes after Monday",
+        "We have art on Tuesday"
+      ],
+      "distractorIds": [
+        "g4u03-wednesday",
+        "g4u03-friday",
+        "g4u03-sunday"
+      ],
+      "spokenVariants": [
+        "choose day",
+        "tues day"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u03-wednesday",
+      "word": "wednesday",
+      "ttsText": "wednesday",
+      "image": "grade4/wednesday.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I have music on Wednesday",
+        "Today is Wednesday"
+      ],
+      "distractorIds": [
+        "g4u03-thursday",
+        "g4u03-saturday",
+        "g4u03-week"
+      ],
+      "spokenVariants": [
+        "wens day",
+        "wendsday"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u03-thursday",
+      "word": "thursday",
+      "ttsText": "thursday",
+      "image": "grade4/thursday.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "Thursday comes before Friday",
+        "We play on Thursday"
+      ],
+      "distractorIds": [
+        "g4u03-friday",
+        "g4u03-sunday",
+        "g4u03-football"
+      ],
+      "spokenVariants": [
+        "thurs day",
+        "thirsday"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u03-friday",
+      "word": "friday",
+      "ttsText": "friday",
+      "image": "grade4/friday.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "Friday is my favourite day",
+        "I swim on Friday"
+      ],
+      "distractorIds": [
+        "g4u03-saturday",
+        "g4u03-week",
+        "g4u03-shopping"
+      ],
+      "spokenVariants": [
+        "fry day",
+        "fri day"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u03-saturday",
+      "word": "saturday",
+      "ttsText": "saturday",
+      "image": "grade4/saturday.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "I visit Grandma on Saturday",
+        "Saturday is a weekend day"
+      ],
+      "distractorIds": [
+        "g4u03-sunday",
+        "g4u03-football",
+        "g4u03-music"
+      ],
+      "spokenVariants": [
+        "satur day",
+        "saturdai"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot"
+      ]
+    },
+    {
+      "id": "g4u03-sunday",
+      "word": "sunday",
+      "ttsText": "sunday",
+      "image": "grade4/sunday.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "We rest on Sunday",
+        "Sunday is my day off"
+      ],
+      "distractorIds": [
+        "g4u03-week",
+        "g4u03-shopping",
+        "g4u03-monday"
+      ],
+      "spokenVariants": [
+        "sun day",
+        "sundae"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u03-week",
+      "word": "week",
+      "ttsText": "week",
+      "image": "grade4/week.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "Seven days make a week",
+        "This week is busy"
+      ],
+      "distractorIds": [
+        "g4u03-football",
+        "g4u03-music",
+        "g4u03-tuesday"
+      ],
+      "spokenVariants": [
+        "weak"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u03-football",
+      "word": "football",
+      "ttsText": "football",
+      "image": "grade4/football.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "We play football on Saturday",
+        "I play football on Sundays"
+      ],
+      "distractorIds": [
+        "g4u03-shopping",
+        "g4u03-monday",
+        "g4u03-wednesday"
+      ],
+      "spokenVariants": [
+        "foot ball",
+        "footbal"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u03-shopping",
+      "word": "shopping",
+      "ttsText": "shopping",
+      "image": "grade4/shopping.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "We go shopping on Saturday",
+        "I go shopping today"
+      ],
+      "distractorIds": [
+        "g4u03-music",
+        "g4u03-tuesday",
+        "g4u03-thursday"
+      ],
+      "spokenVariants": [
+        "shoping",
+        "shop ping"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u03-music",
+      "word": "music",
+      "ttsText": "music",
+      "image": "grade4/music.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I listen to music",
+        "He listens to music"
+      ],
+      "distractorIds": [
+        "g4u03-monday",
+        "g4u03-wednesday",
+        "g4u03-friday"
+      ],
+      "spokenVariants": [
+        "mew sick",
+        "musick"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,228 @@
+{
+  "grade": 1,
+  "unit": "u16",
+  "index": 16,
+  "title": "At home",
+  "items": [
+    {
+      "id": "g1u16-eight",
+      "word": "eight",
+      "ttsText": "eight",
+      "image": "grade1/eight.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u16-nine",
+        "g1u16-six",
+        "g1u16-wash"
+      ],
+      "spokenVariants": [
+        "ate"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u16-nine",
+      "word": "nine",
+      "ttsText": "nine",
+      "image": "grade1/nine.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u16-seven",
+        "g1u16-ten",
+        "g1u16-water"
+      ],
+      "spokenVariants": [
+        "night"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u16-seven",
+      "word": "seven",
+      "ttsText": "seven",
+      "image": "grade1/seven.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u16-six",
+        "g1u16-wash",
+        "g1u16-window"
+      ],
+      "spokenVariants": [
+        "sevan"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u16-six",
+      "word": "six",
+      "ttsText": "six",
+      "image": "grade1/six.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u16-ten",
+        "g1u16-water",
+        "g1u16-home"
+      ],
+      "spokenVariants": [
+        "sick"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u16-ten",
+      "word": "ten",
+      "ttsText": "ten",
+      "image": "grade1/ten.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u16-wash",
+        "g1u16-window",
+        "g1u16-kitchen"
+      ],
+      "spokenVariants": [
+        "then"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u16-wash",
+      "word": "wash",
+      "ttsText": "wash",
+      "image": "grade1/wash.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u16-water",
+        "g1u16-home",
+        "g1u16-bed"
+      ],
+      "spokenVariants": [
+        "watch"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u16-water",
+      "word": "water",
+      "ttsText": "water",
+      "image": "grade1/water.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u16-window",
+        "g1u16-kitchen",
+        "g1u16-eight"
+      ],
+      "spokenVariants": [
+        "wata"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u16-window",
+      "word": "window",
+      "ttsText": "window",
+      "image": "grade1/window.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u16-home",
+        "g1u16-bed",
+        "g1u16-nine"
+      ],
+      "spokenVariants": [
+        "windo"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u16-home",
+      "word": "home",
+      "ttsText": "home",
+      "image": "grade1/home.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u16-kitchen",
+        "g1u16-eight",
+        "g1u16-seven"
+      ],
+      "spokenVariants": [
+        "hum"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u16-kitchen",
+      "word": "kitchen",
+      "ttsText": "kitchen",
+      "image": "grade1/kitchen.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u16-bed",
+        "g1u16-nine",
+        "g1u16-six"
+      ],
+      "spokenVariants": [
+        "kitchin"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u16-bed",
+      "word": "bed",
+      "ttsText": "bed",
+      "image": "grade1/bed.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u16-eight",
+        "g1u16-seven",
+        "g1u16-ten"
+      ],
+      "spokenVariants": [
+        "bad"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+[
+  {"level": 1, "questionCount": 8,  "baseTimeSeconds": 20, "choiceCount": 3, "hints": "full",    "window": "current"},
+  {"level": 2, "questionCount": 10, "baseTimeSeconds": 18, "choiceCount": 3, "hints": "full",    "window": "currentPlus1"},
+  {"level": 3, "questionCount": 10, "baseTimeSeconds": 15, "choiceCount": 4, "hints": "partial", "window": "currentPlus2"},
+  {"level": 4, "questionCount": 12, "baseTimeSeconds": 12, "choiceCount": 4, "hints": "none",    "window": "allLearned"},
+  {"level": 5, "questionCount": 12, "baseTimeSeconds": 10, "choiceCount": 4, "hints": "none",    "window": "allLearned"}
+]

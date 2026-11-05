@@ -1,0 +1,252 @@
+{
+  "grade": 2,
+  "unit": "u07",
+  "index": 7,
+  "title": "In the kitchen",
+  "items": [
+    {
+      "id": "g2u07-kitchen",
+      "word": "kitchen",
+      "ttsText": "kitchen",
+      "image": "grade2/kitchen.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u07-bread",
+        "g2u07-juice",
+        "g2u07-jelly"
+      ],
+      "spokenVariants": [
+        "kitchin",
+        "kitchun"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u07-pan",
+      "word": "pan",
+      "ttsText": "pan",
+      "image": "grade2/pan.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u07-fruit",
+        "g2u07-jam",
+        "g2u07-plate"
+      ],
+      "spokenVariants": [
+        "pen",
+        "pun"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u07-spoon",
+      "word": "spoon",
+      "ttsText": "spoon",
+      "image": "grade2/spoon.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u07-juice",
+        "g2u07-jelly",
+        "g2u07-bowl"
+      ],
+      "spokenVariants": [
+        "spun"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u07-bread",
+      "word": "bread",
+      "ttsText": "bread",
+      "image": "grade2/bread.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u07-jam",
+        "g2u07-plate",
+        "g2u07-cup"
+      ],
+      "spokenVariants": [
+        "bred"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u07-fruit",
+      "word": "fruit",
+      "ttsText": "fruit",
+      "image": "grade2/fruit.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u07-jelly",
+        "g2u07-bowl",
+        "g2u07-fridge"
+      ],
+      "spokenVariants": [
+        "frut",
+        "froot"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u07-juice",
+      "word": "juice",
+      "ttsText": "juice",
+      "image": "grade2/juice.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u07-plate",
+        "g2u07-cup",
+        "g2u07-kitchen"
+      ],
+      "spokenVariants": [
+        "joose",
+        "juse"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u07-jam",
+      "word": "jam",
+      "ttsText": "jam",
+      "image": "grade2/jam.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u07-bowl",
+        "g2u07-fridge",
+        "g2u07-pan"
+      ],
+      "spokenVariants": [
+        "jem",
+        "jan"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u07-jelly",
+      "word": "jelly",
+      "ttsText": "jelly",
+      "image": "grade2/jelly.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u07-cup",
+        "g2u07-kitchen",
+        "g2u07-spoon"
+      ],
+      "spokenVariants": [
+        "jely",
+        "gelly"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u07-plate",
+      "word": "plate",
+      "ttsText": "plate",
+      "image": "grade2/plate.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u07-fridge",
+        "g2u07-pan",
+        "g2u07-bread"
+      ],
+      "spokenVariants": [
+        "play"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u07-bowl",
+      "word": "bowl",
+      "ttsText": "bowl",
+      "image": "grade2/bowl.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u07-kitchen",
+        "g2u07-spoon",
+        "g2u07-fruit"
+      ],
+      "spokenVariants": [
+        "ball"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u07-cup",
+      "word": "cup",
+      "ttsText": "cup",
+      "image": "grade2/cup.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u07-pan",
+        "g2u07-bread",
+        "g2u07-juice"
+      ],
+      "spokenVariants": [
+        "cap"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u07-fridge",
+      "word": "fridge",
+      "ttsText": "fridge",
+      "image": "grade2/fridge.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u07-spoon",
+        "g2u07-fruit",
+        "g2u07-jam"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    }
+  ]
+}

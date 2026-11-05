@@ -1,0 +1,242 @@
+{
+  "grade": 2,
+  "unit": "u04",
+  "index": 4,
+  "title": "In the countryside",
+  "items": [
+    {
+      "id": "g2u04-countryside",
+      "word": "countryside",
+      "ttsText": "countryside",
+      "image": "grade2/countryside.png",
+      "syllables": 3,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u04-road",
+        "g2u04-village",
+        "g2u04-lake"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump"
+      ]
+    },
+    {
+      "id": "g2u04-rainbow",
+      "word": "rainbow",
+      "ttsText": "rainbow",
+      "image": "grade2/rainbow.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u04-field",
+        "g2u04-chicken",
+        "g2u04-cow"
+      ],
+      "spokenVariants": [
+        "rain bow",
+        "ranbow"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u04-river",
+      "word": "river",
+      "ttsText": "river",
+      "image": "grade2/river.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u04-village",
+        "g2u04-lake",
+        "g2u04-horse"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u04-road",
+      "word": "road",
+      "ttsText": "road",
+      "image": "grade2/road.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u04-chicken",
+        "g2u04-cow",
+        "g2u04-duck"
+      ],
+      "spokenVariants": [
+        "rode"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u04-field",
+      "word": "field",
+      "ttsText": "field",
+      "image": "grade2/field.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u04-lake",
+        "g2u04-horse",
+        "g2u04-hill"
+      ],
+      "spokenVariants": [
+        "feel"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u04-village",
+      "word": "village",
+      "ttsText": "village",
+      "image": "grade2/village.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u04-cow",
+        "g2u04-duck",
+        "g2u04-countryside"
+      ],
+      "spokenVariants": [
+        "villige",
+        "billage"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u04-chicken",
+      "word": "chicken",
+      "ttsText": "chicken",
+      "image": "grade2/chicken.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u04-horse",
+        "g2u04-hill",
+        "g2u04-rainbow"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u04-lake",
+      "word": "lake",
+      "ttsText": "lake",
+      "image": "grade2/lake.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u04-duck",
+        "g2u04-countryside",
+        "g2u04-river"
+      ],
+      "spokenVariants": [
+        "lack",
+        "lay"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u04-cow",
+      "word": "cow",
+      "ttsText": "cow",
+      "image": "grade2/cow.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u04-hill",
+        "g2u04-rainbow",
+        "g2u04-road"
+      ],
+      "spokenVariants": [
+        "call"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u04-horse",
+      "word": "horse",
+      "ttsText": "horse",
+      "image": "grade2/horse.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u04-countryside",
+        "g2u04-river",
+        "g2u04-field"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u04-duck",
+      "word": "duck",
+      "ttsText": "duck",
+      "image": "grade2/duck.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u04-rainbow",
+        "g2u04-road",
+        "g2u04-village"
+      ],
+      "spokenVariants": [
+        "dock"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u04-hill",
+      "word": "hill",
+      "ttsText": "hill",
+      "image": "grade2/hill.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u04-river",
+        "g2u04-field",
+        "g2u04-chicken"
+      ],
+      "spokenVariants": [
+        "heel"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    }
+  ]
+}

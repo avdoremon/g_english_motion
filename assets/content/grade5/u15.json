@@ -1,0 +1,306 @@
+{
+  "grade": 5,
+  "unit": "u15",
+  "index": 15,
+  "title": "Our health",
+  "items": [
+    {
+      "id": "g5u15-toothache",
+      "word": "toothache",
+      "ttsText": "toothache",
+      "image": "grade5/toothache.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I have a toothache",
+        "He has a bad toothache"
+      ],
+      "distractorIds": [
+        "g5u15-headache",
+        "g5u15-stomachache",
+        "g5u15-throat"
+      ],
+      "spokenVariants": [
+        "tootache",
+        "tuthache"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u15-headache",
+      "word": "headache",
+      "ttsText": "headache",
+      "image": "grade5/headache.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I have a headache",
+        "She has a bad headache"
+      ],
+      "distractorIds": [
+        "g5u15-stomachache",
+        "g5u15-throat",
+        "g5u15-earache"
+      ],
+      "spokenVariants": [
+        "headake",
+        "hedache"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u15-stomachache",
+      "word": "stomachache",
+      "ttsText": "stomachache",
+      "image": "grade5/stomachache.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "I have a stomachache",
+        "He has a bad stomachache"
+      ],
+      "distractorIds": [
+        "g5u15-throat",
+        "g5u15-earache",
+        "g5u15-backache"
+      ],
+      "spokenVariants": [
+        "stomacake"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u15-throat",
+      "word": "throat",
+      "ttsText": "throat",
+      "image": "grade5/throat.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I have a sore throat",
+        "Her throat is very sore"
+      ],
+      "distractorIds": [
+        "g5u15-earache",
+        "g5u15-backache",
+        "g5u15-fever"
+      ],
+      "spokenVariants": [
+        "troat",
+        "frote"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u15-earache",
+      "word": "earache",
+      "ttsText": "earache",
+      "image": "grade5/earache.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I have an earache",
+        "She has a bad earache"
+      ],
+      "distractorIds": [
+        "g5u15-backache",
+        "g5u15-fever",
+        "g5u15-cough"
+      ],
+      "spokenVariants": [
+        "earake",
+        "eerache"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u15-backache",
+      "word": "backache",
+      "ttsText": "backache",
+      "image": "grade5/backache.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I have a backache",
+        "He has a bad backache"
+      ],
+      "distractorIds": [
+        "g5u15-fever",
+        "g5u15-cough",
+        "g5u15-rash"
+      ],
+      "spokenVariants": [
+        "backake"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u15-fever",
+      "word": "fever",
+      "ttsText": "fever",
+      "image": "grade5/fever.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I have a fever",
+        "She has a high fever"
+      ],
+      "distractorIds": [
+        "g5u15-cough",
+        "g5u15-rash",
+        "g5u15-dentist"
+      ],
+      "spokenVariants": [
+        "fiver",
+        "feever"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u15-cough",
+      "word": "cough",
+      "ttsText": "cough",
+      "image": "grade5/cough.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I have a cough",
+        "He has a bad cough"
+      ],
+      "distractorIds": [
+        "g5u15-rash",
+        "g5u15-dentist",
+        "g5u15-medicine"
+      ],
+      "spokenVariants": [
+        "cof",
+        "coff"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u15-rash",
+      "word": "rash",
+      "ttsText": "rash",
+      "image": "grade5/rash.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I have a rash",
+        "She has a red rash"
+      ],
+      "distractorIds": [
+        "g5u15-dentist",
+        "g5u15-medicine",
+        "g5u15-rest"
+      ],
+      "spokenVariants": [
+        "rush",
+        "rasch"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u15-dentist",
+      "word": "dentist",
+      "ttsText": "dentist",
+      "image": "grade5/dentist.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "You should go to the dentist",
+        "The dentist is very kind"
+      ],
+      "distractorIds": [
+        "g5u15-medicine",
+        "g5u15-rest",
+        "g5u15-toothache"
+      ],
+      "spokenVariants": [
+        "dentis",
+        "dentest"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u15-medicine",
+      "word": "medicine",
+      "ttsText": "medicine",
+      "image": "grade5/medicine.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "You should take some medicine",
+        "The medicine is on the table"
+      ],
+      "distractorIds": [
+        "g5u15-rest",
+        "g5u15-toothache",
+        "g5u15-headache"
+      ],
+      "spokenVariants": [
+        "medisin",
+        "medicin"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u15-rest",
+      "word": "rest",
+      "ttsText": "rest",
+      "image": "grade5/rest.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "You should have a rest",
+        "He needs a long rest"
+      ],
+      "distractorIds": [
+        "g5u15-toothache",
+        "g5u15-headache",
+        "g5u15-stomachache"
+      ],
+      "spokenVariants": [
+        "wrest",
+        "res"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    }
+  ]
+}

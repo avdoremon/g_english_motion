@@ -1,0 +1,208 @@
+{
+  "grade": 1,
+  "unit": "u15",
+  "index": 15,
+  "title": "At the football match",
+  "items": [
+    {
+      "id": "g1u15-football",
+      "word": "football",
+      "ttsText": "football",
+      "image": "grade1/football.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u15-face",
+        "g1u15-foot",
+        "g1u15-watch"
+      ],
+      "spokenVariants": [
+        "footbal"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u15-face",
+      "word": "face",
+      "ttsText": "face",
+      "image": "grade1/face.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u15-father",
+        "g1u15-match",
+        "g1u15-goal"
+      ],
+      "spokenVariants": [
+        "phase"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u15-father",
+      "word": "father",
+      "ttsText": "father",
+      "image": "grade1/father.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u15-foot",
+        "g1u15-watch",
+        "g1u15-player"
+      ],
+      "spokenVariants": [
+        "fada"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u15-foot",
+      "word": "foot",
+      "ttsText": "foot",
+      "image": "grade1/foot.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u15-match",
+        "g1u15-goal",
+        "g1u15-boot"
+      ],
+      "spokenVariants": [
+        "food"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u15-match",
+      "word": "match",
+      "ttsText": "match",
+      "image": "grade1/match.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u15-watch",
+        "g1u15-player",
+        "g1u15-fan"
+      ],
+      "spokenVariants": [
+        "much"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u15-watch",
+      "word": "watch",
+      "ttsText": "watch",
+      "image": "grade1/watch.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u15-goal",
+        "g1u15-boot",
+        "g1u15-football"
+      ],
+      "spokenVariants": [
+        "wash"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u15-goal",
+      "word": "goal",
+      "ttsText": "goal",
+      "image": "grade1/goal.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u15-player",
+        "g1u15-fan",
+        "g1u15-face"
+      ],
+      "spokenVariants": [
+        "gold"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u15-player",
+      "word": "player",
+      "ttsText": "player",
+      "image": "grade1/player.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u15-boot",
+        "g1u15-football",
+        "g1u15-father"
+      ],
+      "spokenVariants": [
+        "plair"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u15-boot",
+      "word": "boot",
+      "ttsText": "boot",
+      "image": "grade1/boot.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u15-fan",
+        "g1u15-face",
+        "g1u15-foot"
+      ],
+      "spokenVariants": [
+        "but"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u15-fan",
+      "word": "fan",
+      "ttsText": "fan",
+      "image": "grade1/fan.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u15-football",
+        "g1u15-father",
+        "g1u15-match"
+      ],
+      "spokenVariants": [
+        "van"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    }
+  ]
+}

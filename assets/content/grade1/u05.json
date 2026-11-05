@@ -1,0 +1,208 @@
+{
+  "grade": 1,
+  "unit": "u05",
+  "index": 5,
+  "title": "At the fish and chip shop",
+  "items": [
+    {
+      "id": "g1u05-chicken",
+      "word": "chicken",
+      "ttsText": "chicken",
+      "image": "grade1/chicken.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u05-chips",
+        "g1u05-milk",
+        "g1u05-burger"
+      ],
+      "spokenVariants": [
+        "checkin"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u05-chips",
+      "word": "chips",
+      "ttsText": "chips",
+      "image": "grade1/chips.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u05-fish",
+        "g1u05-shop",
+        "g1u05-juice"
+      ],
+      "spokenVariants": [
+        "chip"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u05-fish",
+      "word": "fish",
+      "ttsText": "fish",
+      "image": "grade1/fish.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u05-milk",
+        "g1u05-burger",
+        "g1u05-salt"
+      ],
+      "spokenVariants": [
+        "fis"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u05-milk",
+      "word": "milk",
+      "ttsText": "milk",
+      "image": "grade1/milk.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u05-shop",
+        "g1u05-juice",
+        "g1u05-plate"
+      ],
+      "spokenVariants": [
+        "mill"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u05-shop",
+      "word": "shop",
+      "ttsText": "shop",
+      "image": "grade1/shop.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u05-burger",
+        "g1u05-salt",
+        "g1u05-pizza"
+      ],
+      "spokenVariants": [
+        "shock"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u05-burger",
+      "word": "burger",
+      "ttsText": "burger",
+      "image": "grade1/burger.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u05-juice",
+        "g1u05-plate",
+        "g1u05-chicken"
+      ],
+      "spokenVariants": [
+        "berger"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u05-juice",
+      "word": "juice",
+      "ttsText": "juice",
+      "image": "grade1/juice.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u05-salt",
+        "g1u05-pizza",
+        "g1u05-chips"
+      ],
+      "spokenVariants": [
+        "jews"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u05-salt",
+      "word": "salt",
+      "ttsText": "salt",
+      "image": "grade1/salt.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u05-plate",
+        "g1u05-chicken",
+        "g1u05-fish"
+      ],
+      "spokenVariants": [
+        "sault"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u05-plate",
+      "word": "plate",
+      "ttsText": "plate",
+      "image": "grade1/plate.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u05-pizza",
+        "g1u05-chips",
+        "g1u05-milk"
+      ],
+      "spokenVariants": [
+        "plait"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u05-pizza",
+      "word": "pizza",
+      "ttsText": "pizza",
+      "image": "grade1/pizza.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u05-chicken",
+        "g1u05-fish",
+        "g1u05-shop"
+      ],
+      "spokenVariants": [
+        "pitsa"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    }
+  ]
+}

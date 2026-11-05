@@ -1,0 +1,308 @@
+{
+  "grade": 3,
+  "unit": "u14",
+  "index": 14,
+  "title": "My bedroom",
+  "items": [
+    {
+      "id": "g3u14-desk",
+      "word": "desk",
+      "ttsText": "desk",
+      "image": "grade3/desk.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "This is my desk",
+        "I have a small desk"
+      ],
+      "distractorIds": [
+        "g3u14-bed",
+        "g3u14-window",
+        "g3u14-small"
+      ],
+      "spokenVariants": [
+        "disk",
+        "dask"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u14-bed",
+      "word": "bed",
+      "ttsText": "bed",
+      "image": "grade3/bed.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "This is my bed",
+        "The bed is big"
+      ],
+      "distractorIds": [
+        "g3u14-door",
+        "g3u14-big",
+        "g3u14-new"
+      ],
+      "spokenVariants": [
+        "bad",
+        "bid"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u14-door",
+      "word": "door",
+      "ttsText": "door",
+      "image": "grade3/door.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "The door is brown",
+        "Close the door please"
+      ],
+      "distractorIds": [
+        "g3u14-window",
+        "g3u14-small",
+        "g3u14-old"
+      ],
+      "spokenVariants": [
+        "dor",
+        "doar"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u14-window",
+      "word": "window",
+      "ttsText": "window",
+      "image": "grade3/window.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "The window is big",
+        "Open the window please"
+      ],
+      "distractorIds": [
+        "g3u14-big",
+        "g3u14-new",
+        "g3u14-picture"
+      ],
+      "spokenVariants": [
+        "windo",
+        "windoh"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u14-big",
+      "word": "big",
+      "ttsText": "big",
+      "image": "grade3/big.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "The door is big",
+        "It is a big room"
+      ],
+      "distractorIds": [
+        "g3u14-small",
+        "g3u14-old",
+        "g3u14-chair"
+      ],
+      "spokenVariants": [
+        "bick",
+        "pig"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u14-small",
+      "word": "small",
+      "ttsText": "small",
+      "image": "grade3/small.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "The window is small",
+        "It is a small desk"
+      ],
+      "distractorIds": [
+        "g3u14-new",
+        "g3u14-picture",
+        "g3u14-lamp"
+      ],
+      "spokenVariants": [
+        "smal",
+        "smell"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u14-new",
+      "word": "new",
+      "ttsText": "new",
+      "image": "grade3/new.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "This is a new friend",
+        "She is a new pupil"
+      ],
+      "distractorIds": [
+        "g3u14-old",
+        "g3u14-chair",
+        "g3u14-room"
+      ],
+      "spokenVariants": [
+        "knew",
+        "nu"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u14-old",
+      "word": "old",
+      "ttsText": "old",
+      "image": "grade3/old.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "How old are you",
+        "She is eight years old"
+      ],
+      "distractorIds": [
+        "g3u14-picture",
+        "g3u14-lamp",
+        "g3u14-desk"
+      ],
+      "spokenVariants": [
+        "hold",
+        "olled"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u14-picture",
+      "word": "picture",
+      "ttsText": "picture",
+      "image": "grade3/picture.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "There is a picture",
+        "The picture is on the wall"
+      ],
+      "distractorIds": [
+        "g3u14-chair",
+        "g3u14-room",
+        "g3u14-bed"
+      ],
+      "spokenVariants": [
+        "pitcher",
+        "pickcha"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u14-chair",
+      "word": "chair",
+      "ttsText": "chair",
+      "image": "grade3/chair.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "The chair is blue",
+        "The chair is near the desk"
+      ],
+      "distractorIds": [
+        "g3u14-lamp",
+        "g3u14-desk",
+        "g3u14-door"
+      ],
+      "spokenVariants": [
+        "share",
+        "cher"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u14-lamp",
+      "word": "lamp",
+      "ttsText": "lamp",
+      "image": "grade3/lamp.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "There is a lamp",
+        "The lamp is on the desk"
+      ],
+      "distractorIds": [
+        "g3u14-room",
+        "g3u14-bed",
+        "g3u14-window"
+      ],
+      "spokenVariants": [
+        "lamb",
+        "lap"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u14-room",
+      "word": "room",
+      "ttsText": "room",
+      "image": "grade3/room.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "This is a big room",
+        "The room is nice"
+      ],
+      "distractorIds": [
+        "g3u14-desk",
+        "g3u14-door",
+        "g3u14-big"
+      ],
+      "spokenVariants": [
+        "rum",
+        "broom"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    }
+  ]
+}

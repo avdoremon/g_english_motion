@@ -1,0 +1,258 @@
+{
+  "grade": 3,
+  "unit": "u06",
+  "index": 6,
+  "title": "Our school",
+  "items": [
+    {
+      "id": "g3u06-school",
+      "word": "school",
+      "ttsText": "school",
+      "image": "grade3/school.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "This is my school",
+        "Our school is big"
+      ],
+      "distractorIds": [
+        "g3u06-classroom",
+        "g3u06-playground",
+        "g3u06-art"
+      ],
+      "spokenVariants": [
+        "skool",
+        "scool"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u06-classroom",
+      "word": "classroom",
+      "ttsText": "classroom",
+      "image": "grade3/classroom.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "This is my classroom",
+        "The classroom is big"
+      ],
+      "distractorIds": [
+        "g3u06-library",
+        "g3u06-computer",
+        "g3u06-music"
+      ],
+      "spokenVariants": [
+        "class room",
+        "classrom"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u06-library",
+      "word": "library",
+      "ttsText": "library",
+      "image": "grade3/library.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "This is our library",
+        "I read in the library"
+      ],
+      "distractorIds": [
+        "g3u06-playground",
+        "g3u06-art",
+        "g3u06-gym"
+      ],
+      "spokenVariants": [
+        "libary",
+        "liberry"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u06-playground",
+      "word": "playground",
+      "ttsText": "playground",
+      "image": "grade3/playground.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "This is the playground",
+        "We play in the playground"
+      ],
+      "distractorIds": [
+        "g3u06-computer",
+        "g3u06-music",
+        "g3u06-room"
+      ],
+      "spokenVariants": [
+        "play ground",
+        "playgrond"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u06-computer",
+      "word": "computer",
+      "ttsText": "computer",
+      "image": "grade3/computer.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "This is the computer room",
+        "I use the computer"
+      ],
+      "distractorIds": [
+        "g3u06-art",
+        "g3u06-gym",
+        "g3u06-teacher"
+      ],
+      "spokenVariants": [
+        "compute her",
+        "computa"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u06-art",
+      "word": "art",
+      "ttsText": "art",
+      "image": "grade3/art.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "This is the art room",
+        "I like art"
+      ],
+      "distractorIds": [
+        "g3u06-music",
+        "g3u06-room",
+        "g3u06-school"
+      ],
+      "spokenVariants": [
+        "are",
+        "heart"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u06-music",
+      "word": "music",
+      "ttsText": "music",
+      "image": "grade3/music.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "This is the music room",
+        "I like music"
+      ],
+      "distractorIds": [
+        "g3u06-gym",
+        "g3u06-teacher",
+        "g3u06-classroom"
+      ],
+      "spokenVariants": [
+        "musik",
+        "mewsick"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u06-gym",
+      "word": "gym",
+      "ttsText": "gym",
+      "image": "grade3/gym.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "This is the gym",
+        "We run in the gym"
+      ],
+      "distractorIds": [
+        "g3u06-room",
+        "g3u06-school",
+        "g3u06-library"
+      ],
+      "spokenVariants": [
+        "jim",
+        "gem"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u06-room",
+      "word": "room",
+      "ttsText": "room",
+      "image": "grade3/room.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "This is a big room",
+        "The room is nice"
+      ],
+      "distractorIds": [
+        "g3u06-teacher",
+        "g3u06-classroom",
+        "g3u06-playground"
+      ],
+      "spokenVariants": [
+        "rum",
+        "broom"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u06-teacher",
+      "word": "teacher",
+      "ttsText": "teacher",
+      "image": "grade3/teacher.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "He is my teacher",
+        "Hello my teacher"
+      ],
+      "distractorIds": [
+        "g3u06-school",
+        "g3u06-library",
+        "g3u06-computer"
+      ],
+      "spokenVariants": [
+        "teachar",
+        "teach her"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    }
+  ]
+}

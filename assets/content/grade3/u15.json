@@ -1,0 +1,282 @@
+{
+  "grade": 3,
+  "unit": "u15",
+  "index": 15,
+  "title": "At the dining table",
+  "items": [
+    {
+      "id": "g3u15-table",
+      "word": "table",
+      "ttsText": "table",
+      "image": "grade3/table.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "The table is here",
+        "The book is on the table"
+      ],
+      "distractorIds": [
+        "g3u15-beans",
+        "g3u15-meat",
+        "g3u15-milk"
+      ],
+      "spokenVariants": [
+        "tayble",
+        "tabel"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u15-beans",
+      "word": "beans",
+      "ttsText": "beans",
+      "image": "grade3/beans.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "Would you like some beans",
+        "I like beans"
+      ],
+      "distractorIds": [
+        "g3u15-fish",
+        "g3u15-juice",
+        "g3u15-egg"
+      ],
+      "spokenVariants": [
+        "been",
+        "bins"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u15-fish",
+      "word": "fish",
+      "ttsText": "fish",
+      "image": "grade3/fish.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I like fish",
+        "Do you like fish"
+      ],
+      "distractorIds": [
+        "g3u15-meat",
+        "g3u15-milk",
+        "g3u15-chicken"
+      ],
+      "spokenVariants": [
+        "fiss",
+        "fesh"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u15-meat",
+      "word": "meat",
+      "ttsText": "meat",
+      "image": "grade3/meat.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "Would you like some meat",
+        "I like meat"
+      ],
+      "distractorIds": [
+        "g3u15-juice",
+        "g3u15-egg",
+        "g3u15-water"
+      ],
+      "spokenVariants": [
+        "meet",
+        "mit"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u15-juice",
+      "word": "juice",
+      "ttsText": "juice",
+      "image": "grade3/juice.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I like juice",
+        "Do you like juice"
+      ],
+      "distractorIds": [
+        "g3u15-milk",
+        "g3u15-chicken",
+        "g3u15-rice"
+      ],
+      "spokenVariants": [
+        "jews",
+        "juse"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u15-milk",
+      "word": "milk",
+      "ttsText": "milk",
+      "image": "grade3/milk.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I like milk",
+        "Do you like milk"
+      ],
+      "distractorIds": [
+        "g3u15-egg",
+        "g3u15-water",
+        "g3u15-bread"
+      ],
+      "spokenVariants": [
+        "melk"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u15-egg",
+      "word": "egg",
+      "ttsText": "egg",
+      "image": "grade3/egg.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I like egg",
+        "This egg is big"
+      ],
+      "distractorIds": [
+        "g3u15-chicken",
+        "g3u15-rice",
+        "g3u15-table"
+      ],
+      "spokenVariants": [
+        "ag",
+        "eg"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u15-chicken",
+      "word": "chicken",
+      "ttsText": "chicken",
+      "image": "grade3/chicken.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I like chicken",
+        "Do you like chicken"
+      ],
+      "distractorIds": [
+        "g3u15-water",
+        "g3u15-bread",
+        "g3u15-beans"
+      ],
+      "spokenVariants": [
+        "chickin",
+        "chikken"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u15-water",
+      "word": "water",
+      "ttsText": "water",
+      "image": "grade3/water.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I like water",
+        "Do you like water"
+      ],
+      "distractorIds": [
+        "g3u15-rice",
+        "g3u15-table",
+        "g3u15-fish"
+      ],
+      "spokenVariants": [
+        "wata",
+        "wotter"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u15-rice",
+      "word": "rice",
+      "ttsText": "rice",
+      "image": "grade3/rice.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I like rice",
+        "Do you like rice"
+      ],
+      "distractorIds": [
+        "g3u15-bread",
+        "g3u15-beans",
+        "g3u15-meat"
+      ],
+      "spokenVariants": [
+        "rise",
+        "rais"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u15-bread",
+      "word": "bread",
+      "ttsText": "bread",
+      "image": "grade3/bread.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I like bread",
+        "Do you like bread"
+      ],
+      "distractorIds": [
+        "g3u15-table",
+        "g3u15-fish",
+        "g3u15-juice"
+      ],
+      "spokenVariants": [
+        "bred",
+        "bed"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    }
+  ]
+}

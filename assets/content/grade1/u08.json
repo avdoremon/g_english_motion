@@ -1,0 +1,204 @@
+{
+  "grade": 1,
+  "unit": "u08",
+  "index": 8,
+  "title": "In the park",
+  "items": [
+    {
+      "id": "g1u08-hair",
+      "word": "hair",
+      "ttsText": "hair",
+      "image": "grade1/hair.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u08-hand",
+        "g1u08-horse",
+        "g1u08-touch"
+      ],
+      "spokenVariants": [
+        "hare"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u08-hand",
+      "word": "hand",
+      "ttsText": "hand",
+      "image": "grade1/hand.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u08-head",
+        "g1u08-park",
+        "g1u08-slide"
+      ],
+      "spokenVariants": [
+        "and"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u08-head",
+      "word": "head",
+      "ttsText": "head",
+      "image": "grade1/head.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u08-horse",
+        "g1u08-touch",
+        "g1u08-swing"
+      ],
+      "spokenVariants": [
+        "had"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u08-horse",
+      "word": "horse",
+      "ttsText": "horse",
+      "image": "grade1/horse.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u08-park",
+        "g1u08-slide",
+        "g1u08-seesaw"
+      ],
+      "spokenVariants": [
+        "hours"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u08-park",
+      "word": "park",
+      "ttsText": "park",
+      "image": "grade1/park.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u08-touch",
+        "g1u08-swing",
+        "g1u08-bench"
+      ],
+      "spokenVariants": [
+        "pack"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u08-touch",
+      "word": "touch",
+      "ttsText": "touch",
+      "image": "grade1/touch.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u08-slide",
+        "g1u08-seesaw",
+        "g1u08-hair"
+      ],
+      "spokenVariants": [
+        "tough"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u08-slide",
+      "word": "slide",
+      "ttsText": "slide",
+      "image": "grade1/slide.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u08-swing",
+        "g1u08-bench",
+        "g1u08-hand"
+      ],
+      "spokenVariants": [
+        "side"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u08-swing",
+      "word": "swing",
+      "ttsText": "swing",
+      "image": "grade1/swing.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u08-seesaw",
+        "g1u08-hair",
+        "g1u08-head"
+      ],
+      "spokenVariants": [
+        "sing"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u08-seesaw",
+      "word": "seesaw",
+      "ttsText": "seesaw",
+      "image": "grade1/seesaw.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u08-bench",
+        "g1u08-hand",
+        "g1u08-horse"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u08-bench",
+      "word": "bench",
+      "ttsText": "bench",
+      "image": "grade1/bench.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u08-hair",
+        "g1u08-head",
+        "g1u08-park"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    }
+  ]
+}

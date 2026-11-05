@@ -1,0 +1,256 @@
+{
+  "grade": 4,
+  "unit": "u17",
+  "index": 17,
+  "title": "In the city",
+  "items": [
+    {
+      "id": "g4u17-city",
+      "word": "city",
+      "ttsText": "city",
+      "image": "grade4/city.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I live in a city",
+        "The city is big"
+      ],
+      "distractorIds": [
+        "g4u17-bridge",
+        "g4u17-right",
+        "g4u17-bookshop"
+      ],
+      "spokenVariants": [
+        "citi",
+        "sity"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u17-bridge",
+      "word": "bridge",
+      "ttsText": "bridge",
+      "image": "grade4/bridge.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "We cross the bridge",
+        "The bridge is long"
+      ],
+      "distractorIds": [
+        "g4u17-left",
+        "g4u17-straight",
+        "g4u17-campsite"
+      ],
+      "spokenVariants": [
+        "brig",
+        "bridges"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u17-left",
+      "word": "left",
+      "ttsText": "left",
+      "image": "grade4/left.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "Turn left at the corner",
+        "Turn left here"
+      ],
+      "distractorIds": [
+        "g4u17-right",
+        "g4u17-bookshop",
+        "g4u17-bakery"
+      ],
+      "spokenVariants": [
+        "lift",
+        "laughed"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u17-right",
+      "word": "right",
+      "ttsText": "right",
+      "image": "grade4/right.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "Turn right at the bank",
+        "Turn right here"
+      ],
+      "distractorIds": [
+        "g4u17-straight",
+        "g4u17-campsite",
+        "g4u17-library"
+      ],
+      "spokenVariants": [
+        "write",
+        "light"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u17-straight",
+      "word": "straight",
+      "ttsText": "straight",
+      "image": "grade4/straight.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "Go straight ahead",
+        "Go straight on"
+      ],
+      "distractorIds": [
+        "g4u17-bookshop",
+        "g4u17-bakery",
+        "g4u17-stall"
+      ],
+      "spokenVariants": [
+        "strait",
+        "street"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u17-bookshop",
+      "word": "bookshop",
+      "ttsText": "bookshop",
+      "image": "grade4/bookshop.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "Go to the bookshop",
+        "The bookshop is near"
+      ],
+      "distractorIds": [
+        "g4u17-campsite",
+        "g4u17-library",
+        "g4u17-city"
+      ],
+      "spokenVariants": [
+        "book shop",
+        "bookshops"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u17-campsite",
+      "word": "campsite",
+      "ttsText": "campsite",
+      "image": "grade4/campsite.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "Go to the campsite",
+        "The campsite is far"
+      ],
+      "distractorIds": [
+        "g4u17-bakery",
+        "g4u17-stall",
+        "g4u17-bridge"
+      ],
+      "spokenVariants": [
+        "camp site",
+        "campside"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u17-bakery",
+      "word": "bakery",
+      "ttsText": "bakery",
+      "image": "grade4/bakery.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "Turn left at the bakery",
+        "The bakery is near"
+      ],
+      "distractorIds": [
+        "g4u17-library",
+        "g4u17-city",
+        "g4u17-left"
+      ],
+      "spokenVariants": [
+        "bake ery",
+        "baker"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot"
+      ]
+    },
+    {
+      "id": "g4u17-library",
+      "word": "library",
+      "ttsText": "library",
+      "image": "grade4/library.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "Go to the library",
+        "The library is big"
+      ],
+      "distractorIds": [
+        "g4u17-stall",
+        "g4u17-bridge",
+        "g4u17-right"
+      ],
+      "spokenVariants": [
+        "liberry",
+        "lie bary"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot"
+      ]
+    },
+    {
+      "id": "g4u17-stall",
+      "word": "stall",
+      "ttsText": "stall",
+      "image": "grade4/stall.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "Go to the food stall",
+        "The stall is busy"
+      ],
+      "distractorIds": [
+        "g4u17-city",
+        "g4u17-left",
+        "g4u17-straight"
+      ],
+      "spokenVariants": [
+        "stole",
+        "stal"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    }
+  ]
+}

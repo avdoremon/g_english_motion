@@ -1,0 +1,255 @@
+{
+  "grade": 4,
+  "unit": "u12",
+  "index": 12,
+  "title": "Jobs",
+  "items": [
+    {
+      "id": "g4u12-teacher",
+      "word": "teacher",
+      "ttsText": "teacher",
+      "image": "grade4/teacher.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "My mother is a teacher",
+        "He is a teacher"
+      ],
+      "distractorIds": [
+        "g4u12-doctor",
+        "g4u12-farmer",
+        "g4u12-policeman"
+      ],
+      "spokenVariants": [
+        "teach her",
+        "teecher"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u12-doctor",
+      "word": "doctor",
+      "ttsText": "doctor",
+      "image": "grade4/doctor.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "My uncle is a doctor",
+        "She is a doctor"
+      ],
+      "distractorIds": [
+        "g4u12-nurse",
+        "g4u12-worker",
+        "g4u12-actor"
+      ],
+      "spokenVariants": [
+        "docter",
+        "dokter"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u12-nurse",
+      "word": "nurse",
+      "ttsText": "nurse",
+      "image": "grade4/nurse.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "She is a nurse",
+        "The nurse is kind"
+      ],
+      "distractorIds": [
+        "g4u12-farmer",
+        "g4u12-policeman",
+        "g4u12-factory"
+      ],
+      "spokenVariants": [
+        "nurs",
+        "nerse"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u12-farmer",
+      "word": "farmer",
+      "ttsText": "farmer",
+      "image": "grade4/farmer.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "My grandpa is a farmer",
+        "The farmer works hard"
+      ],
+      "distractorIds": [
+        "g4u12-worker",
+        "g4u12-actor",
+        "g4u12-farm"
+      ],
+      "spokenVariants": [
+        "farma",
+        "far mer"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u12-worker",
+      "word": "worker",
+      "ttsText": "worker",
+      "image": "grade4/worker.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "He is a factory worker",
+        "The worker is tired"
+      ],
+      "distractorIds": [
+        "g4u12-policeman",
+        "g4u12-factory",
+        "g4u12-hospital"
+      ],
+      "spokenVariants": [
+        "walker",
+        "work her"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u12-policeman",
+      "word": "policeman",
+      "ttsText": "policeman",
+      "image": "grade4/policeman.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "My uncle is a policeman",
+        "He is a policeman"
+      ],
+      "distractorIds": [
+        "g4u12-actor",
+        "g4u12-farm",
+        "g4u12-teacher"
+      ],
+      "spokenVariants": [
+        "police man",
+        "polisman"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot"
+      ]
+    },
+    {
+      "id": "g4u12-actor",
+      "word": "actor",
+      "ttsText": "actor",
+      "image": "grade4/actor.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "She is an actor",
+        "He is an actor"
+      ],
+      "distractorIds": [
+        "g4u12-factory",
+        "g4u12-hospital",
+        "g4u12-doctor"
+      ],
+      "spokenVariants": [
+        "acter",
+        "acto"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u12-factory",
+      "word": "factory",
+      "ttsText": "factory",
+      "image": "grade4/factory.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "He works in a factory",
+        "The factory is big"
+      ],
+      "distractorIds": [
+        "g4u12-farm",
+        "g4u12-teacher",
+        "g4u12-nurse"
+      ],
+      "spokenVariants": [
+        "factry",
+        "fact tory"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot"
+      ]
+    },
+    {
+      "id": "g4u12-farm",
+      "word": "farm",
+      "ttsText": "farm",
+      "image": "grade4/farm.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "He works on a farm",
+        "The farm is big"
+      ],
+      "distractorIds": [
+        "g4u12-hospital",
+        "g4u12-doctor",
+        "g4u12-farmer"
+      ],
+      "spokenVariants": [
+        "form",
+        "firm"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u12-hospital",
+      "word": "hospital",
+      "ttsText": "hospital",
+      "image": "grade4/hospital.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "She works in a hospital",
+        "The hospital is big"
+      ],
+      "distractorIds": [
+        "g4u12-teacher",
+        "g4u12-nurse",
+        "g4u12-worker"
+      ],
+      "spokenVariants": [
+        "hospitle",
+        "host pital"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot"
+      ]
+    }
+  ]
+}

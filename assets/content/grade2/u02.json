@@ -1,0 +1,252 @@
+{
+  "grade": 2,
+  "unit": "u02",
+  "index": 2,
+  "title": "In the backyard",
+  "items": [
+    {
+      "id": "g2u02-kite",
+      "word": "kite",
+      "ttsText": "kite",
+      "image": "grade2/kite.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u02-puppy",
+        "g2u02-flower",
+        "g2u02-run"
+      ],
+      "spokenVariants": [
+        "kight",
+        "kate"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u02-bike",
+      "word": "bike",
+      "ttsText": "bike",
+      "image": "grade2/bike.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u02-grass",
+        "g2u02-backyard",
+        "g2u02-play"
+      ],
+      "spokenVariants": [
+        "bake",
+        "bite"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u02-kitten",
+      "word": "kitten",
+      "ttsText": "kitten",
+      "image": "grade2/kitten.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u02-flower",
+        "g2u02-run",
+        "g2u02-tree"
+      ],
+      "spokenVariants": [
+        "kiten",
+        "kitton"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u02-puppy",
+      "word": "puppy",
+      "ttsText": "puppy",
+      "image": "grade2/puppy.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u02-backyard",
+        "g2u02-play",
+        "g2u02-bee"
+      ],
+      "spokenVariants": [
+        "pupi",
+        "poppy"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u02-grass",
+      "word": "grass",
+      "ttsText": "grass",
+      "image": "grade2/grass.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u02-run",
+        "g2u02-tree",
+        "g2u02-butterfly"
+      ],
+      "spokenVariants": [
+        "glass"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u02-flower",
+      "word": "flower",
+      "ttsText": "flower",
+      "image": "grade2/flower.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u02-play",
+        "g2u02-bee",
+        "g2u02-kite"
+      ],
+      "spokenVariants": [
+        "flour"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u02-backyard",
+      "word": "backyard",
+      "ttsText": "backyard",
+      "image": "grade2/backyard.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u02-tree",
+        "g2u02-butterfly",
+        "g2u02-bike"
+      ],
+      "spokenVariants": [
+        "back yard",
+        "bakyard"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u02-run",
+      "word": "run",
+      "ttsText": "run",
+      "image": "grade2/run.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u02-bee",
+        "g2u02-kite",
+        "g2u02-kitten"
+      ],
+      "spokenVariants": [
+        "ron",
+        "ran"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u02-play",
+      "word": "play",
+      "ttsText": "play",
+      "image": "grade2/play.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u02-butterfly",
+        "g2u02-bike",
+        "g2u02-puppy"
+      ],
+      "spokenVariants": [
+        "pray",
+        "plea"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u02-tree",
+      "word": "tree",
+      "ttsText": "tree",
+      "image": "grade2/tree.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u02-kite",
+        "g2u02-kitten",
+        "g2u02-grass"
+      ],
+      "spokenVariants": [
+        "three"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u02-bee",
+      "word": "bee",
+      "ttsText": "bee",
+      "image": "grade2/bee.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u02-bike",
+        "g2u02-puppy",
+        "g2u02-flower"
+      ],
+      "spokenVariants": [
+        "be"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u02-butterfly",
+      "word": "butterfly",
+      "ttsText": "butterfly",
+      "image": "grade2/butterfly.png",
+      "syllables": 3,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u02-kitten",
+        "g2u02-grass",
+        "g2u02-backyard"
+      ],
+      "spokenVariants": [],
+      "modes": [
+        "laneJump"
+      ]
+    }
+  ]
+}

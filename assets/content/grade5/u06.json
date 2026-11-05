@@ -1,0 +1,282 @@
+{
+  "grade": 5,
+  "unit": "u06",
+  "index": 6,
+  "title": "Our school rooms",
+  "items": [
+    {
+      "id": "g5u06-library",
+      "word": "library",
+      "ttsText": "library",
+      "image": "grade5/library.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "The library is upstairs",
+        "I read books in the library"
+      ],
+      "distractorIds": [
+        "g5u06-gym",
+        "g5u06-canteen",
+        "g5u06-garden"
+      ],
+      "spokenVariants": [
+        "libary",
+        "librery"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u06-gym",
+      "word": "gym",
+      "ttsText": "gym",
+      "image": "grade5/gym.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "The gym is downstairs",
+        "We play sports in the gym"
+      ],
+      "distractorIds": [
+        "g5u06-canteen",
+        "g5u06-garden",
+        "g5u06-laboratory"
+      ],
+      "spokenVariants": [
+        "jim",
+        "gim"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u06-canteen",
+      "word": "canteen",
+      "ttsText": "canteen",
+      "image": "grade5/canteen.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "The canteen is downstairs",
+        "We eat lunch in the canteen"
+      ],
+      "distractorIds": [
+        "g5u06-garden",
+        "g5u06-laboratory",
+        "g5u06-computer"
+      ],
+      "spokenVariants": [
+        "cantin",
+        "kanteen"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u06-garden",
+      "word": "garden",
+      "ttsText": "garden",
+      "image": "grade5/garden.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "The school garden is very beautiful",
+        "We water plants in the garden"
+      ],
+      "distractorIds": [
+        "g5u06-laboratory",
+        "g5u06-computer",
+        "g5u06-music"
+      ],
+      "spokenVariants": [
+        "gardin",
+        "gardan"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u06-laboratory",
+      "word": "laboratory",
+      "ttsText": "laboratory",
+      "image": "grade5/laboratory.png",
+      "syllables": 5,
+      "sentencePatterns": [
+        "The laboratory is on this floor",
+        "We do experiments in the laboratory"
+      ],
+      "distractorIds": [
+        "g5u06-computer",
+        "g5u06-music",
+        "g5u06-art"
+      ],
+      "spokenVariants": [
+        "laboratry",
+        "labratory"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot"
+      ]
+    },
+    {
+      "id": "g5u06-computer",
+      "word": "computer",
+      "ttsText": "computer",
+      "image": "grade5/computer.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "The computer room is upstairs",
+        "We learn on the computer"
+      ],
+      "distractorIds": [
+        "g5u06-music",
+        "g5u06-art",
+        "g5u06-floor"
+      ],
+      "spokenVariants": [
+        "computa",
+        "compyuter"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u06-music",
+      "word": "music",
+      "ttsText": "music",
+      "image": "grade5/music.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "The music room is upstairs",
+        "We sing in the music room"
+      ],
+      "distractorIds": [
+        "g5u06-art",
+        "g5u06-floor",
+        "g5u06-upstairs"
+      ],
+      "spokenVariants": [
+        "musik",
+        "myusic"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u06-art",
+      "word": "art",
+      "ttsText": "art",
+      "image": "grade5/art.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "The art room is upstairs",
+        "We paint in the art room"
+      ],
+      "distractorIds": [
+        "g5u06-floor",
+        "g5u06-upstairs",
+        "g5u06-downstairs"
+      ],
+      "spokenVariants": [
+        "arte",
+        "ard"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u06-floor",
+      "word": "floor",
+      "ttsText": "floor",
+      "image": "grade5/floor.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "It is on the second floor",
+        "The library is on this floor"
+      ],
+      "distractorIds": [
+        "g5u06-upstairs",
+        "g5u06-downstairs",
+        "g5u06-library"
+      ],
+      "spokenVariants": [
+        "flor",
+        "flaw"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u06-upstairs",
+      "word": "upstairs",
+      "ttsText": "upstairs",
+      "image": "grade5/upstairs.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "Go upstairs to the library",
+        "The music room is upstairs"
+      ],
+      "distractorIds": [
+        "g5u06-downstairs",
+        "g5u06-library",
+        "g5u06-gym"
+      ],
+      "spokenVariants": [
+        "upstares",
+        "apstairs"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u06-downstairs",
+      "word": "downstairs",
+      "ttsText": "downstairs",
+      "image": "grade5/downstairs.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "Go downstairs to the canteen",
+        "The gym is downstairs"
+      ],
+      "distractorIds": [
+        "g5u06-library",
+        "g5u06-gym",
+        "g5u06-canteen"
+      ],
+      "spokenVariants": [
+        "downstares",
+        "dounstairs"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    }
+  ]
+}

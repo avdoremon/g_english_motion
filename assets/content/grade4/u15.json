@@ -1,0 +1,256 @@
+{
+  "grade": 4,
+  "unit": "u15",
+  "index": 15,
+  "title": "My family's weekends",
+  "items": [
+    {
+      "id": "g4u15-cinema",
+      "word": "cinema",
+      "ttsText": "cinema",
+      "image": "grade4/cinema.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "We go to the cinema",
+        "The cinema is new"
+      ],
+      "distractorIds": [
+        "g4u15-shopping",
+        "g4u15-tennis",
+        "g4u15-film"
+      ],
+      "spokenVariants": [
+        "sinema",
+        "cinemar"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot"
+      ]
+    },
+    {
+      "id": "g4u15-shopping",
+      "word": "shopping",
+      "ttsText": "shopping",
+      "image": "grade4/shopping.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "Mum goes shopping",
+        "We go shopping on Sunday"
+      ],
+      "distractorIds": [
+        "g4u15-pool",
+        "g4u15-yoga",
+        "g4u15-cook"
+      ],
+      "spokenVariants": [
+        "shoping",
+        "shop in"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u15-pool",
+      "word": "pool",
+      "ttsText": "pool",
+      "image": "grade4/pool.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "We go to the pool",
+        "They go to the swimming pool"
+      ],
+      "distractorIds": [
+        "g4u15-tennis",
+        "g4u15-film",
+        "g4u15-housework"
+      ],
+      "spokenVariants": [
+        "pull",
+        "poor"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u15-tennis",
+      "word": "tennis",
+      "ttsText": "tennis",
+      "image": "grade4/tennis.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "Nam plays tennis on Sundays",
+        "I play tennis"
+      ],
+      "distractorIds": [
+        "g4u15-yoga",
+        "g4u15-cook",
+        "g4u15-television"
+      ],
+      "spokenVariants": [
+        "tenis",
+        "tennies"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u15-yoga",
+      "word": "yoga",
+      "ttsText": "yoga",
+      "image": "grade4/yoga.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "Mai does yoga on Saturdays",
+        "I do yoga"
+      ],
+      "distractorIds": [
+        "g4u15-film",
+        "g4u15-housework",
+        "g4u15-soccer"
+      ],
+      "spokenVariants": [
+        "yoker",
+        "yogurt"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u15-film",
+      "word": "film",
+      "ttsText": "film",
+      "image": "grade4/film.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "We watch a film",
+        "I like this film"
+      ],
+      "distractorIds": [
+        "g4u15-cook",
+        "g4u15-television",
+        "g4u15-cinema"
+      ],
+      "spokenVariants": [
+        "fill",
+        "feel"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u15-cook",
+      "word": "cook",
+      "ttsText": "cook",
+      "image": "grade4/cook.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I cook meals on Sundays",
+        "Mum can cook well"
+      ],
+      "distractorIds": [
+        "g4u15-housework",
+        "g4u15-soccer",
+        "g4u15-shopping"
+      ],
+      "spokenVariants": [
+        "cock",
+        "kook"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u15-housework",
+      "word": "housework",
+      "ttsText": "housework",
+      "image": "grade4/housework.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I do housework on Sundays",
+        "She does housework every week"
+      ],
+      "distractorIds": [
+        "g4u15-television",
+        "g4u15-cinema",
+        "g4u15-pool"
+      ],
+      "spokenVariants": [
+        "house work",
+        "housewalk"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u15-television",
+      "word": "television",
+      "ttsText": "television",
+      "image": "grade4/television.png",
+      "syllables": 4,
+      "sentencePatterns": [
+        "We watch television together",
+        "I watch television at noon"
+      ],
+      "distractorIds": [
+        "g4u15-soccer",
+        "g4u15-shopping",
+        "g4u15-tennis"
+      ],
+      "spokenVariants": [
+        "tele vision",
+        "televison"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot"
+      ]
+    },
+    {
+      "id": "g4u15-soccer",
+      "word": "soccer",
+      "ttsText": "soccer",
+      "image": "grade4/soccer.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "They play soccer on Sundays",
+        "I play soccer"
+      ],
+      "distractorIds": [
+        "g4u15-cinema",
+        "g4u15-pool",
+        "g4u15-yoga"
+      ],
+      "spokenVariants": [
+        "sucker",
+        "socker"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    }
+  ]
+}

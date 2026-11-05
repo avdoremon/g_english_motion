@@ -1,0 +1,258 @@
+{
+  "grade": 3,
+  "unit": "u18",
+  "index": 18,
+  "title": "Playing and doing",
+  "items": [
+    {
+      "id": "g3u18-writing",
+      "word": "writing",
+      "ttsText": "writing",
+      "image": "grade3/writing.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I am writing",
+        "She is writing now"
+      ],
+      "distractorIds": [
+        "g3u18-dancing",
+        "g3u18-reading",
+        "g3u18-drawing"
+      ],
+      "spokenVariants": [
+        "writin",
+        "righting"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u18-dancing",
+      "word": "dancing",
+      "ttsText": "dancing",
+      "image": "grade3/dancing.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I am dancing",
+        "She is dancing now"
+      ],
+      "distractorIds": [
+        "g3u18-singing",
+        "g3u18-basketball",
+        "g3u18-watching"
+      ],
+      "spokenVariants": [
+        "dancin",
+        "dance in"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u18-singing",
+      "word": "singing",
+      "ttsText": "singing",
+      "image": "grade3/singing.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I am singing",
+        "He is singing now"
+      ],
+      "distractorIds": [
+        "g3u18-reading",
+        "g3u18-drawing",
+        "g3u18-listening"
+      ],
+      "spokenVariants": [
+        "singin",
+        "sing in"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u18-reading",
+      "word": "reading",
+      "ttsText": "reading",
+      "image": "grade3/reading.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I am reading",
+        "She is reading now"
+      ],
+      "distractorIds": [
+        "g3u18-basketball",
+        "g3u18-watching",
+        "g3u18-music"
+      ],
+      "spokenVariants": [
+        "readin",
+        "red in"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u18-basketball",
+      "word": "basketball",
+      "ttsText": "basketball",
+      "image": "grade3/basketball.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "I play basketball",
+        "Let us play basketball"
+      ],
+      "distractorIds": [
+        "g3u18-drawing",
+        "g3u18-listening",
+        "g3u18-picture"
+      ],
+      "spokenVariants": [
+        "basket ball",
+        "basketbal"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u18-drawing",
+      "word": "drawing",
+      "ttsText": "drawing",
+      "image": "grade3/drawing.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I am drawing a picture",
+        "He is drawing now"
+      ],
+      "distractorIds": [
+        "g3u18-watching",
+        "g3u18-music",
+        "g3u18-writing"
+      ],
+      "spokenVariants": [
+        "drawin",
+        "draw in"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u18-watching",
+      "word": "watching",
+      "ttsText": "watching",
+      "image": "grade3/watching.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I am watching TV",
+        "He is watching TV"
+      ],
+      "distractorIds": [
+        "g3u18-listening",
+        "g3u18-picture",
+        "g3u18-dancing"
+      ],
+      "spokenVariants": [
+        "watchin",
+        "watch in"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u18-listening",
+      "word": "listening",
+      "ttsText": "listening",
+      "image": "grade3/listening.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "I am listening to music",
+        "She is listening now"
+      ],
+      "distractorIds": [
+        "g3u18-music",
+        "g3u18-writing",
+        "g3u18-singing"
+      ],
+      "spokenVariants": [
+        "listenin",
+        "listen in"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u18-music",
+      "word": "music",
+      "ttsText": "music",
+      "image": "grade3/music.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I like music",
+        "We listen to music"
+      ],
+      "distractorIds": [
+        "g3u18-picture",
+        "g3u18-dancing",
+        "g3u18-reading"
+      ],
+      "spokenVariants": [
+        "musik",
+        "mewsick"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u18-picture",
+      "word": "picture",
+      "ttsText": "picture",
+      "image": "grade3/picture.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "There is a picture",
+        "The picture is on the wall"
+      ],
+      "distractorIds": [
+        "g3u18-writing",
+        "g3u18-singing",
+        "g3u18-basketball"
+      ],
+      "spokenVariants": [
+        "pitcher",
+        "pickcha"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    }
+  ]
+}

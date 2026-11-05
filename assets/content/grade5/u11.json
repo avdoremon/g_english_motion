@@ -1,0 +1,304 @@
+{
+  "grade": 5,
+  "unit": "u11",
+  "index": 11,
+  "title": "Family time",
+  "items": [
+    {
+      "id": "g5u11-boat",
+      "word": "boat",
+      "ttsText": "boat",
+      "image": "grade5/boat.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "We took a boat trip",
+        "The boat is very small"
+      ],
+      "distractorIds": [
+        "g5u11-bay",
+        "g5u11-seafood",
+        "g5u11-souvenir"
+      ],
+      "spokenVariants": [
+        "bote",
+        "boot"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u11-bay",
+      "word": "bay",
+      "ttsText": "bay",
+      "image": "grade5/bay.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "We went around the bay",
+        "The bay is very beautiful"
+      ],
+      "distractorIds": [
+        "g5u11-seafood",
+        "g5u11-souvenir",
+        "g5u11-seashell"
+      ],
+      "spokenVariants": [
+        "bey",
+        "bai"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u11-seafood",
+      "word": "seafood",
+      "ttsText": "seafood",
+      "image": "grade5/seafood.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "We ate seafood there",
+        "I like seafood very much"
+      ],
+      "distractorIds": [
+        "g5u11-souvenir",
+        "g5u11-seashell",
+        "g5u11-beach"
+      ],
+      "spokenVariants": [
+        "seefood"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u11-souvenir",
+      "word": "souvenir",
+      "ttsText": "souvenir",
+      "image": "grade5/souvenir.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "We bought some souvenirs",
+        "This souvenir is for you"
+      ],
+      "distractorIds": [
+        "g5u11-seashell",
+        "g5u11-beach",
+        "g5u11-sandcastle"
+      ],
+      "spokenVariants": [
+        "suvenir",
+        "souvenear"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u11-seashell",
+      "word": "seashell",
+      "ttsText": "seashell",
+      "image": "grade5/seashell.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "We collected some seashells",
+        "This seashell is very pretty"
+      ],
+      "distractorIds": [
+        "g5u11-beach",
+        "g5u11-sandcastle",
+        "g5u11-photo"
+      ],
+      "spokenVariants": [
+        "seashel"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u11-beach",
+      "word": "beach",
+      "ttsText": "beach",
+      "image": "grade5/beach.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "We walked on the beach",
+        "The beach is very long"
+      ],
+      "distractorIds": [
+        "g5u11-sandcastle",
+        "g5u11-photo",
+        "g5u11-island"
+      ],
+      "spokenVariants": [
+        "beech",
+        "beatch"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u11-sandcastle",
+      "word": "sandcastle",
+      "ttsText": "sandcastle",
+      "image": "grade5/sandcastle.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "We built a sandcastle",
+        "The sandcastle is very big"
+      ],
+      "distractorIds": [
+        "g5u11-photo",
+        "g5u11-island",
+        "g5u11-basketball"
+      ],
+      "spokenVariants": [
+        "sancastle"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u11-photo",
+      "word": "photo",
+      "ttsText": "photo",
+      "image": "grade5/photo.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "We took a photo",
+        "This photo is very nice"
+      ],
+      "distractorIds": [
+        "g5u11-island",
+        "g5u11-basketball",
+        "g5u11-swim"
+      ],
+      "spokenVariants": [
+        "foto",
+        "photto"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u11-island",
+      "word": "island",
+      "ttsText": "island",
+      "image": "grade5/island.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "We visited the island",
+        "The island is very small"
+      ],
+      "distractorIds": [
+        "g5u11-basketball",
+        "g5u11-swim",
+        "g5u11-sea"
+      ],
+      "spokenVariants": [
+        "iland",
+        "ireland"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u11-basketball",
+      "word": "basketball",
+      "ttsText": "basketball",
+      "image": "grade5/basketball.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "We played basketball together",
+        "He likes playing basketball"
+      ],
+      "distractorIds": [
+        "g5u11-swim",
+        "g5u11-sea",
+        "g5u11-boat"
+      ],
+      "spokenVariants": [
+        "basketbal"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u11-swim",
+      "word": "swim",
+      "ttsText": "swim",
+      "image": "grade5/swim.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "We swam in the sea",
+        "I can swim very well"
+      ],
+      "distractorIds": [
+        "g5u11-sea",
+        "g5u11-boat",
+        "g5u11-bay"
+      ],
+      "spokenVariants": [
+        "swin",
+        "swimm"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u11-sea",
+      "word": "sea",
+      "ttsText": "sea",
+      "image": "grade5/sea.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "We swam in the sea",
+        "The sea is very blue"
+      ],
+      "distractorIds": [
+        "g5u11-boat",
+        "g5u11-bay",
+        "g5u11-seafood"
+      ],
+      "spokenVariants": [
+        "see",
+        "sey"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    }
+  ]
+}

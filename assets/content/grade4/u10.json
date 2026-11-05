@@ -1,0 +1,256 @@
+{
+  "grade": 4,
+  "unit": "u10",
+  "index": 10,
+  "title": "Our summer holidays",
+  "items": [
+    {
+      "id": "g4u10-beach",
+      "word": "beach",
+      "ttsText": "beach",
+      "image": "grade4/beach.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I went to the beach",
+        "The beach is sunny"
+      ],
+      "distractorIds": [
+        "g4u10-mountain",
+        "g4u10-summer",
+        "g4u10-campsite"
+      ],
+      "spokenVariants": [
+        "peach",
+        "beech"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u10-mountain",
+      "word": "mountain",
+      "ttsText": "mountain",
+      "image": "grade4/mountain.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "We climbed the mountain",
+        "The mountain is high"
+      ],
+      "distractorIds": [
+        "g4u10-holiday",
+        "g4u10-zoo",
+        "g4u10-countryside"
+      ],
+      "spokenVariants": [
+        "mountin",
+        "mount in"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u10-holiday",
+      "word": "holiday",
+      "ttsText": "holiday",
+      "image": "grade4/holiday.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "I like my summer holiday",
+        "The holiday was fun"
+      ],
+      "distractorIds": [
+        "g4u10-summer",
+        "g4u10-campsite",
+        "g4u10-park"
+      ],
+      "spokenVariants": [
+        "holliday",
+        "holy day"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot"
+      ]
+    },
+    {
+      "id": "g4u10-summer",
+      "word": "summer",
+      "ttsText": "summer",
+      "image": "grade4/summer.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I love summer",
+        "Summer is hot"
+      ],
+      "distractorIds": [
+        "g4u10-zoo",
+        "g4u10-countryside",
+        "g4u10-city"
+      ],
+      "spokenVariants": [
+        "sumer",
+        "summa"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u10-zoo",
+      "word": "zoo",
+      "ttsText": "zoo",
+      "image": "grade4/zoo.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I was at the zoo",
+        "Were you at the zoo"
+      ],
+      "distractorIds": [
+        "g4u10-campsite",
+        "g4u10-park",
+        "g4u10-town"
+      ],
+      "spokenVariants": [
+        "zoom",
+        "sue"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u10-campsite",
+      "word": "campsite",
+      "ttsText": "campsite",
+      "image": "grade4/campsite.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I was at the campsite",
+        "Were you at the campsite"
+      ],
+      "distractorIds": [
+        "g4u10-countryside",
+        "g4u10-city",
+        "g4u10-beach"
+      ],
+      "spokenVariants": [
+        "camp site",
+        "campside"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u10-countryside",
+      "word": "countryside",
+      "ttsText": "countryside",
+      "image": "grade4/countryside.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "I was in the countryside",
+        "Were you in the countryside"
+      ],
+      "distractorIds": [
+        "g4u10-park",
+        "g4u10-town",
+        "g4u10-mountain"
+      ],
+      "spokenVariants": [
+        "country side",
+        "cuntryside"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot"
+      ]
+    },
+    {
+      "id": "g4u10-park",
+      "word": "park",
+      "ttsText": "park",
+      "image": "grade4/park.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I was in the park",
+        "Were you at the park"
+      ],
+      "distractorIds": [
+        "g4u10-city",
+        "g4u10-beach",
+        "g4u10-holiday"
+      ],
+      "spokenVariants": [
+        "pack",
+        "bark"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u10-city",
+      "word": "city",
+      "ttsText": "city",
+      "image": "grade4/city.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I was in the city",
+        "Were you in the city"
+      ],
+      "distractorIds": [
+        "g4u10-town",
+        "g4u10-mountain",
+        "g4u10-summer"
+      ],
+      "spokenVariants": [
+        "sitty",
+        "citi"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u10-town",
+      "word": "town",
+      "ttsText": "town",
+      "image": "grade4/town.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I was in the town",
+        "Were you in the town"
+      ],
+      "distractorIds": [
+        "g4u10-beach",
+        "g4u10-holiday",
+        "g4u10-zoo"
+      ],
+      "spokenVariants": [
+        "tawn",
+        "down"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    }
+  ]
+}

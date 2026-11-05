@@ -1,0 +1,306 @@
+{
+  "grade": 4,
+  "unit": "u14",
+  "index": 14,
+  "title": "Daily activities",
+  "items": [
+    {
+      "id": "g4u14-morning",
+      "word": "morning",
+      "ttsText": "morning",
+      "image": "grade4/morning.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I watch TV in the morning",
+        "I read books in the morning"
+      ],
+      "distractorIds": [
+        "g4u14-afternoon",
+        "g4u14-watch",
+        "g4u14-clean"
+      ],
+      "spokenVariants": [
+        "mourning",
+        "morning s"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u14-afternoon",
+      "word": "afternoon",
+      "ttsText": "afternoon",
+      "image": "grade4/afternoon.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "I watch TV in the afternoon",
+        "I read books in the afternoon"
+      ],
+      "distractorIds": [
+        "g4u14-evening",
+        "g4u14-read",
+        "g4u14-wash"
+      ],
+      "spokenVariants": [
+        "after noon",
+        "afternoons"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot"
+      ]
+    },
+    {
+      "id": "g4u14-evening",
+      "word": "evening",
+      "ttsText": "evening",
+      "image": "grade4/evening.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I watch TV in the evening",
+        "I read books in the evening"
+      ],
+      "distractorIds": [
+        "g4u14-watch",
+        "g4u14-clean",
+        "g4u14-noon"
+      ],
+      "spokenVariants": [
+        "even ing",
+        "evenin"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u14-watch",
+      "word": "watch",
+      "ttsText": "watch",
+      "image": "grade4/watch.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I watch television",
+        "We watch cartoons"
+      ],
+      "distractorIds": [
+        "g4u14-read",
+        "g4u14-wash",
+        "g4u14-book"
+      ],
+      "spokenVariants": [
+        "wash",
+        "wat"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u14-read",
+      "word": "read",
+      "ttsText": "read",
+      "image": "grade4/read.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I read a book",
+        "We read every day"
+      ],
+      "distractorIds": [
+        "g4u14-clean",
+        "g4u14-noon",
+        "g4u14-television"
+      ],
+      "spokenVariants": [
+        "reed",
+        "red"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u14-clean",
+      "word": "clean",
+      "ttsText": "clean",
+      "image": "grade4/clean.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I clean my room",
+        "Clean the house today"
+      ],
+      "distractorIds": [
+        "g4u14-wash",
+        "g4u14-book",
+        "g4u14-floor"
+      ],
+      "spokenVariants": [
+        "clin",
+        "lean"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u14-wash",
+      "word": "wash",
+      "ttsText": "wash",
+      "image": "grade4/wash.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I wash my face",
+        "Wash your hands"
+      ],
+      "distractorIds": [
+        "g4u14-noon",
+        "g4u14-television",
+        "g4u14-dishes"
+      ],
+      "spokenVariants": [
+        "watch",
+        "wish"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u14-noon",
+      "word": "noon",
+      "ttsText": "noon",
+      "image": "grade4/noon.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I read books at noon",
+        "I watch TV at noon"
+      ],
+      "distractorIds": [
+        "g4u14-book",
+        "g4u14-floor",
+        "g4u14-morning"
+      ],
+      "spokenVariants": [
+        "new",
+        "non"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u14-book",
+      "word": "book",
+      "ttsText": "book",
+      "image": "grade4/book.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I read a book",
+        "Where is my book"
+      ],
+      "distractorIds": [
+        "g4u14-television",
+        "g4u14-dishes",
+        "g4u14-afternoon"
+      ],
+      "spokenVariants": [
+        "buck",
+        "boot"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u14-television",
+      "word": "television",
+      "ttsText": "television",
+      "image": "grade4/television.png",
+      "syllables": 4,
+      "sentencePatterns": [
+        "I watch television",
+        "We watch television at noon"
+      ],
+      "distractorIds": [
+        "g4u14-floor",
+        "g4u14-morning",
+        "g4u14-evening"
+      ],
+      "spokenVariants": [
+        "tele vision",
+        "televison"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot"
+      ]
+    },
+    {
+      "id": "g4u14-floor",
+      "word": "floor",
+      "ttsText": "floor",
+      "image": "grade4/floor.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I clean the floor",
+        "The floor is wet"
+      ],
+      "distractorIds": [
+        "g4u14-dishes",
+        "g4u14-afternoon",
+        "g4u14-watch"
+      ],
+      "spokenVariants": [
+        "flaw",
+        "flour"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u14-dishes",
+      "word": "dishes",
+      "ttsText": "dishes",
+      "image": "grade4/dishes.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I wash the dishes",
+        "She washes the dishes"
+      ],
+      "distractorIds": [
+        "g4u14-morning",
+        "g4u14-evening",
+        "g4u14-read"
+      ],
+      "spokenVariants": [
+        "dish is",
+        "dishs"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    }
+  ]
+}

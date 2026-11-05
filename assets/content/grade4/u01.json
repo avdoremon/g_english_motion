@@ -1,0 +1,296 @@
+{
+  "grade": 4,
+  "unit": "u01",
+  "index": 1,
+  "title": "My friends",
+  "items": [
+    {
+      "id": "g4u01-friend",
+      "word": "friend",
+      "ttsText": "friend",
+      "image": "grade4/friend.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "Nice to see you friend",
+        "He is my friend"
+      ],
+      "distractorIds": [
+        "g4u01-vietnam",
+        "g4u01-australia",
+        "g4u01-malaysia"
+      ],
+      "spokenVariants": [
+        "frend"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u01-vietnam",
+      "word": "vietnam",
+      "ttsText": "vietnam",
+      "image": "grade4/vietnam.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I am from Vietnam",
+        "Vietnam is my country"
+      ],
+      "distractorIds": [
+        "g4u01-america",
+        "g4u01-japan",
+        "g4u01-britain"
+      ],
+      "spokenVariants": [
+        "viet nam",
+        "vietnum"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u01-america",
+      "word": "america",
+      "ttsText": "america",
+      "image": "grade4/america.png",
+      "syllables": 4,
+      "sentencePatterns": [
+        "She is from America",
+        "America is a big country"
+      ],
+      "distractorIds": [
+        "g4u01-australia",
+        "g4u01-malaysia",
+        "g4u01-singapore"
+      ],
+      "spokenVariants": [
+        "amarica"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot"
+      ]
+    },
+    {
+      "id": "g4u01-australia",
+      "word": "australia",
+      "ttsText": "australia",
+      "image": "grade4/australia.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "Tom is from Australia",
+        "Australia has kangaroos"
+      ],
+      "distractorIds": [
+        "g4u01-japan",
+        "g4u01-britain",
+        "g4u01-american"
+      ],
+      "spokenVariants": [
+        "australya"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot"
+      ]
+    },
+    {
+      "id": "g4u01-japan",
+      "word": "japan",
+      "ttsText": "japan",
+      "image": "grade4/japan.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "He is from Japan",
+        "Japan is far away"
+      ],
+      "distractorIds": [
+        "g4u01-malaysia",
+        "g4u01-singapore",
+        "g4u01-australian"
+      ],
+      "spokenVariants": [
+        "japon"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u01-malaysia",
+      "word": "malaysia",
+      "ttsText": "malaysia",
+      "image": "grade4/malaysia.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "Where is Malaysia",
+        "They are from Malaysia"
+      ],
+      "distractorIds": [
+        "g4u01-britain",
+        "g4u01-american",
+        "g4u01-japanese"
+      ],
+      "spokenVariants": [
+        "ma laysia",
+        "malaisia"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot"
+      ]
+    },
+    {
+      "id": "g4u01-britain",
+      "word": "britain",
+      "ttsText": "britain",
+      "image": "grade4/britain.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "She is from Britain",
+        "Britain is a country"
+      ],
+      "distractorIds": [
+        "g4u01-singapore",
+        "g4u01-australian",
+        "g4u01-malaysian"
+      ],
+      "spokenVariants": [
+        "briton",
+        "brittan"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g4u01-singapore",
+      "word": "singapore",
+      "ttsText": "singapore",
+      "image": "grade4/singapore.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "He is from Singapore",
+        "Singapore is a small country"
+      ],
+      "distractorIds": [
+        "g4u01-american",
+        "g4u01-japanese",
+        "g4u01-friend"
+      ],
+      "spokenVariants": [
+        "singapor",
+        "singa pore"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot"
+      ]
+    },
+    {
+      "id": "g4u01-american",
+      "word": "american",
+      "ttsText": "american",
+      "image": "grade4/american.png",
+      "syllables": 4,
+      "sentencePatterns": [
+        "She is American",
+        "Is he American"
+      ],
+      "distractorIds": [
+        "g4u01-australian",
+        "g4u01-malaysian",
+        "g4u01-vietnam"
+      ],
+      "spokenVariants": [
+        "amerikan",
+        "amerrican"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot"
+      ]
+    },
+    {
+      "id": "g4u01-australian",
+      "word": "australian",
+      "ttsText": "australian",
+      "image": "grade4/australian.png",
+      "syllables": 4,
+      "sentencePatterns": [
+        "He is Australian",
+        "Is she Australian"
+      ],
+      "distractorIds": [
+        "g4u01-japanese",
+        "g4u01-friend",
+        "g4u01-america"
+      ],
+      "spokenVariants": [
+        "australyan",
+        "austrailian"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot"
+      ]
+    },
+    {
+      "id": "g4u01-japanese",
+      "word": "japanese",
+      "ttsText": "japanese",
+      "image": "grade4/japanese.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "Is he Japanese",
+        "She is Japanese"
+      ],
+      "distractorIds": [
+        "g4u01-malaysian",
+        "g4u01-vietnam",
+        "g4u01-australia"
+      ],
+      "spokenVariants": [
+        "japanees",
+        "japan ease"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot"
+      ]
+    },
+    {
+      "id": "g4u01-malaysian",
+      "word": "malaysian",
+      "ttsText": "malaysian",
+      "image": "grade4/malaysian.png",
+      "syllables": 4,
+      "sentencePatterns": [
+        "He is Malaysian",
+        "Is she Malaysian"
+      ],
+      "distractorIds": [
+        "g4u01-friend",
+        "g4u01-america",
+        "g4u01-japan"
+      ],
+      "spokenVariants": [
+        "malaysia an",
+        "malaishan"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot"
+      ]
+    }
+  ]
+}

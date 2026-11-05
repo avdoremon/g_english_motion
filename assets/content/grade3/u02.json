@@ -1,0 +1,258 @@
+{
+  "grade": 3,
+  "unit": "u02",
+  "index": 2,
+  "title": "Our names",
+  "items": [
+    {
+      "id": "g3u02-name",
+      "word": "name",
+      "ttsText": "name",
+      "image": "grade3/name.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "My name is Nam",
+        "What is your name"
+      ],
+      "distractorIds": [
+        "g3u02-old",
+        "g3u02-eight",
+        "g3u02-ten"
+      ],
+      "spokenVariants": [
+        "nem",
+        "naim"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u02-old",
+      "word": "old",
+      "ttsText": "old",
+      "image": "grade3/old.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "How old are you",
+        "She is eight years old"
+      ],
+      "distractorIds": [
+        "g3u02-seven",
+        "g3u02-nine",
+        "g3u02-birthday"
+      ],
+      "spokenVariants": [
+        "hold",
+        "olled"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u02-seven",
+      "word": "seven",
+      "ttsText": "seven",
+      "image": "grade3/seven.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I am seven years old",
+        "Seven pens are here"
+      ],
+      "distractorIds": [
+        "g3u02-eight",
+        "g3u02-ten",
+        "g3u02-cake"
+      ],
+      "spokenVariants": [
+        "sevan",
+        "heaven"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u02-eight",
+      "word": "eight",
+      "ttsText": "eight",
+      "image": "grade3/eight.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I am eight years old",
+        "Eight books are here"
+      ],
+      "distractorIds": [
+        "g3u02-nine",
+        "g3u02-birthday",
+        "g3u02-six"
+      ],
+      "spokenVariants": [
+        "ate",
+        "hate"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u02-nine",
+      "word": "nine",
+      "ttsText": "nine",
+      "image": "grade3/nine.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I am nine years old",
+        "Nine friends are here"
+      ],
+      "distractorIds": [
+        "g3u02-ten",
+        "g3u02-cake",
+        "g3u02-five"
+      ],
+      "spokenVariants": [
+        "nein",
+        "mine"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u02-ten",
+      "word": "ten",
+      "ttsText": "ten",
+      "image": "grade3/ten.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I am ten years old",
+        "Ten pens are here"
+      ],
+      "distractorIds": [
+        "g3u02-birthday",
+        "g3u02-six",
+        "g3u02-name"
+      ],
+      "spokenVariants": [
+        "tan",
+        "then"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u02-birthday",
+      "word": "birthday",
+      "ttsText": "birthday",
+      "image": "grade3/birthday.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "Happy birthday to you",
+        "My birthday is today"
+      ],
+      "distractorIds": [
+        "g3u02-cake",
+        "g3u02-five",
+        "g3u02-old"
+      ],
+      "spokenVariants": [
+        "burfday",
+        "birth day"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u02-cake",
+      "word": "cake",
+      "ttsText": "cake",
+      "image": "grade3/cake.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I like cake",
+        "Do you like cake"
+      ],
+      "distractorIds": [
+        "g3u02-six",
+        "g3u02-name",
+        "g3u02-seven"
+      ],
+      "spokenVariants": [
+        "kake",
+        "cack"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u02-six",
+      "word": "six",
+      "ttsText": "six",
+      "image": "grade3/six.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I am six years old",
+        "Six books are here"
+      ],
+      "distractorIds": [
+        "g3u02-five",
+        "g3u02-old",
+        "g3u02-eight"
+      ],
+      "spokenVariants": [
+        "sick",
+        "sics"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u02-five",
+      "word": "five",
+      "ttsText": "five",
+      "image": "grade3/five.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I am five years old",
+        "Five cats are here"
+      ],
+      "distractorIds": [
+        "g3u02-name",
+        "g3u02-seven",
+        "g3u02-nine"
+      ],
+      "spokenVariants": [
+        "fife",
+        "fiv"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    }
+  ]
+}

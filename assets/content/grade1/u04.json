@@ -1,0 +1,208 @@
+{
+  "grade": 1,
+  "unit": "u04",
+  "index": 4,
+  "title": "In the bedroom",
+  "items": [
+    {
+      "id": "g1u04-desk",
+      "word": "desk",
+      "ttsText": "desk",
+      "image": "grade1/desk.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u04-dog",
+        "g1u04-duck",
+        "g1u04-window"
+      ],
+      "spokenVariants": [
+        "disk"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u04-dog",
+      "word": "dog",
+      "ttsText": "dog",
+      "image": "grade1/dog.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u04-door",
+        "g1u04-bedroom",
+        "g1u04-mirror"
+      ],
+      "spokenVariants": [
+        "dug"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u04-door",
+      "word": "door",
+      "ttsText": "door",
+      "image": "grade1/door.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u04-duck",
+        "g1u04-window",
+        "g1u04-bed"
+      ],
+      "spokenVariants": [
+        "dor"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u04-duck",
+      "word": "duck",
+      "ttsText": "duck",
+      "image": "grade1/duck.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u04-bedroom",
+        "g1u04-mirror",
+        "g1u04-lamp"
+      ],
+      "spokenVariants": [
+        "dock"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u04-bedroom",
+      "word": "bedroom",
+      "ttsText": "bedroom",
+      "image": "grade1/bedroom.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u04-window",
+        "g1u04-bed",
+        "g1u04-pillow"
+      ],
+      "spokenVariants": [
+        "bedrum"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u04-window",
+      "word": "window",
+      "ttsText": "window",
+      "image": "grade1/window.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u04-mirror",
+        "g1u04-lamp",
+        "g1u04-desk"
+      ],
+      "spokenVariants": [
+        "windo"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u04-mirror",
+      "word": "mirror",
+      "ttsText": "mirror",
+      "image": "grade1/mirror.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u04-bed",
+        "g1u04-pillow",
+        "g1u04-dog"
+      ],
+      "spokenVariants": [
+        "mirra"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u04-bed",
+      "word": "bed",
+      "ttsText": "bed",
+      "image": "grade1/bed.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u04-lamp",
+        "g1u04-desk",
+        "g1u04-door"
+      ],
+      "spokenVariants": [
+        "bad"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u04-lamp",
+      "word": "lamp",
+      "ttsText": "lamp",
+      "image": "grade1/lamp.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u04-pillow",
+        "g1u04-dog",
+        "g1u04-duck"
+      ],
+      "spokenVariants": [
+        "lamb"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u04-pillow",
+      "word": "pillow",
+      "ttsText": "pillow",
+      "image": "grade1/pillow.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u04-desk",
+        "g1u04-door",
+        "g1u04-bedroom"
+      ],
+      "spokenVariants": [
+        "pilo"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    }
+  ]
+}

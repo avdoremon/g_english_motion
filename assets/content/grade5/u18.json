@@ -1,0 +1,308 @@
+{
+  "grade": 5,
+  "unit": "u18",
+  "index": 18,
+  "title": "Means of transport",
+  "items": [
+    {
+      "id": "g5u18-bus",
+      "word": "bus",
+      "ttsText": "bus",
+      "image": "grade5/bus.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I go there by bus",
+        "The bus stop is over there"
+      ],
+      "distractorIds": [
+        "g5u18-bicycle",
+        "g5u18-taxi",
+        "g5u18-boat"
+      ],
+      "spokenVariants": [
+        "buss",
+        "buz"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u18-bicycle",
+      "word": "bicycle",
+      "ttsText": "bicycle",
+      "image": "grade5/bicycle.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "I go there by bicycle",
+        "My bicycle is very new"
+      ],
+      "distractorIds": [
+        "g5u18-taxi",
+        "g5u18-boat",
+        "g5u18-plane"
+      ],
+      "spokenVariants": [
+        "bicycel",
+        "baisikel"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u18-taxi",
+      "word": "taxi",
+      "ttsText": "taxi",
+      "image": "grade5/taxi.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I go there by taxi",
+        "The taxi is very fast"
+      ],
+      "distractorIds": [
+        "g5u18-boat",
+        "g5u18-plane",
+        "g5u18-foot"
+      ],
+      "spokenVariants": [
+        "taksi",
+        "taxy"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u18-boat",
+      "word": "boat",
+      "ttsText": "boat",
+      "image": "grade5/boat.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I go there by boat",
+        "The boat is very small"
+      ],
+      "distractorIds": [
+        "g5u18-plane",
+        "g5u18-foot",
+        "g5u18-bridge"
+      ],
+      "spokenVariants": [
+        "bote",
+        "boot"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u18-plane",
+      "word": "plane",
+      "ttsText": "plane",
+      "image": "grade5/plane.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I go there by plane",
+        "The plane is very fast"
+      ],
+      "distractorIds": [
+        "g5u18-foot",
+        "g5u18-bridge",
+        "g5u18-lake"
+      ],
+      "spokenVariants": [
+        "plain",
+        "plan"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u18-foot",
+      "word": "foot",
+      "ttsText": "foot",
+      "image": "grade5/foot.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I go there on foot",
+        "We can go on foot"
+      ],
+      "distractorIds": [
+        "g5u18-bridge",
+        "g5u18-lake",
+        "g5u18-museum"
+      ],
+      "spokenVariants": [
+        "fut",
+        "fout"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u18-bridge",
+      "word": "bridge",
+      "ttsText": "bridge",
+      "image": "grade5/bridge.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I want to visit Dragon Bridge",
+        "The bridge is very long"
+      ],
+      "distractorIds": [
+        "g5u18-lake",
+        "g5u18-museum",
+        "g5u18-pagoda"
+      ],
+      "spokenVariants": [
+        "brige",
+        "bridg"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u18-lake",
+      "word": "lake",
+      "ttsText": "lake",
+      "image": "grade5/lake.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I want to visit the lake",
+        "The lake is very big"
+      ],
+      "distractorIds": [
+        "g5u18-museum",
+        "g5u18-pagoda",
+        "g5u18-square"
+      ],
+      "spokenVariants": [
+        "lak",
+        "laik"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u18-museum",
+      "word": "museum",
+      "ttsText": "museum",
+      "image": "grade5/museum.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "I want to visit the museum",
+        "The museum is far from here"
+      ],
+      "distractorIds": [
+        "g5u18-pagoda",
+        "g5u18-square",
+        "g5u18-stadium"
+      ],
+      "spokenVariants": [
+        "musium",
+        "myuseum"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u18-pagoda",
+      "word": "pagoda",
+      "ttsText": "pagoda",
+      "image": "grade5/pagoda.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "I want to visit the pagoda",
+        "The pagoda is very old"
+      ],
+      "distractorIds": [
+        "g5u18-square",
+        "g5u18-stadium",
+        "g5u18-bus"
+      ],
+      "spokenVariants": [
+        "pagoder",
+        "pegoda"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u18-square",
+      "word": "square",
+      "ttsText": "square",
+      "image": "grade5/square.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I want to visit the square",
+        "The square is very big"
+      ],
+      "distractorIds": [
+        "g5u18-stadium",
+        "g5u18-bus",
+        "g5u18-bicycle"
+      ],
+      "spokenVariants": [
+        "squair",
+        "skware"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u18-stadium",
+      "word": "stadium",
+      "ttsText": "stadium",
+      "image": "grade5/stadium.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "I want to visit the stadium",
+        "The stadium is very big"
+      ],
+      "distractorIds": [
+        "g5u18-bus",
+        "g5u18-bicycle",
+        "g5u18-taxi"
+      ],
+      "spokenVariants": [
+        "stadiam",
+        "stadyum"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,258 @@
+{
+  "grade": 3,
+  "unit": "u16",
+  "index": 16,
+  "title": "My pets",
+  "items": [
+    {
+      "id": "g3u16-pet",
+      "word": "pet",
+      "ttsText": "pet",
+      "image": "grade3/pet.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "This is my pet",
+        "Do you have a pet"
+      ],
+      "distractorIds": [
+        "g3u16-bird",
+        "g3u16-rabbit",
+        "g3u16-dog"
+      ],
+      "spokenVariants": [
+        "pat",
+        "bet"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u16-bird",
+      "word": "bird",
+      "ttsText": "bird",
+      "image": "grade3/bird.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I have a bird",
+        "The bird can sing"
+      ],
+      "distractorIds": [
+        "g3u16-parrot",
+        "g3u16-cat",
+        "g3u16-goldfish"
+      ],
+      "spokenVariants": [
+        "bed",
+        "bud"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u16-parrot",
+      "word": "parrot",
+      "ttsText": "parrot",
+      "image": "grade3/parrot.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I have a parrot",
+        "The parrot can talk"
+      ],
+      "distractorIds": [
+        "g3u16-rabbit",
+        "g3u16-dog",
+        "g3u16-hamster"
+      ],
+      "spokenVariants": [
+        "parrott",
+        "paret"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u16-rabbit",
+      "word": "rabbit",
+      "ttsText": "rabbit",
+      "image": "grade3/rabbit.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I have a rabbit",
+        "The rabbit is white"
+      ],
+      "distractorIds": [
+        "g3u16-cat",
+        "g3u16-goldfish",
+        "g3u16-turtle"
+      ],
+      "spokenVariants": [
+        "rabit",
+        "rabbet"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u16-cat",
+      "word": "cat",
+      "ttsText": "cat",
+      "image": "grade3/cat.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I have a cat",
+        "The cat is small"
+      ],
+      "distractorIds": [
+        "g3u16-dog",
+        "g3u16-hamster",
+        "g3u16-cage"
+      ],
+      "spokenVariants": [
+        "cut",
+        "cap"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u16-dog",
+      "word": "dog",
+      "ttsText": "dog",
+      "image": "grade3/dog.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "I have a dog",
+        "The dog is big"
+      ],
+      "distractorIds": [
+        "g3u16-goldfish",
+        "g3u16-turtle",
+        "g3u16-pet"
+      ],
+      "spokenVariants": [
+        "dock",
+        "dug"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u16-goldfish",
+      "word": "goldfish",
+      "ttsText": "goldfish",
+      "image": "grade3/goldfish.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I have a goldfish",
+        "The goldfish is small"
+      ],
+      "distractorIds": [
+        "g3u16-hamster",
+        "g3u16-cage",
+        "g3u16-bird"
+      ],
+      "spokenVariants": [
+        "gold fish",
+        "goldfis"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u16-hamster",
+      "word": "hamster",
+      "ttsText": "hamster",
+      "image": "grade3/hamster.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I have a hamster",
+        "The hamster is small"
+      ],
+      "distractorIds": [
+        "g3u16-turtle",
+        "g3u16-pet",
+        "g3u16-parrot"
+      ],
+      "spokenVariants": [
+        "hamstar",
+        "hampster"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u16-turtle",
+      "word": "turtle",
+      "ttsText": "turtle",
+      "image": "grade3/turtle.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I have a turtle",
+        "The turtle is slow"
+      ],
+      "distractorIds": [
+        "g3u16-cage",
+        "g3u16-bird",
+        "g3u16-rabbit"
+      ],
+      "spokenVariants": [
+        "tuttle",
+        "tertle"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g3u16-cage",
+      "word": "cage",
+      "ttsText": "cage",
+      "image": "grade3/cage.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "The bird is in the cage",
+        "This is a big cage"
+      ],
+      "distractorIds": [
+        "g3u16-pet",
+        "g3u16-parrot",
+        "g3u16-cat"
+      ],
+      "spokenVariants": [
+        "cadge",
+        "kage"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    }
+  ]
+}

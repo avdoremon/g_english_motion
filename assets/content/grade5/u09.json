@@ -1,0 +1,305 @@
+{
+  "grade": 5,
+  "unit": "u09",
+  "index": 9,
+  "title": "Our outdoor activities",
+  "items": [
+    {
+      "id": "g5u09-theatre",
+      "word": "theatre",
+      "ttsText": "theatre",
+      "image": "grade5/theatre.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "We were at the theatre",
+        "The theatre is very big"
+      ],
+      "distractorIds": [
+        "g5u09-aquarium",
+        "g5u09-campsite",
+        "g5u09-funfair"
+      ],
+      "spokenVariants": [
+        "theater",
+        "thiator"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u09-aquarium",
+      "word": "aquarium",
+      "ttsText": "aquarium",
+      "image": "grade5/aquarium.png",
+      "syllables": 4,
+      "sentencePatterns": [
+        "We were at the aquarium",
+        "The aquarium has many fish"
+      ],
+      "distractorIds": [
+        "g5u09-campsite",
+        "g5u09-funfair",
+        "g5u09-museum"
+      ],
+      "spokenVariants": [
+        "aquarim",
+        "akwarium"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot"
+      ]
+    },
+    {
+      "id": "g5u09-campsite",
+      "word": "campsite",
+      "ttsText": "campsite",
+      "image": "grade5/campsite.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "We were at the campsite",
+        "The campsite is near the lake"
+      ],
+      "distractorIds": [
+        "g5u09-funfair",
+        "g5u09-museum",
+        "g5u09-supermarket"
+      ],
+      "spokenVariants": [
+        "campsight",
+        "kampsite"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u09-funfair",
+      "word": "funfair",
+      "ttsText": "funfair",
+      "image": "grade5/funfair.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "We were at the funfair",
+        "The funfair is very fun"
+      ],
+      "distractorIds": [
+        "g5u09-museum",
+        "g5u09-supermarket",
+        "g5u09-bakery"
+      ],
+      "spokenVariants": [
+        "funfare"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u09-museum",
+      "word": "museum",
+      "ttsText": "museum",
+      "image": "grade5/museum.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "We were at the museum",
+        "The museum is very old"
+      ],
+      "distractorIds": [
+        "g5u09-supermarket",
+        "g5u09-bakery",
+        "g5u09-zoo"
+      ],
+      "spokenVariants": [
+        "musium",
+        "myuseum"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u09-supermarket",
+      "word": "supermarket",
+      "ttsText": "supermarket",
+      "image": "grade5/supermarket.png",
+      "syllables": 4,
+      "sentencePatterns": [
+        "We were at the supermarket",
+        "The supermarket is very big"
+      ],
+      "distractorIds": [
+        "g5u09-bakery",
+        "g5u09-zoo",
+        "g5u09-park"
+      ],
+      "spokenVariants": [
+        "supamarket",
+        "supermarkit"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot"
+      ]
+    },
+    {
+      "id": "g5u09-bakery",
+      "word": "bakery",
+      "ttsText": "bakery",
+      "image": "grade5/bakery.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "We were at the bakery",
+        "The bakery smells so good"
+      ],
+      "distractorIds": [
+        "g5u09-zoo",
+        "g5u09-park",
+        "g5u09-circus"
+      ],
+      "spokenVariants": [
+        "bakry",
+        "bakerry"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u09-zoo",
+      "word": "zoo",
+      "ttsText": "zoo",
+      "image": "grade5/zoo.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "We were at the zoo",
+        "The zoo has many animals"
+      ],
+      "distractorIds": [
+        "g5u09-park",
+        "g5u09-circus",
+        "g5u09-beach"
+      ],
+      "spokenVariants": [
+        "zu",
+        "zoh"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u09-park",
+      "word": "park",
+      "ttsText": "park",
+      "image": "grade5/park.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "We were at the park",
+        "The park is very green"
+      ],
+      "distractorIds": [
+        "g5u09-circus",
+        "g5u09-beach",
+        "g5u09-campfire"
+      ],
+      "spokenVariants": [
+        "pack",
+        "parc"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u09-circus",
+      "word": "circus",
+      "ttsText": "circus",
+      "image": "grade5/circus.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "We were at the circus",
+        "The circus is very funny"
+      ],
+      "distractorIds": [
+        "g5u09-beach",
+        "g5u09-campfire",
+        "g5u09-theatre"
+      ],
+      "spokenVariants": [
+        "sirkus",
+        "circuss"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u09-beach",
+      "word": "beach",
+      "ttsText": "beach",
+      "image": "grade5/beach.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "We were on the beach",
+        "The beach is very long"
+      ],
+      "distractorIds": [
+        "g5u09-campfire",
+        "g5u09-theatre",
+        "g5u09-aquarium"
+      ],
+      "spokenVariants": [
+        "beech",
+        "beatch"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u09-campfire",
+      "word": "campfire",
+      "ttsText": "campfire",
+      "image": "grade5/campfire.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "We dance around the campfire",
+        "The campfire is very warm"
+      ],
+      "distractorIds": [
+        "g5u09-theatre",
+        "g5u09-aquarium",
+        "g5u09-campsite"
+      ],
+      "spokenVariants": [
+        "campfier",
+        "kampfire"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    }
+  ]
+}

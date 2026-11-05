@@ -1,0 +1,208 @@
+{
+  "grade": 1,
+  "unit": "u10",
+  "index": 10,
+  "title": "At the zoo",
+  "items": [
+    {
+      "id": "g1u10-monkey",
+      "word": "monkey",
+      "ttsText": "monkey",
+      "image": "grade1/monkey.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u10-mango",
+        "g1u10-mouse",
+        "g1u10-lion"
+      ],
+      "spokenVariants": [
+        "mucky"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u10-mango",
+      "word": "mango",
+      "ttsText": "mango",
+      "image": "grade1/mango.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u10-mother",
+        "g1u10-zoo",
+        "g1u10-panda"
+      ],
+      "spokenVariants": [
+        "mongo"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u10-mother",
+      "word": "mother",
+      "ttsText": "mother",
+      "image": "grade1/mother.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u10-mouse",
+        "g1u10-lion",
+        "g1u10-tiger"
+      ],
+      "spokenVariants": [
+        "mudder"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u10-mouse",
+      "word": "mouse",
+      "ttsText": "mouse",
+      "image": "grade1/mouse.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u10-zoo",
+        "g1u10-panda",
+        "g1u10-zebra"
+      ],
+      "spokenVariants": [
+        "mouth"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u10-zoo",
+      "word": "zoo",
+      "ttsText": "zoo",
+      "image": "grade1/zoo.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u10-lion",
+        "g1u10-tiger",
+        "g1u10-bear"
+      ],
+      "spokenVariants": [
+        "sue"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u10-lion",
+      "word": "lion",
+      "ttsText": "lion",
+      "image": "grade1/lion.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u10-panda",
+        "g1u10-zebra",
+        "g1u10-monkey"
+      ],
+      "spokenVariants": [
+        "line"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u10-panda",
+      "word": "panda",
+      "ttsText": "panda",
+      "image": "grade1/panda.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u10-tiger",
+        "g1u10-bear",
+        "g1u10-mango"
+      ],
+      "spokenVariants": [
+        "pander"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u10-tiger",
+      "word": "tiger",
+      "ttsText": "tiger",
+      "image": "grade1/tiger.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u10-zebra",
+        "g1u10-monkey",
+        "g1u10-mother"
+      ],
+      "spokenVariants": [
+        "tigger"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u10-zebra",
+      "word": "zebra",
+      "ttsText": "zebra",
+      "image": "grade1/zebra.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u10-bear",
+        "g1u10-mango",
+        "g1u10-mouse"
+      ],
+      "spokenVariants": [
+        "zeebra"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g1u10-bear",
+      "word": "bear",
+      "ttsText": "bear",
+      "image": "grade1/bear.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g1u10-monkey",
+        "g1u10-mother",
+        "g1u10-zoo"
+      ],
+      "spokenVariants": [
+        "bare"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    }
+  ]
+}

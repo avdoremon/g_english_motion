@@ -1,0 +1,253 @@
+{
+  "grade": 2,
+  "unit": "u01",
+  "index": 1,
+  "title": "At my birthday party",
+  "items": [
+    {
+      "id": "g2u01-pizza",
+      "word": "pizza",
+      "ttsText": "pizza",
+      "image": "grade2/pizza.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u01-noodles",
+        "g2u01-balloon",
+        "g2u01-drink"
+      ],
+      "spokenVariants": [
+        "pitza",
+        "peetsa"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u01-popcorn",
+      "word": "popcorn",
+      "ttsText": "popcorn",
+      "image": "grade2/popcorn.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u01-cake",
+        "g2u01-candy",
+        "g2u01-friend"
+      ],
+      "spokenVariants": [
+        "pop corn",
+        "popcon"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u01-pasta",
+      "word": "pasta",
+      "ttsText": "pasta",
+      "image": "grade2/pasta.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u01-balloon",
+        "g2u01-drink",
+        "g2u01-party"
+      ],
+      "spokenVariants": [
+        "parsta"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u01-noodles",
+      "word": "noodles",
+      "ttsText": "noodles",
+      "image": "grade2/noodles.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u01-candy",
+        "g2u01-friend",
+        "g2u01-birthday"
+      ],
+      "spokenVariants": [
+        "noodle",
+        "noodels"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u01-cake",
+      "word": "cake",
+      "ttsText": "cake",
+      "image": "grade2/cake.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u01-drink",
+        "g2u01-party",
+        "g2u01-candle"
+      ],
+      "spokenVariants": [
+        "kake"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u01-balloon",
+      "word": "balloon",
+      "ttsText": "balloon",
+      "image": "grade2/balloon.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u01-friend",
+        "g2u01-birthday",
+        "g2u01-pizza"
+      ],
+      "spokenVariants": [
+        "baloon"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u01-candy",
+      "word": "candy",
+      "ttsText": "candy",
+      "image": "grade2/candy.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u01-party",
+        "g2u01-candle",
+        "g2u01-popcorn"
+      ],
+      "spokenVariants": [
+        "kandy"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u01-drink",
+      "word": "drink",
+      "ttsText": "drink",
+      "image": "grade2/drink.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u01-birthday",
+        "g2u01-pizza",
+        "g2u01-pasta"
+      ],
+      "spokenVariants": [
+        "dring"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u01-friend",
+      "word": "friend",
+      "ttsText": "friend",
+      "image": "grade2/friend.png",
+      "syllables": 1,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u01-candle",
+        "g2u01-popcorn",
+        "g2u01-noodles"
+      ],
+      "spokenVariants": [
+        "fren",
+        "frend"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u01-party",
+      "word": "party",
+      "ttsText": "party",
+      "image": "grade2/party.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u01-pizza",
+        "g2u01-pasta",
+        "g2u01-cake"
+      ],
+      "spokenVariants": [
+        "partie",
+        "bardy"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u01-birthday",
+      "word": "birthday",
+      "ttsText": "birthday",
+      "image": "grade2/birthday.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u01-popcorn",
+        "g2u01-noodles",
+        "g2u01-balloon"
+      ],
+      "spokenVariants": [
+        "berthday"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g2u01-candle",
+      "word": "candle",
+      "ttsText": "candle",
+      "image": "grade2/candle.png",
+      "syllables": 2,
+      "sentencePatterns": [],
+      "distractorIds": [
+        "g2u01-pasta",
+        "g2u01-cake",
+        "g2u01-candy"
+      ],
+      "spokenVariants": [
+        "kandle"
+      ],
+      "modes": [
+        "laneJump",
+        "sayIt"
+      ]
+    }
+  ]
+}

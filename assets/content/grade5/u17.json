@@ -1,0 +1,281 @@
+{
+  "grade": 5,
+  "unit": "u17",
+  "index": 17,
+  "title": "Stories for children",
+  "items": [
+    {
+      "id": "g5u17-story",
+      "word": "story",
+      "ttsText": "story",
+      "image": "grade5/story.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I like this story",
+        "This story is very interesting"
+      ],
+      "distractorIds": [
+        "g5u17-storybook",
+        "g5u17-fairy",
+        "g5u17-fox"
+      ],
+      "spokenVariants": [
+        "stori",
+        "storey"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u17-storybook",
+      "word": "storybook",
+      "ttsText": "storybook",
+      "image": "grade5/storybook.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "I am reading a storybook",
+        "This storybook is very interesting"
+      ],
+      "distractorIds": [
+        "g5u17-fairy",
+        "g5u17-fox",
+        "g5u17-crow"
+      ],
+      "spokenVariants": [
+        "storybuk"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u17-fairy",
+      "word": "fairy",
+      "ttsText": "fairy",
+      "image": "grade5/fairy.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I am reading a fairy tale",
+        "The fairy has a wand"
+      ],
+      "distractorIds": [
+        "g5u17-fox",
+        "g5u17-crow",
+        "g5u17-ant"
+      ],
+      "spokenVariants": [
+        "ferry",
+        "fairey"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u17-fox",
+      "word": "fox",
+      "ttsText": "fox",
+      "image": "grade5/fox.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "The fox is very clever",
+        "I like the fox"
+      ],
+      "distractorIds": [
+        "g5u17-crow",
+        "g5u17-ant",
+        "g5u17-grasshopper"
+      ],
+      "spokenVariants": [
+        "focks",
+        "fax"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u17-crow",
+      "word": "crow",
+      "ttsText": "crow",
+      "image": "grade5/crow.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "The crow is on the tree",
+        "I like the crow"
+      ],
+      "distractorIds": [
+        "g5u17-ant",
+        "g5u17-grasshopper",
+        "g5u17-tortoise"
+      ],
+      "spokenVariants": [
+        "crowe",
+        "crou"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u17-ant",
+      "word": "ant",
+      "ttsText": "ant",
+      "image": "grade5/ant.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "The ant is very small",
+        "The ant works hard"
+      ],
+      "distractorIds": [
+        "g5u17-grasshopper",
+        "g5u17-tortoise",
+        "g5u17-hare"
+      ],
+      "spokenVariants": [
+        "aunt",
+        "unt"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u17-grasshopper",
+      "word": "grasshopper",
+      "ttsText": "grasshopper",
+      "image": "grade5/grasshopper.png",
+      "syllables": 3,
+      "sentencePatterns": [
+        "The grasshopper likes to sing",
+        "I like the grasshopper"
+      ],
+      "distractorIds": [
+        "g5u17-tortoise",
+        "g5u17-hare",
+        "g5u17-dwarf"
+      ],
+      "spokenVariants": [
+        "grasshoper"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u17-tortoise",
+      "word": "tortoise",
+      "ttsText": "tortoise",
+      "image": "grade5/tortoise.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "The tortoise is very slow",
+        "I like the tortoise"
+      ],
+      "distractorIds": [
+        "g5u17-hare",
+        "g5u17-dwarf",
+        "g5u17-comic"
+      ],
+      "spokenVariants": [
+        "tortis",
+        "tortoice"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u17-hare",
+      "word": "hare",
+      "ttsText": "hare",
+      "image": "grade5/hare.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "The hare runs very fast",
+        "I like the hare"
+      ],
+      "distractorIds": [
+        "g5u17-dwarf",
+        "g5u17-comic",
+        "g5u17-story"
+      ],
+      "spokenVariants": [
+        "hair",
+        "hear"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u17-dwarf",
+      "word": "dwarf",
+      "ttsText": "dwarf",
+      "image": "grade5/dwarf.png",
+      "syllables": 1,
+      "sentencePatterns": [
+        "The dwarf is very small",
+        "Snow White meets a dwarf"
+      ],
+      "distractorIds": [
+        "g5u17-comic",
+        "g5u17-story",
+        "g5u17-storybook"
+      ],
+      "spokenVariants": [
+        "dwarff",
+        "dwarv"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    },
+    {
+      "id": "g5u17-comic",
+      "word": "comic",
+      "ttsText": "comic",
+      "image": "grade5/comic.png",
+      "syllables": 2,
+      "sentencePatterns": [
+        "I like reading a comic",
+        "This comic is very funny"
+      ],
+      "distractorIds": [
+        "g5u17-story",
+        "g5u17-storybook",
+        "g5u17-fairy"
+      ],
+      "spokenVariants": [
+        "comick",
+        "komic"
+      ],
+      "modes": [
+        "dragSpell",
+        "skyShoot",
+        "sayIt"
+      ]
+    }
+  ]
+}
