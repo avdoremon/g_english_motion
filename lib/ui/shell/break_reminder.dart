@@ -26,7 +26,7 @@ class BreakReminder extends StatelessWidget {
     return Semantics(
       liveRegion: true,
       child: ColoredBox(
-        color: const Color(0xEE14123A),
+        color: AppTheme.breakScrim,
         child: Center(
           child: SingleChildScrollView(
             padding: const EdgeInsets.all(16),

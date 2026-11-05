@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../theme/app_theme.dart';
+
 class PauseOverlay extends StatelessWidget {
   const PauseOverlay({super.key, required this.message});
 
@@ -8,7 +10,7 @@ class PauseOverlay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ColoredBox(
-      color: const Color(0xCC14123A),
+      color: AppTheme.pauseScrim,
       child: Center(
         child: Padding(
           padding: const EdgeInsets.all(32),

@@ -463,7 +463,19 @@ void main() {
       await step();
     }
     expect(ctl.session!.round.remaining, lessThan(left));
+
+    // The in-play exit button takes the same path as the system back: the
+    // confirmation appears and the clock stands still.
     await tester.tap(find.byKey(const ValueKey('exit')));
+    await tester.pumpAndSettle();
+    expect(find.text('Thoát trò chơi?'), findsOneWidget);
+    expect(ctl.session!.phase, SessionPhase.paused);
+    final frozen = ctl.session!.round.remaining;
+    for (var i = 0; i < 30; i++) {
+      await step();
+    }
+    expect(ctl.session!.round.remaining, frozen);
+    await tester.tap(find.byKey(const ValueKey('leave')));
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 600));
   });

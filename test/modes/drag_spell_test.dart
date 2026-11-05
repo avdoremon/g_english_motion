@@ -57,7 +57,7 @@ void main() {
         ),
         timeLimit: _limit,
       ),
-      throwsA(isA<AssertionError>()),
+      throwsA(isA<ArgumentError>()),
     );
     expect(
       () => DragSpellRound.order(
@@ -69,7 +69,7 @@ void main() {
         ),
         timeLimit: _limit,
       ),
-      throwsA(isA<AssertionError>()),
+      throwsA(isA<ArgumentError>()),
     );
   });
 

@@ -143,7 +143,9 @@ class _GameShellState extends State<GameShell> with WidgetsBindingObserver {
     }
     final after = _running;
     if (after == _wasRunning) return;
-    _wasRunning = after;
+    // Rebuild so PlaySurface sees the new `paused`: the break clock follows
+    // it, and only some of the callers above set state themselves.
+    if (mounted) setState(() => _wasRunning = after);
     if (after) {
       widget.session?.resume();
     } else {

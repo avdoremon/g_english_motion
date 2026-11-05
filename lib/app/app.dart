@@ -671,7 +671,10 @@ class _RootState extends State<_Root> with WidgetsBindingObserver {
           onHome: _goHome,
         );
       case GamePhase.playing:
-        return PlayScreen(controller: ctl, onExit: _goHome);
+        return PlayScreen(
+          controller: ctl,
+          onExit: () => unawaited(_onBack(ctl)),
+        );
       case GamePhase.finished:
         final o = ctl.outcome!;
         final grade = ctl.grade, level = ctl.level.level;

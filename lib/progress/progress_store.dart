@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../content/history_store.dart';
@@ -65,13 +67,21 @@ class ProgressStore implements HistoryStore {
     if (_recent.length > maxRecent) {
       _recent.removeRange(0, _recent.length - maxRecent);
     }
-    _capWrong();
+    if (_capWrong()) {
+      // Persist the trim, so an over-long stored list does not linger on
+      // disk until the next markWrong / clearWrong.
+      unawaited(_set(_wrongKey, _wrong.toList()).catchError((Object _) {}));
+    }
   }
 
-  void _capWrong() {
+  /// Drops the oldest entries beyond [maxWrong]; true if any were dropped.
+  bool _capWrong() {
+    var dropped = false;
     while (_wrong.length > maxWrong) {
       _wrong.remove(_wrong.first);
+      dropped = true;
     }
+    return dropped;
   }
 
   static List<String> _readList(SharedPreferences p, String key) {

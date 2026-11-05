@@ -142,6 +142,9 @@ class _PlaySurfaceState extends State<PlaySurface> {
     // Re-armed for the NEXT twenty minutes: the spec asks for a reminder
     // after every 20 minutes of play, not once per app session.
     _remaining = widget.breakAfter;
+    // Self-sufficient: re-arm here instead of relying on the host to toggle
+    // [PlaySurface.paused] (a host that does pause simply disarms it again).
+    if (_running) _armBreak();
     unawaited(widget.audio.playLine(VoiceLine.takeABreak));
     widget.onBreakDue?.call();
   }

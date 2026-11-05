@@ -145,7 +145,7 @@ void main() {
     expect(audio.muted, isFalse);
   });
 
-  test('a failing source is retried up to 3 times, then failed', () async {
+  test('a failing source is retried up to 4 times, then failed', () async {
     src.failWith = StateError('boom');
     final errors = <Object>[];
     final done = Completer<void>();
@@ -154,7 +154,7 @@ void main() {
         .listen((_) {}, onError: errors.add, onDone: done.complete);
     await done.future;
     expect(errors, isEmpty, reason: 'never throws');
-    expect(src.ids, [1, 1, 1], reason: 'failure cap of 3');
+    expect(src.ids, [1, 1, 1, 1], reason: 'failure cap of 4');
     expect(session.failed, isTrue);
     expect(log.first, 'mute');
     expect(log.last, 'restore');
@@ -163,7 +163,7 @@ void main() {
 
   test('a normal end resets the failure count', () async {
     var n = 0;
-    // calls 1,2 fail; 3 listens; 4,5 fail; 6 listens: never 3 in a row.
+    // calls 1,2 fail; 3 listens; 4,5 fail; 6 listens: never 4 in a row.
     src.onListen = (id) {
       n++;
       return (n == 3 || n >= 6) ? null : StateError('x');
@@ -208,11 +208,13 @@ void main() {
         'listen',
         'stop',
         'listen',
+        'stop',
+        'listen',
         'restore',
       ]);
     });
 
-    test('three mic failures take more than 400 ms, not ~200 ms', () async {
+    test('the mic failure budget is over a second, not ~200 ms', () async {
       // The mic-problem overlay halts the level and the phone is across the
       // room: the cap must not be spent on a 200 ms hiccup.
       final slow = SpeechSession(src, audio);
@@ -225,7 +227,7 @@ void main() {
       await done.future;
       sw.stop();
       expect(slow.failed, isTrue);
-      expect(sw.elapsedMilliseconds, greaterThan(400));
+      expect(sw.elapsedMilliseconds, greaterThan(1000));
     });
   });
 

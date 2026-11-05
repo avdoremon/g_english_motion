@@ -15,6 +15,7 @@ import 'package:g_english_motion/ui/shell/caption_strip.dart';
 import 'package:g_english_motion/ui/shell/game_shell.dart';
 import 'package:g_english_motion/ui/shell/pause_overlay.dart';
 import 'package:g_english_motion/ui/shell/permission_screen.dart';
+import 'package:g_english_motion/ui/shell/play_surface.dart';
 import 'package:g_english_motion/ui/shell/safety_screen.dart';
 import 'package:g_english_motion/ui/theme/app_theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -554,6 +555,57 @@ void main() {
       timers.clear();
       await tester.pumpWidget(shell(store: store));
       expect(timers.single.duration, const Duration(minutes: 12));
+      await tester.pumpWidget(const SizedBox());
+    });
+
+    testWidgets('backgrounding stops the break clock after a frame and does '
+        'not bank idle time', (tester) async {
+      SharedPreferences.setMockInitialValues({});
+      final store = ProgressStore(await SharedPreferences.getInstance());
+      await tester.pumpWidget(shell(store: store));
+      final armed = timers.single;
+      clock += const Duration(minutes: 18);
+      life(AppLifecycleState.paused);
+      await tester.pump();
+      expect(armed.cancelled, isTrue, reason: 'no reminder to an empty screen');
+      // The phone sits locked for 10 minutes.
+      clock += const Duration(minutes: 10);
+      await tester.pump();
+      expect(store.playedTowardsBreak(), const Duration(minutes: 18));
+      // Coming back re-arms with the 2 minutes that are left.
+      life(AppLifecycleState.resumed);
+      await tester.pump();
+      expect(timers.last.isActive, isTrue);
+      expect(timers.last.duration, const Duration(minutes: 2));
+      await tester.pumpWidget(const SizedBox());
+    });
+
+    testWidgets('PlaySurface re-arms by itself when the host sets no '
+        'callbacks', (tester) async {
+      await tester.pumpWidget(
+        _app(
+          PlaySurface(
+            audio: audio,
+            elapsed: () => clock,
+            timerFactory: (d, cb) {
+              final t = _FakeTimer(d, cb);
+              timers.add(t);
+              return t;
+            },
+            child: const Text('PLAYFIELD'),
+          ),
+        ),
+      );
+      expect(timers.single.duration, const Duration(minutes: 20));
+      clock += const Duration(minutes: 20);
+      await fireBreak(tester);
+      expect(captions, [VoiceLine.takeABreak.caption]);
+      final next = timers.lastWhere((t) => t.isActive);
+      expect(next, isNot(same(timers.first)));
+      expect(next.duration, const Duration(minutes: 20));
+      clock += const Duration(minutes: 20);
+      await fireBreak(tester);
+      expect(captions, hasLength(2), reason: 'a second reminder is due');
       await tester.pumpWidget(const SizedBox());
     });
 

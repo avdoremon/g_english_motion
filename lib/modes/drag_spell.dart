@@ -27,25 +27,36 @@ String _stripPunctuation(String w) {
   return s.isEmpty ? w : s;
 }
 
+/// A real guard (asserts are stripped in release): a tile count that does not
+/// match the answer would make an unwinnable round.
+List<String> _requireCount(List<String> tiles, int expected, String message) {
+  if (tiles.length != expected) throw ArgumentError(message);
+  return tiles;
+}
+
 class DragSpellRound implements Round {
   DragSpellRound.spell(SpellQuestion q, {required this.timeLimit})
-    : assert(
-        q.tiles.length == q.word.runes.length,
-        'spell: ${q.tiles.length} tiles cannot spell "${q.word}" '
-        '(${q.word.runes.length} letters)',
+    : tiles = List.unmodifiable(
+        _requireCount(
+          q.tiles,
+          q.word.runes.length,
+          'spell: ${q.tiles.length} tiles cannot spell "${q.word}" '
+          '(${q.word.runes.length} letters)',
+        ),
       ),
-      tiles = List.unmodifiable(q.tiles),
       _answer = [for (final r in q.word.runes) String.fromCharCode(r)],
       _slots = List<int?>.filled(q.tiles.length, null),
       _remaining = timeLimit;
 
   DragSpellRound.order(OrderQuestion q, {required this.timeLimit})
-    : assert(
-        q.words.length == q.answer.length,
-        'order: ${q.words.length} tiles cannot build a ${q.answer.length}'
-        '-word answer',
+    : tiles = List.unmodifiable(
+        _requireCount(
+          q.words,
+          q.answer.length,
+          'order: ${q.words.length} tiles cannot build a ${q.answer.length}'
+          '-word answer',
+        ).map(_stripPunctuation),
       ),
-      tiles = List.unmodifiable(q.words.map(_stripPunctuation)),
       _answer = List.unmodifiable(q.answer.map(_stripPunctuation)),
       _slots = List<int?>.filled(q.words.length, null),
       _remaining = timeLimit;

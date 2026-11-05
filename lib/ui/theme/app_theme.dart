@@ -19,6 +19,10 @@ class AppTheme {
   static const Color text = Color(0xFFFFFFFF);
   static const Color muted = Color(0xFFC9C6F5);
 
+  /// Scrims drawn over the playing area (background colour, translucent).
+  static const Color pauseScrim = Color(0xCC14123A);
+  static const Color breakScrim = Color(0xEE14123A);
+
   static const String fontFamily = 'Baloo 2';
   static const List<String> fontFallback = ['Roboto', 'sans-serif'];
 

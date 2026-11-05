@@ -13,7 +13,7 @@ class SpeechSession {
     this._source,
     this._audio, {
     this.relistenDelay = const Duration(milliseconds: 100),
-    this.maxConsecutiveFailures = 3,
+    this.maxConsecutiveFailures = 4,
   });
 
   /// After this many failed listens in a row the session gives up and
@@ -28,7 +28,8 @@ class SpeechSession {
   final Duration relistenDelay;
 
   /// Multiples of [relistenDelay] applied after 1, 2, 3+ failures in a row.
-  /// Restarting the recogniser at once is what provokes Android's
+  /// With the default cap of 4 all three steps are used before giving up
+  /// (100 + 400 + 1000 ms of waiting at the default delay). Restarting the recogniser at once is what provokes Android's
   /// `error_busy` / `error_client`, so the cap cannot be spent on a hiccup
   /// of a few hundred milliseconds.
   static const List<int> _backoff = [1, 4, 10];
