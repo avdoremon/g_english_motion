@@ -28,6 +28,11 @@ import '../input/confirm_gesture.dart';
 class ProgressStore implements HistoryStore {
   static const maxRecent = InMemoryHistoryStore.maxRecent;
 
+  /// Wrong ids are capped too: the set only ever grows otherwise, and a list
+  /// that grows without bound is written to disk on every wrong answer.
+  /// Oldest marked first out (the set keeps insertion order).
+  static const maxWrong = maxRecent;
+
   static const _recentKey = 'history.recent';
   static const _wrongKey = 'history.wrong';
   static const _gestureKey = 'progress.confirmGesture';
@@ -51,6 +56,13 @@ class ProgressStore implements HistoryStore {
       _wrong = _readList(p, _wrongKey).toSet() {
     if (_recent.length > maxRecent) {
       _recent.removeRange(0, _recent.length - maxRecent);
+    }
+    _capWrong();
+  }
+
+  void _capWrong() {
+    while (_wrong.length > maxWrong) {
+      _wrong.remove(_wrong.first);
     }
   }
 
@@ -166,6 +178,7 @@ class ProgressStore implements HistoryStore {
   @override
   Future<void> markWrong(String id) {
     _wrong.add(id);
+    _capWrong();
     return _set(_wrongKey, _wrong.toList());
   }
 

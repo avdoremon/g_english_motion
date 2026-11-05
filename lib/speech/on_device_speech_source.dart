@@ -30,12 +30,22 @@ abstract class SpeechBackend {
   /// Starts one on-device listen in en_US. [onEnd] fires once, when the
   /// recogniser has finished (after any final result; error code null) or
   /// failed (the plugin's error code, e.g. `error_busy`).
-  Future<void> listen({
+  ///
+  /// Returns false when the recogniser did NOT start. The plugin's Android
+  /// side answers false - with no status and no error callback - when it
+  /// still believes it is listening or was never initialised, and
+  /// `SpeechToText.listen` swallows that answer, so a caller that ignores it
+  /// waits forever for an [onEnd] that never comes.
+  Future<bool> listen({
     required String localeId,
     required void Function(List<String> transcripts, List<double> confidences)
     onResult,
     required void Function(String? errorCode) onEnd,
   });
+
+  /// How long after a started [listen] the caller may wait for [onEnd]
+  /// before treating the listen as dead.
+  Duration get listenTimeout;
 
   Future<void> stop();
 }
@@ -44,6 +54,10 @@ abstract class SpeechBackend {
 /// normally and the session listens again. Every other code is a failure.
 bool isBenignSpeechError(String code) =>
     code == 'error_no_match' || code == 'error_speech_timeout';
+
+/// Reported when a listen never started, or started and never ended. Not
+/// benign: the caller must count it as a failure, never as silence.
+const String speechNotStartedError = 'error_not_started';
 
 /// Recognition that never leaves the device. Audio and transcripts exist only
 /// in memory, inside the stream events.
@@ -60,6 +74,10 @@ class OnDeviceSpeechSource implements SpeechSource {
   Future<SpeechAvailability>? _checked;
   StreamController<RecognitionResult>? _active;
   Future<bool>? _initialized;
+
+  /// Fires when a started listen has not ended in time (see
+  /// [SpeechBackend.listenTimeout]).
+  Timer? _watchdog;
 
   @override
   Future<SpeechAvailability> check({bool askPermission = false}) {
@@ -101,6 +119,7 @@ class OnDeviceSpeechSource implements SpeechSource {
       onCancel: () async {
         if (identical(_active, c)) {
           _active = null;
+          _cancelWatchdog();
           await _safeStop();
         }
       },
@@ -108,8 +127,14 @@ class OnDeviceSpeechSource implements SpeechSource {
     return c.stream;
   }
 
+  void _cancelWatchdog() {
+    _watchdog?.cancel();
+    _watchdog = null;
+  }
+
   Future<void> _start(StreamController<RecognitionResult> c, int id) async {
     void end([String? errorCode]) {
+      _cancelWatchdog();
       if (identical(_active, c)) _active = null;
       if (c.isClosed) return;
       // "Heard nothing" is a normal end; any other code is a failure the
@@ -126,13 +151,15 @@ class OnDeviceSpeechSource implements SpeechSource {
         // for "heard nothing".
         throw StateError('on-device speech recognition is not available');
       }
-      // One listen at a time: the previous one is over.
+      // One listen at a time. The recogniser is stopped unconditionally: on
+      // the normal relisten path the previous controller is already closed,
+      // yet the plugin may still hold the microphone - and a plugin that
+      // thinks it is listening refuses to start without saying so.
       final previous = _active;
       _active = c;
-      if (previous != null && !previous.isClosed) {
-        await _safeStop();
-        unawaited(previous.close());
-      }
+      _cancelWatchdog();
+      await _safeStop();
+      if (previous != null && !previous.isClosed) unawaited(previous.close());
       if (c.isClosed) return;
       _initialized ??= _backend.initialize();
       if (!await _initialized!) {
@@ -140,7 +167,7 @@ class OnDeviceSpeechSource implements SpeechSource {
         throw StateError('speech recognizer could not be initialised');
       }
       if (c.isClosed) return;
-      await _backend.listen(
+      final started = await _backend.listen(
         localeId: localeId,
         onResult: (transcripts, confidences) {
           // A result of a finished (or superseded) listen is dropped.
@@ -155,6 +182,20 @@ class OnDeviceSpeechSource implements SpeechSource {
         },
         onEnd: end,
       );
+      // The listen may already have ended (synchronously, or while awaiting).
+      if (c.isClosed || !identical(_active, c)) return;
+      if (!started) {
+        debugPrint('OnDeviceSpeechSource: the recogniser did not start');
+        end(speechNotStartedError);
+        return;
+      }
+      // Nothing ending in time means the microphone never opened: a listen
+      // that is never reported would be graded as silence.
+      _watchdog = Timer(_backend.listenTimeout, () {
+        if (!identical(_active, c)) return;
+        debugPrint('OnDeviceSpeechSource: the recogniser never ended');
+        end(speechNotStartedError);
+      });
     } catch (e) {
       debugPrint('OnDeviceSpeechSource.listenOnce failed: $e');
       _initialized = null;
@@ -173,6 +214,7 @@ class OnDeviceSpeechSource implements SpeechSource {
   Future<void> stop() async {
     final c = _active;
     _active = null;
+    _cancelWatchdog();
     await _safeStop();
     if (c != null && !c.isClosed) await c.close();
   }
@@ -250,8 +292,15 @@ class SpeechToTextBackend implements SpeechBackend {
     f?.call(code);
   }
 
+  /// The plugin's own `listenFor` plus a margin: past that a listen that has
+  /// not reported an end is not running.
   @override
-  Future<void> listen({
+  Duration get listenTimeout =>
+      (listenOptions.listenFor ?? const Duration(seconds: 20)) +
+      const Duration(seconds: 2);
+
+  @override
+  Future<bool> listen({
     required String localeId,
     required void Function(List<String>, List<double>) onResult,
     required void Function(String? errorCode) onEnd,
@@ -270,6 +319,9 @@ class SpeechToTextBackend implements SpeechBackend {
         );
       },
     );
+    // `SpeechToText.listen` discards the platform's false answer, so the
+    // only way to tell a refused start from a started listen is to ask.
+    return _stt.isListening;
   }
 
   @override

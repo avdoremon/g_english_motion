@@ -38,17 +38,48 @@ class JumpDetector {
   /// flicker with frame timing.
   static const Duration _windowSlack = Duration(milliseconds: 100);
 
+  /// A lift below this fraction of the firing threshold still counts as "not
+  /// rising yet", so [liftStartedAt] marks the start of the lift.
+  static const double _liftStartRatio = 0.25;
+
   double _baseline;
   final List<(Duration, double)> _recent = [];
   bool _armed = true;
   bool _dropped = true;
   Duration? _lastFire;
   Duration? _lastT;
+  Duration? _liftStartedAt;
   Duration _suppressUntil = Duration.zero;
 
   /// Blocks firing until [t] (inclusive of earlier timestamps only).
   void suppressUntil(Duration t) {
     if (t > _suppressUntil) _suppressUntil = t;
+  }
+
+  /// Timestamp of the last frame whose lift was still below a quarter of the
+  /// firing threshold: approximately where the current rise began. Null until
+  /// the first usable pose. Callers use it instead of a fixed look-back when
+  /// they need the state at takeoff (e.g. which lane the player left from).
+  Duration? get liftStartedAt => _liftStartedAt;
+
+  /// Takes [p] as the new resting position: the baseline, the stillness
+  /// window and the arming state are all re-seeded.
+  ///
+  /// Needed whenever the body may have moved while it could not be followed
+  /// (the player walked out of frame and back): the old baseline is then an
+  /// arbitrary offset from the body, which both fires without a jump and
+  /// latches the detector so real jumps are missed. Without usable hips and
+  /// shoulders nothing is changed.
+  void rebaseline(Pose p) {
+    final hip = p.midHipY, shoulder = p.midShoulderY;
+    if (hip == null || shoulder == null) return;
+    _baseline = (hip + shoulder) / 2;
+    _recent.clear();
+    _armed = true;
+    _dropped = true;
+    _lastFire = null;
+    _lastT = null;
+    _liftStartedAt = null;
   }
 
   /// Feed one pose; returns true on the frame a jump is detected.
@@ -96,6 +127,7 @@ class JumpDetector {
     }
 
     lift = _baseline - current;
+    if (lift < _liftStartRatio * fireAt) _liftStartedAt = t;
 
     // Re-arm needs both: having dropped below half threshold since the last
     // fire, and the debounce having elapsed.

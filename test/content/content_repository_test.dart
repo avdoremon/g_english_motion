@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:g_english_motion/content/content_repository.dart';
@@ -33,6 +35,30 @@ void main() {
     expect(r.unitsFor(2), isEmpty);
   });
 
+  test('an item without playable modes is a FormatException, not a '
+      'silently dropped word', () async {
+    // A "mode" / "mods" typo used to leave the item with no modes at all:
+    // it then never appeared in any question and nothing said why.
+    for (final modes in ['', ',"modes":[]', ',"mode":["laneJump"]']) {
+      final bad =
+          '{"grade":1,"unit":"u01","index":1,"title":"t","items":'
+          '[{"id":"g1u01-x","word":"x","ttsText":"x"$modes}]}';
+      expect(
+        () => Unit.fromJson(
+          (const JsonDecoder().convert(bad)) as Map<String, dynamic>,
+        ),
+        throwsA(
+          isA<FormatException>().having(
+            (e) => e.message,
+            'message',
+            contains('modes'),
+          ),
+        ),
+        reason: 'modes: "$modes"',
+      );
+    }
+  });
+
   test('byId throws StateError for unknown id', () async {
     final r = await _load({'assets/content/grade1/u01.json': _u01});
     expect(() => r.byId('nope'), throwsStateError);
@@ -41,7 +67,7 @@ void main() {
   test('missing id -> FormatException naming the file', () async {
     const bad =
         '{"grade":1,"unit":"u01","index":1,"title":"t","items":'
-        '[{"word":"x","ttsText":"x","modes":[]}]}';
+        '[{"word":"x","ttsText":"x","modes":["laneJump"]}]}';
     expect(
       _load({'assets/content/grade1/bad.json': bad}),
       throwsA(
@@ -177,7 +203,7 @@ void main() {
     test('the error names the source file when loading from assets', () {
       const bad =
           '{"grade":1,"unit":"u09","index":2,"title":"t","items":['
-          '{"id":"x","word":"x","ttsText":"x","modes":[]}]}';
+          '{"id":"x","word":"x","ttsText":"x","modes":["laneJump"]}]}';
       expect(
         _load({'assets/content/grade1/odd.json': bad}),
         throwsA(

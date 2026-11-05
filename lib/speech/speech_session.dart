@@ -24,8 +24,19 @@ class SpeechSession {
   final AudioService _audio;
 
   /// Pause before listening again, so a recogniser that ends at once cannot
-  /// spin the CPU.
+  /// spin the CPU. Failures stretch it (see [relistenDelayAfter]).
   final Duration relistenDelay;
+
+  /// Multiples of [relistenDelay] applied after 1, 2, 3+ failures in a row.
+  /// Restarting the recogniser at once is what provokes Android's
+  /// `error_busy` / `error_client`, so the cap cannot be spent on a hiccup
+  /// of a few hundred milliseconds.
+  static const List<int> _backoff = [1, 4, 10];
+
+  /// Pause before the next listen, given the failures so far in a row.
+  Duration relistenDelayAfter(int consecutiveFailures) =>
+      relistenDelay *
+      _backoff[consecutiveFailures.clamp(1, _backoff.length) - 1];
 
   _Run? _run;
   bool _failed = false;
@@ -66,10 +77,18 @@ class SpeechSession {
     bool Function() keepListening,
   ) async {
     _failed = false;
-    _audio.muteForListening();
     var failures = 0;
     try {
+      // Inside the try: a throwing mute must still restore the audio and
+      // must not leave cancel() waiting on `finished`.
+      _audio.muteForListening();
+      var first = true;
       while (!run.cancelled && keepListening()) {
+        // A recogniser left running (or one that only thinks it is) refuses
+        // the next listen, so every attempt starts from a stopped one.
+        if (!first) await _safeStop();
+        first = false;
+        if (run.cancelled) break;
         run.failed = false;
         final ended = Completer<void>();
         run.ended = ended;
@@ -101,9 +120,10 @@ class SpeechSession {
         } else {
           failures = 0;
         }
-        if (!run.cancelled && relistenDelay > Duration.zero) {
+        final delay = relistenDelayAfter(failures);
+        if (!run.cancelled && delay > Duration.zero) {
           final wake = run.wake = Completer<void>();
-          final timer = Timer(relistenDelay, () {
+          final timer = Timer(delay, () {
             if (!wake.isCompleted) wake.complete();
           });
           await wake.future;
@@ -131,6 +151,11 @@ class SpeechSession {
     unawaited(run.sub?.cancel());
     if (!(run.ended?.isCompleted ?? true)) run.ended!.complete();
     if (!(run.wake?.isCompleted ?? true)) run.wake!.complete();
+    await _safeStop();
+  }
+
+  /// Stopping must never break the game.
+  Future<void> _safeStop() async {
     try {
       await _source.stop();
     } catch (_) {}

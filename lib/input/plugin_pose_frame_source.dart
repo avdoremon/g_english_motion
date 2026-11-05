@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import 'mp_pose_landmarker_backend.dart';
@@ -221,15 +222,38 @@ class PluginPoseFrameSource implements PoseFrameSource {
   }
 
   Pose _pose(List<RawPoseLandmark> lms, int offset) {
+    // A pose whose landmarks carry no score at all: MediaPipe left both
+    // fields empty and the plugin sends 0.0 for each (see
+    // docs/pose-plugin-evaluation.md). Taking that literally would hide the
+    // player from the whole game (every Pose getter gates on confidence) and
+    // the child would just wait for a camera that is in fact working, so the
+    // landmarks are trusted instead; the geometry checks still guard against
+    // nonsense.
+    var scored = false;
+    for (var i = 0; i < landmarksPerPose && !scored; i++) {
+      final l = lms[offset + i];
+      scored = _confidence(l) > 0;
+    }
+    if (!scored && !_warnedUnscored) {
+      _warnedUnscored = true;
+      debugPrint(
+        'PluginPoseFrameSource: the pose plugin reports no visibility/presence '
+        'score for any landmark; treating them as fully visible.',
+      );
+    }
     final joints = <PoseJoint, Landmark>{};
     for (final e in blazePoseIndex.entries) {
       final l = lms[offset + e.value];
       if (!l.x.isFinite || !l.y.isFinite) continue;
       final x = landmarksMirrored ? 1 - l.x : l.x;
-      joints[e.key] = Landmark(x, l.y, _confidence(l));
+      joints[e.key] = Landmark(x, l.y, scored ? _confidence(l) : 1.0);
     }
     return Pose(joints);
   }
+
+  /// The "no scores at all" note is worth one line in the log, not one a
+  /// frame.
+  bool _warnedUnscored = false;
 
   /// The lower of visibility and presence; a score the native side left at
   /// 0.0 (not filled in) is ignored in favour of the other.

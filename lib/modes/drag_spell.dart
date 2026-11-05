@@ -29,13 +29,23 @@ String _stripPunctuation(String w) {
 
 class DragSpellRound implements Round {
   DragSpellRound.spell(SpellQuestion q, {required this.timeLimit})
-    : tiles = List.unmodifiable(q.tiles),
+    : assert(
+        q.tiles.length == q.word.runes.length,
+        'spell: ${q.tiles.length} tiles cannot spell "${q.word}" '
+        '(${q.word.runes.length} letters)',
+      ),
+      tiles = List.unmodifiable(q.tiles),
       _answer = [for (final r in q.word.runes) String.fromCharCode(r)],
       _slots = List<int?>.filled(q.tiles.length, null),
       _remaining = timeLimit;
 
   DragSpellRound.order(OrderQuestion q, {required this.timeLimit})
-    : tiles = List.unmodifiable(q.words.map(_stripPunctuation)),
+    : assert(
+        q.words.length == q.answer.length,
+        'order: ${q.words.length} tiles cannot build a ${q.answer.length}'
+        '-word answer',
+      ),
+      tiles = List.unmodifiable(q.words.map(_stripPunctuation)),
       _answer = List.unmodifiable(q.answer.map(_stripPunctuation)),
       _slots = List<int?>.filled(q.words.length, null),
       _remaining = timeLimit;

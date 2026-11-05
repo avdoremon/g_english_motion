@@ -71,8 +71,10 @@ void main() {
     expect(Scoring.sayItStars(8), 3);
     expect(Scoring.sayItStars(9), 3);
     expect(Scoring.sayItStars(0), 0);
-    expect(() => Scoring.sayItStars(-1), throwsRangeError);
-    expect(() => Scoring.sayItStars(10), throwsRangeError);
+    // Clamped like stars(): a scoring slip must never crash the result
+    // screen a child is looking at.
+    expect(Scoring.sayItStars(-1), 0);
+    expect(Scoring.sayItStars(10), 3);
   });
 
   test('unlocksNext', () {

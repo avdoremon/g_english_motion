@@ -10,6 +10,10 @@ import 'package:speech_to_text/speech_to_text.dart';
 class _FakeStt implements SpeechToText {
   SpeechStatusListener? onStatus;
   int cancels = 0;
+  bool listening = true;
+
+  @override
+  bool get isListening => listening;
 
   @override
   Future<bool> initialize({
@@ -48,6 +52,13 @@ class _FakeStt implements SpeechToText {
 class FakeBackend implements SpeechBackend {
   bool onDevice = true, permission = true, initOk = true, grantOnAsk = true;
   bool throwOnDeviceCheck = false;
+
+  /// Whether [listen] reports that the recogniser actually started.
+  bool startOk = true;
+
+  @override
+  Duration listenTimeout = const Duration(milliseconds: 40);
+
   int initCalls = 0, listenCalls = 0, stopCalls = 0, onDeviceCalls = 0;
   int requests = 0;
   String? lastLocale;
@@ -78,7 +89,7 @@ class FakeBackend implements SpeechBackend {
   }
 
   @override
-  Future<void> listen({
+  Future<bool> listen({
     required String localeId,
     required void Function(List<String>, List<double>) onResult,
     required void Function(String? errorCode) onEnd,
@@ -87,6 +98,7 @@ class FakeBackend implements SpeechBackend {
     lastLocale = localeId;
     this.onResult = onResult;
     this.onEnd = onEnd;
+    return startOk;
   }
 
   @override
@@ -269,6 +281,66 @@ void main() {
       b.onEnd!(null);
       await run();
       expect(b.initCalls, 1);
+    });
+
+    test('a listen that never starts fails, it is not silence', () async {
+      // The plugin answers false (and calls nothing back) when it thinks it
+      // is still listening: "heard nothing" would mark the word wrong.
+      b.startOk = false;
+      final errors = <Object>[];
+      final done = Completer<void>();
+      s
+          .listenOnce(sessionId: 1)
+          .listen((_) {}, onError: errors.add, onDone: done.complete);
+      await done.future;
+      expect(errors, hasLength(1));
+      expect(errors.single.toString(), contains(speechNotStartedError));
+    });
+
+    test('a listen that starts and never ends fails after the '
+        'watchdog', () async {
+      final errors = <Object>[];
+      final done = Completer<void>();
+      s
+          .listenOnce(sessionId: 1)
+          .listen((_) {}, onError: errors.add, onDone: done.complete);
+      await settle();
+      expect(b.listenCalls, 1);
+      expect(errors, isEmpty, reason: 'still within the watchdog');
+      await done.future.timeout(const Duration(seconds: 5));
+      expect(errors, hasLength(1));
+      expect(errors.single.toString(), contains(speechNotStartedError));
+    });
+
+    test('the watchdog is dropped when the listen ends normally', () async {
+      final errors = <Object>[];
+      final done = Completer<void>();
+      s
+          .listenOnce(sessionId: 1)
+          .listen((_) {}, onError: errors.add, onDone: done.complete);
+      await settle();
+      b.onEnd!(null);
+      await done.future;
+      await Future<void>.delayed(b.listenTimeout * 3);
+      expect(errors, isEmpty);
+    });
+
+    test('the recogniser is stopped before every listen', () async {
+      final done = Completer<void>();
+      s.listenOnce(sessionId: 1).listen((_) {}, onDone: done.complete);
+      await settle();
+      expect(
+        b.stopCalls,
+        greaterThanOrEqualTo(1),
+        reason: 'a recogniser left running holds the microphone',
+      );
+      b.onEnd!(null);
+      await done.future;
+      final stopsAfterFirst = b.stopCalls;
+      s.listenOnce(sessionId: 2).listen((_) {});
+      await settle();
+      expect(b.stopCalls, greaterThan(stopsAfterFirst));
+      await s.stop();
     });
 
     test('benign error codes', () {

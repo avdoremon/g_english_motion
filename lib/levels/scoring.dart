@@ -20,11 +20,13 @@ class Scoring {
     return 0;
   }
 
+  /// 3 stars from 8 of 9 words, 2 from 7, 1 from 5. Out-of-range input is
+  /// clamped to 0..9 rather than thrown on, like [stars].
   static int sayItStars(int correctOfNine) {
-    RangeError.checkValueInInterval(correctOfNine, 0, 9, 'correctOfNine');
-    if (correctOfNine >= 8) return 3;
-    if (correctOfNine >= 7) return 2;
-    if (correctOfNine >= 5) return 1;
+    final c = correctOfNine.clamp(0, 9);
+    if (c >= 8) return 3;
+    if (c >= 7) return 2;
+    if (c >= 5) return 1;
     return 0;
   }
 

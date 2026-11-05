@@ -78,9 +78,8 @@ class QuestionGenerator {
         if (!wrong.contains(p.item.id)) p,
     ];
 
-    // Wrong-item quota: 30% rounded down, at least 1 for n >= 4.
-    var cap = (n * 3) ~/ 10;
-    if (n >= 4 && wrongPairs.isNotEmpty && cap < 1) cap = 1;
+    // Wrong-item quota: 30% rounded down (so n < 4 asks no wrong item).
+    final cap = (n * 3) ~/ 10;
     final picks = <_Pick>[];
     final wrongItems = <String>{};
     final leftoverWrong = <_Pair>[];
@@ -420,9 +419,13 @@ class QuestionGenerator {
       case QuestionForm.fillBlank:
         if (!upper) return null;
         final re = _wordRe(item.word);
+        // Exactly once: in "The orange is orange" only one occurrence is
+        // blanked, so the prompt would show (and the voice would speak) the
+        // answer. Such a pattern is skipped; an item with no other one
+        // cannot be asked as fillBlank at all.
         final c = [
           for (final s in item.sentencePatterns)
-            if (re.hasMatch(s)) s,
+            if (re.allMatches(s).length == 1) s,
         ];
         return c.isEmpty ? null : c[_rng.nextInt(c.length)];
       case QuestionForm.spellWord:

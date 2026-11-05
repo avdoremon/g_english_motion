@@ -88,6 +88,43 @@ void main() {
     expect(fired, 0);
   });
 
+  group('rebaseline', () {
+    test('takes the current position as the baseline and re-arms', () {
+      final d = JumpDetector(cal);
+      d.update(lifted(0), ms(0));
+      // Away for a while; back 0.08 higher: a stale baseline both fires
+      // spuriously and latches the detector.
+      d.rebaseline(lifted(0.08));
+      expect(d.update(lifted(0.08), ms(1000)), isFalse);
+      expect(d.update(lifted(0.08), ms(1066)), isFalse);
+      // A real 0.04 jump from the NEW resting level still fires.
+      expect(d.update(lifted(0.12), ms(1133)), isTrue);
+    });
+
+    test('a pose without hips or shoulders leaves the baseline alone', () {
+      final d = JumpDetector(cal);
+      d.update(lifted(0), ms(0));
+      d.rebaseline(const Pose({}));
+      expect(d.update(lifted(0.04), ms(100)), isTrue);
+    });
+  });
+
+  group('liftStartedAt', () {
+    test('is the last frame before the body starts rising', () {
+      final d = JumpDetector(cal);
+      expect(d.liftStartedAt, isNull);
+      d.update(lifted(0), ms(0));
+      expect(d.liftStartedAt, ms(0));
+      d.update(lifted(0), ms(1000));
+      expect(d.liftStartedAt, ms(1000));
+      // Above a quarter of the 0.036 threshold: the lift has started.
+      d.update(lifted(0.02), ms(1066));
+      expect(d.liftStartedAt, ms(1000));
+      expect(d.update(lifted(0.04), ms(1133)), isTrue);
+      expect(d.liftStartedAt, ms(1000));
+    });
+  });
+
   group('baseline adaptation', () {
     /// 30 fps frames where the whole body is lifted by lift(t) metres.
     List<PoseFrame> levels(double seconds, double Function(double t) lift) =>

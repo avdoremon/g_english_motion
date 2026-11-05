@@ -515,6 +515,81 @@ void main() {
       );
       expect(events.whereType<PlayerFound>(), isEmpty);
     });
+
+    // The jump baseline is stale while the child is away: it must be
+    // re-taken on re-acquisition and nothing graded during the grace.
+    test(
+      'a gradual walk back into frame confirms nothing (15 fps)',
+      () async {
+        // Stand 2 s, nobody for 1 s, then walk back over 600 ms ending 0.05
+        // higher in the image (0.05 > 0.12 * 0.3 torso) and stay there.
+        final frames = [
+          ...standingSequence(duration: ms(2000), fps: 15),
+          ...poseSequence(
+            duration: ms(1000),
+            fps: 15,
+            start: ms(2000),
+            posesAt: (_) => const [],
+          ),
+          ...poseSequence(
+            duration: ms(2500),
+            fps: 15,
+            start: ms(3000),
+            posesAt: (t) {
+              final s = (t - ms(3000)).inMilliseconds.clamp(0, 600) / 600;
+              return [makePose(hipY: 0.6 - 0.05 * s)];
+            },
+          ),
+        ];
+        final events = await run(frames);
+        expect(events.whereType<PlayerFound>(), hasLength(1));
+        expect(
+          events.whereType<Confirmed>(),
+          isEmpty,
+          reason: 'walking back into position is not a jump',
+        );
+      },
+    );
+
+    test(
+      'a real jump just after the grace confirms, even when the child '
+      'returns higher in the frame (15 fps)',
+      () async {
+        // Returns 0.08 higher than the pre-loss baseline: with a stale
+        // baseline that offset alone latches the detector and the jump at
+        // 3550 ms is swallowed.
+        double jump(Duration t) {
+          final s = (t - ms(3550)).inMilliseconds;
+          if (s < 0 || s > 500) return 0;
+          return 0.04 * math.sin(math.pi * s / 500);
+        }
+
+        final frames = [
+          ...standingSequence(duration: ms(2000), fps: 15),
+          ...poseSequence(
+            duration: ms(1000),
+            fps: 15,
+            start: ms(2000),
+            posesAt: (_) => const [],
+          ),
+          ...poseSequence(
+            duration: ms(1500),
+            fps: 15,
+            start: ms(3000),
+            posesAt: (t) => [makePose(hipY: 0.52 - jump(t))],
+          ),
+        ];
+        final events = await run(frames);
+        expect(events.whereType<PlayerFound>(), hasLength(1));
+        final confirmed = events.whereType<Confirmed>().toList();
+        expect(confirmed, hasLength(1));
+        expect(
+          confirmed.single.at,
+          greaterThanOrEqualTo(ms(3500)),
+          reason: 'nothing is graded during the 500 ms re-acquire grace',
+        );
+      },
+    );
   });
 
   group('15 fps (single-pose plugin)', () {
@@ -547,6 +622,32 @@ void main() {
       final confirmed = events.whereType<Confirmed>().toList();
       expect(confirmed, hasLength(1));
       expect(confirmed.single.lane, 2);
+    });
+
+    test('a step 0-150 ms before takeoff confirms the lane stepped INTO', () async {
+      // Takeoff at 3000 ms, rise 0.06: the threshold crossing lands ~130 ms
+      // later, so a fixed 250 ms look-back queries the lane ~120 ms BEFORE
+      // takeoff and misses a step that is already settled.
+      for (final step in [2850, 2900, 2950, 3000]) {
+        final frames = motion(
+          ms(5000),
+          fps: 15,
+          hipX: (t) => t < ms(step) ? 0.5 : 0.68,
+          lift: (t) {
+            final s = (t - ms(3000)).inMilliseconds;
+            return s < 0 || s > 500 ? 0 : 0.06 * math.sin(math.pi * s / 500);
+          },
+        );
+        final events = await run(frames);
+        expect(
+          events.whereType<LaneChanged>().map((e) => e.lane),
+          [0],
+          reason: 'step at $step',
+        );
+        final confirmed = events.whereType<Confirmed>().toList();
+        expect(confirmed, hasLength(1), reason: 'step at $step');
+        expect(confirmed.single.lane, 0, reason: 'step at $step');
+      }
     });
 
     test('a slow walk toward the camera never confirms', () async {

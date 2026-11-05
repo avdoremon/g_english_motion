@@ -517,6 +517,89 @@ void main() {
       expect(seen, greaterThan(0));
     });
 
+    test('fillBlank never leaves the word in the prompt or the tts', () {
+      // "The orange is orange": blanking only the first occurrence shows and
+      // speaks the answer.
+      final twice = ContentRepository([
+        Unit(
+          grade: 3,
+          index: 1,
+          id: 'u01',
+          title: 'g3u1',
+          items: [
+            for (var i = 0; i < 6; i++)
+              ContentItem(
+                id: 'twice$i',
+                word: 'orange$i',
+                ttsText: 'orange$i',
+                sentencePatterns: [
+                  'The orange$i is orange$i',
+                  'I like orange$i',
+                ],
+                distractorIds: ['twice${(i + 1) % 6}', 'twice${(i + 2) % 6}'],
+                modes: const [ModeKind.skyShoot],
+              ),
+          ],
+        ),
+      ]);
+      var seen = 0;
+      for (var s = 0; s < 30; s++) {
+        final plan = _gen(twice, seed: s).plan(
+          level: _level(choices: 3),
+          pos: const CurriculumPosition(grade: 3, currentUnitIndex: 1),
+          modes: {ModeKind.skyShoot},
+        );
+        for (final p in plan) {
+          final q = p.question;
+          if (q is! ChoiceQuestion || q.form != QuestionForm.fillBlank) {
+            continue;
+          }
+          seen++;
+          final word = twice.byId(q.itemId).word;
+          expect(q.promptText, isNot(contains(word)), reason: 'seed $s');
+          expect(q.ttsText, isNot(contains(word)), reason: 'seed $s');
+        }
+      }
+      expect(seen, greaterThan(0));
+    });
+
+    test('an item whose every pattern repeats the word is not fillBlank', () {
+      final repeats = ContentRepository([
+        Unit(
+          grade: 3,
+          index: 1,
+          id: 'u01',
+          title: 'g3u1',
+          items: [
+            for (var i = 0; i < 6; i++)
+              ContentItem(
+                id: 'bye$i',
+                word: 'bye$i',
+                ttsText: 'bye$i',
+                sentencePatterns: ['Bye$i bye$i my friend'],
+                distractorIds: ['bye${(i + 1) % 6}', 'bye${(i + 2) % 6}'],
+                modes: const [ModeKind.skyShoot],
+              ),
+          ],
+        ),
+      ]);
+      for (var s = 0; s < 20; s++) {
+        final plan = _gen(repeats, seed: s).plan(
+          level: _level(choices: 3),
+          pos: const CurriculumPosition(grade: 3, currentUnitIndex: 1),
+          modes: {ModeKind.skyShoot},
+        );
+        expect(plan, isNotEmpty);
+        for (final p in plan) {
+          expect(
+            p.question.form,
+            isNot(QuestionForm.fillBlank),
+            reason: 'seed $s',
+          );
+        }
+      }
+    });
+
     test('OrderQuestion.answer equals the (normalised) sentence', () {
       var seen = 0;
       for (var s = 0; s < 20; s++) {

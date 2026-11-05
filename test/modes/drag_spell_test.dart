@@ -44,6 +44,35 @@ void place(DragSpellRound r, int tile, int slot) {
 }
 
 void main() {
+  test('a tile count that cannot spell the answer is rejected', () {
+    // Fewer (or more) tiles than letters: there are not enough slots for the
+    // answer, so the round can never be completed.
+    expect(
+      () => DragSpellRound.spell(
+        const SpellQuestion(
+          itemId: 'cat',
+          ttsText: 'cat',
+          word: 'cat',
+          tiles: ['a', 'c'],
+        ),
+        timeLimit: _limit,
+      ),
+      throwsA(isA<AssertionError>()),
+    );
+    expect(
+      () => DragSpellRound.order(
+        const OrderQuestion(
+          itemId: 'the-cat',
+          ttsText: 'the cat sat',
+          words: ['cat', 'the'],
+          answer: ['the', 'cat', 'sat'],
+        ),
+        timeLimit: _limit,
+      ),
+      throwsA(isA<AssertionError>()),
+    );
+  });
+
   test('starts empty: slots null, nothing carried', () {
     final r = _cat();
     expect(r.slots, [null, null, null]);

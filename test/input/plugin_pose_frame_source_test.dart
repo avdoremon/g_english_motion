@@ -7,6 +7,8 @@ import 'package:g_english_motion/input/pose_frame_source.dart';
 import 'package:g_english_motion/input/pose_types.dart';
 import 'package:permission_handler/permission_handler.dart';
 
+import '../helpers/capture_print.dart';
+
 /// Stands in for the plugin: subscribing to [results] is "camera on",
 /// cancelling is "camera released" (that is how the real plugin behaves).
 class FakeBackend implements PoseLandmarkerBackend {
@@ -46,6 +48,9 @@ class FakeBackend implements PoseLandmarkerBackend {
 
 RawPoseLandmark _lm(double x, double y, {double v = 0.9, double p = 0.8}) =>
     RawPoseLandmark(x: x, y: y, visibility: v, presence: p);
+
+/// Landmark i of a body whose scores the native side never filled in.
+RawPoseLandmark _zero(int i) => _lm(i / 100, i / 50, v: 0, p: 0);
 
 /// A full 33-landmark BlazePose body; landmark i sits at (i/100, i/50).
 List<RawPoseLandmark> body([Map<int, RawPoseLandmark> overrides = const {}]) =>
@@ -151,6 +156,39 @@ void main() {
       expect(j[PoseJoint.leftHip]!.confidence, closeTo(0.6, 1e-9));
       expect(j[PoseJoint.rightHip]!.confidence, closeTo(0.7, 1e-9));
       expect(j[PoseJoint.leftKnee]!.confidence, 0.0);
+    });
+
+    test('a pose with no scores at all is fully confident, and says so '
+        'once', () async {
+      // MediaPipe leaves visibility/presence empty on some builds and the
+      // plugin sends 0.0 for both. Scoring every landmark 0 would make the
+      // game see nobody at all, silently.
+      final src = source();
+      await src.start();
+      final logs = <String>[];
+      final got = await captureDebugPrint(
+        logs,
+        () => collect(src, () {
+          backend.emit(result(body({for (var i = 0; i < 33; i++) i: _zero(i)})));
+          backend.emit(
+            result(
+              body({for (var i = 0; i < 33; i++) i: _zero(i)}),
+              ts: 2000,
+            ),
+          );
+        }),
+      );
+      expect(got, hasLength(2));
+      for (final f in got) {
+        for (final j in f.poses.single.joints.values) {
+          expect(j.confidence, 1.0);
+        }
+      }
+      expect(
+        logs.where((m) => m.contains('score')),
+        hasLength(1),
+        reason: 'logged once, not once per frame',
+      );
     });
 
     test('unmirrored landmarks pass through; mirrored ones are flipped '

@@ -101,6 +101,25 @@ void main() {
     expect(s.recentIds(), ['b', 'c', 'a']);
   });
 
+  test('wrongIds is capped like recentIds (oldest dropped)', () async {
+    final (_, s) = await make();
+    for (var i = 0; i < 250; i++) {
+      await s.markWrong('w$i');
+    }
+    expect(s.wrongIds(), hasLength(ProgressStore.maxWrong));
+    expect(s.wrongIds(), isNot(contains('w0')));
+    expect(s.wrongIds(), contains('w249'));
+  });
+
+  test('a stored wrong list longer than the cap is trimmed on load', () async {
+    final (_, s) = await make({
+      'history.wrong': [for (var i = 0; i < 250; i++) 'w$i'],
+    });
+    expect(s.wrongIds(), hasLength(ProgressStore.maxWrong));
+    expect(s.wrongIds(), contains('w249'));
+    expect(s.wrongIds(), isNot(contains('w0')));
+  });
+
   test('markWrong then clearWrong -> empty', () async {
     final (_, s) = await make();
     await s.markWrong('x');

@@ -46,11 +46,19 @@ class ContentItem {
     if (img != null && img is! String) {
       throw const FormatException('"image" must be a string');
     }
+    // Required and non-empty: an item no mode can host would never be asked,
+    // so a "mode" typo (or an empty list) must be loud, not silent.
+    if (!j.containsKey('modes')) {
+      throw const FormatException('missing "modes"');
+    }
     final modes = <ModeKind>[];
     for (final m in strs('modes')) {
       final kind = ModeKind.values.where((e) => e.name == m);
       if (kind.isEmpty) throw FormatException('unknown mode "$m"');
       modes.add(kind.first);
+    }
+    if (modes.isEmpty) {
+      throw const FormatException('"modes" must list at least one mode');
     }
     return ContentItem(
       id: req('id'),

@@ -85,15 +85,24 @@ void main() {
         }
       }
       if (it.modes.contains(ModeKind.skyShoot)) {
+        // Exactly once: a pattern repeating the word ("The orange is
+        // orange") cannot be blanked without showing the answer, so
+        // fillBlank skips it and the item needs another one.
+        // Same word-boundary rule as QuestionGenerator (lookarounds, so
+        // adjacent occurrences are both counted).
+        final re = RegExp(
+          r'(?<![\p{L}\p{N}_])' +
+              RegExp.escape(it.word) +
+              r'(?![\p{L}\p{N}_])',
+          caseSensitive: false,
+          unicode: true,
+        );
         expect(
-          it.sentencePatterns.any(
-            (s) => RegExp(
-              '(^|\\s)${RegExp.escape(it.word)}(\\s|\$)',
-              caseSensitive: false,
-            ).hasMatch(s),
-          ),
+          it.sentencePatterns.any((s) => re.allMatches(s).length == 1),
           isTrue,
-          reason: '${it.id}: skyShoot needs a sentence containing the word',
+          reason:
+              '${it.id}: skyShoot needs a sentence containing the word '
+              'exactly once',
         );
       }
     }

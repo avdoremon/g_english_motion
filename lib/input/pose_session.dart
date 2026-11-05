@@ -74,8 +74,15 @@ class PoseSession {
   /// the calibrated torso.
   static const double _maxLostTorsoDeviation = 0.35;
 
-  /// Look-back from the threshold-crossing frame to (approximately) takeoff.
+  /// Look-back from the threshold-crossing frame to (approximately) takeoff,
+  /// used only when the detector cannot say where the lift began.
   static const Duration _takeoffLookback = Duration(milliseconds: 250);
+
+  /// Nothing is confirmed for this long after the player is found again: the
+  /// body may have moved while it could not be followed, so the first moments
+  /// back are never graded (the same grace the controller uses at round
+  /// start).
+  static const Duration reacquireGrace = Duration(milliseconds: 500);
 
   /// After an unreliable frame, a jump crossing is not trusted for this long.
   static const Duration _uncertainHold = Duration(milliseconds: 100);
@@ -283,8 +290,11 @@ class PoseSession {
       _resetCursor();
       _raise = _newRaise();
       _pull = PullDetector(_calibration);
-      // The first frame back must not confirm anything.
-      _jump.suppressUntil(t + const Duration(milliseconds: 1));
+      // The jump baseline is stale (the child may have walked back in from
+      // somewhere else), so it is re-taken here, and nothing is graded while
+      // the detector settles.
+      _jump.rebaseline(player);
+      suppressConfirmUntil(t + reacquireGrace);
       _emit(PlayerFound(at: t));
     }
 
@@ -319,7 +329,13 @@ class PoseSession {
         fired = _raise.update(pose, t);
     }
     if (fired && t >= _suppressConfirmUntil) {
-      _emit(Confirmed(_laneTracker.laneAt(t - _takeoffLookback), at: t));
+      // The lane at the START of the lift, not at the threshold crossing: at
+      // 15 fps the crossing is one or two frames late, so a fixed look-back
+      // can undo a step the child had already settled into.
+      final fallback = t - _takeoffLookback;
+      final start = _jump.liftStartedAt;
+      final at = (start == null || start < fallback) ? fallback : start;
+      _emit(Confirmed(_laneTracker.laneAt(at), at: t));
     }
   }
 }

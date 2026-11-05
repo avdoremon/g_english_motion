@@ -44,6 +44,17 @@ class LoggedAudio extends AudioService {
   }
 }
 
+/// Muting blows up (e.g. the audio engine is gone): the session must still
+/// restore and must not leave `cancel()` waiting forever.
+class _ThrowingMuteAudio extends LoggedAudio {
+  _ThrowingMuteAudio(super.log);
+  @override
+  void muteForListening() {
+    log.add('mute');
+    throw StateError('audio gone');
+  }
+}
+
 class FakeSource implements SpeechSource {
   FakeSource(this.log);
   final List<String> log;
@@ -167,6 +178,71 @@ void main() {
     expect(n, 6);
     expect(session.failed, isFalse);
     await session.cancel();
+  });
+
+  group('retry backoff', () {
+    test('grows with consecutive failures and resets on a success', () {
+      final s = SpeechSession(
+        src,
+        audio,
+        relistenDelay: const Duration(milliseconds: 100),
+      );
+      expect(s.relistenDelayAfter(0), const Duration(milliseconds: 100));
+      expect(s.relistenDelayAfter(1), const Duration(milliseconds: 100));
+      expect(s.relistenDelayAfter(2), const Duration(milliseconds: 400));
+      expect(s.relistenDelayAfter(3), const Duration(seconds: 1));
+      expect(s.relistenDelayAfter(9), const Duration(seconds: 1));
+    });
+
+    test('the recogniser is stopped before each retry', () async {
+      src.failWith = StateError('boom');
+      final done = Completer<void>();
+      session
+          .listenWhile(sessionId: 1, keepListening: () => true)
+          .listen((_) {}, onDone: done.complete);
+      await done.future;
+      expect(log, [
+        'mute',
+        'listen',
+        'stop',
+        'listen',
+        'stop',
+        'listen',
+        'restore',
+      ]);
+    });
+
+    test('three mic failures take more than 400 ms, not ~200 ms', () async {
+      // The mic-problem overlay halts the level and the phone is across the
+      // room: the cap must not be spent on a 200 ms hiccup.
+      final slow = SpeechSession(src, audio);
+      src.failWith = StateError('boom');
+      final sw = Stopwatch()..start();
+      final done = Completer<void>();
+      slow
+          .listenWhile(sessionId: 1, keepListening: () => true)
+          .listen((_) {}, onDone: done.complete);
+      await done.future;
+      sw.stop();
+      expect(slow.failed, isTrue);
+      expect(sw.elapsedMilliseconds, greaterThan(400));
+    });
+  });
+
+  test('a throwing muteForListening still restores and never hangs', () async {
+    final s = SpeechSession(
+      src,
+      _ThrowingMuteAudio(log),
+      relistenDelay: Duration.zero,
+    );
+    final done = Completer<void>();
+    s
+        .listenWhile(sessionId: 1, keepListening: () => true)
+        .listen((_) {}, onDone: done.complete);
+    await settle();
+    await s.cancel().timeout(const Duration(seconds: 5));
+    await done.future.timeout(const Duration(seconds: 5));
+    expect(log, contains('restore'));
   });
 
   test('a new listen waits for the previous one to be cancelled', () async {
