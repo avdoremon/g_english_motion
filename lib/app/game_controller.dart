@@ -576,6 +576,13 @@ class GameController extends ChangeNotifier {
 
   Round _makeRound(PlannedQuestion pq, PoseSession pose) {
     final q = pq.question;
+    // The lane tracker must match the lanes this question shows: catchIt has
+    // 3 whatever the level's choiceCount, laneJump has q.choices.length.
+    if (q is ChoiceQuestion &&
+        (pq.mode == ModeKind.catchIt || pq.mode == ModeKind.laneJump)) {
+      pose.setLaneCount(q.choices.length);
+      _selectedLane = pose.currentLane;
+    }
     switch (pq.mode) {
       case ModeKind.dragSpell:
         if (q is SpellQuestion) {
