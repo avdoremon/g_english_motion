@@ -22,7 +22,7 @@ class BigButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final enabled = onPressed != null;
-    final fg = enabled ? onColor : onColor.withValues(alpha: 0.5);
+    final fg = onColor;
     final style = AppTheme.textStyles.play.copyWith(
       color: fg,
       fontWeight: FontWeight.w700,

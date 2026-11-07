@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:g_english_motion/ui/kit/kit.dart';
@@ -35,8 +37,21 @@ void main() {
       );
       expect(tester.takeException(), isNull);
       final size = tester.getSize(find.byType(BigButton));
-      expect(size.height, greaterThanOrEqualTo(56));
+      expect(size.height, greaterThanOrEqualTo(64));
       expect(size.width, lessThanOrEqualTo(200));
+      final text = find.descendant(
+        of: find.byType(BigButton),
+        matching: find.text(label),
+      );
+      expect(
+        find.ancestor(of: text, matching: find.byType(FittedBox)),
+        findsOneWidget,
+      );
+      final shown = tester.getBottomRight(text).dx - tester.getTopLeft(text).dx;
+      expect(shown, lessThanOrEqualTo(size.width - 56));
+      // Natural width is larger than what is shown, so it truly shrank.
+      final natural = tester.getSize(text).width;
+      expect(natural, greaterThan(shown));
     });
 
     testWidgets('all kit widgets survive text scale $scale', (tester) async {
@@ -140,5 +155,67 @@ void main() {
     );
     expect(find.text('7'), findsOneWidget);
     expect(find.text('T'), findsOneWidget);
+  });
+
+  for (final dims in [const Size(800, 360), const Size(1280, 720)]) {
+    for (final n in [7, 12, 123]) {
+      testWidgets('kit renders at $dims with $n stars at 1.3x', (tester) async {
+        await tester.binding.setSurfaceSize(dims);
+        addTearDown(() => tester.binding.setSurfaceSize(null));
+        await tester.pumpWidget(
+          MaterialApp(
+            theme: AppTheme.dark(),
+            builder: (c, w) => MediaQuery(
+              data: MediaQuery.of(c)
+                  .copyWith(textScaler: const TextScaler.linear(1.3)),
+              child: w!,
+            ),
+            home: Scaffold(
+              body: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 24),
+                    child: HudBar(
+                      stars: n,
+                      timeFraction: 0.3,
+                      trailing: RoundIconButton(
+                        icon: Icons.close,
+                        semanticLabel: 'Đóng',
+                        onPressed: () {},
+                      ),
+                    ),
+                  ),
+                  BigButton(label: 'Tiếp tục', onPressed: () {}),
+                ],
+              ),
+            ),
+          ),
+        );
+        expect(tester.takeException(), isNull);
+      });
+    }
+  }
+
+  testWidgets('StickerCard rotation matches tilt', (tester) async {
+    Matrix4 m(double tilt) {
+      final t = tester.widget<Transform>(
+        find.descendant(
+          of: find.byType(StickerCard),
+          matching: find.byType(Transform),
+        ),
+      );
+      return t.transform;
+    }
+
+    await tester.pumpWidget(
+      _wrap(const StickerCard(tilt: 3, child: Text('a'))),
+    );
+    final r = m(3).getRotation();
+    expect(
+      math.atan2(r.entry(1, 0), r.entry(0, 0)),
+      closeTo(3 * math.pi / 180, 1e-6),
+    );
+    await tester.pumpWidget(_wrap(const StickerCard(child: Text('a'))));
+    expect(m(0).isIdentity(), isTrue);
   });
 }
