@@ -4,6 +4,7 @@ import '../../app/game_controller.dart';
 import '../../content/models.dart';
 import '../../session/level_session.dart';
 import 'balloon_pop_screen.dart';
+import 'catch_it_screen.dart';
 import 'drag_spell_screen.dart';
 import 'lane_jump_screen.dart';
 import 'memory_flip_screen.dart';
@@ -44,6 +45,11 @@ class PlayScreen extends StatelessWidget {
           ),
           ModeKind.balloonPop => BalloonPopScreen(
             key: const ValueKey('mode-balloonPop'),
+            controller: controller,
+            onExit: onExit,
+          ),
+          ModeKind.catchIt => CatchItScreen(
+            key: const ValueKey('mode-catchIt'),
             controller: controller,
             onExit: onExit,
           ),
