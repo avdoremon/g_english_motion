@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import '../../app/game_controller.dart';
 import '../../content/models.dart';
 import '../../session/level_session.dart';
+import 'balloon_pop_screen.dart';
 import 'drag_spell_screen.dart';
 import 'lane_jump_screen.dart';
+import 'memory_flip_screen.dart';
 import 'sky_shoot_screen.dart';
 
 /// The play screen of the current question's mode: a level of grades 3-5
@@ -32,6 +34,16 @@ class PlayScreen extends StatelessWidget {
           ),
           ModeKind.skyShoot => SkyShootScreen(
             key: const ValueKey('mode-skyShoot'),
+            controller: controller,
+            onExit: onExit,
+          ),
+          ModeKind.memoryFlip => MemoryFlipScreen(
+            key: const ValueKey('mode-memoryFlip'),
+            controller: controller,
+            onExit: onExit,
+          ),
+          ModeKind.balloonPop => BalloonPopScreen(
+            key: const ValueKey('mode-balloonPop'),
             controller: controller,
             onExit: onExit,
           ),

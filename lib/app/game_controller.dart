@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_initializing_formals
 import 'dart:async';
 import 'dart:math';
-import 'dart:ui' show Rect;
+import 'dart:ui' show Offset, Rect;
 
 import 'package:flutter/foundation.dart';
 
@@ -511,6 +511,9 @@ class GameController extends ChangeNotifier {
     QuestionForm.listenPickPicture,
     QuestionForm.seePicturePickWord,
     QuestionForm.listenPickWord,
+    // memoryFlip / balloonPop: the picture is the prompt, the word the answer.
+    QuestionForm.memoryMatch,
+    QuestionForm.popWord,
   };
 
   void _beginPlay(Calibration cal) {
@@ -617,7 +620,7 @@ class GameController extends ChangeNotifier {
             timeLimit: Scoring.timeFor(level, ModeKind.memoryFlip),
             holdTime: const Duration(seconds: 1),
             peek: const Duration(seconds: 2),
-            targetRect: _defaultChoiceRect(q.choices.length),
+            targetRect: _holdRect(q.choices.length),
           );
         }
       case ModeKind.balloonPop:
@@ -626,23 +629,44 @@ class GameController extends ChangeNotifier {
             q,
             timeLimit: Scoring.timeFor(level, ModeKind.balloonPop),
             holdTime: const Duration(milliseconds: 600),
-            targetRect: _defaultChoiceRect(q.choices.length),
+            targetRect: _holdRect(q.choices.length),
           );
         }
     }
     throw StateError('No round for ${pq.mode} with ${q.runtimeType}');
   }
 
-  /// Default layout of [n] choices for [HoldPickRound] when no screen
-  /// supplies one: a grid of up to 3 columns filling the unit square.
+  Rect Function(int choice)? _holdLayout;
+
+  /// The screen's real layout of the hold-to-pick targets (memoryFlip,
+  /// balloonPop): the normalised (0..1) rect of choice `i`, in the same space
+  /// as [CursorMoved]. The round reads it lazily, so a layout change takes
+  /// effect at once, also mid-round. Does not notify (call it while building).
+  void setHoldLayout(Rect Function(int choice) targetRect) {
+    _holdLayout = targetRect;
+  }
+
+  /// Back to the default placeholder grid (the screen went away).
+  void clearHoldLayout() {
+    _holdLayout = null;
+  }
+
+  Rect Function(int) _holdRect(int n) {
+    final fallback = _defaultChoiceRect(n);
+    return (i) => (_holdLayout ?? fallback)(i);
+  }
+
+  /// Placeholder layout of [n] choices for [HoldPickRound] while no screen
+  /// supplies one: a grid of up to 3 columns whose cells use 70 % of their
+  /// slot, so there are gaps between them and margins at the edges: a hand
+  /// resting in a gap picks nothing.
   static Rect Function(int) _defaultChoiceRect(int n) {
     final cols = n <= 3 ? n : (n + 1) ~/ 2;
     final rows = (n + cols - 1) ~/ cols;
-    return (i) => Rect.fromLTWH(
-      (i % cols) / cols,
-      (i ~/ cols) / rows,
-      1 / cols,
-      1 / rows,
+    return (i) => Rect.fromCenter(
+      center: Offset(((i % cols) + 0.5) / cols, ((i ~/ cols) + 0.5) / rows),
+      width: 0.7 / cols,
+      height: 0.7 / rows,
     );
   }
 
@@ -824,6 +848,11 @@ class GameController extends ChangeNotifier {
     _roundStartedReview = s.isReview;
     // PoseSession compares against frame timestamps.
     _pose?.suppressConfirmUntil(_lastFrameTs + confirmGrace);
+    // The player left during the prompt: a hold-pick round (peek, clock) must
+    // not run with nobody there. Lane rounds keep their existing behaviour.
+    if (_lost && s.round is HoldPickRound) {
+      s.onEvent(PlayerLost(at: _lastFrameTs));
+    }
   }
 
   void _maybePrompt(LevelSession s) {
