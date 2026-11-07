@@ -18,6 +18,7 @@ import '../input/pose_session.dart';
 import '../input/pose_types.dart';
 import '../levels/level_config.dart';
 import '../levels/scoring.dart';
+import '../modes/catch_it.dart';
 import '../modes/drag_spell.dart';
 import '../modes/lane_jump.dart';
 import '../modes/mode_availability.dart';
@@ -600,6 +601,13 @@ class GameController extends ChangeNotifier {
       case ModeKind.sayIt:
         break;
       case ModeKind.catchIt:
+        if (q is ChoiceQuestion) {
+          return CatchItRound(
+            q,
+            timeLimit: Scoring.timeFor(level, ModeKind.catchIt),
+            initialLane: pose.currentLane,
+          );
+        }
       case ModeKind.memoryFlip:
       case ModeKind.balloonPop:
         throw UnimplementedError('Round for ${pq.mode} (Tasks 3-5)');
