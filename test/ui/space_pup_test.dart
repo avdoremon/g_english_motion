@@ -38,26 +38,48 @@ void main() {
     });
   }
 
+  Widget host({required bool disable}) => MaterialApp(
+    builder: (context, child) => MediaQuery(
+      data: MediaQuery.of(context).copyWith(disableAnimations: disable),
+      child: child!,
+    ),
+    home: const Center(child: TinTin(state: TinTinState.cheer, size: 96)),
+  );
+
   testWidgets('no running animation when animations are disabled', (
     tester,
   ) async {
-    await tester.pumpWidget(
-      const MediaQuery(
-        data: MediaQueryData(disableAnimations: true),
-        child: MaterialApp(
-          home: Center(child: TinTin(state: TinTinState.cheer, size: 96)),
-        ),
-      ),
-    );
-    await tester.pump(const Duration(seconds: 5));
+    await tester.pumpWidget(host(disable: true));
+    await tester.pump(const Duration(milliseconds: 100));
     expect(tester.hasRunningAnimations, isFalse);
   });
 
-  testWidgets('sad and happy paint different pixels', (tester) async {
+  testWidgets('control: cheer animates for 3 cycles then rests', (
+    tester,
+  ) async {
+    await tester.pumpWidget(host(disable: false));
+    await tester.pump(const Duration(milliseconds: 100));
+    expect(tester.hasRunningAnimations, isTrue);
+    await tester.pump(const Duration(seconds: 4));
+    expect(tester.hasRunningAnimations, isFalse);
+  });
+
+  testWidgets('pixel output differs across states and phases', (tester) async {
     await tester.runAsync(() async {
-      final a = await _render(TinTinState.sad, 0);
-      final b = await _render(TinTinState.happy, 0);
-      expect(a, isNot(equals(b)));
+      final sad = await _render(TinTinState.sad, 0);
+      final happy = await _render(TinTinState.happy, 0);
+      final idle = await _render(TinTinState.idle, 0);
+      expect(sad, isNot(equals(happy)));
+      expect(idle, isNot(equals(happy)));
+      expect(
+        await _render(TinTinState.cheer, 0.25),
+        isNot(equals(await _render(TinTinState.cheer, 0.75))),
+      );
+      var opaque = 0;
+      for (var i = 3; i < idle.length; i += 4) {
+        if (idle[i] > 0) opaque++;
+      }
+      expect(opaque, greaterThan(0));
     });
   });
 }
