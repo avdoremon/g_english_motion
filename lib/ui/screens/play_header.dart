@@ -122,7 +122,7 @@ class _Middle extends StatelessWidget {
                           ? AppTheme.accent
                           : (k == n - 1
                                 ? AppTheme.yellow
-                                : const Color(0x29FFFFFF)),
+                                : AppTheme.trackWhite),
                       borderRadius: BorderRadius.circular(7),
                     ),
                     child: const SizedBox(height: 14),

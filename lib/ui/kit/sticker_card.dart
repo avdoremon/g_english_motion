@@ -21,7 +21,7 @@ class StickerCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(24),
         border: Border.all(color: AppTheme.ink, width: 5),
         boxShadow: const [
-          BoxShadow(color: Color(0x47000000), offset: Offset(0, 8)),
+          BoxShadow(color: AppTheme.shadow, offset: Offset(0, 8)),
         ],
       ),
       child: Padding(padding: const EdgeInsets.all(12), child: child),

@@ -52,6 +52,28 @@ Full facts and sources: [pose-plugin-evaluation.md](pose-plugin-evaluation.md).
   release build; see "Optional release size trim" in
   [android-build-notes.md](android-build-notes.md) (not applied).
 
+## UI kit and visual identity (Space Puppy re-skin)
+
+- **Fredoka is bundled as a variable font** (`assets/fonts/`, SIL OFL). The
+  weight axis (w500/w600/w700 in the type scale) is **unverified on a
+  device**: if the platform picks one static instance, all weights may look
+  the same. Roboto/sans-serif are the fallback.
+- **Space Puppy replaces the old mascot** (`lib/ui/mascot/space_pup_painter.dart`
+  via `TinTin`); the previous mascot art is gone.
+- **The app logo/launcher icon is still the Jump Star robot**; the redraw to
+  match Space Puppy is pending.
+- **Legacy text-theme slots are migrated.** `displayMedium`, `headlineMedium`,
+  `titleLarge`, `titleMedium` and `bodyMedium` (old sizes 56/40/32/24/22) were
+  removed from `AppTheme`; every screen now uses `AppTheme.textStyles`
+  (display 56, title 48, heading 36, play 28, label 24). Remaining
+  `Theme.of(context).textTheme` uses only read `bodyLarge` (= play, 28).
+- **Secondary captions in SkyShoot** (shots left, pulls, hints) use the 24 sp
+  label size (was 22) with line height 1.0 so the 800x360 layout still fits;
+  they are below the 28 sp play-text floor by design (not instructions).
+- `test/ui/no_hardcoded_style_test.dart` guards `lib/ui`: no off-scale
+  `fontSize:` literals and no `Color(0x...)` outside `app_theme.dart` and
+  `*_painter.dart` files.
+
 ## Content and audio
 
 - **No recorded audio.** Questions are read by the device text-to-speech and

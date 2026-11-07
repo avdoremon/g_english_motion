@@ -164,7 +164,6 @@ class QuestionPrompt extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final t = Theme.of(context).textTheme;
     final q = question;
     if (q.form == QuestionForm.seePicturePickWord) {
       final id = q.promptImageItemId;
@@ -187,7 +186,7 @@ class QuestionPrompt extends StatelessWidget {
         Flexible(
           child: Text(
             reveal ? itemFor(q.itemId).word : 'Nghe nhé',
-            style: t.titleLarge,
+            style: AppTheme.textStyles.play,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),
@@ -277,7 +276,7 @@ class LaneTile extends StatelessWidget {
       excludeSemantics: true,
       child: Container(
         decoration: BoxDecoration(
-          color: selected ? const Color(0xFF3A36A0) : AppTheme.surface,
+          color: selected ? AppTheme.selectedFill : AppTheme.surface,
           borderRadius: BorderRadius.circular(28),
           border: Border.all(
             color: selected ? AppTheme.accent : Colors.transparent,
@@ -337,7 +336,7 @@ class LaneTile extends StatelessWidget {
                     if (option.showWord)
                       Text(
                         item.word,
-                        style: t.titleLarge,
+                        style: AppTheme.textStyles.play,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -452,8 +451,7 @@ class ItemPicture extends StatelessWidget {
       ),
       child: Text(
         letter,
-        style: Theme.of(context).textTheme.displayMedium!
-            .copyWith(color: AppTheme.background),
+        style: AppTheme.textStyles.title.copyWith(color: AppTheme.background),
       ),
     );
   }

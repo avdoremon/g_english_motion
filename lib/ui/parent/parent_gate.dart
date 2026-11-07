@@ -177,7 +177,6 @@ class _ParentGateState extends State<ParentGate>
   @override
   Widget build(BuildContext context) {
     if (_open) return widget.child;
-    final t = Theme.of(context).textTheme;
     Widget digit(String d) => _key(d, Text(d), () {
       if (_entry.length < 3) {
         setState(() {
@@ -191,9 +190,12 @@ class _ParentGateState extends State<ParentGate>
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text('Dành cho bố mẹ', style: t.bodyMedium),
+            Text(
+              'Dành cho bố mẹ',
+              style: AppTheme.textStyles.label.copyWith(color: AppTheme.muted),
+            ),
             const SizedBox(height: 8),
-            Text('${_q.a} × ${_q.b} = ?', style: t.titleLarge),
+            Text('${_q.a} × ${_q.b} = ?', style: AppTheme.textStyles.heading),
             AnimatedBuilder(
               animation: _shake,
               builder: (context, child) => Transform.translate(
@@ -208,7 +210,7 @@ class _ParentGateState extends State<ParentGate>
                       : _wrong
                       ? 'Chưa đúng'
                       : (_entry.isEmpty ? ' ' : _entry),
-                  style: t.titleMedium?.copyWith(
+                  style: AppTheme.textStyles.label.copyWith(
                     color: _wrong ? AppTheme.pink : AppTheme.text,
                   ),
                 ),

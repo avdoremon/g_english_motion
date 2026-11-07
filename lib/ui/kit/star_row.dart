@@ -67,7 +67,7 @@ class StarPainter extends CustomPainter {
     path.close();
     canvas.drawPath(
       path,
-      Paint()..color = on ? AppTheme.yellow : const Color(0x29FFFFFF),
+      Paint()..color = on ? AppTheme.yellow : AppTheme.trackWhite,
     );
     canvas.drawPath(
       path,

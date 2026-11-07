@@ -35,7 +35,11 @@ class BreakReminder extends StatelessWidget {
               children: [
                 const TinTin(state: TinTinState.idle, size: 96),
                 const SizedBox(height: 8),
-                Text(message, style: t.titleLarge, textAlign: TextAlign.center),
+                Text(
+                  message,
+                  style: AppTheme.textStyles.heading,
+                  textAlign: TextAlign.center,
+                ),
                 const SizedBox(height: 8),
                 Text(
                   hint,

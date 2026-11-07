@@ -243,7 +243,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Text(
                     'Sắp có',
                     maxLines: 1,
-                    style: t.bodyMedium!.copyWith(fontSize: 28),
+                    style: AppTheme.textStyles.play.copyWith(
+                      color: AppTheme.muted,
+                    ),
                   ),
                 ),
             ],
@@ -291,7 +293,7 @@ class _HomeScreenState extends State<HomeScreen> {
               Text(
                 '$l',
                 maxLines: 1,
-                style: t.titleLarge!.copyWith(
+                style: AppTheme.textStyles.heading.copyWith(
                   color: selected ? AppTheme.ink : AppTheme.text,
                 ),
               ),

@@ -37,7 +37,7 @@ class RoundIconButton extends StatelessWidget {
               height: size,
               decoration: const BoxDecoration(
                 shape: BoxShape.circle,
-                color: Color(0x24FFFFFF),
+                color: AppTheme.glassWhite,
               ),
               child: Icon(icon, size: 26, color: AppTheme.text),
             ),

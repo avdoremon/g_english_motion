@@ -41,7 +41,7 @@ class HudBar extends StatelessWidget {
           DecoratedBox(
             key: scoreKey,
             decoration: BoxDecoration(
-              color: const Color(0x40000000),
+              color: AppTheme.shade40,
               borderRadius: BorderRadius.circular(28),
             ),
             child: Padding(
@@ -118,12 +118,12 @@ class _TimeRing extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final c = size.center(Offset.zero);
     final r = size.width * 23 / 56;
-    canvas.drawCircle(c, r, Paint()..color = const Color(0x38000000));
+    canvas.drawCircle(c, r, Paint()..color = AppTheme.shade38);
     final track = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = 6
       ..strokeCap = StrokeCap.round;
-    canvas.drawCircle(c, r, track..color = const Color(0x29FFFFFF));
+    canvas.drawCircle(c, r, track..color = AppTheme.trackWhite);
     canvas.drawArc(
       Rect.fromCircle(center: c, radius: r),
       -1.5707963,

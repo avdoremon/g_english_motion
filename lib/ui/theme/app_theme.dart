@@ -27,6 +27,15 @@ class AppTheme {
   static const Color pauseScrim = Color(0xCC1B1F4B);
   static const Color breakScrim = Color(0xEE1B1F4B);
 
+  /// Translucent overlays and fills (alpha baked in).
+  static const Color shade40 = Color(0x40000000); // HUD pill
+  static const Color shade38 = Color(0x38000000); // ring backing
+  static const Color shade4d = Color(0x4D000000); // result panel
+  static const Color shadow = Color(0x47000000); // sticker drop shadow
+  static const Color trackWhite = Color(0x29FFFFFF); // empty star / ring track
+  static const Color glassWhite = Color(0x24FFFFFF); // round icon button fill
+  static const Color selectedFill = Color(0xFF3A36A0); // chosen tile
+
   static const String fontFamily = 'Fredoka';
   static const List<String> fontFallback = ['Roboto', 'sans-serif'];
 
@@ -53,12 +62,6 @@ class AppTheme {
       // Instruction text: readable from 2-3 m.
       bodyLarge: st.play,
       labelLarge: st.label,
-      // Legacy slots still used by screens not yet re-skinned.
-      displayMedium: _s(56, w: FontWeight.w700),
-      headlineMedium: _s(40, w: FontWeight.w700),
-      titleLarge: _s(32, w: FontWeight.w700),
-      titleMedium: _s(24, w: FontWeight.w600),
-      bodyMedium: _s(22, color: muted),
     );
     // Buttons are play-sized (>= 28 sp), dark text on the bright fill.
     final buttonText = st.play.copyWith(color: background);

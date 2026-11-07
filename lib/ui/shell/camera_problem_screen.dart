@@ -1,3 +1,5 @@
+import '../theme/app_theme.dart';
+
 import 'package:flutter/material.dart';
 
 import '../mascot/tin_tin.dart';
@@ -29,7 +31,11 @@ class CameraProblemScreen extends StatelessWidget {
           children: [
             const TinTin(state: TinTinState.sad, size: 120),
             const SizedBox(height: 16),
-            Text(title, style: t.titleLarge, textAlign: TextAlign.center),
+            Text(
+              title,
+              style: AppTheme.textStyles.heading,
+              textAlign: TextAlign.center,
+            ),
             const SizedBox(height: 8),
             Text(parentHint, style: t.bodyLarge, textAlign: TextAlign.center),
             const SizedBox(height: 24),

@@ -67,7 +67,7 @@ class RoundVerdict extends StatelessWidget {
       children: [
         Icon(iconFor(result), size: iconSize, color: colorFor(result)),
         const SizedBox(width: 8),
-        Text(labelFor(result), style: Theme.of(context).textTheme.titleLarge),
+        Text(labelFor(result), style: AppTheme.textStyles.heading),
         SizedBox(width: trailing),
       ],
     );

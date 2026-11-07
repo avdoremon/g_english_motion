@@ -1,3 +1,5 @@
+import '../theme/app_theme.dart';
+
 import 'package:flutter/material.dart';
 
 import '../../progress/progress_store.dart';
@@ -26,7 +28,7 @@ class SafetyScreen extends StatelessWidget {
           children: [
             const TinTin(state: TinTinState.idle, size: 120),
             const SizedBox(height: 16),
-            Text('Trước khi chơi nhé', style: t.titleLarge),
+            Text('Trước khi chơi nhé', style: AppTheme.textStyles.heading),
             const SizedBox(height: 16),
             Text(
               'Nhờ bố mẹ dọn khoảng trống trước TV, '

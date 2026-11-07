@@ -16,7 +16,7 @@ class PauseOverlay extends StatelessWidget {
           padding: const EdgeInsets.all(32),
           child: Text(
             message,
-            style: Theme.of(context).textTheme.titleLarge,
+            style: AppTheme.textStyles.heading,
             textAlign: TextAlign.center,
           ),
         ),

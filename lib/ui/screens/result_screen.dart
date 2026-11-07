@@ -34,7 +34,7 @@ class ResultScreen extends StatelessWidget {
     final play = AppTheme.textStyles.play;
     Widget chip(String text) => DecoratedBox(
       decoration: BoxDecoration(
-        color: const Color(0x4D000000),
+        color: AppTheme.shade4d,
         borderRadius: BorderRadius.circular(24),
       ),
       child: Padding(
