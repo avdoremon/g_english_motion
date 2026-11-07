@@ -83,6 +83,33 @@ String _wordOf(ChoiceQuestion q, int i) {
 }
 
 void main() {
+  test('editDistance matches the Python tool (shared sample)', () {
+    // Keep in step with test/tools/test_tag_modes.py (test_lev_parity).
+    const sample = [
+      ('cat', 'cap', 1),
+      ('', 'abc', 3),
+      ('kitten', 'sitting', 3),
+      ('flaw', 'lawn', 2),
+      ('intention', 'execution', 5),
+      ('same', 'same', 0),
+      ('book', 'back', 2),
+    ];
+    for (final (a, b, d) in sample) {
+      expect(editDistance(a, b), d, reason: '$a/$b');
+      expect(editDistance(b, a), d, reason: '$b/$a');
+    }
+  });
+
+  test('laneJump still gets level.choiceCount choices', () {
+    for (final choices in [3, 4]) {
+      final plan = _plan(ModeKind.laneJump, choices: choices, grade: 1);
+      expect(plan, isNotEmpty);
+      for (final pq in plan) {
+        expect((pq.question as ChoiceQuestion).choices, hasLength(choices));
+      }
+    }
+  });
+
   test('editDistance', () {
     expect(editDistance('cat', 'cap'), 1);
     expect(editDistance('', 'abc'), 3);

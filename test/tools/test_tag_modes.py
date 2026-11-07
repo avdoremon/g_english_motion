@@ -66,6 +66,25 @@ class TagModesTest(unittest.TestCase):
         self.assertEqual(tag_modes.lev('kitten', 'sitting'), 3)
         self.assertEqual(tag_modes.lev('same', 'same'), 0)
 
+    def test_lev_parity(self):
+        # Keep in step with question_generator_modes_test.dart.
+        sample = [('cat', 'cap', 1), ('', 'abc', 3), ('kitten', 'sitting', 3),
+                  ('flaw', 'lawn', 2), ('intention', 'execution', 5),
+                  ('same', 'same', 0), ('book', 'back', 2)]
+        for a, b, d in sample:
+            self.assertEqual(tag_modes.lev(a, b), d, (a, b))
+            self.assertEqual(tag_modes.lev(b, a), d, (b, a))
+
+    def test_check_exit_2_on_non_canonical_file(self):
+        p = os.path.join(self.root, 'grade3', 'u01.json')
+        os.makedirs(os.path.dirname(p))
+        with open(p, 'w', encoding='utf-8') as f:
+            json.dump(unit(3, [item('g3u01-cat', 'cat')]), f, indent=4)
+        before = self.read('grade3/u01.json')
+        self.assertEqual(tag_modes.run(self.root, check=True), 2)
+        self.assertEqual(tag_modes.run(self.root, check=False), 2)
+        self.assertEqual(self.read('grade3/u01.json'), before)
+
     def test_idempotent(self):
         self.fixture()
         self.assertEqual(tag_modes.run(self.root, check=False), 0)

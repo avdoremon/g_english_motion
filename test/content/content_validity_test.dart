@@ -126,7 +126,9 @@ void main() {
         // Same word-boundary rule as QuestionGenerator (lookarounds, so
         // adjacent occurrences are both counted).
         final re = RegExp(
-          r'(?<![\p{L}\p{N}_])' + RegExp.escape(it.word) + r'(?![\p{L}\p{N}_])',
+          r'(?<![\p{L}\p{N}_])' +
+              RegExp.escape(it.word) +
+              r'(?![\p{L}\p{N}_])',
           caseSensitive: false,
           unicode: true,
         );
@@ -202,8 +204,16 @@ void main() {
         for (final m in it.modes) {
           expect(
             m,
-            isNot(anyOf(ModeKind.dragSpell, ModeKind.skyShoot)),
-            reason: '${it.id}: grades 1-2 never use dragSpell/skyShoot',
+            anyOf(
+              ModeKind.laneJump,
+              ModeKind.sayIt,
+              ModeKind.memoryFlip,
+              ModeKind.catchIt,
+              ModeKind.balloonPop,
+            ),
+            reason:
+                '${it.id}: grades 1-2 only use laneJump/sayIt/memoryFlip/'
+                'catchIt/balloonPop',
           );
         }
         if (it.modes.contains(ModeKind.sayIt)) {
@@ -308,43 +318,37 @@ void main() {
       );
     }
 
-    // Every unit still fills a level for each mode valid at its grade.
-    for (final info in kModeInfos) {
-      if (info.mode == ModeKind.sayIt) continue; // not question-driven
-      test('${info.mode.name}: every unit of grades '
-          '${info.minGrade}-${info.maxGrade} fills levels 1 and 5', () {
-        for (var grade = info.minGrade; grade <= info.maxGrade; grade++) {
-          final unitCount = repo.unitsFor(grade).length;
+    // Every grade, unit and level fills exactly questionCount questions for
+    // each mode valid at that grade (the generator widens the content window
+    // when the level's window has no item for the mode).
+    for (var grade = 1; grade <= 5; grade++) {
+      test('grade $grade: every unit and level 1-5 fills each valid mode', () {
+        final unitCount = repo.unitsFor(grade).length;
+        for (final mode in modesForGrade(grade)) {
+          if (mode == ModeKind.sayIt) continue; // not question-driven
           for (var unit = 1; unit <= unitCount; unit++) {
-            for (final lv in [1, 5]) {
-              final level = levels.firstWhere((l) => l.level == lv);
-              final pos = CurriculumPosition(
-                grade: grade,
-                currentUnitIndex: unit,
-              );
-              // balloonPop depends on look-alike words, so a few units have
-              // no tagged item at all; the mode cannot be played there
-              // (noContent), which is not a generator bug.
-              final tagged = unitsForLevel(
-                repo,
-                pos,
-                level.window,
-              ).any((u) => u.items.any((it) => it.modes.contains(info.mode)));
-              if (!tagged) {
-                expect(info.mode, ModeKind.balloonPop);
-                continue;
-              }
-              final plan = QuestionGenerator(
-                repo,
-                InMemoryHistoryStore(),
-                Random(unit),
-              ).plan(level: level, pos: pos, modes: {info.mode});
+            for (final level in levels) {
+              final plan =
+                  QuestionGenerator(
+                    repo,
+                    InMemoryHistoryStore(),
+                    Random(unit),
+                  ).plan(
+                    level: level,
+                    pos: CurriculumPosition(
+                      grade: grade,
+                      currentUnitIndex: unit,
+                    ),
+                    modes: {mode},
+                  );
               expect(
                 plan.length,
                 level.questionCount,
-                reason: '${info.mode.name} grade $grade unit $unit level $lv',
+                reason:
+                    '${mode.name} grade $grade unit $unit '
+                    'level ${level.level}',
               );
-              expect(plan.every((q) => q.mode == info.mode), isTrue);
+              expect(plan.every((q) => q.mode == mode), isTrue);
             }
           }
         }

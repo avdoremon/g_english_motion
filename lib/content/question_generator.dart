@@ -68,8 +68,23 @@ class QuestionGenerator {
   }) {
     final n = level.questionCount;
     final units = unitsForLevel(_repo, pos, level.window);
-    final pairs = _pool(units, pos.grade, modes);
-    if (pairs.isEmpty || n <= 0) return const [];
+    if (n <= 0) return const [];
+    var pairs = _pool(units, pos.grade, modes);
+    // Never an empty session: when no item of the level's window can host the
+    // requested modes (e.g. a unit without balloonPop-tagged words), widen the
+    // content step by step: every unit up to the current one, then the whole
+    // grade. Windows that already yield questions are untouched.
+    if (pairs.isEmpty) {
+      pairs = _pool(
+        unitsForLevel(_repo, pos, UnitWindow.allLearned),
+        pos.grade,
+        modes,
+      );
+    }
+    if (pairs.isEmpty) {
+      pairs = _pool(_repo.unitsFor(pos.grade), pos.grade, modes);
+    }
+    if (pairs.isEmpty) return const [];
 
     final recent = _history.recentIds().toSet();
     final wrong = _history.wrongIds();
