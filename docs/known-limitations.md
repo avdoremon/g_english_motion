@@ -54,11 +54,12 @@ Full facts and sources: [pose-plugin-evaluation.md](pose-plugin-evaluation.md).
 
 ## UI kit and visual identity (Space Puppy re-skin)
 
-- **Fredoka is bundled as four static instances** (Regular 400, Medium 500,
+- **Baloo 2 is bundled as four static instances** (Regular 400, Medium 500,
   SemiBold 600, Bold 700 in `assets/fonts/`, SIL OFL 1.1), cut from the
   upstream variable font with fontTools, so each `FontWeight` maps to its own
-  file. The earlier variable-font weight-axis caveat no longer applies.
-  Roboto/sans-serif are the fallback.
+  file. Baloo 2 replaced Fredoka because Fredoka lacks Vietnamese diacritics;
+  `tools/check_font_vi.py` and `test/ui/font_coverage_test.dart` guard the
+  files. Roboto/sans-serif remain the generic fallback.
 - **Space Puppy replaces the old mascot** (`lib/ui/mascot/space_pup_painter.dart`
   via `TinTin`); the previous mascot art is gone.
 - **The app logo/launcher icon is still the Jump Star robot**; the redraw to

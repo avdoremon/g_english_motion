@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-/// Space Puppy palette, Fredoka type scale and dark theme.
+/// Space Puppy palette, Baloo 2 type scale and dark theme.
 ///
-/// Fredoka is bundled under `assets/fonts/` (SIL OFL); no network font loader
+/// Baloo 2 is bundled under `assets/fonts/` (SIL OFL); no network font loader
 /// is used (privacy rule). If the asset fails to load the fallbacks apply.
 class AppTheme {
   AppTheme._();
@@ -37,7 +37,10 @@ class AppTheme {
   static const Color cardFill = Color(0xFFFFFFFF); // sticker card default
   static const Color selectedFill = Color(0xFF3A36A0); // chosen tile
 
-  static const String fontFamily = 'Fredoka';
+  /// Line-height multiplier for every text style (see [_s]).
+  static const double lineHeight = 1.2;
+
+  static const String fontFamily = 'Baloo 2';
   static const List<String> fontFallback = ['Roboto', 'sans-serif'];
 
   /// Minimum touch target (dp).
@@ -51,6 +54,9 @@ class AppTheme {
         fontFamily: fontFamily,
         fontFamilyFallback: fontFallback,
         fontSize: size,
+        // Baloo 2's natural line box is ~1.6 em (tall ascent/descent); pin it
+        // to roughly the old Fredoka rhythm so layouts keep their heights.
+        height: lineHeight,
         fontWeight: w,
         color: color,
       );

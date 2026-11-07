@@ -22,7 +22,7 @@ void main() {
     expect(t.brightness, Brightness.dark);
     expect(t.scaffoldBackgroundColor, AppTheme.background);
     expect(t.textTheme.bodyLarge!.fontSize, greaterThanOrEqualTo(28));
-    expect(t.textTheme.bodyLarge!.fontFamily, 'Fredoka');
+    expect(t.textTheme.bodyLarge!.fontFamily, 'Baloo 2');
   });
 
   test('type scale has exactly five sizes', () {

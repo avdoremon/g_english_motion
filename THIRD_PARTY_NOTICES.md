@@ -35,8 +35,8 @@ in-app licence page; add one (`showLicensePage`) before a public release.
    MediaPipe model card; the plugin itself does not restate this, and it was
    not re-checked offline). Apache-2.0 requires keeping the licence text and
    notices with redistributed copies.
-3. **Fredoka font.** `assets/fonts/Fredoka-*.ttf` are static instances of
-   Fredoka (Google Fonts), licensed under the SIL Open Font License 1.1; the
+3. **Baloo 2 font.** `assets/fonts/Baloo2-*.ttf` are static instances of
+   Baloo 2 (Google Fonts, Vietnamese-capable), licensed under the SIL Open Font License 1.1; the
    licence text is `assets/fonts/OFL.txt`.
 4. **Images.** The word pictures in `assets/images/` are project-owned
    placeholders; see `assets/images/LICENSES.md`.
