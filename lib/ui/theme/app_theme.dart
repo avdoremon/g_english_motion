@@ -34,6 +34,7 @@ class AppTheme {
   static const Color shadow = Color(0x47000000); // sticker drop shadow
   static const Color trackWhite = Color(0x29FFFFFF); // empty star / ring track
   static const Color glassWhite = Color(0x24FFFFFF); // round icon button fill
+  static const Color cardFill = Color(0xFFFFFFFF); // sticker card default
   static const Color selectedFill = Color(0xFF3A36A0); // chosen tile
 
   static const String fontFamily = 'Fredoka';

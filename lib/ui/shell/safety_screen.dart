@@ -1,9 +1,8 @@
-import '../theme/app_theme.dart';
-
 import 'package:flutter/material.dart';
 
 import '../../progress/progress_store.dart';
 import '../mascot/tin_tin.dart';
+import '../theme/app_theme.dart';
 
 class SafetyScreen extends StatelessWidget {
   const SafetyScreen({

@@ -305,6 +305,29 @@ void main() {
     await finish(tester);
   });
 
+  for (final size in const [Size(800, 360), Size(1280, 720)]) {
+    final label = '${size.width.toInt()}x${size.height.toInt()}';
+    testWidgets(
+      'guidance and miss text are Play 28 sp, no overflow at $label',
+      (tester) async {
+        await boot(tester, size: size, level: _four);
+        expect(tester.takeException(), isNull);
+        final guide = find.text('Nhảy hoặc chạm để bắn');
+        expect(guide, findsOneWidget);
+        expect(tester.widget<Text>(guide).style!.fontSize, 28);
+        expect(tester.getRect(guide).right, lessThanOrEqualTo(size.width));
+
+        shoot(); // a miss
+        await tester.pump();
+        expect(tester.takeException(), isNull);
+        final miss = find.byKey(const ValueKey('miss-note'));
+        expect(tester.widget<Text>(miss).style!.fontSize, 28);
+        expect(tester.getRect(miss).right, lessThanOrEqualTo(size.width));
+        await finish(tester);
+      },
+    );
+  }
+
   testWidgets('PlayScreen routes a skyShoot question to SkyShootScreen', (
     tester,
   ) async {

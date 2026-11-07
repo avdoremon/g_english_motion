@@ -67,12 +67,16 @@ Full facts and sources: [pose-plugin-evaluation.md](pose-plugin-evaluation.md).
   removed from `AppTheme`; every screen now uses `AppTheme.textStyles`
   (display 56, title 48, heading 36, play 28, label 24). Remaining
   `Theme.of(context).textTheme` uses only read `bodyLarge` (= play, 28).
-- **Secondary captions in SkyShoot** (shots left, pulls, hints) use the 24 sp
-  label size (was 22) with line height 1.0 so the 800x360 layout still fits;
-  they are below the 28 sp play-text floor by design (not instructions).
-- `test/ui/no_hardcoded_style_test.dart` guards `lib/ui`: no off-scale
-  `fontSize:` literals and no `Color(0x...)` outside `app_theme.dart` and
-  `*_painter.dart` files.
+- **In-play text sizes (ruling).** Guidance, miss and hint text during play
+  is Play 28 sp (SkyShoot "Trượt rồi! Bắn lại nhé" / "Nhảy hoặc chạm để bắn",
+  the caption strip). Label 24 sp is allowed only for counters and HUD chips
+  (SkyShoot "Lượt bắn" / "Kéo dây", the DragSpell held-tile chip). No
+  `height` hacks or scale-down fitting are used for play guidance; SkyShoot's
+  compact status row was made 8 dp taller instead (64 -> 72 at 800x360).
+- `test/ui/no_hardcoded_style_test.dart` guards: no off-scale
+  `fontSize` literals/constants and no `Color(`, `Color.fromARGB/RGBO` or
+  `Colors.white/black` outside `app_theme.dart` and `*_painter.dart` files; it
+  scans `lib/ui`, `lib/app` and `lib/main.dart` and self-tests its patterns.
 
 ## Content and audio
 

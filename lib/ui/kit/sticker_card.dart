@@ -17,7 +17,7 @@ class StickerCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final card = DecoratedBox(
       decoration: BoxDecoration(
-        color: fill ?? Colors.white,
+        color: fill ?? AppTheme.cardFill,
         borderRadius: BorderRadius.circular(24),
         border: Border.all(color: AppTheme.ink, width: 5),
         boxShadow: const [

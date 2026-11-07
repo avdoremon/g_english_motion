@@ -1,5 +1,3 @@
-import '../theme/app_theme.dart';
-
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -7,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../../content/content_repository.dart';
 import '../../input/confirm_gesture.dart';
 import '../../progress/progress_store.dart';
+import '../theme/app_theme.dart';
 
 class ParentSettings extends StatefulWidget {
   const ParentSettings({

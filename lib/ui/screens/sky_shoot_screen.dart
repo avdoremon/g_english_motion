@@ -90,7 +90,7 @@ class _SkyShootScreenState extends State<SkyShootScreen> {
                     ),
                     SizedBox(height: gap),
                     SizedBox(
-                      height: compact ? 64 : 96,
+                      height: compact ? 72 : 96,
                       child: _StatusRow(
                         controller: c,
                         session: s,
@@ -199,7 +199,6 @@ class _StatusRow extends StatelessWidget {
                       'Lượt bắn: ${round.shotsLeft}',
                       style: AppTheme.textStyles.label.copyWith(
                         color: AppTheme.muted,
-                        height: 1.0,
                       ),
                     ),
                   ],
@@ -213,7 +212,6 @@ class _StatusRow extends StatelessWidget {
                   key: const ValueKey('pulls'),
                   style: AppTheme.textStyles.label.copyWith(
                     color: AppTheme.muted,
-                    height: 1.0,
                   ),
                 ),
               ),
@@ -430,7 +428,7 @@ class _Field extends StatelessWidget {
                 child: Text(
                   'Trượt rồi! Bắn lại nhé',
                   key: const ValueKey('miss-note'),
-                  style: AppTheme.textStyles.label.copyWith(
+                  style: AppTheme.textStyles.play.copyWith(
                     color: AppTheme.muted,
                   ),
                 ),
@@ -441,8 +439,8 @@ class _Field extends StatelessWidget {
                 right: 16,
                 bottom: 8,
                 child: Text(
-                  'Nhảy để bắn, hoặc chạm vào màn hình',
-                  style: AppTheme.textStyles.label.copyWith(
+                  'Nhảy hoặc chạm để bắn',
+                  style: AppTheme.textStyles.play.copyWith(
                     color: AppTheme.muted,
                   ),
                 ),

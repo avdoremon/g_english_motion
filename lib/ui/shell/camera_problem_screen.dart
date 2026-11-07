@@ -1,8 +1,7 @@
-import '../theme/app_theme.dart';
-
 import 'package:flutter/material.dart';
 
 import '../mascot/tin_tin.dart';
+import '../theme/app_theme.dart';
 
 /// Shown when the camera delivers nothing usable (no frames, persistent
 /// errors, calibration that never finishes). The child gets two big buttons;
