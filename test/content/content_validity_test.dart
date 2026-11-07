@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
+import 'dart:math' as math;
 
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -126,9 +127,7 @@ void main() {
         // Same word-boundary rule as QuestionGenerator (lookarounds, so
         // adjacent occurrences are both counted).
         final re = RegExp(
-          r'(?<![\p{L}\p{N}_])' +
-              RegExp.escape(it.word) +
-              r'(?![\p{L}\p{N}_])',
+          r'(?<![\p{L}\p{N}_])' + RegExp.escape(it.word) + r'(?![\p{L}\p{N}_])',
           caseSensitive: false,
           unicode: true,
         );
@@ -349,6 +348,60 @@ void main() {
                     'level ${level.level}',
               );
               expect(plan.every((q) => q.mode == mode), isTrue);
+            }
+          }
+        }
+      });
+    }
+
+    // A single tagged item must not carry a whole plan: the same picture
+    // asked 3+ times in a row of 8 reads as a bug to a child.
+    for (var grade = 1; grade <= 5; grade++) {
+      test('grade $grade: new modes never ask one item more than twice', () {
+        final unitCount = repo.unitsFor(grade).length;
+        for (final mode in [
+          ModeKind.balloonPop,
+          ModeKind.memoryFlip,
+          ModeKind.catchIt,
+        ]) {
+          if (!modesForGrade(grade).contains(mode)) continue;
+          final gradeItems = {
+            for (final u in repo.unitsFor(grade))
+              for (final it in u.items)
+                if (it.modes.contains(mode)) it.id,
+          };
+          if (gradeItems.length < 3) continue;
+          for (var unit = 1; unit <= unitCount; unit++) {
+            for (final level in levels) {
+              final plan =
+                  QuestionGenerator(
+                    repo,
+                    InMemoryHistoryStore(),
+                    Random(unit),
+                  ).plan(
+                    level: level,
+                    pos: CurriculumPosition(
+                      grade: grade,
+                      currentUnitIndex: unit,
+                    ),
+                    modes: {mode},
+                  );
+              final counts = <String, int>{};
+              for (final q in plan) {
+                counts.update(
+                  q.question.itemId,
+                  (c) => c + 1,
+                  ifAbsent: () => 1,
+                );
+              }
+              final worst = counts.values.fold<int>(0, math.max);
+              expect(
+                worst,
+                lessThanOrEqualTo(2),
+                reason:
+                    '${mode.name} grade $grade unit $unit '
+                    'level ${level.level}: $counts',
+              );
             }
           }
         }

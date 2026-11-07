@@ -70,19 +70,25 @@ class QuestionGenerator {
     final units = unitsForLevel(_repo, pos, level.window);
     if (n <= 0) return const [];
     var pairs = _pool(units, pos.grade, modes);
-    // Never an empty session: when no item of the level's window can host the
-    // requested modes (e.g. a unit without balloonPop-tagged words), widen the
-    // content step by step: every unit up to the current one, then the whole
-    // grade. Windows that already yield questions are untouched.
-    if (pairs.isEmpty) {
-      pairs = _pool(
+    // Never an empty session, and never one picture carrying the plan: when
+    // the level's window offers too few distinct items for the modes (a unit
+    // with no or a single balloonPop-tagged word), widen the content step by
+    // step: every unit up to the current one (earlier units first), then the
+    // whole grade, so units that are not reached yet are borrowed last.
+    // Windows that already hold enough items are untouched.
+    final enough = (n + 1) ~/ 2; // no item more than twice
+    int distinct(List<_Pair> ps) => {for (final p in ps) p.item.id}.length;
+    if (distinct(pairs) < enough) {
+      final learned = _pool(
         unitsForLevel(_repo, pos, UnitWindow.allLearned),
         pos.grade,
         modes,
       );
+      if (distinct(learned) > distinct(pairs)) pairs = learned;
     }
-    if (pairs.isEmpty) {
-      pairs = _pool(_repo.unitsFor(pos.grade), pos.grade, modes);
+    if (distinct(pairs) < enough) {
+      final all = _pool(_repo.unitsFor(pos.grade), pos.grade, modes);
+      if (distinct(all) > distinct(pairs)) pairs = all;
     }
     if (pairs.isEmpty) return const [];
 
