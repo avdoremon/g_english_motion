@@ -485,6 +485,8 @@ class _RootState extends State<_Root> with WidgetsBindingObserver {
 
   void _goHome() {
     final old = _ctl;
+    _pickedMode = null;
+    _pickedShuffle = false;
     setState(() {
       _ctl = null;
       _source = null;

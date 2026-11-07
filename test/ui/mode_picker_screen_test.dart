@@ -1,6 +1,7 @@
 import 'dart:ui' show Tristate;
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:g_english_motion/content/models.dart';
 import 'package:g_english_motion/modes/mode_availability.dart';
@@ -141,6 +142,45 @@ void main() {
             find.byKey(const ValueKey('mode-shuffle')),
           );
           expect(tester.takeException(), isNull);
+        }
+      });
+    }
+  }
+
+  for (final size in const [Size(1280, 720), Size(800, 360)]) {
+    for (final scale in const [1.0, 1.3]) {
+      testWidgets('titles render at >= 28 sp, one line, never shrunk or cut at '
+          '${size.width.toInt()}x${size.height.toInt()} scale $scale', (
+        tester,
+      ) async {
+        await pump(tester, grade: 4, sayIt: true, size: size, textScale: scale);
+        final keys = [
+          for (final i in kModeInfos) tile(i.mode),
+          find.byKey(const ValueKey('mode-shuffle')),
+        ];
+        for (final k in keys) {
+          expect(
+            find.descendant(of: k, matching: find.byType(FittedBox)),
+            findsNothing,
+          );
+          final texts = find.descendant(of: k, matching: find.byType(Text));
+          final title = texts.first;
+          final w = tester.widget<Text>(title);
+          expect(w.style!.fontSize, greaterThanOrEqualTo(28));
+          final rp = tester.renderObject<RenderParagraph>(
+            find.descendant(of: title, matching: find.byType(RichText)),
+          );
+          final natural = TextPainter(
+            text: TextSpan(text: w.data, style: w.style),
+            textDirection: TextDirection.ltr,
+            textScaler: TextScaler.linear(scale),
+          )..layout();
+          expect(
+            rp.size.width,
+            greaterThanOrEqualTo(natural.width - 0.5),
+            reason: '${w.data} is cut or shrunk',
+          );
+          expect(rp.size.height, lessThan(natural.height * 1.5));
         }
       });
     }

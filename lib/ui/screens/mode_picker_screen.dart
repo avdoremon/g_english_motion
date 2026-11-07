@@ -30,7 +30,36 @@ class ModePickerScreen extends StatelessWidget {
 
   static const _columns = 3;
   static const _gap = 14.0;
-  static const _tileHeight = 96.0;
+  static const _tilePad = 12.0, _iconSlot = 32.0 + 10.0;
+
+  /// Widest line (title at play size, range at label size) of any tile.
+  static double _widest(BuildContext context, List<_ModeTile> tiles) {
+    final scaler = MediaQuery.textScalerOf(context);
+    double w(String text, TextStyle style) {
+      final p = TextPainter(
+        text: TextSpan(text: text, style: style),
+        textDirection: TextDirection.ltr,
+        textScaler: scaler,
+        maxLines: 1,
+      )..layout();
+      final v = p.width;
+      p.dispose();
+      return v;
+    }
+
+    var widest = 0.0;
+    for (final t in tiles) {
+      widest = [
+        widest,
+        w(t.title, _titleStyle),
+        w(t.detail, AppTheme.textStyles.label),
+      ].reduce((a, b) => a > b ? a : b);
+    }
+    return widest;
+  }
+
+  static TextStyle get _titleStyle =>
+      AppTheme.textStyles.play.copyWith(fontWeight: FontWeight.w700);
 
   /// Body-driven modes use the whole body, hand modes the hand cursor.
   static IconData inputIcon(ModeInfo i) {
@@ -55,7 +84,7 @@ class ModePickerScreen extends StatelessWidget {
         if (i.mode != ModeKind.sayIt || sayItAvailable) i,
     ];
     final valid = modesForGrade(grade);
-    final tiles = <Widget>[
+    final tiles = <_ModeTile>[
       for (final i in infos)
         _ModeTile(
           key: ValueKey('mode-${i.mode.name}'),
@@ -69,7 +98,7 @@ class ModePickerScreen extends StatelessWidget {
         ),
       _ModeTile(
         key: const ValueKey('mode-shuffle'),
-        title: 'Trộn ngẫu nhiên',
+        title: 'Ngẫu nhiên',
         detail: 'Lớp $grade',
         icon: Icons.shuffle,
         semanticLabel: 'Trộn ngẫu nhiên các trò chơi',
@@ -108,7 +137,23 @@ class ModePickerScreen extends StatelessWidget {
             Expanded(
               child: LayoutBuilder(
                 builder: (context, box) {
-                  final w = (box.maxWidth - _gap * (_columns - 1)) / _columns;
+                  // Titles are never shrunk: use as many columns (3 down to 1)
+                  // as keep every title on one line at the play size.
+                  final need =
+                      _widest(context, tiles) + _tilePad * 2 + _iconSlot;
+                  var cols = _columns;
+                  while (cols > 1 &&
+                      (box.maxWidth - _gap * (cols - 1)) / cols < need) {
+                    cols--;
+                  }
+                  final w = (box.maxWidth - _gap * (cols - 1)) / cols;
+                  final scaler = MediaQuery.textScalerOf(context);
+                  final h = [
+                    96.0,
+                    (scaler.scale(28) + scaler.scale(24)) *
+                            AppTheme.lineHeight +
+                        24,
+                  ].reduce((a, b) => a > b ? a : b);
                   // Scrolls on short screens instead of overflowing.
                   return SingleChildScrollView(
                     child: Wrap(
@@ -116,7 +161,7 @@ class ModePickerScreen extends StatelessWidget {
                       runSpacing: _gap,
                       children: [
                         for (final t in tiles)
-                          SizedBox(width: w, height: _tileHeight, child: t),
+                          SizedBox(width: w, height: h, child: t),
                       ],
                     ),
                   );
@@ -172,38 +217,37 @@ class _ModeTile extends StatelessWidget {
               borderRadius: BorderRadius.circular(24),
               onTap: onTap,
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 12),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: ModePickerScreen._tilePad,
+                ),
                 child: Row(
                   children: [
                     Icon(icon, size: 32, color: fg),
                     const SizedBox(width: 10),
                     Expanded(
-                      child: FittedBox(
-                        fit: BoxFit.scaleDown,
-                        alignment: Alignment.centerLeft,
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              title,
-                              maxLines: 1,
-                              style: AppTheme.textStyles.play.copyWith(
-                                color: fg,
-                                fontWeight: FontWeight.w700,
-                              ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            title,
+                            maxLines: 1,
+                            softWrap: false,
+                            overflow: TextOverflow.ellipsis,
+                            style: ModePickerScreen._titleStyle.copyWith(
+                              color: fg,
                             ),
-                            Text(
-                              detail,
-                              maxLines: 1,
-                              style: AppTheme.textStyles.label.copyWith(
-                                color: highlight
-                                    ? AppTheme.ink
-                                    : AppTheme.muted,
-                              ),
+                          ),
+                          Text(
+                            detail,
+                            maxLines: 1,
+                            softWrap: false,
+                            overflow: TextOverflow.ellipsis,
+                            style: AppTheme.textStyles.label.copyWith(
+                              color: highlight ? AppTheme.ink : AppTheme.muted,
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
                   ],
