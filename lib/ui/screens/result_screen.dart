@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
 import '../../session/level_session.dart';
+import '../kit/kit.dart';
 import '../mascot/tin_tin.dart';
 import '../theme/app_theme.dart';
 
-/// End-of-level screen: 0-3 stars (filled star vs outlined star, so it is
+/// End-of-level screen: 0-3 stars (a [StarRow]: filled vs dim, so it is
 /// not colour-only), correct/total, points and the two buttons. When the
 /// level did not unlock the next one, the second button reads "Về trang
 /// chính" (the app maps [onNext] to going home in that case).
@@ -29,62 +30,97 @@ class ResultScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final t = Theme.of(context).textTheme;
     final stars = outcome.stars.clamp(0, 3);
-    return Center(
-      child: SingleChildScrollView(
-        padding: const EdgeInsets.all(24),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            TinTin(
-              state: stars >= 1 ? TinTinState.cheer : TinTinState.sad,
-              size: 160,
-            ),
-            const SizedBox(height: 8),
-            Text(stars >= 1 ? 'Giỏi lắm!' : 'Cố lên nào!', style: t.titleLarge),
-            const SizedBox(height: 8),
-            Semantics(
-              label: '$stars trên 3 sao',
-              excludeSemantics: true,
+    final play = AppTheme.textStyles.play;
+    Widget chip(String text) => DecoratedBox(
+      decoration: BoxDecoration(
+        color: const Color(0x4D000000),
+        borderRadius: BorderRadius.circular(24),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 4),
+        child: FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Text(text, maxLines: 1, style: play),
+        ),
+      ),
+    );
+    return SafeArea(
+      child: LayoutBuilder(
+        builder: (context, box) {
+          final compact = box.maxHeight < 500;
+          final puppy = (box.maxHeight * (compact ? 0.42 : 0.55)).clamp(
+            120.0,
+            250.0,
+          );
+          final starSize = compact ? 64.0 : 96.0;
+          final content = Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(
+                  stars >= 1 ? 'Giỏi lắm!' : 'Cố lên nào!',
+                  maxLines: 1,
+                  style: compact
+                      ? AppTheme.textStyles.title
+                      : AppTheme.textStyles.display,
+                ),
+              ),
+              SizedBox(height: compact ? 6 : 12),
+              StarRow(earned: stars, size: starSize),
+              SizedBox(height: compact ? 6 : 12),
+              Wrap(
+                alignment: WrapAlignment.center,
+                spacing: 14,
+                runSpacing: 8,
+                children: [
+                  chip('Đúng ${outcome.correct}/${outcome.total}'),
+                  chip('${outcome.points} điểm'),
+                ],
+              ),
+              SizedBox(height: compact ? 12 : 20),
+              Wrap(
+                alignment: WrapAlignment.center,
+                spacing: 18,
+                runSpacing: 14,
+                children: [
+                  BigButton(
+                    label: 'Chơi lại',
+                    icon: Icons.replay,
+                    color: AppTheme.accent,
+                    onPressed: onPlayAgain,
+                  ),
+                  BigButton(
+                    label: _forward ? 'Tiếp tục' : 'Về trang chính',
+                    icon: _forward ? Icons.arrow_forward : Icons.home,
+                    onPressed: onNext,
+                  ),
+                ],
+              ),
+            ],
+          );
+          return Center(
+            child: SingleChildScrollView(
+              padding: EdgeInsets.all(compact ? 12 : 24),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  for (var i = 0; i < 3; i++)
-                    Icon(
-                      i < stars ? Icons.star : Icons.star_border,
-                      size: 64,
-                      color: i < stars ? AppTheme.yellow : AppTheme.muted,
-                    ),
+                  TinTin(
+                    state: switch (stars) {
+                      0 => TinTinState.sad,
+                      1 => TinTinState.happy,
+                      _ => TinTinState.cheer,
+                    },
+                    size: puppy,
+                  ),
+                  SizedBox(width: compact ? 20 : 32),
+                  Flexible(child: content),
                 ],
               ),
             ),
-            const SizedBox(height: 8),
-            Text(
-              'Đúng ${outcome.correct}/${outcome.total}',
-              style: t.bodyLarge,
-            ),
-            Text('${outcome.points} điểm', style: t.bodyLarge),
-            const SizedBox(height: 24),
-            Wrap(
-              alignment: WrapAlignment.center,
-              spacing: 16,
-              runSpacing: 12,
-              children: [
-                FilledButton.icon(
-                  onPressed: onPlayAgain,
-                  icon: const Icon(Icons.replay),
-                  label: const Text('Chơi lại'),
-                ),
-                FilledButton.icon(
-                  onPressed: onNext,
-                  icon: Icon(_forward ? Icons.arrow_forward : Icons.home),
-                  label: Text(_forward ? 'Tiếp tục' : 'Về trang chính'),
-                ),
-              ],
-            ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }

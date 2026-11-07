@@ -10,6 +10,9 @@ class HudBar extends StatelessWidget {
     required this.stars,
     required this.timeFraction,
     required this.trailing,
+    this.middle,
+    this.seconds,
+    this.scoreKey,
   });
 
   final int stars;
@@ -17,6 +20,16 @@ class HudBar extends StatelessWidget {
   /// Remaining time, 0..1.
   final double timeFraction;
   final Widget? trailing;
+
+  /// Fills the space between the star pill and the ring (level chip,
+  /// progress). When null the space is left empty.
+  final Widget? middle;
+
+  /// Whole seconds left, drawn in the ring when given.
+  final int? seconds;
+
+  /// Key placed on the star pill (the score read-out).
+  final Key? scoreKey;
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +39,7 @@ class HudBar extends StatelessWidget {
       child: Row(
         children: [
           DecoratedBox(
+            key: scoreKey,
             decoration: BoxDecoration(
               color: const Color(0x40000000),
               borderRadius: BorderRadius.circular(28),
@@ -50,14 +64,43 @@ class HudBar extends StatelessWidget {
               ),
             ),
           ),
-          const Spacer(),
+          if (middle != null)
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: middle,
+              ),
+            )
+          else
+            const Spacer(),
           Semantics(
             label: 'Thời gian còn lại',
             excludeSemantics: true,
             child: SizedBox(
               width: 56,
               height: 56,
-              child: CustomPaint(painter: _TimeRing(frac)),
+              child: CustomPaint(
+                painter: _TimeRing(frac),
+                child: seconds == null
+                    ? null
+                    : Center(
+                        // Play text never goes below 28 sp; scaled to sit
+                        // inside the ring.
+                        child: SizedBox(
+                          width: 38,
+                          child: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Text(
+                              '$seconds',
+                              maxLines: 1,
+                              style: AppTheme.textStyles.play.copyWith(
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+              ),
             ),
           ),
           if (trailing != null) ...[const SizedBox(width: 16), trailing!],

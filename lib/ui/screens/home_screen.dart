@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../progress/progress_store.dart';
 import '../../speech/speech_source.dart';
+import '../kit/kit.dart';
 import '../mascot/tin_tin.dart';
 import '../theme/app_theme.dart';
 
@@ -58,21 +59,37 @@ class _HomeScreenState extends State<HomeScreen> {
     final level = _levelFor(_grade);
     return SafeArea(
       child: Padding(
-        padding: const EdgeInsets.all(24),
+        padding: const EdgeInsets.fromLTRB(24, 12, 24, 16),
         child: Column(
           children: [
             Row(
               children: [
-                Expanded(child: Text('Tin Tin English', style: t.titleLarge)),
-                SizedBox(
-                  key: const ValueKey('parent-button'),
-                  width: AppTheme.minTarget,
-                  height: AppTheme.minTarget,
-                  child: IconButton(
-                    onPressed: widget.onOpenParent,
-                    tooltip: 'Dành cho bố mẹ',
-                    icon: const Icon(Icons.settings, size: 32),
+                Expanded(
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Text.rich(
+                        TextSpan(
+                          children: [
+                            const TextSpan(text: 'Tin Tin '),
+                            TextSpan(
+                              text: 'English',
+                              style: TextStyle(color: AppTheme.yellow),
+                            ),
+                          ],
+                        ),
+                        maxLines: 1,
+                        style: AppTheme.textStyles.heading,
+                      ),
+                    ),
                   ),
+                ),
+                RoundIconButton(
+                  key: const ValueKey('parent-button'),
+                  icon: Icons.tune,
+                  semanticLabel: 'Dành cho bố mẹ',
+                  onPressed: widget.onOpenParent,
                 ),
               ],
             ),
@@ -85,8 +102,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: LayoutBuilder(
                       builder: (context, box) => Center(
                         child: TinTin(
-                          state: TinTinState.idle,
-                          size: box.maxHeight.clamp(80.0, 200.0),
+                          state: TinTinState.cheer,
+                          size: box.maxHeight.clamp(80.0, 250.0),
                         ),
                       ),
                     ),
@@ -102,41 +119,69 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text('Em học lớp mấy?', style: t.bodyLarge),
-                              const SizedBox(height: 8),
+                              StickerCard(
+                                fill: AppTheme.surface,
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text('Em học lớp mấy?', style: t.bodyLarge),
+                                    const SizedBox(height: 8),
+                                    Wrap(
+                                      alignment: WrapAlignment.center,
+                                      spacing: 10,
+                                      runSpacing: 10,
+                                      children: [
+                                        for (var g = 1; g <= 5; g++)
+                                          _gradeTile(g, t),
+                                      ],
+                                    ),
+                                    const SizedBox(height: 12),
+                                    Text('Chọn cấp độ', style: t.bodyLarge),
+                                    const SizedBox(height: 8),
+                                    Wrap(
+                                      alignment: WrapAlignment.center,
+                                      spacing: 10,
+                                      runSpacing: 10,
+                                      children: [
+                                        for (
+                                          var l = 1;
+                                          l <= HomeScreen.levels;
+                                          l++
+                                        )
+                                          _levelTile(l, level, t),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(height: 20),
                               Wrap(
                                 alignment: WrapAlignment.center,
-                                spacing: 12,
-                                runSpacing: 12,
+                                spacing: 16,
+                                runSpacing: 14,
                                 children: [
-                                  for (var g = 1; g <= 5; g++) _gradeTile(g, t),
+                                  BigButton(
+                                    key: const ValueKey('play'),
+                                    label: 'Chơi',
+                                    icon: Icons.play_arrow,
+                                    onPressed: () =>
+                                        widget.onPlay(_grade, level),
+                                  ),
+                                  if (widget.sayItAvailability ==
+                                          SpeechAvailability.available &&
+                                      store.sayItEnabled)
+                                    // A real button, so TalkBack can focus
+                                    // and activate it.
+                                    BigButton(
+                                      key: const ValueKey('sayit-entry'),
+                                      label: 'Luyện nói',
+                                      icon: Icons.mic,
+                                      color: AppTheme.accent,
+                                      onPressed: () =>
+                                          widget.onSayIt(_grade, level),
+                                    ),
                                 ],
                               ),
-                              const SizedBox(height: 16),
-                              Text('Chọn cấp độ', style: t.bodyLarge),
-                              const SizedBox(height: 8),
-                              Wrap(
-                                alignment: WrapAlignment.center,
-                                spacing: 12,
-                                runSpacing: 12,
-                                children: [
-                                  for (var l = 1; l <= HomeScreen.levels; l++)
-                                    _levelTile(l, level, t),
-                                ],
-                              ),
-                              const SizedBox(height: 24),
-                              FilledButton.icon(
-                                key: const ValueKey('play'),
-                                onPressed: () => widget.onPlay(_grade, level),
-                                icon: const Icon(Icons.play_arrow, size: 36),
-                                label: const Text('Chơi'),
-                              ),
-                              if (widget.sayItAvailability ==
-                                      SpeechAvailability.available &&
-                                  store.sayItEnabled) ...[
-                                const SizedBox(height: 12),
-                                _sayItEntry(t, level),
-                              ],
                             ],
                           ),
                         ),
@@ -173,31 +218,50 @@ class _HomeScreenState extends State<HomeScreen> {
         key: ValueKey('grade-$g'),
         onTap: playable ? pick : null,
         child: Container(
-          constraints: const BoxConstraints(minWidth: 120, minHeight: 72),
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          decoration: BoxDecoration(
-            color: selected ? AppTheme.accent : AppTheme.surface,
-            borderRadius: BorderRadius.circular(20),
-          ),
+          constraints: const BoxConstraints(minWidth: 84, minHeight: 72),
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+          decoration: _tileDecoration(selected),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(
-                'Lớp $g',
-                style: t.bodyLarge!.copyWith(
-                  color: selected
-                      ? AppTheme.background
-                      : (playable ? AppTheme.text : AppTheme.muted),
+              FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(
+                  'Lớp $g',
+                  maxLines: 1,
+                  style: t.bodyLarge!.copyWith(
+                    fontWeight: FontWeight.w700,
+                    color: selected
+                        ? AppTheme.ink
+                        : (playable ? AppTheme.text : AppTheme.muted),
+                  ),
                 ),
               ),
               if (!playable)
-                Text('Sắp có', style: t.bodyMedium!.copyWith(fontSize: 28)),
+                FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    'Sắp có',
+                    maxLines: 1,
+                    style: t.bodyMedium!.copyWith(fontSize: 28),
+                  ),
+                ),
             ],
           ),
         ),
       ),
     );
   }
+
+  /// Selected tiles are the yellow "pressed up" chip with an ink ring.
+  BoxDecoration _tileDecoration(bool selected) => BoxDecoration(
+    color: selected ? AppTheme.yellow : AppTheme.surfaceLight,
+    borderRadius: BorderRadius.circular(20),
+    border: selected ? Border.all(color: AppTheme.ink, width: 4) : null,
+    boxShadow: selected
+        ? const [BoxShadow(color: AppTheme.ink, offset: Offset(0, 5))]
+        : null,
+  );
 
   Widget _levelTile(int l, int current, TextTheme t) {
     final store = widget.store;
@@ -217,19 +281,18 @@ class _HomeScreenState extends State<HomeScreen> {
         key: ValueKey('level-$l'),
         onTap: unlocked ? pick : null,
         child: Container(
-          width: 96,
+          width: 84,
+          constraints: const BoxConstraints(minHeight: 72),
           padding: const EdgeInsets.symmetric(vertical: 8),
-          decoration: BoxDecoration(
-            color: selected ? AppTheme.accent : AppTheme.surface,
-            borderRadius: BorderRadius.circular(20),
-          ),
+          decoration: _tileDecoration(selected),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
                 '$l',
+                maxLines: 1,
                 style: t.titleLarge!.copyWith(
-                  color: selected ? AppTheme.background : AppTheme.text,
+                  color: selected ? AppTheme.ink : AppTheme.text,
                 ),
               ),
               if (unlocked)
@@ -242,7 +305,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         size: 22,
                         color: i < stars
                             ? AppTheme.yellow
-                            : (selected ? AppTheme.background : AppTheme.muted),
+                            : (selected ? AppTheme.ink : AppTheme.muted),
                       ),
                   ],
                 )
@@ -252,23 +315,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
-    );
-  }
-
-  Widget _sayItEntry(TextTheme t, int level) {
-    // A real button, so TalkBack can focus and activate it.
-    return FilledButton.tonalIcon(
-      key: const ValueKey('sayit-entry'),
-      onPressed: () => widget.onSayIt(_grade, level),
-      style: FilledButton.styleFrom(
-        minimumSize: const Size(0, AppTheme.minTarget),
-        backgroundColor: AppTheme.surface,
-        foregroundColor: AppTheme.text,
-        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
-        side: const BorderSide(color: AppTheme.accent, width: 3),
-      ),
-      icon: const Icon(Icons.mic, color: AppTheme.accent, size: 32),
-      label: Text('Luyện nói', style: t.bodyLarge),
     );
   }
 }

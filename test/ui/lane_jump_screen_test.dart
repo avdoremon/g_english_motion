@@ -104,9 +104,9 @@ void main() {
       ),
       findsOneWidget,
     );
-    expect(find.byType(LinearProgressIndicator), findsOneWidget);
+    expect(find.byKey(const ValueKey('progress')), findsOneWidget);
     expect(
-      find.byType(CircularProgressIndicator),
+      find.bySemanticsLabel('Thời gian còn lại'),
       findsOneWidget,
       reason: 'timer ring',
     );

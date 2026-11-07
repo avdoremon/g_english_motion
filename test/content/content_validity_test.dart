@@ -91,9 +91,7 @@ void main() {
         // Same word-boundary rule as QuestionGenerator (lookarounds, so
         // adjacent occurrences are both counted).
         final re = RegExp(
-          r'(?<![\p{L}\p{N}_])' +
-              RegExp.escape(it.word) +
-              r'(?![\p{L}\p{N}_])',
+          r'(?<![\p{L}\p{N}_])' + RegExp.escape(it.word) + r'(?![\p{L}\p{N}_])',
           caseSensitive: false,
           unicode: true,
         );

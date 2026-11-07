@@ -5,6 +5,7 @@ import 'package:flutter/semantics.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:g_english_motion/progress/progress_store.dart';
 import 'package:g_english_motion/speech/speech_source.dart';
+import 'package:g_english_motion/ui/kit/kit.dart';
 import 'package:g_english_motion/ui/screens/home_screen.dart';
 import 'package:g_english_motion/ui/theme/app_theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -26,12 +27,18 @@ void main() {
     WidgetTester tester, {
     SpeechAvailability sayIt = SpeechAvailability.available,
     Size size = const Size(1280, 720),
+    double textScale = 1.0,
   }) async {
     await tester.binding.setSurfaceSize(size);
     addTearDown(() => tester.binding.setSurfaceSize(null));
     await tester.pumpWidget(
       MaterialApp(
         theme: AppTheme.dark(),
+        builder: (c, w) => MediaQuery(
+          data: MediaQuery.of(c)
+              .copyWith(textScaler: TextScaler.linear(textScale)),
+          child: w!,
+        ),
         home: Scaffold(
           body: HomeScreen(
             store: store,
@@ -203,6 +210,68 @@ void main() {
       expect(size, greaterThanOrEqualTo(28), reason: t.data);
     }
   });
+
+  void expectKitSizes(WidgetTester tester, {required double textScale}) {
+    expect(tester.takeException(), isNull);
+    final buttons = [
+      ...find.byType(BigButton).evaluate(),
+      ...find.byType(RoundIconButton).evaluate(),
+    ];
+    expect(buttons, isNotEmpty);
+    for (final e in buttons) {
+      final s = tester.getSize(find.byElementPredicate((x) => x == e));
+      expect(s.width, greaterThanOrEqualTo(56), reason: '${e.widget}');
+      expect(s.height, greaterThanOrEqualTo(56), reason: '${e.widget}');
+    }
+    for (final b in find.byType(BigButton).evaluate()) {
+      for (final e
+          in find
+              .descendant(
+                of: find.byElementPredicate((x) => x == b),
+                matching: find.byType(Text),
+              )
+              .evaluate()) {
+        final t = e.widget as Text;
+        expect(t.maxLines, 1, reason: t.data);
+        final fs = (t.style?.fontSize ?? 28) * textScale;
+        expect(
+          tester.getSize(find.byWidget(t)).height,
+          lessThan(2 * fs),
+          reason: '${t.data} wraps',
+        );
+      }
+    }
+  }
+
+  for (final size in const [Size(1280, 720), Size(800, 360)]) {
+    for (final scale in const [1.0, 1.3]) {
+      testWidgets('kit sizes, no wrap, no overflow at ${size.width.toInt()}x'
+          '${size.height.toInt()} text x$scale', (tester) async {
+        unawaited(store.saveStars(1, 1, 2));
+        unawaited(store.setSayItEnabled(true));
+        await pump(tester, size: size, textScale: scale);
+        expect(find.byType(BigButton), findsNWidgets(2)); // Chơi + Luyện nói
+        expect(
+          find.descendant(
+            of: find.byKey(const ValueKey('sayit-entry')),
+            matching: find.text('Luyện nói'),
+          ),
+          findsOneWidget,
+        );
+        expect(
+          find.byKey(const ValueKey('parent-button')).evaluate().single.widget,
+          isA<RoundIconButton>(),
+        );
+        // The Luyện nói button sits inside the screen, not past its edge.
+        await tester.ensureVisible(find.byKey(const ValueKey('sayit-entry')));
+        await tester.pump();
+        final r = tester.getRect(find.byKey(const ValueKey('sayit-entry')));
+        expect(r.right, lessThanOrEqualTo(size.width));
+        expect(r.left, greaterThanOrEqualTo(0));
+        expectKitSizes(tester, textScale: scale);
+      });
+    }
+  }
 
   for (final size in const [Size(1280, 720), Size(800, 360)]) {
     testWidgets('no overflow at ${size.width.toInt()}x${size.height.toInt()}', (
