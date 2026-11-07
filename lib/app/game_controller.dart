@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_initializing_formals
 import 'dart:async';
 import 'dart:math';
+import 'dart:ui' show Rect;
 
 import 'package:flutter/foundation.dart';
 
@@ -20,6 +21,7 @@ import '../levels/level_config.dart';
 import '../levels/scoring.dart';
 import '../modes/catch_it.dart';
 import '../modes/drag_spell.dart';
+import '../modes/hold_pick.dart';
 import '../modes/lane_jump.dart';
 import '../modes/mode_availability.dart';
 import '../modes/round.dart';
@@ -609,18 +611,49 @@ class GameController extends ChangeNotifier {
           );
         }
       case ModeKind.memoryFlip:
+        if (q is ChoiceQuestion) {
+          return HoldPickRound(
+            q,
+            timeLimit: Scoring.timeFor(level, ModeKind.memoryFlip),
+            holdTime: const Duration(seconds: 1),
+            peek: const Duration(seconds: 2),
+            targetRect: _defaultChoiceRect(q.choices.length),
+          );
+        }
       case ModeKind.balloonPop:
-        throw UnimplementedError('Round for ${pq.mode} (Tasks 3-5)');
+        if (q is ChoiceQuestion) {
+          return HoldPickRound(
+            q,
+            timeLimit: Scoring.timeFor(level, ModeKind.balloonPop),
+            holdTime: const Duration(milliseconds: 600),
+            targetRect: _defaultChoiceRect(q.choices.length),
+          );
+        }
     }
     throw StateError('No round for ${pq.mode} with ${q.runtimeType}');
   }
 
-  /// Touch / hold fallback for DragSpell: the player held (or tapped) the
-  /// target [targetId] (`tile:<i>`, `slot:<i>`, `check`).
+  /// Default layout of [n] choices for [HoldPickRound] when no screen
+  /// supplies one: a grid of up to 3 columns filling the unit square.
+  static Rect Function(int) _defaultChoiceRect(int n) {
+    final cols = n <= 3 ? n : (n + 1) ~/ 2;
+    final rows = (n + cols - 1) ~/ cols;
+    return (i) => Rect.fromLTWH(
+      (i % cols) / cols,
+      (i ~/ cols) / rows,
+      1 / cols,
+      1 / rows,
+    );
+  }
+
+  /// Touch / hold fallback: the player held (or tapped) the target
+  /// [targetId]: DragSpell `tile:<i>`, `slot:<i>`, `check`; memoryFlip and
+  /// balloonPop `choice:<i>`.
   void holdTarget(String targetId) {
     if (_disposed) return;
     _session?.act((r) {
       if (r is DragSpellRound) r.onTargetHeld(targetId);
+      if (r is HoldPickRound) r.onTargetHeld(targetId);
     });
     _afterSessionChange();
     if (!_disposed) notifyListeners();
