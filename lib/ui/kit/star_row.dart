@@ -19,7 +19,7 @@ class StarRow extends StatelessWidget {
   Widget build(BuildContext context) {
     final gap = size / 8 < 2 ? 2.0 : size / 8;
     return Semantics(
-      label: '$earned/$total sao',
+      label: '$earned trên $total sao',
       excludeSemantics: true,
       child: Row(
         mainAxisSize: MainAxisSize.min,

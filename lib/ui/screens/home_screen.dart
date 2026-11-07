@@ -102,7 +102,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: LayoutBuilder(
                       builder: (context, box) => Center(
                         child: TinTin(
-                          state: TinTinState.cheer,
+                          state: TinTinState.idle,
                           size: box.maxHeight.clamp(80.0, 250.0),
                         ),
                       ),

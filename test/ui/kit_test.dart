@@ -157,6 +157,31 @@ void main() {
     expect(find.text('T'), findsOneWidget);
   });
 
+  testWidgets('HudBar ring semantics: with and without seconds', (
+    tester,
+  ) async {
+    await tester.pumpWidget(
+      _wrap(HudBar(stars: 1, timeFraction: 0.5, trailing: const SizedBox())),
+    );
+    expect(find.bySemanticsLabel('Thời gian còn lại'), findsOneWidget);
+    await tester.pumpWidget(
+      _wrap(
+        HudBar(
+          stars: 1,
+          timeFraction: 0.5,
+          seconds: 9,
+          trailing: const SizedBox(),
+        ),
+      ),
+    );
+    expect(find.bySemanticsLabel('Còn 9 giây'), findsOneWidget);
+  });
+
+  testWidgets('StarRow semantics reads "N trên M sao"', (tester) async {
+    await tester.pumpWidget(_wrap(const StarRow(earned: 2)));
+    expect(find.bySemanticsLabel('2 trên 3 sao'), findsOneWidget);
+  });
+
   for (final dims in [const Size(800, 360), const Size(1280, 720)]) {
     for (final n in [7, 12, 123]) {
       testWidgets('kit renders at $dims with $n stars at 1.3x', (tester) async {

@@ -169,11 +169,12 @@ void main() {
       final got = await captureDebugPrint(
         logs,
         () => collect(src, () {
+          backend.emit(result(body({for (var i = 0; i < 33; i++) i: _zero(i)})));
           backend.emit(
-            result(body({for (var i = 0; i < 33; i++) i: _zero(i)})),
-          );
-          backend.emit(
-            result(body({for (var i = 0; i < 33; i++) i: _zero(i)}), ts: 2000),
+            result(
+              body({for (var i = 0; i < 33; i++) i: _zero(i)}),
+              ts: 2000,
+            ),
           );
         }),
       );

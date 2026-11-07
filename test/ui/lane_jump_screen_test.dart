@@ -106,7 +106,7 @@ void main() {
     );
     expect(find.byKey(const ValueKey('progress')), findsOneWidget);
     expect(
-      find.bySemanticsLabel('Thời gian còn lại'),
+      find.bySemanticsLabel(RegExp(r'^Còn \d+ giây$')),
       findsOneWidget,
       reason: 'timer ring',
     );

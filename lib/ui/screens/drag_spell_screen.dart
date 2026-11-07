@@ -807,7 +807,7 @@ class _CheckButton extends StatelessWidget {
                   const SizedBox(width: 8),
                   Text(
                     'Kiểm tra',
-                    style: AppTheme.textStyles.label.copyWith(
+                    style: AppTheme.textStyles.play.copyWith(
                       color: enabled ? AppTheme.background : AppTheme.muted,
                     ),
                   ),

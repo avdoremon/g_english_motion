@@ -54,10 +54,11 @@ Full facts and sources: [pose-plugin-evaluation.md](pose-plugin-evaluation.md).
 
 ## UI kit and visual identity (Space Puppy re-skin)
 
-- **Fredoka is bundled as a variable font** (`assets/fonts/`, SIL OFL). The
-  weight axis (w500/w600/w700 in the type scale) is **unverified on a
-  device**: if the platform picks one static instance, all weights may look
-  the same. Roboto/sans-serif are the fallback.
+- **Fredoka is bundled as four static instances** (Regular 400, Medium 500,
+  SemiBold 600, Bold 700 in `assets/fonts/`, SIL OFL 1.1), cut from the
+  upstream variable font with fontTools, so each `FontWeight` maps to its own
+  file. The earlier variable-font weight-axis caveat no longer applies.
+  Roboto/sans-serif are the fallback.
 - **Space Puppy replaces the old mascot** (`lib/ui/mascot/space_pup_painter.dart`
   via `TinTin`); the previous mascot art is gone.
 - **The app logo/launcher icon is still the Jump Star robot**; the redraw to

@@ -74,7 +74,7 @@ class HudBar extends StatelessWidget {
           else
             const Spacer(),
           Semantics(
-            label: 'Thời gian còn lại',
+            label: seconds == null ? 'Thời gian còn lại' : 'Còn $seconds giây',
             excludeSemantics: true,
             child: SizedBox(
               width: 56,

@@ -71,12 +71,13 @@ flutter:
   fonts:
     - family: Fredoka
       fonts:
-        - asset: assets/fonts/Fredoka[wdth,wght].ttf
-        - asset: assets/fonts/Fredoka[wdth,wght].ttf
+        - asset: assets/fonts/Fredoka-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Fredoka-Medium.ttf
           weight: 500
-        - asset: assets/fonts/Fredoka[wdth,wght].ttf
+        - asset: assets/fonts/Fredoka-SemiBold.ttf
           weight: 600
-        - asset: assets/fonts/Fredoka[wdth,wght].ttf
+        - asset: assets/fonts/Fredoka-Bold.ttf
           weight: 700
 
   assets:

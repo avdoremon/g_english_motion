@@ -393,7 +393,7 @@ class ItemPicture extends StatelessWidget {
     AppTheme.accent,
     AppTheme.yellow,
     AppTheme.green,
-    AppTheme.pink,
+    AppTheme.coral,
     AppTheme.orange,
     AppTheme.purple,
   ];

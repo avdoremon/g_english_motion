@@ -424,7 +424,7 @@ class _WordCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final judged = word.phase == WordPhase.judged;
     final ok = word.result == RoundResult.correct;
-    final color = ok ? AppTheme.green : AppTheme.pink;
+    final color = ok ? AppTheme.green : AppTheme.coral;
     return Semantics(
       label: judged
           ? '${word.item.word}, ${ok ? 'Đúng' : 'Sai'}'
@@ -506,7 +506,7 @@ class _ExplosionPainter extends CustomPainter {
 
   static const _colors = [
     AppTheme.yellow,
-    AppTheme.pink,
+    AppTheme.coral,
     AppTheme.accent,
     AppTheme.green,
     AppTheme.orange,

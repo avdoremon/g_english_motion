@@ -211,7 +211,7 @@ class _ParentGateState extends State<ParentGate>
                       ? 'Chưa đúng'
                       : (_entry.isEmpty ? ' ' : _entry),
                   style: AppTheme.textStyles.label.copyWith(
-                    color: _wrong ? AppTheme.pink : AppTheme.text,
+                    color: _wrong ? AppTheme.coral : AppTheme.text,
                   ),
                 ),
               ),
