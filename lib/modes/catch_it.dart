@@ -24,6 +24,14 @@ class CatchItRound implements Round {
 
   int get lane => _lane;
 
+  /// Sets the lane from the controller's tracked lane. The session only
+  /// forwards [LaneChanged] while playing, so changes made while the question
+  /// is being read (or the game is paused) would otherwise be lost.
+  void syncLane(int lane) {
+    if (_result != null) return;
+    _lane = lane.clamp(0, question.choices.length - 1);
+  }
+
   /// How far the pictures have fallen (0 at the top, 1 at the catch line).
   double get fallFraction => elapsedFraction;
 
@@ -57,7 +65,7 @@ class CatchItRound implements Round {
     if (_result != null) return;
     switch (e) {
       case LaneChanged(:final lane):
-        _lane = lane.clamp(0, question.choices.length - 1);
+        syncLane(lane);
       case PlayerLost():
         _playerPresent = false;
       case PlayerFound():

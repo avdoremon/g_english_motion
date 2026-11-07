@@ -657,6 +657,13 @@ class GameController extends ChangeNotifier {
   void _dispatch(GameInputEvent e) {
     if (e is LaneChanged) {
       _selectedLane = e.lane;
+      // The session drops lane changes outside the playing phase; catchIt
+      // grades the lane at the catch line, so keep its round current anyway.
+      final s = _session;
+      if (s != null && s.phase != SessionPhase.finished) {
+        final r = s.round;
+        if (r is CatchItRound) r.syncLane(e.lane);
+      }
     }
     switch (e) {
       case PlayerLost():

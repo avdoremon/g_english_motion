@@ -22,6 +22,7 @@ CatchItRound _round({int initialLane = 0}) =>
     CatchItRound(_q(), timeLimit: _limit, initialLane: initialLane);
 
 void main() {
+  lostTests();
   test('correct lane at the catch line -> correct', () {
     final r = _round(initialLane: 1)..start();
     r.onEvent(const LaneChanged(2, at: _t0));
@@ -100,4 +101,33 @@ void main() {
     expect(r.fallFraction, 1.0);
     expect(r.result, RoundResult.correct);
   });
+}
+
+void lostTests() {
+  test('tick past the limit while lost does not resolve; lane change while '
+      'lost counts after PlayerFound', () {
+    final r = _round()..start();
+    r.tick(const Duration(seconds: 4));
+    r.onEvent(const PlayerLost(at: _t0));
+    r.tick(const Duration(seconds: 60));
+    expect(r.result, isNull);
+    expect(r.fallFraction, closeTo(0.4, 1e-9));
+    r.onEvent(const LaneChanged(2, at: _t0));
+    r.onEvent(const PlayerFound(at: _t0));
+    r.tick(const Duration(seconds: 6));
+    expect(r.result, RoundResult.correct);
+  });
+
+  test(
+    'syncLane sets the lane before start and is ignored after the result',
+    () {
+      final r = _round();
+      r.syncLane(2);
+      r.start();
+      r.tick(_limit);
+      expect(r.result, RoundResult.correct);
+      r.syncLane(0);
+      expect(r.lane, 2);
+    },
+  );
 }
