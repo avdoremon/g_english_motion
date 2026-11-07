@@ -1,33 +1,40 @@
 import 'package:flutter/material.dart';
 
-/// Space Cadets palette and dark theme.
+/// Space Puppy palette, Fredoka type scale and dark theme.
 ///
-/// Font: 'Baloo 2' is declared by family name only. No network font loader is
-/// used (privacy rule); the font file can be bundled later under
-/// `flutter: fonts:` in pubspec.yaml. Until then the system fallbacks apply.
+/// Fredoka is bundled under `assets/fonts/` (SIL OFL); no network font loader
+/// is used (privacy rule). If the asset fails to load the fallbacks apply.
 class AppTheme {
   AppTheme._();
 
-  static const Color background = Color(0xFF14123A);
-  static const Color surface = Color(0xFF2A2770);
-  static const Color accent = Color(0xFF4DE1FF);
-  static const Color yellow = Color(0xFFFFD84D);
-  static const Color green = Color(0xFF5CF2A0);
-  static const Color pink = Color(0xFFFF5CAA);
-  static const Color orange = Color(0xFFFF8A5B);
-  static const Color purple = Color(0xFF7B61FF);
+  static const Color background = Color(0xFF1B1F4B); // night
+  static const Color ink = Color(0xFF0E1033);
+  static const Color surface = Color(0xFF262B6B); // panel
+  static const Color surfaceLight = Color(0xFF323896); // panel-light
+  static const Color purple = Color(0xFF6C4DFF);
+  static const Color accent = Color(0xFF35D0FF); // sky
+  static const Color yellow = Color(0xFFFFD23F); // star
+  static const Color coral = Color(0xFFFF6B6B);
+  static const Color green = Color(0xFF3DDC97); // correct
+  static const Color orange = Color(0xFFFFB84D);
+  static const Color muted = Color(0xFFC9CCF5);
   static const Color text = Color(0xFFFFFFFF);
-  static const Color muted = Color(0xFFC9C6F5);
+
+  /// Alias of [coral] kept so existing screens compile.
+  static const Color pink = coral;
 
   /// Scrims drawn over the playing area (background colour, translucent).
-  static const Color pauseScrim = Color(0xCC14123A);
-  static const Color breakScrim = Color(0xEE14123A);
+  static const Color pauseScrim = Color(0xCC1B1F4B);
+  static const Color breakScrim = Color(0xEE1B1F4B);
 
-  static const String fontFamily = 'Baloo 2';
+  static const String fontFamily = 'Fredoka';
   static const List<String> fontFallback = ['Roboto', 'sans-serif'];
 
   /// Minimum touch target (dp).
   static const double minTarget = 56;
+
+  /// The five-size type scale. Play text never goes below 28 sp.
+  static const AppTextStyles textStyles = AppTextStyles._();
 
   static TextStyle _s(double size, {FontWeight? w, Color color = text}) =>
       TextStyle(
@@ -39,19 +46,27 @@ class AppTheme {
       );
 
   static ThemeData dark() {
+    const st = textStyles;
     final textTheme = TextTheme(
+      displayLarge: st.display,
+      headlineLarge: st.heading,
+      // Instruction text: readable from 2-3 m.
+      bodyLarge: st.play,
+      labelLarge: st.label,
+      // Legacy slots still used by screens not yet re-skinned.
       displayMedium: _s(56, w: FontWeight.w700),
       headlineMedium: _s(40, w: FontWeight.w700),
       titleLarge: _s(32, w: FontWeight.w700),
       titleMedium: _s(24, w: FontWeight.w600),
-      // Instruction text: readable from 2-3 m.
-      bodyLarge: _s(28, w: FontWeight.w600),
       bodyMedium: _s(22, color: muted),
-      labelLarge: _s(28, w: FontWeight.w700, color: background),
     );
+    // Buttons are play-sized (>= 28 sp), dark text on the bright fill.
+    final buttonText = st.play.copyWith(color: background);
     return ThemeData(
       useMaterial3: true,
       brightness: Brightness.dark,
+      fontFamily: fontFamily,
+      fontFamilyFallback: fontFallback,
       scaffoldBackgroundColor: background,
       colorScheme: const ColorScheme.dark(
         primary: accent,
@@ -60,7 +75,7 @@ class AppTheme {
         onSecondary: background,
         surface: surface,
         onSurface: text,
-        error: pink,
+        error: coral,
       ),
       textTheme: textTheme,
       filledButtonTheme: FilledButtonThemeData(
@@ -69,7 +84,7 @@ class AppTheme {
           foregroundColor: background,
           minimumSize: const Size(minTarget * 2, minTarget),
           padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
-          textStyle: textTheme.labelLarge,
+          textStyle: buttonText,
           shape: const StadiumBorder(),
         ),
       ),
@@ -81,7 +96,7 @@ class AppTheme {
           foregroundColor: text,
           minimumSize: const Size(minTarget * 2, minTarget),
           padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
-          textStyle: textTheme.labelLarge!.copyWith(color: text),
+          textStyle: buttonText.copyWith(color: text),
           side: const BorderSide(color: accent, width: 3),
           shape: const StadiumBorder(),
         ),
@@ -94,4 +109,16 @@ class AppTheme {
       ),
     );
   }
+}
+
+/// The five type sizes: Display 56/700, Title 48/700, Heading 36/700,
+/// Play text 28/600, Label 24/500.
+class AppTextStyles {
+  const AppTextStyles._();
+
+  TextStyle get display => AppTheme._s(56, w: FontWeight.w700);
+  TextStyle get title => AppTheme._s(48, w: FontWeight.w700);
+  TextStyle get heading => AppTheme._s(36, w: FontWeight.w700);
+  TextStyle get play => AppTheme._s(28, w: FontWeight.w600);
+  TextStyle get label => AppTheme._s(24, w: FontWeight.w500);
 }

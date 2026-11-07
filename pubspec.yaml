@@ -68,6 +68,17 @@ flutter:
   # the material Icons class.
   uses-material-design: true
 
+  fonts:
+    - family: Fredoka
+      fonts:
+        - asset: assets/fonts/Fredoka[wdth,wght].ttf
+        - asset: assets/fonts/Fredoka[wdth,wght].ttf
+          weight: 500
+        - asset: assets/fonts/Fredoka[wdth,wght].ttf
+          weight: 600
+        - asset: assets/fonts/Fredoka[wdth,wght].ttf
+          weight: 700
+
   assets:
     - assets/config/
     - assets/images/grade1/
