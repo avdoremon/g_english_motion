@@ -63,7 +63,7 @@ const List<ModeInfo> kModeInfos = [
   ),
   ModeInfo(
     mode: ModeKind.sayIt,
-    title: 'Nói đi',
+    title: 'Luyện nói',
     minGrade: 1,
     maxGrade: 5,
     usesCamera: false,

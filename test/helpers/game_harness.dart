@@ -171,6 +171,7 @@ class GameHarness {
     List<String> words = harnessWords,
     List<ModeKind> modes = const [ModeKind.laneJump],
     ModeKind? mode,
+    bool shuffle = false,
     ContentRepository? repo,
   }) async {
     SharedPreferences.setMockInitialValues({});
@@ -213,6 +214,7 @@ class GameHarness {
       grade: grade,
       level: level,
       mode: mode,
+      shuffle: shuffle,
       store: store,
       repo: repo,
       audio: audio,

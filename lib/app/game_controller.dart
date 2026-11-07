@@ -104,6 +104,7 @@ class GameController extends ChangeNotifier {
     required this.grade,
     required this.level,
     this.mode,
+    this.shuffle = false,
     required ProgressStore store,
     required ContentRepository repo,
     required AudioService audio,
@@ -134,6 +135,12 @@ class GameController extends ChangeNotifier {
 
   @visibleForTesting
   Set<ModeKind> get activeModes {
+    if (shuffle) {
+      // "Trộn ngẫu nhiên": every camera mode offered at the grade (SayIt is
+      // started separately by the app, never through the controller).
+      final all = modesForGrade(grade).difference({ModeKind.sayIt});
+      if (all.isNotEmpty) return all;
+    }
     final m = mode;
     return m != null && modesForGrade(grade).contains(m)
         ? {m}
@@ -153,6 +160,10 @@ class GameController extends ChangeNotifier {
 
   /// Mode chosen in the picker; null plays the grade's default mix.
   final ModeKind? mode;
+
+  /// Mode picker's "Trộn ngẫu nhiên": plays every camera mode valid for the
+  /// grade. Wins over [mode]; false (default) keeps the default mix.
+  final bool shuffle;
 
   /// SkyShoot scores a shot where the arrow was this long before the event.
   final Duration castLatency;

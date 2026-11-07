@@ -19,6 +19,7 @@ class HomeScreen extends StatefulWidget {
     required this.sayItAvailability,
     required this.onPlay,
     required this.onSayIt,
+    required this.onPickMode,
     required this.onOpenParent,
   });
 
@@ -28,6 +29,9 @@ class HomeScreen extends StatefulWidget {
 
   /// Starts SayIt for the picked grade and level.
   final void Function(int grade, int level) onSayIt;
+
+  /// Opens the mode picker for the picked grade and level.
+  final void Function(int grade, int level) onPickMode;
   final VoidCallback onOpenParent;
 
   static const playableGrades = {1, 2, 3, 4, 5};
@@ -166,6 +170,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                     icon: Icons.play_arrow,
                                     onPressed: () =>
                                         widget.onPlay(_grade, level),
+                                  ),
+                                  BigButton(
+                                    key: const ValueKey('pick-mode'),
+                                    label: 'Chọn trò chơi',
+                                    icon: Icons.grid_view,
+                                    color: AppTheme.surfaceLight,
+                                    onColor: AppTheme.text,
+                                    onPressed: () =>
+                                        widget.onPickMode(_grade, level),
                                   ),
                                   if (widget.sayItAvailability ==
                                           SpeechAvailability.available &&

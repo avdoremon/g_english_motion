@@ -72,4 +72,24 @@ void main() {
     );
     expect(h.controller.activeModes, {ModeKind.dragSpell});
   });
+
+  test('shuffle plays every camera mode of the grade, never SayIt', () async {
+    final g1 = await GameHarness.create(
+      grade: 1,
+      modes: const [ModeKind.laneJump],
+      shuffle: true,
+    );
+    expect(g1.controller.activeModes, {ModeKind.laneJump, ModeKind.catchIt});
+    final g4 = await GameHarness.create(
+      grade: 4,
+      modes: const [ModeKind.dragSpell],
+      shuffle: true,
+    );
+    expect(g4.controller.activeModes, {
+      ModeKind.memoryFlip,
+      ModeKind.balloonPop,
+      ModeKind.dragSpell,
+      ModeKind.skyShoot,
+    });
+  });
 }

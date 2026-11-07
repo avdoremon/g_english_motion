@@ -110,6 +110,17 @@ Full facts and sources: [pose-plugin-evaluation.md](pose-plugin-evaluation.md).
   the only place the microphone is ever requested (that switch going off ->
   on is what asks the OS). Known small gaps: no message when the mic is
   permanently denied; SayIt stars are not saved.
+- **Mode picker ("Chọn trò chơi")**: a 3-column grid next to "Chơi" on Home.
+  Modes not offered at the picked grade stay visible but disabled, with their
+  grade range as the reason. "Trộn ngẫu nhiên" plays every camera mode valid
+  for the grade (never SayIt). The choice is session state only (not stored):
+  retry and next level keep it, going Home forgets it; "Chơi" always plays the
+  grade's default mix. The SayIt tile appears only when Home shows "Luyện nói"
+  and starts SayIt through its own path.
+- **Touch fallback** matrix (no camera/pose input): MemoryFlip and BalloonPop
+  keep tap on the card/balloon (hold-pick frame); CatchIt has none (lane is
+  body-driven only); LaneJump, DragSpell and SkyShoot unchanged. TTS speaks
+  the target word as the prompt for MemoryFlip and BalloonPop.
 - A SkyShoot round with no pull for 20 s ends as a timeout.
 - DragSpell tray/slot cells are laid out from the text they must hold (about
   half an em per character at the 28 sp floor, never below the 56 px touch

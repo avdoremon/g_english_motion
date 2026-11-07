@@ -25,6 +25,7 @@ import '../ui/mascot/tin_tin.dart';
 import '../ui/parent/parent_gate.dart';
 import '../ui/parent/parent_settings.dart';
 import '../ui/screens/home_screen.dart';
+import '../ui/screens/mode_picker_screen.dart';
 import '../ui/screens/play_screen.dart';
 import '../ui/screens/result_screen.dart';
 import '../ui/screens/say_it_screen.dart';
@@ -53,6 +54,7 @@ class AppDependencies {
     Random? rng,
     this.closeTimeout = const Duration(seconds: 3),
     this.controllerFactory,
+    this.pickedControllerFactory,
     Widget? cameraHost,
   }) : sourceFactory = sourceFactory ?? PluginPoseFrameSource.new,
        // The real plugin source needs its preview view in the tree; an
@@ -96,6 +98,17 @@ class AppDependencies {
     AppDependencies d,
   )?
   controllerFactory;
+
+  /// Test seam like [controllerFactory], used when the child chose a game in
+  /// the mode picker ([mode] set, or [shuffle]).
+  final GameController Function(
+    int grade,
+    LevelConfig level,
+    AppDependencies d, {
+    ModeKind? mode,
+    bool shuffle,
+  })?
+  pickedControllerFactory;
 
   /// Opens the OS app-settings page (permanently denied camera). Defaults to
   /// `permission_handler`'s [openAppSettings] (local OS call, no network).
@@ -240,6 +253,14 @@ class _RootState extends State<_Root> with WidgetsBindingObserver {
   PoseFrameSource? _source;
   (int, int)? _afterSafety;
 
+  /// Mode picker open for (grade, level); the choice lives only in the
+  /// session that starts from it.
+  (int, int)? _picker;
+
+  /// Choice behind [_afterSafety] / the running controller.
+  ModeKind? _pickedMode;
+  bool _pickedShuffle = false;
+
   /// SayIt availability: asked once the entry is wanted (the check may ask for
   /// the microphone), never assumed.
   SpeechAvailability _sayItAvailability =
@@ -305,7 +326,9 @@ class _RootState extends State<_Root> with WidgetsBindingObserver {
     super.dispose();
   }
 
-  void _onPlay(int grade, int level) {
+  void _onPlay(int grade, int level, {ModeKind? mode, bool shuffle = false}) {
+    _pickedMode = mode;
+    _pickedShuffle = shuffle;
     if (_d.repo.unitsFor(grade).isEmpty ||
         !_d.levels.any((l) => l.level == level)) {
       _showNoLessons();
@@ -316,6 +339,17 @@ class _RootState extends State<_Root> with WidgetsBindingObserver {
       return;
     }
     _begin(grade, level);
+  }
+
+  /// A tile of the mode picker. SayIt has its own path (no camera, never run
+  /// through [GameController.mode]); `null` is the shuffle tile.
+  void _onPicked(int grade, int level, ModeKind? mode) {
+    setState(() => _picker = null);
+    if (mode == ModeKind.sayIt) {
+      _beginSayIt(grade, level);
+    } else {
+      _onPlay(grade, level, mode: mode, shuffle: mode == null);
+    }
   }
 
   /// Starts SayIt: no camera, no pose source, no safety screen (the child
@@ -389,11 +423,22 @@ class _RootState extends State<_Root> with WidgetsBindingObserver {
   void _begin(int grade, int level) {
     final cfg = _d.levels.firstWhere((l) => l.level == level);
     final source = _d.sourceFactory();
+    final picked = _pickedMode != null || _pickedShuffle;
     final ctl =
-        _d.controllerFactory?.call(grade, cfg, _d) ??
+        (picked
+            ? _d.pickedControllerFactory?.call(
+                grade,
+                cfg,
+                _d,
+                mode: _pickedMode,
+                shuffle: _pickedShuffle,
+              )
+            : _d.controllerFactory?.call(grade, cfg, _d)) ??
         GameController(
           grade: grade,
           level: cfg,
+          mode: _pickedMode,
+          shuffle: _pickedShuffle,
           store: _d.store,
           repo: _d.repo,
           audio: _d.audio,
@@ -541,6 +586,26 @@ class _RootState extends State<_Root> with WidgetsBindingObserver {
       );
     }
     final ctl = _ctl;
+    final picker = _picker;
+    if (ctl == null && picker != null) {
+      return PopScope(
+        canPop: false,
+        onPopInvokedWithResult: (didPop, _) {
+          if (!didPop) setState(() => _picker = null);
+        },
+        child: Scaffold(
+          body: ModePickerScreen(
+            grade: picker.$1,
+            level: picker.$2,
+            sayItAvailable:
+                _sayItAvailability == SpeechAvailability.available &&
+                _d.store.sayItEnabled,
+            onPick: (m) => _onPicked(picker.$1, picker.$2, m),
+            onBack: () => setState(() => _picker = null),
+          ),
+        ),
+      );
+    }
     if (ctl == null) {
       return Scaffold(
         body: HomeScreen(
@@ -548,6 +613,7 @@ class _RootState extends State<_Root> with WidgetsBindingObserver {
           sayItAvailability: _sayItAvailability,
           onPlay: _onPlay,
           onSayIt: _beginSayIt,
+          onPickMode: (g, l) => setState(() => _picker = (g, l)),
           onOpenParent: _openParent,
         ),
       );
