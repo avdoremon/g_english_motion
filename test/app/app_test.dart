@@ -848,7 +848,7 @@ void main() {
                   repo: d.repo,
                   audio: d.audio,
                   ticker: d.ticker,
-                  mode: closedMode,
+                  closedBehavior: closedMode,
                 ),
         ),
       ),
@@ -991,11 +991,11 @@ class _HangingClosed extends GameController {
     required super.repo,
     required super.audio,
     required super.ticker,
-    required this.mode,
+    required this.closedBehavior,
   });
-  final String mode;
+  final String closedBehavior;
   @override
-  Future<void> get closed => mode == 'hang'
+  Future<void> get closed => closedBehavior == 'hang'
       ? Completer<void>().future
       : Future<void>.error(StateError('boom'));
 }

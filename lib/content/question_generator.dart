@@ -15,6 +15,9 @@ const _modeForms = <ModeKind, List<QuestionForm>>{
   ],
   ModeKind.skyShoot: [QuestionForm.listenPickWord, QuestionForm.fillBlank],
   ModeKind.dragSpell: [QuestionForm.spellWord, QuestionForm.orderSentence],
+  ModeKind.catchIt: [QuestionForm.listenPickPicture],
+  ModeKind.memoryFlip: [QuestionForm.memoryMatch],
+  ModeKind.balloonPop: [QuestionForm.popWord],
 };
 
 /// One (item x form) candidate; [modes] are the requested modes that can host it.
@@ -254,6 +257,9 @@ class QuestionGenerator {
             words: _scramble(answer),
             answer: answer,
           );
+        case QuestionForm.memoryMatch:
+        case QuestionForm.popWord:
+          throw UnimplementedError('${k.pair.form} questions (Tasks 3-5)');
         case QuestionForm.listenPickPicture:
         case QuestionForm.seePicturePickWord:
         case QuestionForm.listenPickWord:
@@ -435,6 +441,9 @@ class QuestionGenerator {
         final letters = _letters(w);
         if (letters.length < 3 || letters.toSet().length < 2) return null;
         return '';
+      case QuestionForm.memoryMatch:
+      case QuestionForm.popWord:
+        throw UnimplementedError('$form eligibility (Tasks 3-5)');
       case QuestionForm.orderSentence:
         if (!upper) return null;
         final c = [

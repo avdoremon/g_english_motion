@@ -20,6 +20,7 @@ import '../levels/level_config.dart';
 import '../levels/scoring.dart';
 import '../modes/drag_spell.dart';
 import '../modes/lane_jump.dart';
+import '../modes/mode_availability.dart';
 import '../modes/round.dart';
 import '../modes/sky_shoot.dart';
 import '../progress/progress_store.dart';
@@ -99,6 +100,7 @@ class GameController extends ChangeNotifier {
   GameController({
     required this.grade,
     required this.level,
+    this.mode,
     required ProgressStore store,
     required ContentRepository repo,
     required AudioService audio,
@@ -123,10 +125,17 @@ class GameController extends ChangeNotifier {
 
   static const maxTickStep = Duration(milliseconds: 250);
 
-  /// Grades 3-5 play the upper modes (DragSpell); grades 1-2 LaneJump.
-  Set<ModeKind> get _modes => grade >= 3
-      ? {ModeKind.dragSpell, ModeKind.skyShoot}
-      : {ModeKind.laneJump};
+  /// The chosen [mode] when it is offered at [grade], else the grade's default
+  /// mix (grades 1-2 LaneJump; 3-5 DragSpell and SkyShoot).
+  Set<ModeKind> get _modes => activeModes;
+
+  @visibleForTesting
+  Set<ModeKind> get activeModes {
+    final m = mode;
+    return m != null && modesForGrade(grade).contains(m)
+        ? {m}
+        : defaultModesForGrade(grade);
+  }
 
   /// Arrow sweep speed (fractions of the width per second) of [level]: the
   /// higher the level, the faster (0.24 .. 0.40).
@@ -138,6 +147,9 @@ class GameController extends ChangeNotifier {
 
   final int grade;
   final LevelConfig level;
+
+  /// Mode chosen in the picker; null plays the grade's default mix.
+  final ModeKind? mode;
 
   /// SkyShoot scores a shot where the arrow was this long before the event.
   final Duration castLatency;
@@ -587,6 +599,10 @@ class GameController extends ChangeNotifier {
         }
       case ModeKind.sayIt:
         break;
+      case ModeKind.catchIt:
+      case ModeKind.memoryFlip:
+      case ModeKind.balloonPop:
+        throw UnimplementedError('Round for ${pq.mode} (Tasks 3-5)');
     }
     throw StateError('No round for ${pq.mode} with ${q.runtimeType}');
   }
