@@ -874,9 +874,9 @@ class GameController extends ChangeNotifier {
     _roundStartedReview = s.isReview;
     // PoseSession compares against frame timestamps.
     _pose?.suppressConfirmUntil(_lastFrameTs + confirmGrace);
-    // The player left during the prompt: a hold-pick round (peek, clock) must
-    // not run with nobody there. Lane rounds keep their existing behaviour.
-    if (_lost && s.round is HoldPickRound) {
+    // The player left during the prompt: a hold-pick or catchIt round (peek,
+    // clock) must not run with nobody there. LaneJump keeps its behaviour.
+    if (_lost && (s.round is HoldPickRound || s.round is CatchItRound)) {
       s.onEvent(PlayerLost(at: _lastFrameTs));
     }
   }

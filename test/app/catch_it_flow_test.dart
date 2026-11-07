@@ -76,4 +76,24 @@ void main() {
     await h.run(const Duration(seconds: 21));
     expect(s.lastResult, RoundResult.wrong);
   });
+
+  test('child gone while the question is read: the round waits', () async {
+    await setUpCatchIt();
+    final s = h.controller.session!;
+    final r = s.round as CatchItRound;
+    expect(s.phase, SessionPhase.prompting);
+    h.controller.debugInject(PlayerLost(at: h.lastFrameAt));
+    s.onPromptFinished();
+    expect(s.phase, SessionPhase.playing);
+    // Well past the time limit with nobody there (ticks only).
+    await h.run(r.timeLimit * 2, withFrames: false);
+    expect(s.lastResult, isNull);
+    expect(s.round, same(r));
+    expect(r.result, isNull);
+    expect(r.fallFraction, 0);
+    // The child comes back: the clock resumes.
+    h.controller.debugInject(PlayerFound(at: h.lastFrameAt));
+    await h.run(const Duration(seconds: 2));
+    expect(r.fallFraction, greaterThan(0));
+  });
 }
