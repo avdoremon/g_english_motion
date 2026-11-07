@@ -422,10 +422,9 @@ class _WordCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final t = Theme.of(context).textTheme;
     final judged = word.phase == WordPhase.judged;
     final ok = word.result == RoundResult.correct;
-    final color = ok ? AppTheme.green : AppTheme.pink;
+    final color = ok ? AppTheme.green : AppTheme.coral;
     return Semantics(
       label: judged
           ? '${word.item.word}, ${ok ? 'Đúng' : 'Sai'}'
@@ -449,7 +448,9 @@ class _WordCard extends StatelessWidget {
             ),
             child: Text(
               word.item.word,
-              style: compact ? t.headlineMedium : t.displayMedium,
+              style: compact
+                  ? AppTheme.textStyles.heading
+                  : AppTheme.textStyles.title,
               textAlign: TextAlign.center,
             ),
           ),
@@ -467,7 +468,7 @@ class _WordCard extends StatelessWidget {
                 const SizedBox(width: 8),
                 Text(
                   ok ? 'Đúng' : 'Sai',
-                  style: t.titleLarge!.copyWith(color: color),
+                  style: AppTheme.textStyles.heading.copyWith(color: color),
                 ),
               ],
             ),
@@ -505,7 +506,7 @@ class _ExplosionPainter extends CustomPainter {
 
   static const _colors = [
     AppTheme.yellow,
-    AppTheme.pink,
+    AppTheme.coral,
     AppTheme.accent,
     AppTheme.green,
     AppTheme.orange,
@@ -558,7 +559,6 @@ class _ResultView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final t = Theme.of(context).textTheme;
     final stars = level.stars;
     return Center(
       child: SingleChildScrollView(
@@ -582,7 +582,7 @@ class _ResultView extends StatelessWidget {
             Text(
               'Đúng ${level.correctOfNine}/9 từ',
               key: const ValueKey('say-it-total'),
-              style: t.titleLarge,
+              style: AppTheme.textStyles.heading,
             ),
             const SizedBox(height: 16),
             Wrap(

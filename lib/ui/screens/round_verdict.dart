@@ -45,7 +45,7 @@ class RoundVerdict extends StatelessWidget {
   static Color colorFor(RoundResult? r) => switch (r) {
     RoundResult.correct => AppTheme.green,
     RoundResult.timeout => AppTheme.muted,
-    _ => AppTheme.pink,
+    _ => AppTheme.coral,
   };
 
   /// Tin Tin's state for a round result: cheerful when right, neutral on a
@@ -67,7 +67,7 @@ class RoundVerdict extends StatelessWidget {
       children: [
         Icon(iconFor(result), size: iconSize, color: colorFor(result)),
         const SizedBox(width: 8),
-        Text(labelFor(result), style: Theme.of(context).textTheme.titleLarge),
+        Text(labelFor(result), style: AppTheme.textStyles.heading),
         SizedBox(width: trailing),
       ],
     );

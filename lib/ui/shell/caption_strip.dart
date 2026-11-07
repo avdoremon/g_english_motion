@@ -19,7 +19,6 @@ class CaptionStrip extends StatefulWidget {
 
   /// Reserved height, so the lanes above never shift when a caption comes.
   static const double height = 56;
-  static const double fontSize = 30;
 
   final Stream<String> captions;
   final bool Function(String caption)? filter;
@@ -106,8 +105,7 @@ class _CaptionStripState extends State<CaptionStrip> {
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.bodyLarge!
-                        .copyWith(fontSize: CaptionStrip.fontSize),
+                    style: AppTheme.textStyles.play,
                   ),
                 ),
               ),

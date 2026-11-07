@@ -195,7 +195,7 @@ class NoLessonsView extends StatelessWidget {
           children: [
             const TinTin(state: TinTinState.sad, size: 120),
             const SizedBox(height: 16),
-            Text('Chưa có bài học', style: t.titleLarge),
+            Text('Chưa có bài học', style: AppTheme.textStyles.heading),
             const SizedBox(height: 8),
             Text(
               'Tin Tin đang chuẩn bị bài mới cho em. Quay lại sau nhé!',

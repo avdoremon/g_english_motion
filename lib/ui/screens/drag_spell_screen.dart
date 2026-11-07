@@ -385,8 +385,7 @@ class _MiniChip extends StatelessWidget {
         text,
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
-        style: Theme.of(context).textTheme.bodyLarge!
-            .copyWith(color: AppTheme.background, fontSize: 22),
+        style: AppTheme.textStyles.label.copyWith(color: AppTheme.background),
       ),
     );
   }
@@ -452,7 +451,7 @@ class _PromptRow extends StatelessWidget {
                 ? Text(
                     key: const ValueKey('answer-reveal'),
                     _answerText,
-                    style: t.titleLarge,
+                    style: AppTheme.textStyles.heading,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                   )
@@ -469,7 +468,9 @@ class _PromptRow extends StatelessWidget {
                       if (box.maxHeight >= 70)
                         Text(
                           'Giữ tay trên ô 1 giây, hoặc chạm vào ô',
-                          style: t.bodyMedium,
+                          style: AppTheme.textStyles.play.copyWith(
+                            color: AppTheme.muted,
+                          ),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
@@ -483,7 +484,12 @@ class _PromptRow extends StatelessWidget {
                 key: const ValueKey('carrying'),
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text('Đang cầm', style: t.bodyMedium),
+                  Text(
+                    'Đang cầm',
+                    style: AppTheme.textStyles.play.copyWith(
+                      color: AppTheme.muted,
+                    ),
+                  ),
                   const SizedBox(width: 8),
                   _MiniChip(text: round.carrying!),
                 ],
@@ -548,7 +554,6 @@ class _Chip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final t = Theme.of(context).textTheme;
     final border = hovered
         ? AppTheme.yellow
         : (empty ? AppTheme.muted : AppTheme.accent);
@@ -577,8 +582,10 @@ class _Chip extends StatelessWidget {
               : _TileText(
                   text: text!,
                   style: solid
-                      ? t.titleLarge!.copyWith(color: AppTheme.background)
-                      : t.titleLarge!,
+                      ? AppTheme.textStyles.heading.copyWith(
+                          color: AppTheme.background,
+                        )
+                      : AppTheme.textStyles.heading,
                 ),
         ),
       ),
@@ -764,7 +771,6 @@ class _CheckButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final t = Theme.of(context).textTheme;
     final hovered = screen._progress.targetId == 'check';
     return _Target(
       screen: screen,
@@ -801,7 +807,7 @@ class _CheckButton extends StatelessWidget {
                   const SizedBox(width: 8),
                   Text(
                     'Kiểm tra',
-                    style: t.titleMedium!.copyWith(
+                    style: AppTheme.textStyles.play.copyWith(
                       color: enabled ? AppTheme.background : AppTheme.muted,
                     ),
                   ),

@@ -5,21 +5,35 @@ import 'package:g_english_motion/ui/theme/app_theme.dart';
 
 void main() {
   test('AppTheme palette and dark theme', () {
-    expect(AppTheme.background, const Color(0xFF14123A));
-    expect(AppTheme.surface, const Color(0xFF2A2770));
-    expect(AppTheme.accent, const Color(0xFF4DE1FF));
-    expect(AppTheme.yellow, const Color(0xFFFFD84D));
-    expect(AppTheme.green, const Color(0xFF5CF2A0));
-    expect(AppTheme.pink, const Color(0xFFFF5CAA));
-    expect(AppTheme.orange, const Color(0xFFFF8A5B));
-    expect(AppTheme.purple, const Color(0xFF7B61FF));
+    expect(AppTheme.background, const Color(0xFF1B1F4B));
+    expect(AppTheme.surface, const Color(0xFF262B6B));
+    expect(AppTheme.accent, const Color(0xFF35D0FF));
+    expect(AppTheme.yellow, const Color(0xFFFFD23F));
+    expect(AppTheme.green, const Color(0xFF3DDC97));
+    expect(AppTheme.coral, const Color(0xFFFF6B6B));
+    expect(AppTheme.pink, AppTheme.coral);
+    expect(AppTheme.ink, const Color(0xFF0E1033));
+    expect(AppTheme.surfaceLight, const Color(0xFF323896));
+    expect(AppTheme.orange, const Color(0xFFFFB84D));
+    expect(AppTheme.purple, const Color(0xFF6C4DFF));
     expect(AppTheme.text, const Color(0xFFFFFFFF));
-    expect(AppTheme.muted, const Color(0xFFC9C6F5));
+    expect(AppTheme.muted, const Color(0xFFC9CCF5));
     final t = AppTheme.dark();
     expect(t.brightness, Brightness.dark);
     expect(t.scaffoldBackgroundColor, AppTheme.background);
     expect(t.textTheme.bodyLarge!.fontSize, greaterThanOrEqualTo(28));
     expect(t.textTheme.bodyLarge!.fontFamily, 'Baloo 2');
+  });
+
+  test('type scale has exactly five sizes', () {
+    final sizes = {
+      AppTheme.textStyles.display,
+      AppTheme.textStyles.title,
+      AppTheme.textStyles.heading,
+      AppTheme.textStyles.play,
+      AppTheme.textStyles.label,
+    }.map((s) => s.fontSize).toSet();
+    expect(sizes, {56.0, 48.0, 36.0, 28.0, 24.0});
   });
 
   testWidgets('every themed button reaches the 56 dp target, outlined too', (

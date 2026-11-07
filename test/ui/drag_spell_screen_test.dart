@@ -401,6 +401,12 @@ void main() {
     await finish(tester);
   });
 
+  testWidgets('fits a 1280x720 screen without overflow', (tester) async {
+    await boot(tester, size: const Size(1280, 720));
+    expect(tester.takeException(), isNull);
+    await finish(tester);
+  });
+
   testWidgets('fits a small landscape phone (800x360) without overflow', (
     tester,
   ) async {
