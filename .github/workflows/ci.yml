@@ -24,6 +24,10 @@ jobs:
           flutter-version: ${{ env.FLUTTER_VERSION }}
           channel: stable
           cache: true
+      - name: Content mode tags are up to date
+        run: |
+          python3 -m unittest discover -s test/tools
+          python3 tools/tag_modes.py --check
       - run: flutter pub get
       - run: flutter analyze
       - run: flutter test

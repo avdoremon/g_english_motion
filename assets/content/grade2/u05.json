@@ -22,7 +22,9 @@
       ],
       "modes": [
         "laneJump",
-        "sayIt"
+        "sayIt",
+        "memoryFlip",
+        "catchIt"
       ]
     },
     {
@@ -42,7 +44,10 @@
       ],
       "modes": [
         "laneJump",
-        "sayIt"
+        "sayIt",
+        "memoryFlip",
+        "catchIt",
+        "balloonPop"
       ]
     },
     {
@@ -63,7 +68,9 @@
       ],
       "modes": [
         "laneJump",
-        "sayIt"
+        "sayIt",
+        "memoryFlip",
+        "catchIt"
       ]
     },
     {
@@ -81,7 +88,9 @@
       "spokenVariants": [],
       "modes": [
         "laneJump",
-        "sayIt"
+        "sayIt",
+        "memoryFlip",
+        "catchIt"
       ]
     },
     {
@@ -102,7 +111,9 @@
       ],
       "modes": [
         "laneJump",
-        "sayIt"
+        "sayIt",
+        "memoryFlip",
+        "catchIt"
       ]
     },
     {
@@ -120,7 +131,9 @@
       "spokenVariants": [],
       "modes": [
         "laneJump",
-        "sayIt"
+        "sayIt",
+        "memoryFlip",
+        "catchIt"
       ]
     },
     {
@@ -141,7 +154,9 @@
       ],
       "modes": [
         "laneJump",
-        "sayIt"
+        "sayIt",
+        "memoryFlip",
+        "catchIt"
       ]
     },
     {
@@ -161,7 +176,10 @@
       ],
       "modes": [
         "laneJump",
-        "sayIt"
+        "sayIt",
+        "memoryFlip",
+        "catchIt",
+        "balloonPop"
       ]
     },
     {
@@ -179,7 +197,9 @@
       "spokenVariants": [],
       "modes": [
         "laneJump",
-        "sayIt"
+        "sayIt",
+        "memoryFlip",
+        "catchIt"
       ]
     },
     {
@@ -199,7 +219,9 @@
       ],
       "modes": [
         "laneJump",
-        "sayIt"
+        "sayIt",
+        "memoryFlip",
+        "catchIt"
       ]
     },
     {
@@ -217,7 +239,10 @@
       "spokenVariants": [],
       "modes": [
         "laneJump",
-        "sayIt"
+        "sayIt",
+        "memoryFlip",
+        "catchIt",
+        "balloonPop"
       ]
     },
     {
@@ -237,7 +262,10 @@
       ],
       "modes": [
         "laneJump",
-        "sayIt"
+        "sayIt",
+        "memoryFlip",
+        "catchIt",
+        "balloonPop"
       ]
     }
   ]

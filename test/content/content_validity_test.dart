@@ -7,10 +7,12 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:g_english_motion/speech/word_judge.dart';
 import 'package:g_english_motion/content/content_repository.dart';
 import 'package:g_english_motion/content/curriculum.dart';
+import 'package:g_english_motion/content/edit_distance.dart';
 import 'package:g_english_motion/content/history_store.dart';
 import 'package:g_english_motion/content/models.dart';
 import 'package:g_english_motion/content/question_generator.dart';
 import 'package:g_english_motion/levels/level_config.dart';
+import 'package:g_english_motion/modes/mode_availability.dart';
 
 /// Walks the real `assets/content/**` files (tests run from the project root).
 List<MapEntry<String, Unit>> _loadUnits() {
@@ -65,6 +67,39 @@ void main() {
     }
   });
 
+  test('new-mode tags are consistent with the tagging rules', () {
+    final all = {for (final (_, it) in items) it.id};
+    final byGrade = <int, List<ContentItem>>{};
+    for (final (u, it) in items) {
+      byGrade.putIfAbsent(u.grade, () => []).add(it);
+    }
+    for (final (u, it) in items) {
+      if (it.modes.contains(ModeKind.memoryFlip) ||
+          it.modes.contains(ModeKind.catchIt)) {
+        expect(it.image, isNotNull, reason: '${it.id}: needs an image');
+      }
+      if (it.modes.contains(ModeKind.balloonPop)) {
+        expect(it.image, isNotNull, reason: '${it.id}: needs an image');
+        expect(
+          it.distractorIds.where((d) => d != it.id && all.contains(d)).length,
+          greaterThanOrEqualTo(2),
+          reason: '${it.id}: balloonPop needs >= 2 usable distractors',
+        );
+        final near = {
+          for (final o in byGrade[u.grade]!)
+            if (o.word.toLowerCase() != it.word.toLowerCase() &&
+                editDistance(o.word, it.word) <= 2)
+              o.word.toLowerCase(),
+        };
+        expect(
+          near.length,
+          greaterThanOrEqualTo(2),
+          reason: '${it.id}: balloonPop needs >= 2 near words in grade',
+        );
+      }
+    }
+  });
+
   test('dragSpell words and order-sentence patterns are playable', () {
     final ws = RegExp(r'\s+');
     for (final (_, it) in items.where((e) => e.$1.grade >= 3)) {
@@ -91,9 +126,7 @@ void main() {
         // Same word-boundary rule as QuestionGenerator (lookarounds, so
         // adjacent occurrences are both counted).
         final re = RegExp(
-          r'(?<![\p{L}\p{N}_])' +
-              RegExp.escape(it.word) +
-              r'(?![\p{L}\p{N}_])',
+          r'(?<![\p{L}\p{N}_])' + RegExp.escape(it.word) + r'(?![\p{L}\p{N}_])',
           caseSensitive: false,
           unicode: true,
         );
@@ -169,8 +202,8 @@ void main() {
         for (final m in it.modes) {
           expect(
             m,
-            anyOf(ModeKind.laneJump, ModeKind.sayIt),
-            reason: '${it.id}: grades 1-2 only use laneJump/sayIt',
+            isNot(anyOf(ModeKind.dragSpell, ModeKind.skyShoot)),
+            reason: '${it.id}: grades 1-2 never use dragSpell/skyShoot',
           );
         }
         if (it.modes.contains(ModeKind.sayIt)) {
@@ -273,6 +306,49 @@ void main() {
           }
         },
       );
+    }
+
+    // Every unit still fills a level for each mode valid at its grade.
+    for (final info in kModeInfos) {
+      if (info.mode == ModeKind.sayIt) continue; // not question-driven
+      test('${info.mode.name}: every unit of grades '
+          '${info.minGrade}-${info.maxGrade} fills levels 1 and 5', () {
+        for (var grade = info.minGrade; grade <= info.maxGrade; grade++) {
+          final unitCount = repo.unitsFor(grade).length;
+          for (var unit = 1; unit <= unitCount; unit++) {
+            for (final lv in [1, 5]) {
+              final level = levels.firstWhere((l) => l.level == lv);
+              final pos = CurriculumPosition(
+                grade: grade,
+                currentUnitIndex: unit,
+              );
+              // balloonPop depends on look-alike words, so a few units have
+              // no tagged item at all; the mode cannot be played there
+              // (noContent), which is not a generator bug.
+              final tagged = unitsForLevel(
+                repo,
+                pos,
+                level.window,
+              ).any((u) => u.items.any((it) => it.modes.contains(info.mode)));
+              if (!tagged) {
+                expect(info.mode, ModeKind.balloonPop);
+                continue;
+              }
+              final plan = QuestionGenerator(
+                repo,
+                InMemoryHistoryStore(),
+                Random(unit),
+              ).plan(level: level, pos: pos, modes: {info.mode});
+              expect(
+                plan.length,
+                level.questionCount,
+                reason: '${info.mode.name} grade $grade unit $unit level $lv',
+              );
+              expect(plan.every((q) => q.mode == info.mode), isTrue);
+            }
+          }
+        }
+      });
     }
   });
 }
