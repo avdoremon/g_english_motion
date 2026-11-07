@@ -111,6 +111,7 @@ class _HoldPickFrameState extends State<HoldPickFrame> {
   Offset? _shown;
   HoldFrameState? _last;
   HoldPickRound? _round;
+  Rect Function(int)? _layoutFn;
 
   Duration _now() => (widget.clock ?? _monotonic)();
 
@@ -127,7 +128,7 @@ class _HoldPickFrameState extends State<HoldPickFrame> {
     if (old.controller != widget.controller) {
       _sub?.cancel();
       old.controller.hudTick.removeListener(_tick);
-      old.controller.clearHoldLayout();
+      old.controller.clearHoldLayout(_layoutFn);
       _sub = widget.controller.events.listen(_onEvent);
       widget.controller.hudTick.addListener(_tick);
     }
@@ -137,7 +138,7 @@ class _HoldPickFrameState extends State<HoldPickFrame> {
   void dispose() {
     _sub?.cancel();
     widget.controller.hudTick.removeListener(_tick);
-    widget.controller.clearHoldLayout();
+    widget.controller.clearHoldLayout(_layoutFn);
     super.dispose();
   }
 
@@ -199,14 +200,15 @@ class _HoldPickFrameState extends State<HoldPickFrame> {
                 for (var i = 0; i < n; i++) widget.layout(i, n, board),
               ];
               // Lazily read by the round: the hold is graded on this layout.
-              widget.controller.setHoldLayout(
-                (i) => Rect.fromLTRB(
-                  rects[i].left / board.width,
-                  rects[i].top / board.height,
-                  rects[i].right / board.width,
-                  rects[i].bottom / board.height,
-                ),
-              );
+              _layoutFn = (i) => i < 0 || i >= rects.length
+                  ? Rect.zero
+                  : Rect.fromLTRB(
+                      rects[i].left / board.width,
+                      rects[i].top / board.height,
+                      rects[i].right / board.width,
+                      rects[i].bottom / board.height,
+                    );
+              widget.controller.setHoldLayout(_layoutFn!);
               return Stack(
                 clipBehavior: Clip.none,
                 children: [

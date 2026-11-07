@@ -195,7 +195,7 @@ class _Balloon extends StatelessWidget {
                       ),
                       child: Center(
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8),
+                          padding: const EdgeInsets.symmetric(horizontal: 4),
                           child: FittedBox(
                             fit: BoxFit.scaleDown,
                             child: Text(

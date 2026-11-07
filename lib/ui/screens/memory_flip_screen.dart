@@ -180,7 +180,7 @@ class _Card extends StatelessWidget {
                   child: Center(
                     child: showFace
                         ? Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 8),
+                            padding: const EdgeInsets.symmetric(horizontal: 4),
                             child: FittedBox(
                               fit: BoxFit.scaleDown,
                               child: Text(

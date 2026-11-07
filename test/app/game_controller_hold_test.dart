@@ -3,11 +3,13 @@ import 'dart:ui' show Offset, Rect;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:g_english_motion/content/models.dart';
 import 'package:g_english_motion/input/game_input_event.dart';
+import 'package:g_english_motion/input/pose_types.dart';
 import 'package:g_english_motion/modes/hold_pick.dart';
 import 'package:g_english_motion/modes/round.dart';
 import 'package:g_english_motion/session/level_session.dart';
 
 import '../helpers/game_harness.dart';
+import '../helpers/synthetic_poses.dart';
 
 void main() {
   for (final mode in [ModeKind.memoryFlip, ModeKind.balloonPop]) {
@@ -179,4 +181,67 @@ void main() {
       expect(h.controller.shouldShowCaption('cat'), isFalse);
     },
   );
+
+  group('hand cursor by mode', () {
+    Future<(GameHarness, List<CursorMoved>)> start(
+      int grade,
+      ModeKind mode,
+    ) async {
+      final h = await GameHarness.create(
+        grade: grade,
+        words: const ['cat', 'cap', 'cut', 'cot', 'car', 'bat', 'bag', 'big'],
+        modes: [mode],
+        mode: mode,
+        withImages: true,
+      );
+      addTearDown(h.dispose);
+      final seen = <CursorMoved>[];
+      h.controller.events.listen((e) {
+        if (e is CursorMoved) seen.add(e);
+      });
+      await h.startAndCalibrate();
+      return (h, seen);
+    }
+
+    Pose raisedHand(GameHarness h) {
+      final x = GameHarness.hipXForLane(h.lane, h.controller.level.choiceCount);
+      return makePose(hipX: x, rightWrist: Offset(x, 0.4));
+    }
+
+    test(
+      'grade 2 memoryFlip gets CursorMoved and a hold grades the round',
+      () async {
+        final (h, seen) = await start(2, ModeKind.memoryFlip);
+        final s = h.controller.session!;
+        final r = s.round as HoldPickRound;
+        final good = r.question.correctIndex;
+        // The whole board is the right card; the others are empty.
+        h.controller.setHoldLayout(
+          (i) => i == good ? const Rect.fromLTRB(0, 0, 1, 1) : Rect.zero,
+        );
+        await h.run(
+          const Duration(milliseconds: 2500),
+          pose: (_) => raisedHand(h),
+        );
+        expect(seen, isNotEmpty);
+        expect(r.peeking, isFalse);
+        await h.run(
+          const Duration(seconds: 2),
+          pose: (_) => raisedHand(h),
+          stopWhen: () => s.phase == SessionPhase.feedback,
+        );
+        expect(s.phase, SessionPhase.feedback);
+        expect(s.lastResult, RoundResult.correct);
+      },
+    );
+
+    test('grade 1 and 2 laneJump sessions have no cursor', () async {
+      for (final g in [1, 2]) {
+        final (h, seen) = await start(g, ModeKind.laneJump);
+        await h.run(const Duration(seconds: 1), pose: (_) => raisedHand(h));
+        expect(seen, isEmpty, reason: 'grade $g');
+        expect(h.controller.session!.round, isNot(isA<HoldPickRound>()));
+      }
+    });
+  });
 }

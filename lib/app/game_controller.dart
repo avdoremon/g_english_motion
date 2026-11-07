@@ -525,7 +525,12 @@ class GameController extends ChangeNotifier {
       cal,
       laneCount: level.choiceCount,
       confirm: confirm,
-      cursor: grade >= 3,
+      // The hand cursor is also what memoryFlip / balloonPop are played with,
+      // at any grade. It is independent of the lane / jump tracking.
+      cursor:
+          grade >= 3 ||
+          activeModes.contains(ModeKind.memoryFlip) ||
+          activeModes.contains(ModeKind.balloonPop),
       pull: grade >= 3,
     );
     _pose = pose;
@@ -646,8 +651,11 @@ class GameController extends ChangeNotifier {
     _holdLayout = targetRect;
   }
 
-  /// Back to the default placeholder grid (the screen went away).
-  void clearHoldLayout() {
+  /// Back to the default placeholder grid (the screen went away). With
+  /// [only], clears just if that is still the current layout: a screen that
+  /// is disposed after its successor set its own must not wipe it.
+  void clearHoldLayout([Rect Function(int choice)? only]) {
+    if (only != null && !identical(only, _holdLayout)) return;
     _holdLayout = null;
   }
 
