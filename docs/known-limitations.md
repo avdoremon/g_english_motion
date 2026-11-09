@@ -52,6 +52,34 @@ Full facts and sources: [pose-plugin-evaluation.md](pose-plugin-evaluation.md).
   release build; see "Optional release size trim" in
   [android-build-notes.md](android-build-notes.md) (not applied).
 
+## UI kit and visual identity (Space Puppy re-skin)
+
+- **Baloo 2 is bundled as four static instances** (Regular 400, Medium 500,
+  SemiBold 600, Bold 700 in `assets/fonts/`, SIL OFL 1.1), cut from the
+  upstream variable font with fontTools, so each `FontWeight` maps to its own
+  file. Baloo 2 replaced Fredoka because Fredoka lacks Vietnamese diacritics;
+  `tools/check_font_vi.py` and `test/ui/font_coverage_test.dart` guard the
+  files. Roboto/sans-serif remain the generic fallback.
+- **Space Puppy replaces the old mascot** (`lib/ui/mascot/space_pup_painter.dart`
+  via `TinTin`); the previous mascot art is gone.
+- **The app logo/launcher icon is still the Jump Star robot**; the redraw to
+  match Space Puppy is pending.
+- **Legacy text-theme slots are migrated.** `displayMedium`, `headlineMedium`,
+  `titleLarge`, `titleMedium` and `bodyMedium` (old sizes 56/40/32/24/22) were
+  removed from `AppTheme`; every screen now uses `AppTheme.textStyles`
+  (display 56, title 48, heading 36, play 28, label 24). Remaining
+  `Theme.of(context).textTheme` uses only read `bodyLarge` (= play, 28).
+- **In-play text sizes (ruling).** Guidance, miss and hint text during play
+  is Play 28 sp (SkyShoot "Trượt rồi! Bắn lại nhé" / "Nhảy hoặc chạm để bắn",
+  the caption strip). Label 24 sp is allowed only for counters and HUD chips
+  (SkyShoot "Lượt bắn" / "Kéo dây", the DragSpell held-tile chip). No
+  `height` hacks or scale-down fitting are used for play guidance; SkyShoot's
+  compact status row was made 8 dp taller instead (64 -> 72 at 800x360).
+- `test/ui/no_hardcoded_style_test.dart` guards: no off-scale
+  `fontSize` literals/constants and no `Color(`, `Color.fromARGB/RGBO` or
+  `Colors.white/black` outside `app_theme.dart` and `*_painter.dart` files; it
+  scans `lib/ui`, `lib/app` and `lib/main.dart` and self-tests its patterns.
+
 ## Content and audio
 
 - **No recorded audio.** Questions are read by the device text-to-speech and

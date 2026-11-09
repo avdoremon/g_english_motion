@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../../content/content_repository.dart';
 import '../../input/confirm_gesture.dart';
 import '../../progress/progress_store.dart';
+import '../theme/app_theme.dart';
 
 class ParentSettings extends StatefulWidget {
   const ParentSettings({
@@ -77,14 +78,13 @@ class _ParentSettingsState extends State<ParentSettings> {
 
   @override
   Widget build(BuildContext context) {
-    final t = Theme.of(context).textTheme;
     return Padding(
       padding: const EdgeInsets.all(16),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Cài đặt cho bố mẹ', style: t.titleLarge),
+          Text('Cài đặt cho bố mẹ', style: AppTheme.textStyles.heading),
           const SizedBox(height: 8),
           for (final g in widget.grades)
             Row(
@@ -92,7 +92,7 @@ class _ParentSettingsState extends State<ParentSettings> {
                 Expanded(
                   child: Text(
                     'Lớp $g: bài ${_s.currentUnit(g)}',
-                    style: t.titleMedium,
+                    style: AppTheme.textStyles.label,
                   ),
                 ),
                 _stepper(
@@ -114,7 +114,7 @@ class _ParentSettingsState extends State<ParentSettings> {
             contentPadding: EdgeInsets.zero,
             title: Text(
               'Chế độ không nhảy (giơ hai tay)',
-              style: t.titleMedium,
+              style: AppTheme.textStyles.label,
             ),
             value: _s.confirmGesture == ConfirmGesture.raiseHands,
             onChanged: (v) {
@@ -127,7 +127,7 @@ class _ParentSettingsState extends State<ParentSettings> {
           SwitchListTile(
             key: const ValueKey('toggle-sayit'),
             contentPadding: EdgeInsets.zero,
-            title: Text('Đọc to từ vựng', style: t.titleMedium),
+            title: Text('Đọc to từ vựng', style: AppTheme.textStyles.label),
             value: _s.sayItEnabled,
             onChanged: (v) {
               _s.setSayItEnabled(v);
@@ -144,7 +144,7 @@ class _ParentSettingsState extends State<ParentSettings> {
             'Chính sách quyền riêng tư: ứng dụng không gửi dữ liệu đi đâu. '
             'Hình ảnh camera và âm thanh micro chỉ được xử lý trên máy này '
             'và không được lưu lại.',
-            style: t.bodyMedium,
+            style: AppTheme.textStyles.label.copyWith(color: AppTheme.muted),
           ),
         ],
       ),

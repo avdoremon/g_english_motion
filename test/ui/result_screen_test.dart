@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:g_english_motion/session/level_session.dart';
+import 'package:g_english_motion/ui/kit/kit.dart';
 import 'package:g_english_motion/ui/mascot/tin_tin.dart';
 import 'package:g_english_motion/ui/screens/result_screen.dart';
 import 'package:g_english_motion/ui/theme/app_theme.dart';
@@ -45,8 +46,16 @@ void main() {
       tester,
     ) async {
       await pump(tester, _o(s));
-      expect(find.byIcon(Icons.star), findsNWidgets(s));
-      expect(find.byIcon(Icons.star_border), findsNWidgets(3 - s));
+      expect(find.byType(StarRow), findsOneWidget);
+      expect(tester.widget<StarRow>(find.byType(StarRow)).earned, s);
+      expect(
+        find.byKey(const Key('star-on-0')).evaluate().length,
+        s > 0 ? 1 : 0,
+      );
+      expect(
+        find.byKey(const Key('star-off-2')).evaluate().length,
+        s < 3 ? 1 : 0,
+      );
       await tester.pump(const Duration(seconds: 6));
     });
   }
@@ -58,6 +67,12 @@ void main() {
     expect(find.textContaining('6/8'), findsOneWidget);
     expect(find.textContaining('600'), findsOneWidget);
     expect(tester.widget<TinTin>(find.byType(TinTin)).state, TinTinState.cheer);
+    await tester.pump(const Duration(seconds: 6));
+  });
+
+  testWidgets('1 star: happy Tin Tin', (tester) async {
+    await pump(tester, _o(1, correct: 3));
+    expect(tester.widget<TinTin>(find.byType(TinTin)).state, TinTinState.happy);
     await tester.pump(const Duration(seconds: 6));
   });
 
@@ -78,7 +93,8 @@ void main() {
     await tester.tap(find.text('Chơi lại'));
     await tester.tap(find.text('Tiếp tục'));
     expect((again, next), (1, 1));
-    for (final b in tester.widgetList(find.byType(FilledButton))) {
+    expect(find.byType(BigButton), findsNWidgets(2));
+    for (final b in tester.widgetList(find.byType(BigButton))) {
       expect(tester.getSize(find.byWidget(b)).height, greaterThanOrEqualTo(56));
     }
     await tester.pump(const Duration(seconds: 6));
@@ -92,9 +108,38 @@ void main() {
     await tester.pump(const Duration(seconds: 6));
   });
 
-  testWidgets('no overflow at 800x360', (tester) async {
-    await pump(tester, _o(3, correct: 8), size: const Size(800, 360));
-    expect(tester.takeException(), isNull);
-    await tester.pump(const Duration(seconds: 6));
-  });
+  for (final size in const [Size(1280, 720), Size(800, 360)]) {
+    for (final stars in [0, 1, 3]) {
+      testWidgets('no overflow, big targets, one-line buttons at '
+          '${size.width.toInt()}x${size.height.toInt()} with $stars stars', (
+        tester,
+      ) async {
+        await pump(tester, _o(stars, correct: stars * 3), size: size);
+        expect(tester.takeException(), isNull);
+        final bigs = find.byType(BigButton);
+        expect(bigs, findsNWidgets(2));
+        for (final e in bigs.evaluate()) {
+          final f = find.byElementPredicate((x) => x == e);
+          final sz = tester.getSize(f);
+          expect(sz.width, greaterThanOrEqualTo(56));
+          expect(sz.height, greaterThanOrEqualTo(56));
+          final r = tester.getRect(f);
+          expect(r.right, lessThanOrEqualTo(size.width));
+          expect(r.bottom, lessThanOrEqualTo(size.height));
+          for (final t
+              in find
+                  .descendant(of: f, matching: find.byType(Text))
+                  .evaluate()) {
+            final w = t.widget as Text;
+            expect(w.maxLines, 1);
+            expect(
+              tester.getSize(find.byWidget(w)).height,
+              lessThan(2 * (w.style?.fontSize ?? 28)),
+            );
+          }
+        }
+        await tester.pump(const Duration(seconds: 6));
+      });
+    }
+  }
 }

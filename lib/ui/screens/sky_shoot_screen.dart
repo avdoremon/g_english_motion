@@ -90,7 +90,7 @@ class _SkyShootScreenState extends State<SkyShootScreen> {
                     ),
                     SizedBox(height: gap),
                     SizedBox(
-                      height: compact ? 64 : 96,
+                      height: compact ? 72 : 96,
                       child: _StatusRow(
                         controller: c,
                         session: s,
@@ -156,7 +156,6 @@ class _StatusRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final t = Theme.of(context).textTheme;
     final result = session.lastResult;
     final blank = question.form == QuestionForm.fillBlank;
     final hint = _hint();
@@ -170,7 +169,7 @@ class _StatusRow extends StatelessWidget {
             child: Text(
               blank ? (question.promptText ?? 'Nghe nhé') : 'Nghe nhé',
               key: const ValueKey('prompt'),
-              style: t.titleLarge,
+              style: AppTheme.textStyles.play,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
             ),
@@ -196,7 +195,12 @@ class _StatusRow extends StatelessWidget {
                             : AppTheme.surface,
                       ),
                     const SizedBox(width: 8),
-                    Text('Lượt bắn: ${round.shotsLeft}', style: t.bodyMedium),
+                    Text(
+                      'Lượt bắn: ${round.shotsLeft}',
+                      style: AppTheme.textStyles.label.copyWith(
+                        color: AppTheme.muted,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -206,7 +210,9 @@ class _StatusRow extends StatelessWidget {
                 child: Text(
                   'Kéo dây: ${round.pulls}/${round.pullsNeeded}',
                   key: const ValueKey('pulls'),
-                  style: t.bodyMedium,
+                  style: AppTheme.textStyles.label.copyWith(
+                    color: AppTheme.muted,
+                  ),
                 ),
               ),
             ],
@@ -338,7 +344,6 @@ class _Field extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final t = Theme.of(context).textTheme;
     final now = controller.frameClock;
     final hint = controller.showTileHints;
     final wrongReveal = feedback && session.lastResult != RoundResult.correct;
@@ -423,7 +428,9 @@ class _Field extends StatelessWidget {
                 child: Text(
                   'Trượt rồi! Bắn lại nhé',
                   key: const ValueKey('miss-note'),
-                  style: t.bodyMedium,
+                  style: AppTheme.textStyles.play.copyWith(
+                    color: AppTheme.muted,
+                  ),
                 ),
               ),
             if (round.phase == SkyPhase.aiming &&
@@ -432,8 +439,10 @@ class _Field extends StatelessWidget {
                 right: 16,
                 bottom: 8,
                 child: Text(
-                  'Nhảy để bắn, hoặc chạm vào màn hình',
-                  style: t.bodyMedium,
+                  'Nhảy hoặc chạm để bắn',
+                  style: AppTheme.textStyles.play.copyWith(
+                    color: AppTheme.muted,
+                  ),
                 ),
               ),
           ],
@@ -463,7 +472,6 @@ class _AnswerCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final t = Theme.of(context).textTheme;
     final item = pictureOf;
     final showPic = item != null && ItemPicture.assetFor(item) != null;
     return Semantics(
@@ -472,7 +480,7 @@ class _AnswerCard extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
         decoration: BoxDecoration(
-          color: hit ? const Color(0xFF3A36A0) : AppTheme.surface,
+          color: hit ? AppTheme.selectedFill : AppTheme.surface,
           borderRadius: BorderRadius.circular(24),
           border: Border.all(
             color: hit ? AppTheme.yellow : AppTheme.accent,
@@ -501,7 +509,7 @@ class _AnswerCard extends StatelessWidget {
                       ItemPicture(item: item, size: 40),
                       const SizedBox(width: 6),
                     ],
-                    Text(word, maxLines: 1, style: t.titleLarge),
+                    Text(word, maxLines: 1, style: AppTheme.textStyles.play),
                   ],
                 ),
               ),
