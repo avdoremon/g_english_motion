@@ -127,9 +127,11 @@ Full facts and sources: [pose-plugin-evaluation.md](pose-plugin-evaluation.md).
 - **New modes borrow items from adjacent units.** balloonPop, memoryFlip and
   catchIt are tagged on a subset of words, so an early unit can hold too few
   tagged items for a plan of 8. The generator then widens the content window
-  (all units up to the current one, earlier first, then the whole grade) until
-  no picture would be asked more than twice, so a unit may show words from
-  units before or, last, after it.
+  (all units up to the current one, then the whole grade) until no picture
+  would be asked more than twice. A widened pool is mixed without preferring
+  the current unit, so a session may hold none of its own unit's words and may
+  show words from units not reached yet. With a wrong-answer history an item
+  can still be asked a third time when the pool sits exactly at the threshold.
 - A SkyShoot round with no pull for 20 s ends as a timeout.
 - DragSpell tray/slot cells are laid out from the text they must hold (about
   half an em per character at the 28 sp floor, never below the 56 px touch

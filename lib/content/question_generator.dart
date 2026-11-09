@@ -73,8 +73,9 @@ class QuestionGenerator {
     // Never an empty session, and never one picture carrying the plan: when
     // the level's window offers too few distinct items for the modes (a unit
     // with no or a single balloonPop-tagged word), widen the content step by
-    // step: every unit up to the current one (earlier units first), then the
-    // whole grade, so units that are not reached yet are borrowed last.
+    // step: every unit up to the current one, then the whole grade. Once a
+    // pool is widened its items are mixed without preferring the current unit,
+    // so units that are not reached yet can appear in the whole-grade step.
     // Windows that already hold enough items are untouched.
     final enough = (n + 1) ~/ 2; // no item more than twice
     int distinct(List<_Pair> ps) => {for (final p in ps) p.item.id}.length;
