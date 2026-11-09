@@ -41,4 +41,40 @@ void main() {
     expect(rig.round.targetRect(0), isNot(Rect.zero));
     await rig.finish(tester);
   });
+
+  testWidgets('disposing a frame that never laid out leaves the layout alone', (
+    tester,
+  ) async {
+    await rig.boot(tester);
+    final c = rig.h.controller;
+    // Built (so it has state) but its layout fails (unbounded height), so the
+    // board never builds and no layout is reported. Drain those errors.
+    await tester.pumpWidget(
+      MaterialApp(
+        home: CustomScrollView(
+          slivers: [
+            SliverOffstage(
+              offstage: true,
+              sliver: SliverToBoxAdapter(
+                child: HoldPickFrame(
+                  controller: c,
+                  round: rig.round,
+                  promptHeight: 40,
+                  promptBuilder: (_, _) => const SizedBox(),
+                  layout: (i, n, board) => Rect.zero,
+                  itemBuilder: (_, _, _, _) => const SizedBox(),
+                  semanticLabel: (_, _) => '',
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+    while (tester.takeException() != null) {}
+    const mine = Rect.fromLTWH(0.1, 0.2, 0.3, 0.4);
+    c.setHoldLayout((_) => mine);
+    await tester.pumpWidget(const SizedBox());
+    expect(rig.round.targetRect(0), mine);
+  });
 }

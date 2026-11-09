@@ -128,7 +128,8 @@ class _HoldPickFrameState extends State<HoldPickFrame> {
     if (old.controller != widget.controller) {
       _sub?.cancel();
       old.controller.hudTick.removeListener(_tick);
-      old.controller.clearHoldLayout(_layoutFn);
+      final fn = _layoutFn;
+      if (fn != null) old.controller.clearHoldLayout(fn);
       _sub = widget.controller.events.listen(_onEvent);
       widget.controller.hudTick.addListener(_tick);
     }
@@ -138,7 +139,9 @@ class _HoldPickFrameState extends State<HoldPickFrame> {
   void dispose() {
     _sub?.cancel();
     widget.controller.hudTick.removeListener(_tick);
-    widget.controller.clearHoldLayout(_layoutFn);
+    // Never laid out: nothing of ours to clear (null would wipe a successor's).
+    final fn = _layoutFn;
+    if (fn != null) widget.controller.clearHoldLayout(fn);
     super.dispose();
   }
 
