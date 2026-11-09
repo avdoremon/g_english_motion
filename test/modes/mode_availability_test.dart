@@ -5,6 +5,23 @@ import 'package:g_english_motion/modes/mode_availability.dart';
 import '../helpers/game_harness.dart';
 
 void main() {
+  test('modesForGrade table for grades 1-5', () {
+    const lj = ModeKind.laneJump, ci = ModeKind.catchIt;
+    const mf = ModeKind.memoryFlip, bp = ModeKind.balloonPop;
+    const ds = ModeKind.dragSpell, ss = ModeKind.skyShoot;
+    const say = ModeKind.sayIt;
+    const expected = <int, Set<ModeKind>>{
+      1: {lj, ci, say},
+      2: {lj, ci, mf, say},
+      3: {mf, bp, ds, ss, say},
+      4: {mf, bp, ds, ss, say},
+      5: {mf, bp, ds, ss, say},
+    };
+    for (final e in expected.entries) {
+      expect(modesForGrade(e.key), e.value, reason: 'grade ${e.key}');
+    }
+  });
+
   test('modesForGrade(1) has catchIt and laneJump, not balloonPop', () {
     final m = modesForGrade(1);
     expect(m, containsAll([ModeKind.catchIt, ModeKind.laneJump]));
