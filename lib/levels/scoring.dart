@@ -41,6 +41,8 @@ class Scoring {
       ModeKind.laneJump || ModeKind.sayIt => base,
       ModeKind.skyShoot => base * 3 ~/ 2,
       ModeKind.dragSpell => base + 3000 * slots,
+      ModeKind.catchIt => base,
+      ModeKind.memoryFlip || ModeKind.balloonPop => base * 3 ~/ 2,
     };
     return Duration(milliseconds: ms);
   }

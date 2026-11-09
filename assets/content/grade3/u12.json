@@ -26,7 +26,10 @@
       "modes": [
         "dragSpell",
         "skyShoot",
-        "sayIt"
+        "sayIt",
+        "memoryFlip",
+        "catchIt",
+        "balloonPop"
       ]
     },
     {
@@ -51,7 +54,9 @@
       "modes": [
         "dragSpell",
         "skyShoot",
-        "sayIt"
+        "sayIt",
+        "memoryFlip",
+        "catchIt"
       ]
     },
     {
@@ -76,7 +81,9 @@
       "modes": [
         "dragSpell",
         "skyShoot",
-        "sayIt"
+        "sayIt",
+        "memoryFlip",
+        "catchIt"
       ]
     },
     {
@@ -101,7 +108,9 @@
       "modes": [
         "dragSpell",
         "skyShoot",
-        "sayIt"
+        "sayIt",
+        "memoryFlip",
+        "catchIt"
       ]
     },
     {
@@ -126,7 +135,9 @@
       "modes": [
         "dragSpell",
         "skyShoot",
-        "sayIt"
+        "sayIt",
+        "memoryFlip",
+        "catchIt"
       ]
     },
     {
@@ -151,7 +162,10 @@
       "modes": [
         "dragSpell",
         "skyShoot",
-        "sayIt"
+        "sayIt",
+        "memoryFlip",
+        "catchIt",
+        "balloonPop"
       ]
     },
     {
@@ -176,7 +190,9 @@
       "modes": [
         "dragSpell",
         "skyShoot",
-        "sayIt"
+        "sayIt",
+        "memoryFlip",
+        "catchIt"
       ]
     },
     {
@@ -201,7 +217,10 @@
       "modes": [
         "dragSpell",
         "skyShoot",
-        "sayIt"
+        "sayIt",
+        "memoryFlip",
+        "catchIt",
+        "balloonPop"
       ]
     },
     {
@@ -226,7 +245,10 @@
       "modes": [
         "dragSpell",
         "skyShoot",
-        "sayIt"
+        "sayIt",
+        "memoryFlip",
+        "catchIt",
+        "balloonPop"
       ]
     },
     {
@@ -251,7 +273,9 @@
       "modes": [
         "dragSpell",
         "skyShoot",
-        "sayIt"
+        "sayIt",
+        "memoryFlip",
+        "catchIt"
       ]
     }
   ]

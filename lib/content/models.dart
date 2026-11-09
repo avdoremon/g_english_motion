@@ -1,4 +1,12 @@
-enum ModeKind { laneJump, dragSpell, skyShoot, sayIt }
+enum ModeKind {
+  laneJump,
+  dragSpell,
+  skyShoot,
+  sayIt,
+  catchIt,
+  memoryFlip,
+  balloonPop,
+}
 
 class ContentItem {
   const ContentItem({

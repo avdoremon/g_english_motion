@@ -170,6 +170,8 @@ class GameHarness {
     int grade = 1,
     List<String> words = harnessWords,
     List<ModeKind> modes = const [ModeKind.laneJump],
+    ModeKind? mode,
+    bool shuffle = false,
     ContentRepository? repo,
   }) async {
     SharedPreferences.setMockInitialValues({});
@@ -211,6 +213,8 @@ class GameHarness {
     final controller = GameController(
       grade: grade,
       level: level,
+      mode: mode,
+      shuffle: shuffle,
       store: store,
       repo: repo,
       audio: audio,

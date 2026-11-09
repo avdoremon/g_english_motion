@@ -12,7 +12,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   late ProgressStore store;
-  late List<(int, int)> played, sayItStarted;
+  late List<(int, int)> played, sayItStarted, picked;
   late int parent;
 
   setUp(() async {
@@ -20,6 +20,7 @@ void main() {
     store = ProgressStore(await SharedPreferences.getInstance());
     played = [];
     sayItStarted = [];
+    picked = [];
     parent = 0;
   });
 
@@ -45,6 +46,7 @@ void main() {
             sayItAvailability: sayIt,
             onPlay: (g, l) => played.add((g, l)),
             onSayIt: (g, l) => sayItStarted.add((g, l)),
+            onPickMode: (g, l) => picked.add((g, l)),
             onOpenParent: () => parent++,
           ),
         ),
@@ -250,7 +252,10 @@ void main() {
         unawaited(store.saveStars(1, 1, 2));
         unawaited(store.setSayItEnabled(true));
         await pump(tester, size: size, textScale: scale);
-        expect(find.byType(BigButton), findsNWidgets(2)); // Chơi + Luyện nói
+        expect(
+          find.byType(BigButton),
+          findsNWidgets(3),
+        ); // Chơi + Chọn trò chơi + Luyện nói
         expect(
           find.descendant(
             of: find.byKey(const ValueKey('sayit-entry')),
@@ -286,5 +291,37 @@ void main() {
       await tester.tap(find.byKey(const ValueKey('play')));
       expect(played, isNotEmpty);
     });
+  }
+
+  testWidgets('Chọn trò chơi opens the picker with the picked grade/level', (
+    tester,
+  ) async {
+    await pump(tester);
+    await tester.tap(find.byKey(const ValueKey('grade-3')));
+    await tester.pump();
+    await tester.tap(find.byKey(const ValueKey('pick-mode')));
+    expect(picked, [(3, 1)]);
+    expect(played, isEmpty);
+  });
+
+  for (final size in const [Size(1280, 720), Size(800, 360)]) {
+    for (final scale in const [1.0, 1.3]) {
+      testWidgets('all three buttons reachable, >= 56 dp, no overflow at '
+          '${size.width.toInt()}x${size.height.toInt()} scale $scale', (
+        tester,
+      ) async {
+        unawaited(store.setSayItEnabled(true));
+        await pump(tester, size: size, textScale: scale);
+        for (final k in ['play', 'pick-mode', 'sayit-entry']) {
+          final f = find.byKey(ValueKey(k));
+          await tester.ensureVisible(f);
+          expect(tester.getSize(f).height, greaterThanOrEqualTo(56));
+          final r = tester.getRect(f);
+          expect(r.right, lessThanOrEqualTo(size.width));
+          expect(r.left, greaterThanOrEqualTo(0));
+        }
+        expect(tester.takeException(), isNull);
+      });
+    }
   }
 }

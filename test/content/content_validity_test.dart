@@ -1,16 +1,19 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
+import 'dart:math' as math;
 
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:g_english_motion/speech/word_judge.dart';
 import 'package:g_english_motion/content/content_repository.dart';
 import 'package:g_english_motion/content/curriculum.dart';
+import 'package:g_english_motion/content/edit_distance.dart';
 import 'package:g_english_motion/content/history_store.dart';
 import 'package:g_english_motion/content/models.dart';
 import 'package:g_english_motion/content/question_generator.dart';
 import 'package:g_english_motion/levels/level_config.dart';
+import 'package:g_english_motion/modes/mode_availability.dart';
 
 /// Walks the real `assets/content/**` files (tests run from the project root).
 List<MapEntry<String, Unit>> _loadUnits() {
@@ -65,6 +68,39 @@ void main() {
     }
   });
 
+  test('new-mode tags are consistent with the tagging rules', () {
+    final all = {for (final (_, it) in items) it.id};
+    final byGrade = <int, List<ContentItem>>{};
+    for (final (u, it) in items) {
+      byGrade.putIfAbsent(u.grade, () => []).add(it);
+    }
+    for (final (u, it) in items) {
+      if (it.modes.contains(ModeKind.memoryFlip) ||
+          it.modes.contains(ModeKind.catchIt)) {
+        expect(it.image, isNotNull, reason: '${it.id}: needs an image');
+      }
+      if (it.modes.contains(ModeKind.balloonPop)) {
+        expect(it.image, isNotNull, reason: '${it.id}: needs an image');
+        expect(
+          it.distractorIds.where((d) => d != it.id && all.contains(d)).length,
+          greaterThanOrEqualTo(2),
+          reason: '${it.id}: balloonPop needs >= 2 usable distractors',
+        );
+        final near = {
+          for (final o in byGrade[u.grade]!)
+            if (o.word.toLowerCase() != it.word.toLowerCase() &&
+                editDistance(o.word, it.word) <= 2)
+              o.word.toLowerCase(),
+        };
+        expect(
+          near.length,
+          greaterThanOrEqualTo(2),
+          reason: '${it.id}: balloonPop needs >= 2 near words in grade',
+        );
+      }
+    }
+  });
+
   test('dragSpell words and order-sentence patterns are playable', () {
     final ws = RegExp(r'\s+');
     for (final (_, it) in items.where((e) => e.$1.grade >= 3)) {
@@ -91,9 +127,7 @@ void main() {
         // Same word-boundary rule as QuestionGenerator (lookarounds, so
         // adjacent occurrences are both counted).
         final re = RegExp(
-          r'(?<![\p{L}\p{N}_])' +
-              RegExp.escape(it.word) +
-              r'(?![\p{L}\p{N}_])',
+          r'(?<![\p{L}\p{N}_])' + RegExp.escape(it.word) + r'(?![\p{L}\p{N}_])',
           caseSensitive: false,
           unicode: true,
         );
@@ -169,8 +203,16 @@ void main() {
         for (final m in it.modes) {
           expect(
             m,
-            anyOf(ModeKind.laneJump, ModeKind.sayIt),
-            reason: '${it.id}: grades 1-2 only use laneJump/sayIt',
+            anyOf(
+              ModeKind.laneJump,
+              ModeKind.sayIt,
+              ModeKind.memoryFlip,
+              ModeKind.catchIt,
+              ModeKind.balloonPop,
+            ),
+            reason:
+                '${it.id}: grades 1-2 only use laneJump/sayIt/memoryFlip/'
+                'catchIt/balloonPop',
           );
         }
         if (it.modes.contains(ModeKind.sayIt)) {
@@ -273,6 +315,97 @@ void main() {
           }
         },
       );
+    }
+
+    // Every grade, unit and level fills exactly questionCount questions for
+    // each mode valid at that grade (the generator widens the content window
+    // when the level's window has no item for the mode).
+    for (var grade = 1; grade <= 5; grade++) {
+      test('grade $grade: every unit and level 1-5 fills each valid mode', () {
+        final unitCount = repo.unitsFor(grade).length;
+        for (final mode in modesForGrade(grade)) {
+          if (mode == ModeKind.sayIt) continue; // not question-driven
+          for (var unit = 1; unit <= unitCount; unit++) {
+            for (final level in levels) {
+              final plan =
+                  QuestionGenerator(
+                    repo,
+                    InMemoryHistoryStore(),
+                    Random(unit),
+                  ).plan(
+                    level: level,
+                    pos: CurriculumPosition(
+                      grade: grade,
+                      currentUnitIndex: unit,
+                    ),
+                    modes: {mode},
+                  );
+              expect(
+                plan.length,
+                level.questionCount,
+                reason:
+                    '${mode.name} grade $grade unit $unit '
+                    'level ${level.level}',
+              );
+              expect(plan.every((q) => q.mode == mode), isTrue);
+            }
+          }
+        }
+      });
+    }
+
+    // A single tagged item must not carry a whole plan: the same picture
+    // asked 3+ times in a row of 8 reads as a bug to a child.
+    for (var grade = 1; grade <= 5; grade++) {
+      test('grade $grade: new modes never ask one item more than twice', () {
+        final unitCount = repo.unitsFor(grade).length;
+        for (final mode in [
+          ModeKind.balloonPop,
+          ModeKind.memoryFlip,
+          ModeKind.catchIt,
+        ]) {
+          if (!modesForGrade(grade).contains(mode)) continue;
+          final gradeItems = {
+            for (final u in repo.unitsFor(grade))
+              for (final it in u.items)
+                if (it.modes.contains(mode)) it.id,
+          };
+          if (gradeItems.length < 3) continue;
+          for (var unit = 1; unit <= unitCount; unit++) {
+            for (final level in levels) {
+              final plan =
+                  QuestionGenerator(
+                    repo,
+                    InMemoryHistoryStore(),
+                    Random(unit),
+                  ).plan(
+                    level: level,
+                    pos: CurriculumPosition(
+                      grade: grade,
+                      currentUnitIndex: unit,
+                    ),
+                    modes: {mode},
+                  );
+              final counts = <String, int>{};
+              for (final q in plan) {
+                counts.update(
+                  q.question.itemId,
+                  (c) => c + 1,
+                  ifAbsent: () => 1,
+                );
+              }
+              final worst = counts.values.fold<int>(0, math.max);
+              expect(
+                worst,
+                lessThanOrEqualTo(2),
+                reason:
+                    '${mode.name} grade $grade unit $unit '
+                    'level ${level.level}: $counts',
+              );
+            }
+          }
+        }
+      });
     }
   });
 }

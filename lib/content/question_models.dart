@@ -7,6 +7,8 @@ enum QuestionForm {
   fillBlank,
   spellWord,
   orderSentence,
+  memoryMatch,
+  popWord,
 }
 
 class ChoiceOption {

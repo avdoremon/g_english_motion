@@ -19,6 +19,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Content mode tags are up to date (fails fast, before Flutter setup)
+        run: |
+          python3 -m unittest discover -s test/tools
+          python3 tools/tag_modes.py --check
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}

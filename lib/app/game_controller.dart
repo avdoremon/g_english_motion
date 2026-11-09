@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_initializing_formals
 import 'dart:async';
 import 'dart:math';
+import 'dart:ui' show Offset, Rect;
 
 import 'package:flutter/foundation.dart';
 
@@ -18,8 +19,11 @@ import '../input/pose_session.dart';
 import '../input/pose_types.dart';
 import '../levels/level_config.dart';
 import '../levels/scoring.dart';
+import '../modes/catch_it.dart';
 import '../modes/drag_spell.dart';
+import '../modes/hold_pick.dart';
 import '../modes/lane_jump.dart';
+import '../modes/mode_availability.dart';
 import '../modes/round.dart';
 import '../modes/sky_shoot.dart';
 import '../progress/progress_store.dart';
@@ -99,6 +103,8 @@ class GameController extends ChangeNotifier {
   GameController({
     required this.grade,
     required this.level,
+    this.mode,
+    this.shuffle = false,
     required ProgressStore store,
     required ContentRepository repo,
     required AudioService audio,
@@ -123,10 +129,23 @@ class GameController extends ChangeNotifier {
 
   static const maxTickStep = Duration(milliseconds: 250);
 
-  /// Grades 3-5 play the upper modes (DragSpell); grades 1-2 LaneJump.
-  Set<ModeKind> get _modes => grade >= 3
-      ? {ModeKind.dragSpell, ModeKind.skyShoot}
-      : {ModeKind.laneJump};
+  /// The chosen [mode] when it is offered at [grade], else the grade's default
+  /// mix (grades 1-2 LaneJump; 3-5 DragSpell and SkyShoot).
+  Set<ModeKind> get _modes => activeModes;
+
+  @visibleForTesting
+  Set<ModeKind> get activeModes {
+    if (shuffle) {
+      // "Trộn ngẫu nhiên": every camera mode offered at the grade (SayIt is
+      // started separately by the app, never through the controller).
+      final all = modesForGrade(grade).difference({ModeKind.sayIt});
+      if (all.isNotEmpty) return all;
+    }
+    final m = mode;
+    return m != null && modesForGrade(grade).contains(m)
+        ? {m}
+        : defaultModesForGrade(grade);
+  }
 
   /// Arrow sweep speed (fractions of the width per second) of [level]: the
   /// higher the level, the faster (0.24 .. 0.40).
@@ -138,6 +157,13 @@ class GameController extends ChangeNotifier {
 
   final int grade;
   final LevelConfig level;
+
+  /// Mode chosen in the picker; null plays the grade's default mix.
+  final ModeKind? mode;
+
+  /// Mode picker's "Trộn ngẫu nhiên": plays every camera mode valid for the
+  /// grade. Wins over [mode]; false (default) keeps the default mix.
+  final bool shuffle;
 
   /// SkyShoot scores a shot where the arrow was this long before the event.
   final Duration castLatency;
@@ -496,6 +522,9 @@ class GameController extends ChangeNotifier {
     QuestionForm.listenPickPicture,
     QuestionForm.seePicturePickWord,
     QuestionForm.listenPickWord,
+    // memoryFlip / balloonPop: the picture is the prompt, the word the answer.
+    QuestionForm.memoryMatch,
+    QuestionForm.popWord,
   };
 
   void _beginPlay(Calibration cal) {
@@ -507,7 +536,12 @@ class GameController extends ChangeNotifier {
       cal,
       laneCount: level.choiceCount,
       confirm: confirm,
-      cursor: grade >= 3,
+      // The hand cursor is also what memoryFlip / balloonPop are played with,
+      // at any grade. It is independent of the lane / jump tracking.
+      cursor:
+          grade >= 3 ||
+          activeModes.contains(ModeKind.memoryFlip) ||
+          activeModes.contains(ModeKind.balloonPop),
       pull: grade >= 3,
     );
     _pose = pose;
@@ -542,6 +576,13 @@ class GameController extends ChangeNotifier {
 
   Round _makeRound(PlannedQuestion pq, PoseSession pose) {
     final q = pq.question;
+    // The lane tracker must match the lanes this question shows: catchIt has
+    // 3 whatever the level's choiceCount, laneJump has q.choices.length.
+    if (q is ChoiceQuestion &&
+        (pq.mode == ModeKind.catchIt || pq.mode == ModeKind.laneJump)) {
+      pose.setLaneCount(q.choices.length);
+      _selectedLane = pose.currentLane;
+    }
     switch (pq.mode) {
       case ModeKind.dragSpell:
         if (q is SpellQuestion) {
@@ -587,16 +628,82 @@ class GameController extends ChangeNotifier {
         }
       case ModeKind.sayIt:
         break;
+      case ModeKind.catchIt:
+        if (q is ChoiceQuestion) {
+          return CatchItRound(
+            q,
+            timeLimit: Scoring.timeFor(level, ModeKind.catchIt),
+            initialLane: pose.currentLane,
+          );
+        }
+      case ModeKind.memoryFlip:
+        if (q is ChoiceQuestion) {
+          return HoldPickRound(
+            q,
+            timeLimit: Scoring.timeFor(level, ModeKind.memoryFlip),
+            holdTime: const Duration(seconds: 1),
+            peek: const Duration(seconds: 2),
+            targetRect: _holdRect(q.choices.length),
+          );
+        }
+      case ModeKind.balloonPop:
+        if (q is ChoiceQuestion) {
+          return HoldPickRound(
+            q,
+            timeLimit: Scoring.timeFor(level, ModeKind.balloonPop),
+            holdTime: const Duration(milliseconds: 600),
+            targetRect: _holdRect(q.choices.length),
+          );
+        }
     }
     throw StateError('No round for ${pq.mode} with ${q.runtimeType}');
   }
 
-  /// Touch / hold fallback for DragSpell: the player held (or tapped) the
-  /// target [targetId] (`tile:<i>`, `slot:<i>`, `check`).
+  Rect Function(int choice)? _holdLayout;
+
+  /// The screen's real layout of the hold-to-pick targets (memoryFlip,
+  /// balloonPop): the normalised (0..1) rect of choice `i`, in the same space
+  /// as [CursorMoved]. The round reads it lazily, so a layout change takes
+  /// effect at once, also mid-round. Does not notify (call it while building).
+  void setHoldLayout(Rect Function(int choice) targetRect) {
+    _holdLayout = targetRect;
+  }
+
+  /// Back to the default placeholder grid (the screen went away). With
+  /// [only], clears just if that is still the current layout: a screen that
+  /// is disposed after its successor set its own must not wipe it.
+  void clearHoldLayout([Rect Function(int choice)? only]) {
+    if (only != null && !identical(only, _holdLayout)) return;
+    _holdLayout = null;
+  }
+
+  Rect Function(int) _holdRect(int n) {
+    final fallback = _defaultChoiceRect(n);
+    return (i) => (_holdLayout ?? fallback)(i);
+  }
+
+  /// Placeholder layout of [n] choices for [HoldPickRound] while no screen
+  /// supplies one: a grid of up to 3 columns whose cells use 70 % of their
+  /// slot, so there are gaps between them and margins at the edges: a hand
+  /// resting in a gap picks nothing.
+  static Rect Function(int) _defaultChoiceRect(int n) {
+    final cols = n <= 3 ? n : (n + 1) ~/ 2;
+    final rows = (n + cols - 1) ~/ cols;
+    return (i) => Rect.fromCenter(
+      center: Offset(((i % cols) + 0.5) / cols, ((i ~/ cols) + 0.5) / rows),
+      width: 0.7 / cols,
+      height: 0.7 / rows,
+    );
+  }
+
+  /// Touch / hold fallback: the player held (or tapped) the target
+  /// [targetId]: DragSpell `tile:<i>`, `slot:<i>`, `check`; memoryFlip and
+  /// balloonPop `choice:<i>`.
   void holdTarget(String targetId) {
     if (_disposed) return;
     _session?.act((r) {
       if (r is DragSpellRound) r.onTargetHeld(targetId);
+      if (r is HoldPickRound) r.onTargetHeld(targetId);
     });
     _afterSessionChange();
     if (!_disposed) notifyListeners();
@@ -633,6 +740,13 @@ class GameController extends ChangeNotifier {
   void _dispatch(GameInputEvent e) {
     if (e is LaneChanged) {
       _selectedLane = e.lane;
+      // The session drops lane changes outside the playing phase; catchIt
+      // grades the lane at the catch line, so keep its round current anyway.
+      final s = _session;
+      if (s != null && s.phase != SessionPhase.finished) {
+        final r = s.round;
+        if (r is CatchItRound) r.syncLane(e.lane);
+      }
     }
     switch (e) {
       case PlayerLost():
@@ -760,6 +874,11 @@ class GameController extends ChangeNotifier {
     _roundStartedReview = s.isReview;
     // PoseSession compares against frame timestamps.
     _pose?.suppressConfirmUntil(_lastFrameTs + confirmGrace);
+    // The player left during the prompt: a hold-pick or catchIt round (peek,
+    // clock) must not run with nobody there. LaneJump keeps its behaviour.
+    if (_lost && (s.round is HoldPickRound || s.round is CatchItRound)) {
+      s.onEvent(PlayerLost(at: _lastFrameTs));
+    }
   }
 
   void _maybePrompt(LevelSession s) {

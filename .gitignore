@@ -20,3 +20,7 @@ android/**/GeneratedPluginRegistrant.*
 android/key.properties
 *.jks
 *.keystore
+
+# Python bytecode
+__pycache__/
+*.pyc

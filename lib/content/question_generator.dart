@@ -3,6 +3,7 @@ import 'dart:math';
 import '../levels/level_config.dart';
 import 'content_repository.dart';
 import 'curriculum.dart';
+import 'edit_distance.dart';
 import 'history_store.dart';
 import 'models.dart';
 import 'question_models.dart';
@@ -15,6 +16,9 @@ const _modeForms = <ModeKind, List<QuestionForm>>{
   ],
   ModeKind.skyShoot: [QuestionForm.listenPickWord, QuestionForm.fillBlank],
   ModeKind.dragSpell: [QuestionForm.spellWord, QuestionForm.orderSentence],
+  ModeKind.catchIt: [QuestionForm.listenPickPicture],
+  ModeKind.memoryFlip: [QuestionForm.memoryMatch],
+  ModeKind.balloonPop: [QuestionForm.popWord],
 };
 
 /// One (item x form) candidate; [modes] are the requested modes that can host it.
@@ -64,8 +68,30 @@ class QuestionGenerator {
   }) {
     final n = level.questionCount;
     final units = unitsForLevel(_repo, pos, level.window);
-    final pairs = _pool(units, pos.grade, modes);
-    if (pairs.isEmpty || n <= 0) return const [];
+    if (n <= 0) return const [];
+    var pairs = _pool(units, pos.grade, modes);
+    // Never an empty session, and never one picture carrying the plan: when
+    // the level's window offers too few distinct items for the modes (a unit
+    // with no or a single balloonPop-tagged word), widen the content step by
+    // step: every unit up to the current one, then the whole grade. Once a
+    // pool is widened its items are mixed without preferring the current unit,
+    // so units that are not reached yet can appear in the whole-grade step.
+    // Windows that already hold enough items are untouched.
+    final enough = (n + 1) ~/ 2; // no item more than twice
+    int distinct(List<_Pair> ps) => {for (final p in ps) p.item.id}.length;
+    if (distinct(pairs) < enough) {
+      final learned = _pool(
+        unitsForLevel(_repo, pos, UnitWindow.allLearned),
+        pos.grade,
+        modes,
+      );
+      if (distinct(learned) > distinct(pairs)) pairs = learned;
+    }
+    if (distinct(pairs) < enough) {
+      final all = _pool(_repo.unitsFor(pos.grade), pos.grade, modes);
+      if (distinct(all) > distinct(pairs)) pairs = all;
+    }
+    if (pairs.isEmpty) return const [];
 
     final recent = _history.recentIds().toSet();
     final wrong = _history.wrongIds();
@@ -254,12 +280,27 @@ class QuestionGenerator {
             words: _scramble(answer),
             answer: answer,
           );
+        case QuestionForm.memoryMatch:
+        case QuestionForm.popWord:
         case QuestionForm.listenPickPicture:
         case QuestionForm.seePicturePickWord:
         case QuestionForm.listenPickWord:
         case QuestionForm.fillBlank:
           final form = k.pair.form;
-          final others = _distractors(item, form, level, pos);
+          final others = switch (form) {
+            QuestionForm.popWord => _popDistractors(item, level, pos),
+            QuestionForm.memoryMatch => _distractors(
+              item,
+              form,
+              level,
+              pos,
+              need: _wordChoiceCount(level) - 1,
+            ),
+            // catchIt: three pictures fall in three lanes.
+            QuestionForm.listenPickPicture when k.mode == ModeKind.catchIt =>
+              _distractors(item, form, level, pos, need: 2),
+            _ => _distractors(item, form, level, pos),
+          };
           final all = [item, ...others]..shuffle(_rng);
           var idx = all.indexOf(item);
           if (prev1 != null && prev1 == prev2 && idx == prev1) {
@@ -281,6 +322,8 @@ class QuestionGenerator {
             promptText: blank ? _blank(k.pair, '____') : null,
             promptImageItemId:
                 (form == QuestionForm.seePicturePickWord ||
+                    form == QuestionForm.memoryMatch ||
+                    form == QuestionForm.popWord ||
                     (blank && item.image != null))
                 ? item.id
                 : null,
@@ -345,9 +388,10 @@ class QuestionGenerator {
     ContentItem correct,
     QuestionForm form,
     LevelConfig level,
-    CurriculumPosition pos,
-  ) {
-    final need = level.choiceCount - 1;
+    CurriculumPosition pos, {
+    int? need,
+  }) {
+    final want = need ?? level.choiceCount - 1;
     final tiers = <List<ContentItem>>[
       [for (final id in correct.distractorIds) _repo.byId(id)]..shuffle(_rng),
       [for (final u in unitsForLevel(_repo, pos, level.window)) ...u.items]
@@ -360,7 +404,7 @@ class QuestionGenerator {
     void fill(bool needImage) {
       for (final t in tiers) {
         for (final c in t) {
-          if (out.length >= need) return;
+          if (out.length >= want) return;
           if (needImage && c.image == null) continue;
           if (ids.contains(c.id) || words.contains(c.word.toLowerCase())) {
             continue;
@@ -374,14 +418,72 @@ class QuestionGenerator {
 
     final pic = form == QuestionForm.listenPickPicture;
     fill(pic);
-    if (pic && out.length < need) fill(false);
-    if (out.length < need) {
+    if (pic && out.length < want) fill(false);
+    if (out.length < want) {
       throw StateError(
         'Not enough distractors for "${correct.id}" in grade ${pos.grade}: '
-        'need $need, found ${out.length}',
+        'need $want, found ${out.length}',
       );
     }
     return out;
+  }
+
+  /// memoryMatch / popWord show 3-5 word choices whatever the level asks.
+  static int _wordChoiceCount(LevelConfig level) =>
+      level.choiceCount.clamp(3, 5);
+
+  static const _popMaxDistance = 2;
+
+  /// Other items of [grade] whose word is within [_popMaxDistance] edits of
+  /// [item]'s (case-insensitive), one per distinct word.
+  List<ContentItem> _popNeighbours(ContentItem item, int grade) {
+    final me = item.word.toLowerCase();
+    final seen = <String>{me};
+    return [
+      for (final u in _repo.unitsFor(grade))
+        for (final c in u.items)
+          if (seen.add(c.word.toLowerCase()) &&
+              editDistance(c.word, item.word) <= _popMaxDistance)
+            c,
+    ];
+  }
+
+  /// popWord balloons: look-alike words of the same grade, own distractors
+  /// first, then the level's unit window, then the rest of the grade.
+  List<ContentItem> _popDistractors(
+    ContentItem correct,
+    LevelConfig level,
+    CurriculumPosition pos,
+  ) {
+    final need = _wordChoiceCount(level) - 1;
+    final near = _popNeighbours(correct, pos.grade);
+    final own = correct.distractorIds.toSet();
+    final window = {
+      for (final u in unitsForLevel(_repo, pos, level.window))
+        for (final i in u.items) i.id,
+    };
+    final tiers = [
+      [
+        for (final c in near)
+          if (own.contains(c.id)) c,
+      ],
+      [
+        for (final c in near)
+          if (!own.contains(c.id) && window.contains(c.id)) c,
+      ],
+      [
+        for (final c in near)
+          if (!own.contains(c.id) && !window.contains(c.id)) c,
+      ],
+    ];
+    final out = [for (final t in tiers) ...(t..shuffle(_rng))];
+    if (out.length < 2) {
+      throw StateError(
+        'Not enough look-alike words for "${correct.id}" in grade '
+        '${pos.grade}: found ${out.length}',
+      );
+    }
+    return out.take(need).toList();
   }
 
   List<_Pair> _pool(List<Unit> units, int grade, Set<ModeKind> modes) {
@@ -435,6 +537,11 @@ class QuestionGenerator {
         final letters = _letters(w);
         if (letters.length < 3 || letters.toSet().length < 2) return null;
         return '';
+      case QuestionForm.memoryMatch:
+        return item.image == null ? null : '';
+      case QuestionForm.popWord:
+        if (item.image == null) return null;
+        return _popNeighbours(item, grade).length >= 2 ? '' : null;
       case QuestionForm.orderSentence:
         if (!upper) return null;
         final c = [

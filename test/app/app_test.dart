@@ -14,6 +14,7 @@ import 'package:g_english_motion/input/plugin_pose_frame_source.dart';
 import 'package:g_english_motion/input/pose_frame_source.dart';
 import 'package:g_english_motion/input/pose_types.dart';
 import 'package:g_english_motion/levels/level_config.dart';
+import 'package:g_english_motion/modes/mode_availability.dart';
 import 'package:g_english_motion/progress/progress_store.dart';
 import 'package:g_english_motion/session/level_session.dart';
 import 'package:g_english_motion/speech/speech_source.dart';
@@ -94,6 +95,14 @@ void main() {
     VoidCallback? openSettings,
     GameController Function(int, LevelConfig, AppDependencies)?
     controllerFactory,
+    GameController Function(
+      int,
+      LevelConfig,
+      AppDependencies, {
+      ModeKind? mode,
+      bool shuffle,
+    })?
+    pickedControllerFactory,
     SpeechSource? speech,
     bool? sayItEnabled,
   }) async {
@@ -130,6 +139,7 @@ void main() {
           wakelock: wakelock,
           openSettings: openSettings,
           controllerFactory: controllerFactory,
+          pickedControllerFactory: pickedControllerFactory,
           speech: speech,
         ),
       ),
@@ -236,6 +246,121 @@ void main() {
     d.openSettings();
     await pumpEventQueue();
     expect(calls, ['openAppSettings']);
+  });
+
+  group('mode picker', () {
+    late List<GameController> made;
+    GameController build(
+      int grade,
+      LevelConfig level,
+      AppDependencies d, {
+      ModeKind? mode,
+      bool shuffle = false,
+    }) {
+      final c = GameController(
+        grade: grade,
+        level: level,
+        mode: mode,
+        shuffle: shuffle,
+        store: d.store,
+        repo: d.repo,
+        audio: d.audio,
+        ticker: d.ticker,
+      );
+      made.add(c);
+      return c;
+    }
+
+    setUp(() => made = []);
+
+    testWidgets('choosing a mode starts a session of that mode', (
+      tester,
+    ) async {
+      await pumpApp(tester, pickedControllerFactory: build);
+      await tester.tap(find.byKey(const ValueKey('pick-mode')));
+      await tester.pump();
+      expect(find.text('Chọn trò chơi'), findsOneWidget);
+      expect(find.byKey(const ValueKey('play')), findsNothing);
+      await tester.tap(find.byKey(const ValueKey('mode-catchIt')));
+      await tester.pump();
+      await tester.pump();
+      expect(made, hasLength(1));
+      // The shared harness unit has no catchIt content, so the controller
+      // lands on noContent; the mode it was started with is what counts.
+      expect(made.single.activeModes, {ModeKind.catchIt});
+      expect(made.single.mode, ModeKind.catchIt);
+    });
+
+    testWidgets('shuffle starts a session with every valid mode', (
+      tester,
+    ) async {
+      await pumpApp(tester, pickedControllerFactory: build);
+      await tester.tap(find.byKey(const ValueKey('pick-mode')));
+      await tester.pump();
+      await tester.tap(find.byKey(const ValueKey('mode-shuffle')));
+      await tester.pump();
+      await tester.pump();
+      expect(made.single.activeModes, {ModeKind.laneJump, ModeKind.catchIt});
+      expect(source.started, isTrue);
+    });
+
+    testWidgets('a disabled tile does not start anything', (tester) async {
+      await pumpApp(tester, pickedControllerFactory: build);
+      await tester.tap(find.byKey(const ValueKey('pick-mode')));
+      await tester.pump();
+      await tester.tap(find.byKey(const ValueKey('mode-balloonPop')));
+      await tester.pump();
+      expect(made, isEmpty);
+      expect(find.text('Chọn trò chơi'), findsWidgets);
+    });
+
+    testWidgets('back returns Home; plain Play keeps the default mix', (
+      tester,
+    ) async {
+      await pumpApp(
+        tester,
+        pickedControllerFactory: build,
+        controllerFactory: (g, l, d) => build(g, l, d),
+      );
+      await tester.tap(find.byKey(const ValueKey('pick-mode')));
+      await tester.pump();
+      await tester.tap(find.byKey(const ValueKey('picker-back')));
+      await tester.pump();
+      expect(find.byKey(const ValueKey('play')), findsOneWidget);
+      await tester.tap(find.byKey(const ValueKey('play')));
+      await tester.pump();
+      expect(made.single.activeModes, defaultModesForGrade(1));
+    });
+
+    testWidgets('SayIt tile only when Home offers SayIt, and starts SayIt', (
+      tester,
+    ) async {
+      final sayItRepo = ContentRepository([
+        harnessUnit(modes: const [ModeKind.laneJump, ModeKind.sayIt]),
+      ]);
+      await pumpApp(
+        tester,
+        speech: _FakeSpeech(),
+        sayItEnabled: true,
+        repo: sayItRepo,
+        pickedControllerFactory: build,
+      );
+      await tester.pump();
+      await tester.tap(find.byKey(const ValueKey('pick-mode')));
+      await tester.pump();
+      expect(find.byKey(const ValueKey('mode-sayIt')), findsOneWidget);
+      await tester.tap(find.byKey(const ValueKey('mode-sayIt')));
+      await tester.pump();
+      expect(find.byType(SayItScreen), findsOneWidget);
+      expect(made, isEmpty);
+    });
+
+    testWidgets('no SayIt tile when Home hides SayIt', (tester) async {
+      await pumpApp(tester, pickedControllerFactory: build);
+      await tester.tap(find.byKey(const ValueKey('pick-mode')));
+      await tester.pump();
+      expect(find.byKey(const ValueKey('mode-sayIt')), findsNothing);
+    });
   });
 
   testWidgets(
@@ -848,7 +973,7 @@ void main() {
                   repo: d.repo,
                   audio: d.audio,
                   ticker: d.ticker,
-                  mode: closedMode,
+                  closedBehavior: closedMode,
                 ),
         ),
       ),
@@ -991,11 +1116,11 @@ class _HangingClosed extends GameController {
     required super.repo,
     required super.audio,
     required super.ticker,
-    required this.mode,
+    required this.closedBehavior,
   });
-  final String mode;
+  final String closedBehavior;
   @override
-  Future<void> get closed => mode == 'hang'
+  Future<void> get closed => closedBehavior == 'hang'
       ? Completer<void>().future
       : Future<void>.error(StateError('boom'));
 }
