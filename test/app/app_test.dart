@@ -300,7 +300,11 @@ void main() {
       await tester.tap(find.byKey(const ValueKey('mode-shuffle')));
       await tester.pump();
       await tester.pump();
-      expect(made.single.activeModes, {ModeKind.laneJump, ModeKind.catchIt});
+      expect(made.single.activeModes, {
+        ModeKind.laneJump,
+        ModeKind.catchIt,
+        ModeKind.yesNo,
+      });
       expect(source.started, isTrue);
     });
 

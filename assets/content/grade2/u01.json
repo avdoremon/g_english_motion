@@ -24,7 +24,8 @@
         "laneJump",
         "sayIt",
         "memoryFlip",
-        "catchIt"
+        "catchIt",
+        "yesNo"
       ]
     },
     {
@@ -47,7 +48,8 @@
         "laneJump",
         "sayIt",
         "memoryFlip",
-        "catchIt"
+        "catchIt",
+        "yesNo"
       ]
     },
     {
@@ -70,7 +72,8 @@
         "sayIt",
         "memoryFlip",
         "catchIt",
-        "balloonPop"
+        "balloonPop",
+        "yesNo"
       ]
     },
     {
@@ -93,7 +96,8 @@
         "laneJump",
         "sayIt",
         "memoryFlip",
-        "catchIt"
+        "catchIt",
+        "yesNo"
       ]
     },
     {
@@ -116,7 +120,8 @@
         "sayIt",
         "memoryFlip",
         "catchIt",
-        "balloonPop"
+        "balloonPop",
+        "yesNo"
       ]
     },
     {
@@ -138,7 +143,8 @@
         "laneJump",
         "sayIt",
         "memoryFlip",
-        "catchIt"
+        "catchIt",
+        "yesNo"
       ]
     },
     {
@@ -161,7 +167,8 @@
         "sayIt",
         "memoryFlip",
         "catchIt",
-        "balloonPop"
+        "balloonPop",
+        "yesNo"
       ]
     },
     {
@@ -183,7 +190,8 @@
         "laneJump",
         "sayIt",
         "memoryFlip",
-        "catchIt"
+        "catchIt",
+        "yesNo"
       ]
     },
     {
@@ -206,7 +214,8 @@
         "laneJump",
         "sayIt",
         "memoryFlip",
-        "catchIt"
+        "catchIt",
+        "yesNo"
       ]
     },
     {
@@ -229,7 +238,8 @@
         "laneJump",
         "sayIt",
         "memoryFlip",
-        "catchIt"
+        "catchIt",
+        "yesNo"
       ]
     },
     {
@@ -251,7 +261,8 @@
         "laneJump",
         "sayIt",
         "memoryFlip",
-        "catchIt"
+        "catchIt",
+        "yesNo"
       ]
     },
     {
@@ -273,7 +284,8 @@
         "laneJump",
         "sayIt",
         "memoryFlip",
-        "catchIt"
+        "catchIt",
+        "yesNo"
       ]
     }
   ]

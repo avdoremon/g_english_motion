@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""Adds the Wave 1 mode tags to content items. Additive and idempotent.
+"""Adds the Wave 1 and 2 mode tags to content items. Additive and idempotent.
 
   memoryFlip, catchIt  items with an image and >= 2 valid distractors
   balloonPop           items with an image and >= 2 other words of the same
                        grade at edit distance <= 2 (case-insensitive)
+  yesNo                items with an image and >= 1 valid distractor
 
 Never removes a tag. Writes JSON with the files' existing formatting (2-space
 indent, UTF-8, trailing newline kept as found) and key order, so only `modes` arrays change.
@@ -51,6 +52,8 @@ def _wanted(it, grade_words, all_ids):
     near = {w for w in grade_words if w != me and lev(me, w) <= MAX_POP_DISTANCE}
     if len(near) >= MIN_NEIGHBOURS:
         out.append('balloonPop')
+    if valid:
+        out.append('yesNo')
     return out
 
 

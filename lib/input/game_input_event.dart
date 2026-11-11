@@ -27,6 +27,11 @@ class Pulled extends GameInputEvent {
   final Hand hand;
 }
 
+class HandRaised extends GameInputEvent {
+  const HandRaised(this.hand, {required super.at});
+  final Hand hand;
+}
+
 class PlayerLost extends GameInputEvent {
   const PlayerLost({required super.at});
 }

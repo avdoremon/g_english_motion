@@ -90,6 +90,7 @@ void main() {
       const Confirmed(2, at: Duration(seconds: 1)),
       const CursorMoved(0.1, 0.2, at: Duration(seconds: 1)),
       const Pulled(Hand.left, at: Duration(seconds: 1)),
+      const HandRaised(Hand.left, at: Duration(seconds: 1)),
       const PlayerLost(at: Duration(seconds: 1)),
       const PlayerFound(at: Duration(seconds: 1)),
     ];
@@ -99,6 +100,7 @@ void main() {
         Confirmed() => 'confirm',
         CursorMoved() => 'cursor',
         Pulled() => 'pull',
+        HandRaised() => 'hand',
         PlayerLost() => 'lost',
         PlayerFound() => 'found',
       };

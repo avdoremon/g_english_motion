@@ -9,13 +9,13 @@ void main() {
     const lj = ModeKind.laneJump, ci = ModeKind.catchIt;
     const mf = ModeKind.memoryFlip, bp = ModeKind.balloonPop;
     const ds = ModeKind.dragSpell, ss = ModeKind.skyShoot;
-    const say = ModeKind.sayIt;
+    const say = ModeKind.sayIt, yn = ModeKind.yesNo;
     const expected = <int, Set<ModeKind>>{
-      1: {lj, ci, say},
-      2: {lj, ci, mf, say},
-      3: {mf, bp, ds, ss, say},
-      4: {mf, bp, ds, ss, say},
-      5: {mf, bp, ds, ss, say},
+      1: {lj, ci, yn, say},
+      2: {lj, ci, mf, yn, say},
+      3: {mf, bp, ds, ss, yn, say},
+      4: {mf, bp, ds, ss, yn, say},
+      5: {mf, bp, ds, ss, yn, say},
     };
     for (final e in expected.entries) {
       expect(modesForGrade(e.key), e.value, reason: 'grade ${e.key}');
@@ -96,7 +96,11 @@ void main() {
       modes: const [ModeKind.laneJump],
       shuffle: true,
     );
-    expect(g1.controller.activeModes, {ModeKind.laneJump, ModeKind.catchIt});
+    expect(g1.controller.activeModes, {
+      ModeKind.laneJump,
+      ModeKind.catchIt,
+      ModeKind.yesNo,
+    });
     final g4 = await GameHarness.create(
       grade: 4,
       modes: const [ModeKind.dragSpell],
@@ -107,6 +111,16 @@ void main() {
       ModeKind.balloonPop,
       ModeKind.dragSpell,
       ModeKind.skyShoot,
+      ModeKind.yesNo,
     });
+  });
+
+  test('yesNo is offered at grades 1-5 with the camera, never a default', () {
+    final info = kModeInfos.firstWhere((i) => i.mode == ModeKind.yesNo);
+    expect((info.title, info.minGrade, info.maxGrade), ('Đúng/Sai', 1, 5));
+    expect(info.usesCamera, isTrue);
+    for (var g = 1; g <= 5; g++) {
+      expect(defaultModesForGrade(g), isNot(contains(ModeKind.yesNo)));
+    }
   });
 }

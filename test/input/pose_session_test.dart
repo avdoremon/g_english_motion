@@ -26,6 +26,7 @@ Future<List<GameInputEvent>> run(
   int laneCount = 3,
   bool cursor = false,
   bool pull = false,
+  bool handSide = false,
 }) async {
   final source = FakePoseFrameSource(frames);
   final session = PoseSession(
@@ -35,6 +36,7 @@ Future<List<GameInputEvent>> run(
     confirm: confirm,
     cursor: cursor,
     pull: pull,
+    handSide: handSide,
   );
   final events = await session.events.toList(); // closes when frames end
   await session.dispose();
@@ -262,6 +264,161 @@ void main() {
       confirm: ConfirmGesture.raiseHands,
     );
     expect(jumped.whereType<Confirmed>(), isEmpty);
+  });
+
+  group('handSide', () {
+    List<PoseFrame> leftRaise({int upFrom = 1000, int upTo = 2500}) =>
+        poseSequence(
+          duration: ms(3000),
+          posesAt: (t) => [
+            t >= ms(upFrom) && t < ms(upTo)
+                ? makePose(
+                    leftWrist: const Offset(0.4, 0.1),
+                    rightWrist: const Offset(0.6, 0.5),
+                  )
+                : makePose(),
+          ],
+        );
+
+    test('emits HandRaised(left) once when enabled', () async {
+      final events = await run(leftRaise(), handSide: true);
+      final raised = events.whereType<HandRaised>().toList();
+      expect(raised, hasLength(1));
+      expect(raised.single.hand, Hand.left);
+      expect(raised.single.at, greaterThanOrEqualTo(ms(1500)));
+    });
+
+    test('emits nothing by default', () async {
+      final events = await run(leftRaise());
+      expect(events.whereType<HandRaised>(), isEmpty);
+    });
+
+    test('a gap (PlayerLost/Found) restarts the hold', () async {
+      final frames = poseSequence(
+        duration: ms(3000),
+        posesAt: (t) {
+          if (t >= ms(1200) && t < ms(1900)) return [];
+          return [
+            t >= ms(1000) && t < ms(2300)
+                ? makePose(
+                    leftWrist: const Offset(0.4, 0.1),
+                    rightWrist: const Offset(0.6, 0.5),
+                  )
+                : makePose(),
+          ];
+        },
+      );
+      final events = await run(frames, handSide: true);
+      expect(events.whereType<PlayerFound>(), hasLength(1));
+      // Hand up again from 1900 to 2300 = 400 ms < hold: no event.
+      expect(events.whereType<HandRaised>(), isEmpty);
+    });
+
+    // Left hand up from 1000 on, with [interrupt] frames replacing the pose in
+    // [from, to); the hand is held the whole time.
+    List<PoseFrame> held({
+      required int from,
+      required int to,
+      required PoseFrame Function(Duration t) interrupt,
+      int lowerFrom = -1,
+      int lowerTo = -1,
+      int total = 4500,
+    }) => [
+      for (final f in poseSequence(
+        duration: ms(total),
+        posesAt: (t) => [
+          t < ms(1000)
+              ? makePose()
+              : makePose(
+                  leftWrist: Offset(
+                    0.4,
+                    t >= ms(lowerFrom) && t < ms(lowerTo) ? 0.5 : 0.1,
+                  ),
+                  rightWrist: const Offset(0.6, 0.5),
+                ),
+        ],
+      ))
+        if (f.timestamp >= ms(from) && f.timestamp < ms(to))
+          interrupt(f.timestamp)
+        else
+          f,
+    ];
+
+    Future<List<GameInputEvent>> runFrames(List<PoseFrame> frames) async {
+      final c = StreamController<PoseFrame>();
+      final session = PoseSession(
+        c.stream,
+        calibration,
+        laneCount: 3,
+        handSide: true,
+      );
+      final events = <GameInputEvent>[];
+      final done = Completer<void>();
+      session.events.listen(events.add, onError: (_) {}, onDone: done.complete);
+      frames.forEach(c.add);
+      await c.close();
+      await done.future;
+      await session.dispose();
+      return events;
+    }
+
+    test('a held hand across PlayerLost/PlayerFound fires once', () async {
+      final frames = held(
+        from: 1700,
+        to: 2400,
+        interrupt: (t) => PoseFrame(const [], t),
+      );
+      final events = await runFrames(frames);
+      expect(events.whereType<PlayerLost>(), hasLength(1));
+      expect(events.whereType<PlayerFound>(), hasLength(1));
+      expect(events.whereType<HandRaised>(), hasLength(1));
+    });
+
+    test(
+      'a held hand across failed frames (_onFrameFailed) fires once',
+      () async {
+        final frames = held(
+          from: 1700,
+          to: 1900,
+          interrupt: (t) => PoseFrame([_ThrowingPose()], t),
+        );
+        final events = await runFrames(frames);
+        expect(events.whereType<PlayerLost>(), isEmpty);
+        expect(events.whereType<HandRaised>(), hasLength(1));
+      },
+    );
+
+    test('a held hand across uncertain frames fires once', () async {
+      final frames = held(
+        from: 1700,
+        to: 1900,
+        interrupt: (t) => PoseFrame([
+          makePose(
+            confidence: 0.2,
+            leftWrist: const Offset(0.4, 0.1),
+            rightWrist: const Offset(0.6, 0.5),
+          ),
+        ], t),
+      );
+      final events = await runFrames(frames);
+      expect(events.whereType<PlayerLost>(), isEmpty);
+      expect(events.whereType<HandRaised>(), hasLength(1));
+    });
+
+    test(
+      'lowering and raising again after an interruption fires again',
+      () async {
+        final frames = held(
+          from: 1700,
+          to: 1900,
+          interrupt: (t) => PoseFrame(const [], t),
+          lowerFrom: 2200,
+          lowerTo: 2600,
+        );
+        final events = await runFrames(frames);
+        expect(events.whereType<HandRaised>(), hasLength(2));
+      },
+    );
   });
 
   test('suppressConfirmUntil blocks Confirmed until the given time', () async {
@@ -518,78 +675,72 @@ void main() {
 
     // The jump baseline is stale while the child is away: it must be
     // re-taken on re-acquisition and nothing graded during the grace.
-    test(
-      'a gradual walk back into frame confirms nothing (15 fps)',
-      () async {
-        // Stand 2 s, nobody for 1 s, then walk back over 600 ms ending 0.05
-        // higher in the image (0.05 > 0.12 * 0.3 torso) and stay there.
-        final frames = [
-          ...standingSequence(duration: ms(2000), fps: 15),
-          ...poseSequence(
-            duration: ms(1000),
-            fps: 15,
-            start: ms(2000),
-            posesAt: (_) => const [],
-          ),
-          ...poseSequence(
-            duration: ms(2500),
-            fps: 15,
-            start: ms(3000),
-            posesAt: (t) {
-              final s = (t - ms(3000)).inMilliseconds.clamp(0, 600) / 600;
-              return [makePose(hipY: 0.6 - 0.05 * s)];
-            },
-          ),
-        ];
-        final events = await run(frames);
-        expect(events.whereType<PlayerFound>(), hasLength(1));
-        expect(
-          events.whereType<Confirmed>(),
-          isEmpty,
-          reason: 'walking back into position is not a jump',
-        );
-      },
-    );
+    test('a gradual walk back into frame confirms nothing (15 fps)', () async {
+      // Stand 2 s, nobody for 1 s, then walk back over 600 ms ending 0.05
+      // higher in the image (0.05 > 0.12 * 0.3 torso) and stay there.
+      final frames = [
+        ...standingSequence(duration: ms(2000), fps: 15),
+        ...poseSequence(
+          duration: ms(1000),
+          fps: 15,
+          start: ms(2000),
+          posesAt: (_) => const [],
+        ),
+        ...poseSequence(
+          duration: ms(2500),
+          fps: 15,
+          start: ms(3000),
+          posesAt: (t) {
+            final s = (t - ms(3000)).inMilliseconds.clamp(0, 600) / 600;
+            return [makePose(hipY: 0.6 - 0.05 * s)];
+          },
+        ),
+      ];
+      final events = await run(frames);
+      expect(events.whereType<PlayerFound>(), hasLength(1));
+      expect(
+        events.whereType<Confirmed>(),
+        isEmpty,
+        reason: 'walking back into position is not a jump',
+      );
+    });
 
-    test(
-      'a real jump just after the grace confirms, even when the child '
-      'returns higher in the frame (15 fps)',
-      () async {
-        // Returns 0.08 higher than the pre-loss baseline: with a stale
-        // baseline that offset alone latches the detector and the jump at
-        // 3550 ms is swallowed.
-        double jump(Duration t) {
-          final s = (t - ms(3550)).inMilliseconds;
-          if (s < 0 || s > 500) return 0;
-          return 0.04 * math.sin(math.pi * s / 500);
-        }
+    test('a real jump just after the grace confirms, even when the child '
+        'returns higher in the frame (15 fps)', () async {
+      // Returns 0.08 higher than the pre-loss baseline: with a stale
+      // baseline that offset alone latches the detector and the jump at
+      // 3550 ms is swallowed.
+      double jump(Duration t) {
+        final s = (t - ms(3550)).inMilliseconds;
+        if (s < 0 || s > 500) return 0;
+        return 0.04 * math.sin(math.pi * s / 500);
+      }
 
-        final frames = [
-          ...standingSequence(duration: ms(2000), fps: 15),
-          ...poseSequence(
-            duration: ms(1000),
-            fps: 15,
-            start: ms(2000),
-            posesAt: (_) => const [],
-          ),
-          ...poseSequence(
-            duration: ms(1500),
-            fps: 15,
-            start: ms(3000),
-            posesAt: (t) => [makePose(hipY: 0.52 - jump(t))],
-          ),
-        ];
-        final events = await run(frames);
-        expect(events.whereType<PlayerFound>(), hasLength(1));
-        final confirmed = events.whereType<Confirmed>().toList();
-        expect(confirmed, hasLength(1));
-        expect(
-          confirmed.single.at,
-          greaterThanOrEqualTo(ms(3500)),
-          reason: 'nothing is graded during the 500 ms re-acquire grace',
-        );
-      },
-    );
+      final frames = [
+        ...standingSequence(duration: ms(2000), fps: 15),
+        ...poseSequence(
+          duration: ms(1000),
+          fps: 15,
+          start: ms(2000),
+          posesAt: (_) => const [],
+        ),
+        ...poseSequence(
+          duration: ms(1500),
+          fps: 15,
+          start: ms(3000),
+          posesAt: (t) => [makePose(hipY: 0.52 - jump(t))],
+        ),
+      ];
+      final events = await run(frames);
+      expect(events.whereType<PlayerFound>(), hasLength(1));
+      final confirmed = events.whereType<Confirmed>().toList();
+      expect(confirmed, hasLength(1));
+      expect(
+        confirmed.single.at,
+        greaterThanOrEqualTo(ms(3500)),
+        reason: 'nothing is graded during the 500 ms re-acquire grace',
+      );
+    });
   });
 
   group('15 fps (single-pose plugin)', () {
@@ -624,31 +775,32 @@ void main() {
       expect(confirmed.single.lane, 2);
     });
 
-    test('a step 0-150 ms before takeoff confirms the lane stepped INTO', () async {
-      // Takeoff at 3000 ms, rise 0.06: the threshold crossing lands ~130 ms
-      // later, so a fixed 250 ms look-back queries the lane ~120 ms BEFORE
-      // takeoff and misses a step that is already settled.
-      for (final step in [2850, 2900, 2950, 3000]) {
-        final frames = motion(
-          ms(5000),
-          fps: 15,
-          hipX: (t) => t < ms(step) ? 0.5 : 0.68,
-          lift: (t) {
-            final s = (t - ms(3000)).inMilliseconds;
-            return s < 0 || s > 500 ? 0 : 0.06 * math.sin(math.pi * s / 500);
-          },
-        );
-        final events = await run(frames);
-        expect(
-          events.whereType<LaneChanged>().map((e) => e.lane),
-          [0],
-          reason: 'step at $step',
-        );
-        final confirmed = events.whereType<Confirmed>().toList();
-        expect(confirmed, hasLength(1), reason: 'step at $step');
-        expect(confirmed.single.lane, 0, reason: 'step at $step');
-      }
-    });
+    test(
+      'a step 0-150 ms before takeoff confirms the lane stepped INTO',
+      () async {
+        // Takeoff at 3000 ms, rise 0.06: the threshold crossing lands ~130 ms
+        // later, so a fixed 250 ms look-back queries the lane ~120 ms BEFORE
+        // takeoff and misses a step that is already settled.
+        for (final step in [2850, 2900, 2950, 3000]) {
+          final frames = motion(
+            ms(5000),
+            fps: 15,
+            hipX: (t) => t < ms(step) ? 0.5 : 0.68,
+            lift: (t) {
+              final s = (t - ms(3000)).inMilliseconds;
+              return s < 0 || s > 500 ? 0 : 0.06 * math.sin(math.pi * s / 500);
+            },
+          );
+          final events = await run(frames);
+          expect(events.whereType<LaneChanged>().map((e) => e.lane), [
+            0,
+          ], reason: 'step at $step');
+          final confirmed = events.whereType<Confirmed>().toList();
+          expect(confirmed, hasLength(1), reason: 'step at $step');
+          expect(confirmed.single.lane, 0, reason: 'step at $step');
+        }
+      },
+    );
 
     test('a slow walk toward the camera never confirms', () async {
       final frames = motion(

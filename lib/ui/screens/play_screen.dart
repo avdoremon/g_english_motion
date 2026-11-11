@@ -9,6 +9,7 @@ import 'drag_spell_screen.dart';
 import 'lane_jump_screen.dart';
 import 'memory_flip_screen.dart';
 import 'sky_shoot_screen.dart';
+import 'yes_no_screen.dart';
 
 /// The play screen of the current question's mode: a level of grades 3-5
 /// mixes modes, so the screen follows the question, not the grade.
@@ -50,6 +51,11 @@ class PlayScreen extends StatelessWidget {
           ),
           ModeKind.catchIt => CatchItScreen(
             key: const ValueKey('mode-catchIt'),
+            controller: controller,
+            onExit: onExit,
+          ),
+          ModeKind.yesNo => YesNoScreen(
+            key: const ValueKey('mode-yesNo'),
             controller: controller,
             onExit: onExit,
           ),

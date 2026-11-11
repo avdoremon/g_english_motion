@@ -26,6 +26,7 @@ import '../modes/lane_jump.dart';
 import '../modes/mode_availability.dart';
 import '../modes/round.dart';
 import '../modes/sky_shoot.dart';
+import '../modes/yes_no.dart';
 import '../progress/progress_store.dart';
 import '../session/level_session.dart';
 
@@ -543,6 +544,7 @@ class GameController extends ChangeNotifier {
           activeModes.contains(ModeKind.memoryFlip) ||
           activeModes.contains(ModeKind.balloonPop),
       pull: grade >= 3,
+      handSide: activeModes.contains(ModeKind.yesNo),
     );
     _pose = pose;
     _selectedLane = pose.currentLane;
@@ -646,6 +648,13 @@ class GameController extends ChangeNotifier {
             targetRect: _holdRect(q.choices.length),
           );
         }
+      case ModeKind.yesNo:
+        if (q is ChoiceQuestion) {
+          return YesNoRound(
+            q,
+            timeLimit: Scoring.timeFor(level, ModeKind.yesNo),
+          );
+        }
       case ModeKind.balloonPop:
         if (q is ChoiceQuestion) {
           return HoldPickRound(
@@ -704,6 +713,18 @@ class GameController extends ChangeNotifier {
     _session?.act((r) {
       if (r is DragSpellRound) r.onTargetHeld(targetId);
       if (r is HoldPickRound) r.onTargetHeld(targetId);
+    });
+    _afterSessionChange();
+    if (!_disposed) notifyListeners();
+  }
+
+  /// Touch fallback for yesNo: [index] 0 is Đúng, 1 is Sai. Ignored by the
+  /// round before the prompt is over, while the player is lost, after a
+  /// result and for an out-of-range index.
+  void answerYesNo(int index) {
+    if (_disposed) return;
+    _session?.act((r) {
+      if (r is YesNoRound) r.answer(index);
     });
     _afterSessionChange();
     if (!_disposed) notifyListeners();
@@ -876,7 +897,10 @@ class GameController extends ChangeNotifier {
     _pose?.suppressConfirmUntil(_lastFrameTs + confirmGrace);
     // The player left during the prompt: a hold-pick or catchIt round (peek,
     // clock) must not run with nobody there. LaneJump keeps its behaviour.
-    if (_lost && (s.round is HoldPickRound || s.round is CatchItRound)) {
+    if (_lost &&
+        (s.round is HoldPickRound ||
+            s.round is CatchItRound ||
+            s.round is YesNoRound)) {
       s.onEvent(PlayerLost(at: _lastFrameTs));
     }
   }
@@ -950,6 +974,8 @@ class GameController extends ChangeNotifier {
   String? _clipId(Question q) => switch (q) {
     OrderQuestion() => null,
     ChoiceQuestion(form: QuestionForm.fillBlank) => null,
+    // The statement, not the item's word.
+    ChoiceQuestion(form: QuestionForm.trueFalse) => null,
     _ => q.itemId,
   };
 
@@ -965,6 +991,14 @@ class GameController extends ChangeNotifier {
     if (!_stillExplaining(pq, review)) return;
     try {
       switch (q) {
+        case ChoiceQuestion(form: QuestionForm.trueFalse):
+          // Only after the answer. A true statement was right: say it again.
+          // A false one: the picture's real word.
+          if (q.correctIndex == 0) {
+            await _audio.sayEnglish(q.ttsText);
+          } else {
+            await _audio.explainAnswer(_repo.byId(q.itemId));
+          }
         case ChoiceQuestion():
           final correct = _repo.byId(q.choices[q.correctIndex].itemId);
           if (_stillExplaining(pq, review)) {
