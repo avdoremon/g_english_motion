@@ -113,16 +113,27 @@ Full facts and sources: [pose-plugin-evaluation.md](pose-plugin-evaluation.md).
 - **Mode picker ("Chọn trò chơi")**: a grid next to "Chơi" on Home. It has up
   to 3 columns but drops to 2 (or 1) when titles would no longer fit on one
   line at the play size - under about 700 dp wide or at text scale 1.3 - and
-  it scrolls: 8 tiles need scrolling at 800x360.
+  it scrolls: 9 tiles (8 modes with SayIt, plus "Ngẫu nhiên") need
+  scrolling at 800x360.
   Modes not offered at the picked grade stay visible but disabled, with their
   grade range as the reason. "Trộn ngẫu nhiên" plays every camera mode valid
   for the grade (never SayIt). The choice is session state only (not stored):
   retry and next level keep it, going Home forgets it; "Chơi" always plays the
   grade's default mix. The SayIt tile appears only when Home shows "Luyện nói"
   and starts SayIt through its own path.
+- **Đúng/Sai (yesNo)**: the left hand answers "Đúng", the right hand "Sai".
+  The sides rely on the pose plugin labelling the person's OWN side (not the
+  image side); this has not been verified on a device. `swapSides` on
+  `HandSideDetector` is the single switch to flip it. The two big targets on
+  the screen are the touch fallback.
+- **yesNo is guessable**: a true/false question is right 50 % of the time by
+  chance, and the level's `questionCount` is unchanged, so a few lucky guesses
+  can earn stars. False statements use the item's distractors, and an item
+  without a sentence pattern shows the bare word as its statement.
 - **Touch fallback** matrix (no camera/pose input): MemoryFlip and BalloonPop
   keep tap on the card/balloon (hold-pick frame); CatchIt has none (lane is
-  body-driven only); LaneJump, DragSpell and SkyShoot unchanged. TTS speaks
+  body-driven only); yesNo keeps the two on-screen Đúng/Sai targets; LaneJump,
+  DragSpell and SkyShoot unchanged. TTS speaks
   the target word as the prompt for MemoryFlip and BalloonPop.
 - **New modes borrow items from adjacent units.** balloonPop, memoryFlip and
   catchIt are tagged on a subset of words, so an early unit can hold too few
