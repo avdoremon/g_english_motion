@@ -1,8 +1,15 @@
 import 'pose_types.dart';
 
-/// Fires once with the hand that stays alone above the nose for [hold];
-/// re-arms when that hand comes down (or both hands go up / the other hand
-/// goes up too).
+/// Fires once with the hand that stays alone above the nose for [hold].
+///
+/// Each hand has a `fired` latch: after it fires, that hand cannot fire again
+/// until a reliable frame (nose and that wrist both reliable) shows that
+/// wrist NOT above the nose. The other wrist's state is irrelevant to this
+/// clearing. The latch survives doubtful frames, the [grace] timeout,
+/// [reset] and both-hands-up frames (both up is not a lowering), so a child
+/// who answers and keeps the hand up cannot auto-answer the next round after
+/// a wrist dropout; the hand must be lowered and raised again. A hand that
+/// never fired and becomes alone-raised fires after [hold].
 ///
 /// Joints are anatomical (`leftWrist` is the person's own left hand);
 /// [swapSides] is the single switch that mirrors the result, for sources
@@ -13,8 +20,8 @@ import 'pose_types.dart';
 /// other wrist all withhold the event. Timing uses frame timestamps only.
 ///
 /// A doubtful frame tolerates up to [grace] after the last reliable
-/// "raised alone" frame, so a one-frame landmark dropout neither restarts the
-/// hold nor re-arms the detector (which would double fire).
+/// "raised alone" frame; beyond that the hold timer restarts (the latch does
+/// not).
 class HandSideDetector {
   HandSideDetector({
     this.hold = const Duration(milliseconds: 500),
@@ -37,7 +44,8 @@ class HandSideDetector {
   final _left = _HandState();
   final _right = _HandState();
 
-  /// Forget everything (player lost / failed frame).
+  /// Forget the hold timers (player lost / failed frame). The fired latches
+  /// are kept: a hand that already answered must be lowered to answer again.
   void reset() {
     _left.reset();
     _right.reset();
@@ -49,6 +57,12 @@ class HandSideDetector {
     final nose = _reliable(p, PoseJoint.nose);
     final left = _reliable(p, PoseJoint.leftWrist);
     final right = _reliable(p, PoseJoint.rightWrist);
+    if (nose != null) {
+      // A reliably lowered wrist clears its own latch, whatever the other
+      // wrist is doing.
+      if (left != null && left.y >= nose.y) _left.lowered();
+      if (right != null && right.y >= nose.y) _right.lowered();
+    }
     if (nose == null || left == null || right == null) {
       // Doubtful frame: tolerate a short dropout, never fire on it.
       _left.doubtful(t, grace);
@@ -73,12 +87,20 @@ class HandSideDetector {
 class _HandState {
   Duration? since;
   Duration lastRaised = Duration.zero;
+
+  /// Set when the hand fired; cleared only by [lowered].
   bool fired = false;
   bool doubt = false;
 
+  /// Clears the hold timers only.
   void reset() {
     since = null;
     doubt = false;
+  }
+
+  /// Reliably not above the nose: the hand is down, the latch is released.
+  void lowered() {
+    reset();
     fired = false;
   }
 

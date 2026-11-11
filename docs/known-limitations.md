@@ -126,6 +126,15 @@ Full facts and sources: [pose-plugin-evaluation.md](pose-plugin-evaluation.md).
   image side); this has not been verified on a device. `swapSides` on
   `HandSideDetector` is the single switch to flip it. The two big targets on
   the screen are the touch fallback.
+- **yesNo: one answer per raise.** A hand that has answered stays latched
+  until a reliable frame shows that wrist below the nose. A hand already up
+  when the question appears, or held up from the previous round, therefore
+  does not answer: the child must lower it and raise it again (the latch also
+  survives landmark dropouts, lost/found player and failed frames).
+- **yesNo hint size**: the "giơ tay trái/phải" hint is a Label at 24 sp,
+  following the picker's secondary text.
+- **yesNo level 1 asks 8 questions**, although the spec (§2) asked for at
+  least 10: the level table is unchanged, so a 50 % guess weighs more there.
 - **yesNo is guessable**: a true/false question is right 50 % of the time by
   chance, and the level's `questionCount` is unchanged, so a few lucky guesses
   can earn stars. False statements use the item's distractors, and an item
