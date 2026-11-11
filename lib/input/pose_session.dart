@@ -3,6 +3,7 @@ import 'dart:async';
 import 'calibrator.dart';
 import 'cursor_tracker.dart';
 import 'game_input_event.dart';
+import 'hand_side_detector.dart';
 import 'jump_detector.dart';
 import 'lane_tracker.dart';
 import 'one_euro_filter.dart';
@@ -44,6 +45,7 @@ class PoseSession {
     this.minConfidence = 0.5,
     this.cursor = false,
     this.pull = false,
+    this.handSide = false,
   }) : _laneTracker = LaneTracker(calibration, laneCount: laneCount),
        _jump = JumpDetector(calibration),
        _cursor = CursorTracker(calibration),
@@ -65,6 +67,10 @@ class PoseSession {
   /// Also emit [Pulled] for each "pull the rope" beat of a wrist (down, then
   /// back up). Off for the lane modes.
   final bool pull;
+
+  /// Also emit [HandRaised] when one hand stays alone above the nose (left =
+  /// the person's own left). Off for the other modes.
+  final bool handSide;
 
   static const double _maxTrackDistance = 0.25;
   static const double _maxReacquireDistance = 0.6;
@@ -105,6 +111,9 @@ class PoseSession {
   final Calibration _calibration;
   late PullDetector _pull = PullDetector(_calibration);
   late RaiseHandsDetector _raise = _newRaise();
+  late final HandSideDetector _handSide = HandSideDetector(
+    minConfidence: minConfidence,
+  );
   final StreamController<GameInputEvent> _events =
       StreamController<GameInputEvent>.broadcast();
   late final StreamSubscription<PoseFrame> _sub;
@@ -246,6 +255,7 @@ class PoseSession {
   void _onFrameFailed(Duration t) {
     _jump.suppressUntil(t + _uncertainHold);
     _raise = _newRaise();
+    _handSide.reset();
     _pull = PullDetector(_calibration);
     _throwingSince ??= t;
     if (!_lost && t - _throwingSince! >= _lostAfter) _enterLost(t);
@@ -276,6 +286,7 @@ class PoseSession {
       // Not sure who/where the player is: never score through this frame.
       _jump.suppressUntil(t + _uncertainHold);
       _raise = _newRaise();
+      _handSide.reset();
       _pull = PullDetector(_calibration);
       if (!_lost && t - _lastValidAt! >= _lostAfter) _enterLost(t);
       return;
@@ -289,6 +300,7 @@ class PoseSession {
       _filters.clear();
       _resetCursor();
       _raise = _newRaise();
+      _handSide.reset();
       _pull = PullDetector(_calibration);
       // The jump baseline is stale (the child may have walked back in from
       // somewhere else), so it is re-taken here, and nothing is graded while
@@ -319,6 +331,11 @@ class PoseSession {
     if (pull) {
       final hand = _pull.update(pose, t);
       if (hand != null) _emit(Pulled(hand, at: t));
+    }
+
+    if (handSide) {
+      final hand = _handSide.update(pose, t);
+      if (hand != null) _emit(HandRaised(hand, at: t));
     }
 
     final bool fired;

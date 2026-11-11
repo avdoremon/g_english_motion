@@ -26,6 +26,7 @@ Future<List<GameInputEvent>> run(
   int laneCount = 3,
   bool cursor = false,
   bool pull = false,
+  bool handSide = false,
 }) async {
   final source = FakePoseFrameSource(frames);
   final session = PoseSession(
@@ -35,6 +36,7 @@ Future<List<GameInputEvent>> run(
     confirm: confirm,
     cursor: cursor,
     pull: pull,
+    handSide: handSide,
   );
   final events = await session.events.toList(); // closes when frames end
   await session.dispose();
@@ -262,6 +264,55 @@ void main() {
       confirm: ConfirmGesture.raiseHands,
     );
     expect(jumped.whereType<Confirmed>(), isEmpty);
+  });
+
+  group('handSide', () {
+    List<PoseFrame> leftRaise({int upFrom = 1000, int upTo = 2500}) =>
+        poseSequence(
+          duration: ms(3000),
+          posesAt: (t) => [
+            t >= ms(upFrom) && t < ms(upTo)
+                ? makePose(
+                    leftWrist: const Offset(0.4, 0.1),
+                    rightWrist: const Offset(0.6, 0.5),
+                  )
+                : makePose(),
+          ],
+        );
+
+    test('emits HandRaised(left) once when enabled', () async {
+      final events = await run(leftRaise(), handSide: true);
+      final raised = events.whereType<HandRaised>().toList();
+      expect(raised, hasLength(1));
+      expect(raised.single.hand, Hand.left);
+      expect(raised.single.at, greaterThanOrEqualTo(ms(1500)));
+    });
+
+    test('emits nothing by default', () async {
+      final events = await run(leftRaise());
+      expect(events.whereType<HandRaised>(), isEmpty);
+    });
+
+    test('a gap (PlayerLost/Found) restarts the hold', () async {
+      final frames = poseSequence(
+        duration: ms(3000),
+        posesAt: (t) {
+          if (t >= ms(1200) && t < ms(1900)) return [];
+          return [
+            t >= ms(1000) && t < ms(2300)
+                ? makePose(
+                    leftWrist: const Offset(0.4, 0.1),
+                    rightWrist: const Offset(0.6, 0.5),
+                  )
+                : makePose(),
+          ];
+        },
+      );
+      final events = await run(frames, handSide: true);
+      expect(events.whereType<PlayerFound>(), hasLength(1));
+      // Hand up again from 1900 to 2300 = 400 ms < hold: no event.
+      expect(events.whereType<HandRaised>(), isEmpty);
+    });
   });
 
   test('suppressConfirmUntil blocks Confirmed until the given time', () async {
