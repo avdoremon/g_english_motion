@@ -109,6 +109,26 @@ void main() {
       expect(rules, contains('com.google.protobuf.**'));
     });
 
+    test('proguard keeps the plugin Gson payload classes (landmark JSON)', () {
+      // flutter_mp_pose_landmarker 0.1.9 serializes CameraManager.Landmark /
+      // WorldLandmark with Gson; R8 renaming x/y/z/visibility/presence would
+      // break the Dart parser in release builds only.
+      final rules = read('android/app/proguard-rules.pro');
+      expect(
+        rules,
+        contains('-keep class com.carecode.flutter_mp_pose_lm.** { *; }'),
+      );
+      expect(rules, contains('-keepattributes Signature'));
+      expect(rules, contains('InnerClasses'));
+      expect(rules, contains('-dontwarn sun.misc.**'));
+      expect(rules, contains('-keep class com.google.gson.** { *; }'));
+    });
+
+    test('release signing fallback warns only for a release task', () {
+      expect(app, contains('gradle.startParameter.taskNames'));
+      expect(app, contains('ignoreCase = true'));
+    });
+
     test('CI has a build-android-release job running a release APK build', () {
       final ci = read('.github/workflows/ci.yml');
       expect(ci, contains('build-android-release:'));

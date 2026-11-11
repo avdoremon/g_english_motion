@@ -61,7 +61,10 @@ android {
             signingConfig = if (hasReleaseKeystore) {
                 signingConfigs.getByName("release")
             } else {
-                logger.warn("android/key.properties not found: signing the release build with the DEBUG key (not for the store)")
+                val releaseRequested = gradle.startParameter.taskNames.any {
+                    it.contains("release", ignoreCase = true)
+                }
+                if (releaseRequested) logger.warn("android/key.properties not found: signing the release build with the DEBUG key (not for the store)")
                 signingConfigs.getByName("debug")
             }
             isMinifyEnabled = true

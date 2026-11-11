@@ -19,6 +19,19 @@
 -dontwarn org.checkerframework.**
 -dontwarn com.google.errorprone.annotations.**
 
+# flutter_mp_pose_landmarker sends landmarks to Dart as Gson JSON built from
+# Kotlin data classes (CameraManager.Landmark / WorldLandmark). Gson reads the
+# field names reflectively: renaming x/y/z/visibility/presence breaks parsing
+# in release builds only.
+-keep class com.carecode.flutter_mp_pose_lm.** { *; }
+-keepattributes Signature,*Annotation*,InnerClasses,EnclosingMethod
+-keep class com.google.gson.** { *; }
+-keep class * extends com.google.gson.TypeAdapter
+-keep class * implements com.google.gson.TypeAdapterFactory
+-keep class * implements com.google.gson.JsonSerializer
+-keep class * implements com.google.gson.JsonDeserializer
+-dontwarn sun.misc.**
+
 # Native methods keep their names for JNI lookup.
 -keepclasseswithmembernames class * {
     native <methods>;
