@@ -18,11 +18,18 @@ class RoundVerdict extends StatelessWidget {
     required this.result,
     this.iconSize = 48,
     this.trailing = 16,
+    this.correctLabel,
+    this.wrongLabel,
   });
 
   /// The round's result ([LevelSession.lastResult]).
   final RoundResult? result;
   final double iconSize;
+
+  /// Optional wording overrides for screens whose answer buttons already say
+  /// "Đúng"/"Sai" (yesNo). Null keeps the shared wording; a timeout is
+  /// always "Hết giờ".
+  final String? correctLabel, wrongLabel;
 
   /// Space kept after the label (the mascot follows it in every screen).
   final double trailing;
@@ -67,7 +74,11 @@ class RoundVerdict extends StatelessWidget {
       children: [
         Icon(iconFor(result), size: iconSize, color: colorFor(result)),
         const SizedBox(width: 8),
-        Text(labelFor(result), style: AppTheme.textStyles.heading),
+        Text(switch (result) {
+          RoundResult.correct => correctLabel ?? labelFor(result),
+          RoundResult.timeout => labelFor(result),
+          _ => wrongLabel ?? labelFor(result),
+        }, style: AppTheme.textStyles.heading),
         SizedBox(width: trailing),
       ],
     );

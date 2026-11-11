@@ -232,6 +232,98 @@ void main() {
     await finish(tester);
   });
 
+  testWidgets('target semantics are identical for a true and a false item', (
+    tester,
+  ) async {
+    final sem = tester.ensureSemantics();
+    final seen = <int, List<String>>{};
+    for (var seed = 1; seed < 40 && seen.length < 2; seed++) {
+      await tester.binding.setSurfaceSize(const Size(1280, 720));
+      await tester.runAsync(() async {
+        h = await GameHarness.create(
+          modes: const [ModeKind.yesNo],
+          mode: ModeKind.yesNo,
+          withImages: true,
+          hangTts: true,
+          seed: seed,
+        );
+        await h.startAndCalibrate();
+      });
+      await tester.pumpWidget(
+        MaterialApp(
+          theme: AppTheme.dark(),
+          home: Scaffold(body: YesNoScreen(controller: h.controller)),
+        ),
+      );
+      await startPlaying(tester);
+      seen.putIfAbsent(
+        q().correctIndex,
+        () =>
+            semanticLabels(tester).where((l) => l.contains('giơ tay')).toList(),
+      );
+      await finish(tester);
+    }
+    expect(seen.keys, containsAll([0, 1]));
+    expect(seen[0], seen[1]);
+    expect(seen[0], ['Đúng, giơ tay trái', 'Sai, giơ tay phải']);
+    addTearDown(() => tester.binding.setSurfaceSize(null));
+    sem.dispose();
+  });
+
+  testWidgets('timeout: "Hết giờ" + hourglass, no wrong colouring, right side '
+      'revealed only after', (tester) async {
+    await boot(tester);
+    await startPlaying(tester);
+    Color? fillOf(Finder f) =>
+        (tester
+                    .widget<Ink>(
+                      find.descendant(of: f, matching: find.byType(Ink)).first,
+                    )
+                    .decoration
+                as BoxDecoration)
+            .color;
+    expect(fillOf(yes()), AppTheme.accent);
+    expect(fillOf(no()), AppTheme.orange);
+    expect(
+      find.descendant(of: yes(), matching: find.byIcon(Icons.check)),
+      findsNothing,
+    );
+    expect(
+      find.descendant(of: no(), matching: find.byIcon(Icons.check)),
+      findsNothing,
+    );
+    final round = session().round as YesNoRound;
+    await tester.runAsync(
+      () => h.run(
+        round.timeLimit + const Duration(seconds: 5),
+        stopWhen: () => session().phase == SessionPhase.feedback,
+      ),
+    );
+    await tester.pump();
+    expect(session().lastResult, RoundResult.timeout);
+    expect(round.chosenIndex, isNull);
+    final verdict = find.byKey(const ValueKey('feedback-label'));
+    expect(
+      find.descendant(of: verdict, matching: find.text('Hết giờ')),
+      findsOneWidget,
+    );
+    expect(find.byIcon(Icons.hourglass_bottom), findsOneWidget);
+    final right = q().correctIndex == 0 ? yes() : no();
+    final other = q().correctIndex == 0 ? no() : yes();
+    expect(fillOf(right), AppTheme.green);
+    expect(fillOf(other), isNot(AppTheme.coral));
+    expect(
+      find.descendant(of: right, matching: find.byIcon(Icons.check)),
+      findsOneWidget,
+    );
+    expect(
+      find.descendant(of: other, matching: find.byIcon(Icons.close)),
+      findsNothing,
+    );
+    await tester.pump(const Duration(seconds: 6));
+    await finish(tester);
+  });
+
   testWidgets('the right side is highlighted only after the answer', (
     tester,
   ) async {
@@ -253,6 +345,19 @@ void main() {
     expect(session().lastResult, RoundResult.wrong);
     expect(find.byKey(const ValueKey('feedback-label')), findsOneWidget);
     expect(find.byIcon(Icons.cancel), findsOneWidget);
+    expect(
+      find.descendant(
+        of: find.byKey(const ValueKey('feedback-label')),
+        matching: find.text('Chưa đúng'),
+      ),
+      findsOneWidget,
+    );
+    // Not colour-only: the wrong pick carries a cross.
+    final picked = q().correctIndex == 0 ? no() : yes();
+    expect(
+      find.descendant(of: picked, matching: find.byIcon(Icons.close)),
+      findsOneWidget,
+    );
     final right = q().correctIndex == 0 ? yes() : no();
     expect(fillOf(right), AppTheme.green);
     expect(fillOf(right), isNot(q().correctIndex == 0 ? yesBefore : noBefore));
@@ -260,7 +365,7 @@ void main() {
     await finish(tester);
   });
 
-  testWidgets('a correct answer shows the verdict "Đúng" check', (
+  testWidgets('a correct answer says "Giỏi lắm!", never "Đúng"/"Sai"', (
     tester,
   ) async {
     await boot(tester);
@@ -270,6 +375,15 @@ void main() {
     expect(session().lastResult, RoundResult.correct);
     expect(find.byKey(const ValueKey('feedback-label')), findsOneWidget);
     expect(find.byIcon(Icons.check_circle), findsOneWidget);
+    final verdict = find.byKey(const ValueKey('feedback-label'));
+    expect(
+      find.descendant(of: verdict, matching: find.text('Giỏi lắm!')),
+      findsOneWidget,
+    );
+    expect(
+      find.descendant(of: verdict, matching: find.text('Sai')),
+      findsNothing,
+    );
     await tester.pump(const Duration(seconds: 6));
     await finish(tester);
   });

@@ -10,7 +10,7 @@ import 'lane_jump_screen.dart' show ItemPicture;
 import 'play_header.dart';
 import 'round_verdict.dart';
 
-/// The yesNo play screen "Đúng hay Sai" (grades 3-5): a picture and a
+/// The yesNo play screen "Đúng hay Sai" (grades 1-5): a picture and a
 /// statement about it; the child raises the LEFT hand for "Đúng" or the RIGHT
 /// hand for "Sai". The two big targets below are also the touch fallback
 /// ([GameController.answerYesNo]).
@@ -148,7 +148,9 @@ double _targetHeight(BuildContext context, bool compact, double width) {
   final hintLines = p.computeLineMetrics().length.clamp(1, 2);
   p.dispose();
   final text =
-      (scaler.scale(28) + hintLines * scaler.scale(24)) * AppTheme.lineHeight +
+      (scaler.scale(AppTheme.textStyles.play.fontSize!) +
+              hintLines * scaler.scale(AppTheme.textStyles.label.fontSize!)) *
+          AppTheme.lineHeight +
       20;
   final base = compact ? 80.0 : 112.0;
   return text > base ? text : base;
@@ -204,6 +206,8 @@ class _Picture extends StatelessWidget {
                     result: session.lastResult,
                     iconSize: 36,
                     trailing: 0,
+                    correctLabel: 'Giỏi lắm!',
+                    wrongLabel: 'Chưa đúng',
                   ),
                 ),
               ),
@@ -308,8 +312,12 @@ class _AnswerTarget extends StatelessWidget {
                   Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      if (answered && isRight) ...[
-                        const Icon(Icons.check, size: 36, color: AppTheme.ink),
+                      if (answered && (isRight || wrongPick)) ...[
+                        Icon(
+                          isRight ? Icons.check : Icons.close,
+                          size: 36,
+                          color: AppTheme.ink,
+                        ),
                         const SizedBox(width: 8),
                       ],
                       Text(
