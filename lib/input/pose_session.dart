@@ -50,7 +50,7 @@ class PoseSession {
     this.actions = false,
   }) : _laneTracker = LaneTracker(calibration, laneCount: laneCount),
        _jump = JumpDetector(calibration),
-       _actions = ActionDetector(calibration),
+       _actions = actions ? ActionDetector(calibration) : null,
        _cursor = CursorTracker(calibration),
        _calibration = calibration,
        _seedX = calibration.centerX,
@@ -114,7 +114,7 @@ class PoseSession {
 
   final LaneTracker _laneTracker;
   final JumpDetector _jump;
-  final ActionDetector _actions;
+  final ActionDetector? _actions;
   final CursorTracker _cursor;
   final Calibration _calibration;
   late PullDetector _pull = PullDetector(_calibration);
@@ -160,7 +160,7 @@ class PoseSession {
   void suppressConfirmUntil(Duration t) {
     if (t > _suppressConfirmUntil) _suppressConfirmUntil = t;
     _jump.suppressUntil(t);
-    _actions.suppressUntil(t);
+    _actions?.suppressUntil(t);
   }
 
   Future<void> dispose() async {
@@ -263,10 +263,10 @@ class PoseSession {
   /// sustained run of failures report the player as lost.
   void _onFrameFailed(Duration t) {
     _jump.suppressUntil(t + _uncertainHold);
-    _actions.suppressUntil(t + _uncertainHold);
+    _actions?.suppressUntil(t + _uncertainHold);
     _raise = _newRaise();
     _handSide.reset();
-    _actions.reset();
+    _actions?.reset();
     _pull = PullDetector(_calibration);
     _throwingSince ??= t;
     if (!_lost && t - _throwingSince! >= _lostAfter) _enterLost(t);
@@ -296,10 +296,10 @@ class PoseSession {
     if (player == null) {
       // Not sure who/where the player is: never score through this frame.
       _jump.suppressUntil(t + _uncertainHold);
-      _actions.suppressUntil(t + _uncertainHold);
+      _actions?.suppressUntil(t + _uncertainHold);
       _raise = _newRaise();
       _handSide.reset();
-      _actions.reset();
+      _actions?.reset();
       _pull = PullDetector(_calibration);
       if (!_lost && t - _lastValidAt! >= _lostAfter) _enterLost(t);
       return;
@@ -314,13 +314,13 @@ class PoseSession {
       _resetCursor();
       _raise = _newRaise();
       _handSide.reset();
-      _actions.reset();
+      _actions?.reset();
       _pull = PullDetector(_calibration);
       // The jump baseline is stale (the child may have walked back in from
       // somewhere else), so it is re-taken here, and nothing is graded while
       // the detector settles.
       _jump.rebaseline(player);
-      _actions.rebaseline(player);
+      _actions?.rebaseline(player);
       suppressConfirmUntil(t + reacquireGrace);
       _emit(PlayerFound(at: t));
     }
@@ -353,8 +353,9 @@ class PoseSession {
       if (hand != null) _emit(HandRaised(hand, at: t));
     }
 
-    if (actions) {
-      for (final a in _actions.update(pose, t)) {
+    final actionDetector = _actions;
+    if (actionDetector != null) {
+      for (final a in actionDetector.update(pose, t)) {
         _emit(ActionPerformed(a, at: t));
       }
     }

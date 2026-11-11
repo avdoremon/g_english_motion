@@ -416,6 +416,160 @@ void main() {
     );
   });
 
+  group('actions wiring', () {
+    Pose clapPose(double wristX) => makePose(
+      leftWrist: Offset(0.5 - wristX, 0.4),
+      rightWrist: Offset(0.5 + wristX, 0.4),
+    );
+    Pose idle() => makePose(
+      leftWrist: const Offset(0.4, 0.55),
+      rightWrist: const Offset(0.6, 0.55),
+    );
+    Pose jumped() => makePose(
+      hipY: 0.5,
+      leftWrist: const Offset(0.4, 0.45),
+      rightWrist: const Offset(0.6, 0.45),
+    );
+
+    bool inRange(Duration t, int from, int to) => t >= ms(from) && t < ms(to);
+
+    final interruptions = <String, PoseFrame Function(Duration)>{
+      'failed frame': (t) => PoseFrame([_ThrowingPose()], t),
+      'uncertain frame': (t) => PoseFrame([makePose(confidence: 0.2)], t),
+    };
+
+    Future<List<GameInputEvent>> runFrames(
+      List<PoseFrame> frames, {
+      Duration? suppressConfirmUntil,
+    }) async {
+      final c = StreamController<PoseFrame>();
+      final session = PoseSession(
+        c.stream,
+        calibration,
+        laneCount: 3,
+        actions: true,
+      );
+      if (suppressConfirmUntil != null) {
+        session.suppressConfirmUntil(suppressConfirmUntil);
+      }
+      final events = <GameInputEvent>[];
+      final done = Completer<void>();
+      session.events.listen(events.add, onError: (_) {}, onDone: done.complete);
+      frames.forEach(c.add);
+      await c.close();
+      await done.future;
+      await session.dispose();
+      return events;
+    }
+
+    List<PuppyAction> performed(List<GameInputEvent> e) =>
+        e.whereType<ActionPerformed>().map((a) => a.action).toList();
+
+    for (final entry in interruptions.entries) {
+      test('a half-performed clap is forgotten by a ${entry.key}', () async {
+        // Apart 1200-1300, one bad frame, hands together only from 1500 (after
+        // the 100 ms hold), well inside the clap window.
+        List<PoseFrame> frames({required bool interrupt}) =>
+            poseSequence(
+              duration: ms(2200),
+              posesAt: (t) => [
+                inRange(t, 1200, 1300)
+                    ? clapPose(0.2)
+                    : inRange(t, 1500, 1800)
+                    ? clapPose(0.01)
+                    : idle(),
+              ],
+            ).map((f) {
+              return interrupt && inRange(f.timestamp, 1300, 1340)
+                  ? entry.value(f.timestamp)
+                  : f;
+            }).toList();
+        // Control: without the bad frame the same motion is a clap.
+        expect(performed(await runFrames(frames(interrupt: false))), [
+          PuppyAction.clap,
+        ]);
+        expect(performed(await runFrames(frames(interrupt: true))), isEmpty);
+      });
+
+      test('a jump during the hold after a ${entry.key} is not reported', () async {
+        List<PoseFrame> frames({required bool interrupt}) =>
+            poseSequence(
+              duration: ms(2500),
+              posesAt: (t) => [inRange(t, 1366, 1900) ? jumped() : idle()],
+            ).map((f) {
+              return interrupt && inRange(f.timestamp, 1300, 1350)
+                  ? entry.value(f.timestamp)
+                  : f;
+            }).toList();
+        // Control: without the bad frame the jump is reported.
+        expect(performed(await runFrames(frames(interrupt: false))), [
+          PuppyAction.jump,
+        ]);
+        // The pose is held through the window, so it is consumed, not delayed.
+        expect(performed(await runFrames(frames(interrupt: true))), isEmpty);
+      });
+    }
+
+    test('suppressConfirmUntil blocks actions until then', () async {
+      final frames = poseSequence(
+        duration: ms(2500),
+        posesAt: (t) => [inRange(t, 1366, 1900) ? jumped() : idle()],
+      );
+      expect(performed(await runFrames(frames)), [PuppyAction.jump]);
+      expect(
+        performed(await runFrames(frames, suppressConfirmUntil: ms(2000))),
+        isEmpty,
+      );
+    });
+
+    // Standing, a 600 ms gap (lost at 1500, found at 1600), then [after].
+    List<PoseFrame> lostThen(Pose Function(Duration t) after) => poseSequence(
+      duration: ms(3300),
+      posesAt: (t) {
+        if (inRange(t, 1000, 1600)) return [];
+        return [t < ms(1000) ? idle() : after(t)];
+      },
+    );
+
+    test('after PlayerFound the actions are re-baselined', () async {
+      // Re-found sitting low (hip 0.75, below the calibrated 0.6) and held
+      // through the grace; then squatting further (hip 0.9) is a squat
+      // relative to the new resting position.
+      final events = await runFrames(
+        lostThen(
+          (t) => t < ms(2500) ? makePose(hipY: 0.75) : makePose(hipY: 0.9),
+        ),
+      );
+      expect(events.whereType<PlayerFound>(), hasLength(1));
+      expect(performed(events), [PuppyAction.squat]);
+    });
+
+    test(
+      'the reacquire grace blocks a clap, a later clap is reported',
+      () async {
+        Pose clapAt(Duration t, int from) => inRange(t, from, from + 100)
+            ? clapPose(0.2)
+            : inRange(t, from + 100, from + 400)
+            ? clapPose(0.01)
+            : idle();
+        final inGrace = await runFrames(lostThen((t) => clapAt(t, 1600)));
+        final found = inGrace.whereType<PlayerFound>().single;
+        expect(performed(inGrace), isEmpty);
+        // Positive control: the same clap once the grace (500 ms) is over.
+        final after = await runFrames(
+          lostThen((t) => clapAt(t, 1600 + 500 + 100)),
+        );
+        final claps = after.whereType<ActionPerformed>().toList();
+        expect(claps, hasLength(1));
+        expect(claps.single.action, PuppyAction.clap);
+        expect(
+          claps.single.at,
+          greaterThanOrEqualTo(found.at + PoseSession.reacquireGrace),
+        );
+      },
+    );
+  });
+
   group('handSide', () {
     List<PoseFrame> leftRaise({int upFrom = 1000, int upTo = 2500}) =>
         poseSequence(
