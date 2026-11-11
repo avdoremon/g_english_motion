@@ -163,6 +163,10 @@ class PoseSession {
     _actions?.suppressUntil(t);
   }
 
+  /// Re-arms the action detectors for a new puppySays round (see
+  /// [ActionDetector.rearm]): a pose the child already holds registers once.
+  void rearmActions() => _actions?.rearm();
+
   Future<void> dispose() async {
     if (_disposed) return;
     _disposed = true;

@@ -56,6 +56,7 @@ class PuppySaysScreen extends StatelessWidget {
               final compact = box.maxHeight < 420;
               final gap = compact ? 6.0 : 12.0;
               final result = s.lastResult;
+              final timeout = answered && RoundVerdict.isTimeout(result);
               return Padding(
                 padding: compact
                     ? const EdgeInsets.fromLTRB(24, 6, 24, 8)
@@ -93,7 +94,12 @@ class PuppySaysScreen extends StatelessWidget {
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    if (compact)
+                                    if (compact && timeout)
+                                      // Short screen, timeout: the two-line
+                                      // verdict (kind line + hint, which names
+                                      // the action) takes the command's room.
+                                      const SizedBox.shrink()
+                                    else if (compact)
                                       // Short screen: the pictogram sits
                                       // beside the command.
                                       Row(
@@ -114,8 +120,12 @@ class PuppySaysScreen extends StatelessWidget {
                                       SizedBox(height: gap),
                                       _Pictogram(action: q.action, size: 120),
                                     ],
-                                    SizedBox(height: gap),
-                                    _Countdown(controller: controller),
+                                    // On a timeout the verdict (two lines) needs
+                                    // the countdown's room; the clock is over.
+                                    if (!timeout) ...[
+                                      SizedBox(height: gap),
+                                      _Countdown(controller: controller),
+                                    ],
                                     SizedBox(height: gap),
                                     _VerdictSlot(
                                       visible: answered,
@@ -306,13 +316,26 @@ class _VerdictSlot extends StatelessWidget {
                 correctLabel: 'Giỏi lắm!',
               ),
               if (timeout)
-                Text(
-                  hint,
-                  key: const ValueKey('puppy-hint'),
-                  textAlign: TextAlign.center,
-                  style: AppTheme.textStyles.play.copyWith(
-                    color: AppTheme.text,
-                  ),
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      ActionQuestion.notSeenVi,
+                      key: const ValueKey('puppy-notseen'),
+                      textAlign: TextAlign.center,
+                      style: AppTheme.textStyles.play.copyWith(
+                        color: AppTheme.text,
+                      ),
+                    ),
+                    Text(
+                      hint,
+                      key: const ValueKey('puppy-hint'),
+                      textAlign: TextAlign.center,
+                      style: AppTheme.textStyles.play.copyWith(
+                        color: AppTheme.text,
+                      ),
+                    ),
+                  ],
                 ),
             ],
           ),

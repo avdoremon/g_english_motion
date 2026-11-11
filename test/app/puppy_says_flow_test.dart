@@ -182,10 +182,13 @@ void main() {
       expect(s.lastResult, RoundResult.timeout);
       expect(h.captions, contains(VoiceLine.outOfTime.caption));
       expect(h.captions, contains(hint));
-      expect(
-        h.captions.indexOf(hint),
-        greaterThan(h.captions.indexOf(VoiceLine.outOfTime.caption)),
-      );
+      expect(h.captions, contains('Pup chưa thấy rõ… thử lại nhé'));
+      // outOfTime, then the kind camera line, then the hint.
+      final iOut = h.captions.indexOf(VoiceLine.outOfTime.caption);
+      final iSeen = h.captions.indexOf('Pup chưa thấy rõ… thử lại nhé');
+      expect(iSeen, greaterThan(iOut));
+      expect(h.captions.indexOf(hint), greaterThan(iSeen));
+      expect(h.captions.any((c) => c.toLowerCase().contains('sai')), isFalse);
       expect(h.captions, isNot(contains(VoiceLine.tryAgain.caption)));
       // The hint is a caption only: it is never spoken.
       expect(h.ttsLog.where((e) => e.contains(hint)), isEmpty);
@@ -225,6 +228,78 @@ void main() {
         expect(r.result, isNull);
       },
     );
+
+    /// Starts a level whose first command is [a] (seed search).
+    Future<void> startWith(PuppyAction a) async {
+      var seed = 1;
+      while (true) {
+        await setUp(seed: seed);
+        await h.startAndCalibrate();
+        if (q0().action == a) return;
+        await h.dispose();
+        seed++;
+        expect(seed, lessThan(80), reason: 'no seed gives $a first');
+      }
+    }
+
+    final hx = GameHarness.hipXForLane(1, 3);
+    Pose handsUpPose() => makePose(
+      hipX: hx,
+      leftWrist: Offset(hx - 0.2, 0.1),
+      rightWrist: Offset(hx + 0.2, 0.1),
+    );
+    Pose squatPose() => makePose(hipX: hx, hipY: 0.7, kneeY: 0.75);
+
+    test('hands already up when the hands-up round starts: correct', () async {
+      await startWith(PuppyAction.handsUp);
+      final s = h.controller.session!;
+      // The child raises the hands during the prompt: the event is dropped
+      // there and the detector latches...
+      await h.run(
+        const Duration(milliseconds: 1200),
+        pose: (_) => handsUpPose(),
+      );
+      expect(s.phase, SessionPhase.prompting);
+      expect(s.lastResult, isNull);
+      // ...but the held pose counts once the round starts.
+      endPrompt();
+      await h.run(
+        const Duration(milliseconds: 1000),
+        pose: (_) => handsUpPose(),
+        stopWhen: () => s.lastResult != null,
+      );
+      expect(s.lastResult, RoundResult.correct);
+    });
+
+    test('a squat right after the prompt is not eaten by a grace', () async {
+      await startWith(PuppyAction.squat);
+      final s = h.controller.session!;
+      endPrompt();
+      await h.run(
+        const Duration(milliseconds: 900),
+        pose: (_) => squatPose(),
+        stopWhen: () => s.lastResult != null,
+      );
+      expect(s.lastResult, RoundResult.correct);
+    });
+
+    test('hands held up while the command is squat: ignored', () async {
+      await startWith(PuppyAction.squat);
+      final s = h.controller.session!;
+      await h.run(
+        const Duration(milliseconds: 1200),
+        pose: (_) => handsUpPose(),
+      );
+      endPrompt();
+      await h.run(
+        const Duration(milliseconds: 2000),
+        pose: (_) => handsUpPose(),
+        stopWhen: () => s.lastResult != null,
+      );
+      expect(s.lastResult, isNull);
+      expect(s.round.result, isNull);
+      expect(s.phase, SessionPhase.playing);
+    });
 
     test('no jump-to-choose instruction is spoken', () async {
       await setUp();

@@ -32,6 +32,18 @@ puppy's prompt to finish before acting. Keep a tally sheet per action:
 | Clap | Arms wide, then hands together in front of the chest | hits, misses |
 | Squat | Hips down about a third of the body height, held a moment | hits, misses |
 
+Extra scenarios (one pass each, note what happens; these are the real-world
+cases the synthetic tests cannot cover):
+
+| Scenario | What the tester does | Expect |
+| --- | --- | --- |
+| Act during the prompt | Starts the asked action while the puppy is still speaking the command (hands up held through the end of the prompt) | The held hands up / squat counts once as soon as the round starts; jump during the prompt is not counted |
+| Step forward / back, then squat | Walks about half a step closer (then back), stands still 2 s, then squats | No squat from the step itself; the squat after it is detected |
+| Hold squat, then stand | Holds a squat 2 s, stands up | One squat, no jump when standing up |
+| Clap, natural small hand travel at real fps | Claps with small, relaxed hand movement, as a 6-year-old does | Detected at the real frame rate (about 15 fps); note misses |
+| Short child framed close / tilted phone | Child about 1 m tall, phone close or tilted so the torso looks short or the camera angle is not level | All four actions still work; note which fail |
+| Jump preparation crouch | Bends the knees before jumping | The crouch is not counted as a squat (unless the command is squat); the jump is still a jump |
+
 - **Miss**: the action was clearly performed while the clock ran and the round
   still ended as "Hết giờ" (timeout). Also note if it fired late (more than
   about 1 s after the action).

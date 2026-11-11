@@ -921,8 +921,14 @@ class GameController extends ChangeNotifier {
     }
     _roundStarted = s.current;
     _roundStartedReview = s.isReview;
-    // PoseSession compares against frame timestamps.
-    _pose?.suppressConfirmUntil(_lastFrameTs + confirmGrace);
+    if (s.round is ActionRound) {
+      // No confirm-grace: a quick reaction right after the prompt must count.
+      // Poses already held at round start (hands up, squat) register once.
+      _pose?.rearmActions();
+    } else {
+      // PoseSession compares against frame timestamps.
+      _pose?.suppressConfirmUntil(_lastFrameTs + confirmGrace);
+    }
     // The player left during the prompt: a hold-pick or catchIt round (peek,
     // clock) must not run with nobody there. LaneJump keeps its behaviour.
     if (_lost &&
@@ -1040,8 +1046,12 @@ class GameController extends ChangeNotifier {
             await _audio.explainAnswer(_repo.byId(q.itemId));
           }
         case ActionQuestion():
-          // After the neutral opening line, only the Vietnamese hint (as a
-          // caption) so the child knows what was asked; never a wrong line.
+          // After the neutral opening line, the kind "camera did not see it"
+          // caption, then the Vietnamese hint so the child knows what was
+          // asked; captions only, never a wrong line.
+          if (_stillExplaining(pq, review)) {
+            await _audio.showCaption(ActionQuestion.notSeenVi);
+          }
           if (_stillExplaining(pq, review)) {
             await _audio.showCaption(q.hintVi);
           }

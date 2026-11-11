@@ -33,6 +33,9 @@ class ActionDetector {
   Set<PuppyAction> update(Pose p, Duration t) {
     _releaseHands(p);
     final fired = <PuppyAction>{};
+    // Standing up from a held squat is a rise of the whole body: the jump
+    // baseline must not have followed the body down.
+    _jump.freezeBaseline = _squat.isDown;
     if (_jump.update(p, t)) fired.add(PuppyAction.jump);
     if (_hands.update(p, t) && !_handsFired) {
       _handsFired = true;
@@ -64,6 +67,17 @@ class ActionDetector {
     _hands = RaiseHandsDetector();
     _clap.reset();
     _squat.reset();
+  }
+
+  /// Re-arms hands up, clap and squat for a new round: a hands-up or squat
+  /// pose that is already held registers once more (after its normal hold),
+  /// instead of waiting for a release the child never makes. Jump stays an
+  /// edge event and is untouched. Suppression is not changed.
+  void rearm() {
+    _hands = RaiseHandsDetector();
+    _handsFired = false;
+    _clap.reset();
+    _squat.rearm();
   }
 
   /// Blocks every action until [t]; poses held through it are consumed.

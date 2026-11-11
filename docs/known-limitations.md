@@ -185,6 +185,17 @@ Full facts and sources: [pose-plugin-evaluation.md](pose-plugin-evaluation.md).
   frames (confidence-gated and held for 300 ms), with no filtering of the
   landmarks, so jitter near the threshold can delay or miss a squat.
 
+- **puppySays clap uses a torso/hip fallback.** When the shoulders or hips
+  are not reliable, clap measures hand travel against a fallback body size
+  that is only approximate; a child with small, relaxed hand movement at
+  about 15 fps may be missed (see device-spike-actions.md).
+- **Squat grace at low fps.** The squat hold (300 ms) tolerates a landmark
+  dropout of 150 ms; at about 15 fps one missing frame is already 67 ms, so
+  two lost frames restart the hold. The squat baseline now follows steps and
+  slow walking, but a very sudden move of more than a quarter of the torso
+  (a tracking jump) can still count as one false squat, and a squat held for
+  more than 3 s is taken as the new rest position.
+
 ## Not implemented yet
 
 - LaneJump is not part of the grade 3-5 mix.

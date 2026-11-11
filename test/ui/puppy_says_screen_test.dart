@@ -162,6 +162,12 @@ void main() {
         final hint = tester.getRect(find.byKey(const ValueKey('puppy-hint')));
         expect(hint.bottom, lessThanOrEqualTo(size.height));
         expect(hint.right, lessThanOrEqualTo(size.width));
+        final seen = tester.getRect(
+          find.byKey(const ValueKey('puppy-notseen')),
+        );
+        expect(seen.bottom, lessThanOrEqualTo(size.height));
+        expect(seen.left, greaterThanOrEqualTo(0));
+        expect(seen.right, lessThanOrEqualTo(size.width));
         await tester.pump(const Duration(seconds: 6));
         await finish(tester);
       });
@@ -252,6 +258,12 @@ void main() {
     expect(
       tester.widget<Text>(find.byKey(const ValueKey('puppy-hint'))).data,
       q().hintVi,
+    );
+    // The kind camera line comes first (above the hint).
+    expect(find.text('Pup chưa thấy rõ… thử lại nhé'), findsOneWidget);
+    expect(
+      tester.getTopLeft(find.byKey(const ValueKey('puppy-notseen'))).dy,
+      lessThan(tester.getTopLeft(find.byKey(const ValueKey('puppy-hint'))).dy),
     );
     expect(find.text('Sai'), findsNothing);
     expect(find.textContaining('Sai'), findsNothing);

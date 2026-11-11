@@ -184,4 +184,51 @@ void main() {
     final both = d.update(handsUp(lift: 0.1), ms(1800));
     expect(both, {PuppyAction.jump, PuppyAction.handsUp});
   });
+
+  test('standing up from a held squat does not fire jump', () {
+    final d = settled();
+    final squat = makePose(hipY: 0.7, kneeY: 0.75);
+    expectOnly(run(d, squat, 1300, 3800), PuppyAction.squat);
+    final c = run(d, stand(), 3833, 4600);
+    expect(c.values.every((v) => v == 0), isTrue, reason: '$c');
+  });
+
+  group('rearm', () {
+    test('a hands-up held across rearm registers once more', () {
+      final d = settled();
+      expectOnly(run(d, handsUp(), 1300, 2400), PuppyAction.handsUp);
+      expect(run(d, handsUp(), 2433, 3300)[PuppyAction.handsUp], 0);
+      d.rearm();
+      final c = run(d, handsUp(), 3333, 4300);
+      expect(c[PuppyAction.handsUp], 1);
+      expect(c[PuppyAction.jump], 0);
+    });
+
+    test('a squat held across rearm registers once more', () {
+      final d = settled();
+      final squat = makePose(hipY: 0.7, kneeY: 0.75);
+      expectOnly(run(d, squat, 1300, 2500), PuppyAction.squat);
+      expect(run(d, squat, 2533, 3000)[PuppyAction.squat], 0);
+      d.rearm();
+      expect(run(d, squat, 3033, 3800)[PuppyAction.squat], 1);
+    });
+
+    test('rearm on a standing child yields nothing; jump stays an edge', () {
+      final d = settled();
+      d.rearm();
+      expect(run(d, stand(), 1300, 3000).values.every((v) => v == 0), isTrue);
+      // A lifted pose held through rearm is not a fresh jump...
+      final up = makePose(
+        hipY: 0.5,
+        leftWrist: const Offset(0.4, 0.45),
+        rightWrist: const Offset(0.6, 0.45),
+      );
+      expectOnly(run(d, up, 3033, 3200), PuppyAction.jump);
+      d.rearm();
+      expect(run(d, up, 3233, 3800)[PuppyAction.jump], 0);
+      // ...but a real jump after rearm still fires.
+      run(d, stand(), 3833, 5200);
+      expect(run(d, up, 5233, 5400)[PuppyAction.jump], 1);
+    });
+  });
 }

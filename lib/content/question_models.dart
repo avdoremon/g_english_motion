@@ -114,6 +114,10 @@ class ActionQuestion extends Question {
   final String command, hintVi;
   final PuppyAction action;
 
+  /// The kind line shown on a timeout, before [hintVi]: the camera may simply
+  /// not have seen the move, so nothing says the child was wrong.
+  static const String notSeenVi = 'Pup chưa thấy rõ… thử lại nhé';
+
   @override
   QuestionForm get form => QuestionForm.doAction;
 }
