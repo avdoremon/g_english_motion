@@ -455,6 +455,135 @@ void main() {
       }
     });
 
+    // A repo whose yesNo items are given as (word, patterns, distractor
+    // words); returns the statements of every plan over [seeds] seeds.
+    List<({String item, bool isTrue, String text})> statements(
+      List<(String, List<String>, List<String>)> defs, {
+      int seeds = 25,
+    }) {
+      String id(String w) => 'g1u1-$w';
+      final repo = ContentRepository([
+        Unit(
+          grade: 1,
+          index: 1,
+          id: 'u01',
+          title: 'g1u1',
+          items: [
+            for (final (w, pats, ds) in defs)
+              ContentItem(
+                id: id(w),
+                word: w,
+                ttsText: w,
+                image: 'a.png',
+                sentencePatterns: pats,
+                distractorIds: [for (final d in ds) id(d)],
+                modes: const [ModeKind.yesNo],
+              ),
+            // Distractor words that are not asked themselves.
+            for (final w in {
+              for (final d in defs) ...d.$3,
+            }.difference({for (final d in defs) d.$1}))
+              ContentItem(
+                id: id(w),
+                word: w,
+                ttsText: w,
+                image: 'a.png',
+                modes: const [ModeKind.laneJump],
+              ),
+          ],
+        ),
+      ]);
+      return [
+        for (var seed = 0; seed < seeds; seed++)
+          for (final pq in ynPlan(
+            repo,
+            seed: seed,
+            count: defs.length,
+            unit: 1,
+          ))
+            (
+              item: repo.byId(pq.question.itemId).word,
+              isTrue: (pq.question as ChoiceQuestion).correctIndex == 0,
+              text: (pq.question as ChoiceQuestion).promptText!,
+            ),
+      ];
+    }
+
+    test(
+      'an item word repeated in its sentence falls back to the bare word',
+      () {
+        final out = statements([
+          ('orange', ['The orange is orange'], ['green', 'red']),
+          ('green', ['The green is green'], ['orange', 'red']),
+          ('red', ['Red is red'], ['green', 'orange']),
+        ]);
+        for (final st in out) {
+          if (st.isTrue) {
+            expect(st.text, st.item, reason: st.text);
+          } else {
+            expect(st.text.contains(' '), isFalse, reason: st.text);
+            expect(st.text, isNot(st.item));
+          }
+        }
+      },
+    );
+
+    test(
+      '"Bye bye my friend" and "The desk is on the desk" are not swapped',
+      () {
+        final out = statements([
+          ('bye', ['Bye bye my friend'], ['friend', 'hello']),
+          ('desk', ['The desk is on the desk'], ['board', 'chair']),
+          ('board', ['The board is beside the board'], ['desk', 'chair']),
+          ('library', ['Go library to the library'], ['school', 'park']),
+        ]);
+        for (final st in out) {
+          expect(st.text.split(' '), hasLength(1), reason: st.text);
+        }
+      },
+    );
+
+    test('a claim already in the sentence is skipped, else the bare claim', () {
+      // cat: claims are mat (in the sentence) and dog.
+      final some = statements([
+        ('cat', ['The cat is on the mat'], ['mat', 'dog']),
+        ('dog', ['The dog is on the mat'], ['mat', 'cat']),
+      ]);
+      for (final st in some.where((s) => !s.isTrue)) {
+        expect(
+          st.text,
+          anyOf('The dog is on the mat', 'The cat is on the mat'),
+        );
+      }
+      // Only claim is in the sentence: the bare claimed word.
+      final none = statements([
+        ('cat', ['A cat is on the mat'], ['mat']),
+        ('mat', ['A cat is on the mat'], ['cat']),
+      ]);
+      for (final st in none.where((s) => !s.isTrue)) {
+        expect(st.text, st.item == 'cat' ? 'mat' : 'cat');
+      }
+    });
+
+    test('a / an is only used with claims the content treats as countable', () {
+      final out = statements([
+        ('house', ['I live in a house'], ['tennis', 'flat']),
+        ('flat', ['I live in a flat'], ['tennis', 'house']),
+        ('tennis', ['I play tennis'], ['house']),
+      ]);
+      for (final st in out.where((s) => !s.isTrue)) {
+        expect(st.text, isNot(contains('a tennis')), reason: st.text);
+      }
+      // The only distractor is not countable: bare word.
+      final only = statements([
+        ('house', ['I live in a house'], ['tennis']),
+        ('tennis', ['I play tennis'], ['house']),
+      ]);
+      for (final st in only.where((s) => !s.isTrue && s.item == 'house')) {
+        expect(st.text, 'tennis');
+      }
+    });
+
     test('no usable sentence falls back to the bare claimed word', () {
       final repo = repoOf(sentences: false);
       for (var seed = 0; seed < 10; seed++) {

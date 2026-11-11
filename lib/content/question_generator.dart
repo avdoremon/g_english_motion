@@ -370,15 +370,35 @@ class QuestionGenerator {
   /// The yes/no statement for [p]: the item's sentence as is when [truth],
   /// otherwise the sentence with the item's word swapped for a distractor's
   /// (the article before each swapped word is fixed to "a" / "an"). Without a
-  /// usable sentence the statement is the bare claimed word.
+  /// usable sentence the statement is the bare word / bare claimed word.
+  ///
+  /// A sentence that would read as nonsense after the swap is not used: claims
+  /// whose word already appears in it are skipped, and when the item's word
+  /// follows a / an only claims that the content itself uses with an article
+  /// qualify (so no "a tennis", "a chips"). With no claim left, the false
+  /// statement is a valid distractor's bare word.
   ({String text, bool isTrue}) _statement(_Pair p, {required bool truth}) {
     final item = p.item;
     if (truth) {
       return (text: p.sentence ?? item.word, isTrue: true);
     }
-    final claims = _claims(item);
-    final claim = claims[_rng.nextInt(claims.length)];
+    var claims = _claims(item);
     final sentence = p.sentence;
+    if (sentence != null) {
+      final withArticle = _articleBefore(item.word).hasMatch(sentence);
+      final usable = [
+        for (final c in claims)
+          if (!_wordRe(c.word).hasMatch(sentence) &&
+              (!withArticle || _countable(c)))
+            c,
+      ];
+      if (usable.isEmpty) {
+        final bare = claims[_rng.nextInt(claims.length)];
+        return (text: bare.word, isTrue: false);
+      }
+      claims = usable;
+    }
+    final claim = claims[_rng.nextInt(claims.length)];
     if (sentence == null) return (text: claim.word, isTrue: false);
     final swap = RegExp(
       r'(?:(?<![\p{L}\p{N}_])(an|a)(\s+))?' + _wordRe(item.word).pattern,
@@ -417,6 +437,18 @@ class QuestionGenerator {
     }
     return out;
   }
+
+  /// "a" / "an" directly before [w] (whole word, case-insensitive).
+  static RegExp _articleBefore(String w) => RegExp(
+    r'(?<![\p{L}\p{N}_])(?:an|a)\s+' + _wordRe(w).pattern,
+    caseSensitive: false,
+    unicode: true,
+  );
+
+  /// True when one of [c]'s own sentences uses its word after a / an, i.e.
+  /// the content treats it as a countable singular noun.
+  bool _countable(ContentItem c) =>
+      c.sentencePatterns.any((s) => _articleBefore(c.word).hasMatch(s));
 
   String _blank(_Pair p, String repl) =>
       p.sentence!.replaceFirst(_wordRe(p.item.word), repl);
@@ -620,9 +652,12 @@ class QuestionGenerator {
         return item.image == null ? null : '';
       case QuestionForm.trueFalse:
         if (item.image == null || _claims(item).isEmpty) return null;
+        // The item's word exactly once (same rule as fillBlank): a repeated
+        // word reads as nonsense once swapped ("The desk is on the desk").
+        // Otherwise the statement is the bare word.
         final re = _wordRe(item.word);
         for (final s in item.sentencePatterns) {
-          if (re.hasMatch(s)) return s;
+          if (re.allMatches(s).length == 1) return s;
         }
         return '';
       case QuestionForm.popWord:
