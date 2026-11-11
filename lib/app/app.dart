@@ -7,6 +7,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../audio/audio_service.dart';
+import '../content/action_config.dart';
 import '../content/content_repository.dart';
 import '../content/curriculum.dart';
 import '../content/models.dart';
@@ -46,6 +47,7 @@ class AppDependencies {
     required this.audio,
     required this.repo,
     required this.levels,
+    this.actions,
     PoseFrameSource Function()? sourceFactory,
     TickerFactory? ticker,
     this.wakelock = const WakelockPlusAdapter(),
@@ -70,6 +72,10 @@ class AppDependencies {
   final AudioService audio;
   final ContentRepository repo;
   final List<LevelConfig> levels;
+
+  /// The puppySays commands; null when they failed to load (the mode is then
+  /// unavailable, nothing else is affected).
+  final ActionConfig? actions;
 
   /// A fresh camera/pose source for each play flow.
   final PoseFrameSource Function() sourceFactory;
@@ -130,6 +136,12 @@ class AppDependencies {
     final prefs = await SharedPreferences.getInstance();
     final manifest = await AssetManifest.loadFromAssetBundle(b);
     final assets = manifest.listAssets().toSet();
+    ActionConfig? actions;
+    try {
+      actions = await ActionConfig.load(b);
+    } catch (e) {
+      debugPrint('Loading the puppySays actions failed: $e');
+    }
     return AppDependencies(
       store: ProgressStore(prefs),
       audio: AudioService(
@@ -139,6 +151,7 @@ class AppDependencies {
       ),
       repo: await ContentRepository.loadFromAssets(b),
       levels: await LevelConfig.load(b),
+      actions: actions,
       speech: OnDeviceSpeechSource(SpeechToTextBackend()),
     );
   }
@@ -443,6 +456,7 @@ class _RootState extends State<_Root> with WidgetsBindingObserver {
           repo: _d.repo,
           audio: _d.audio,
           ticker: _d.ticker,
+          actions: _d.actions,
           rng: _d.rng,
           welcome: _d.welcome,
         );
@@ -602,6 +616,7 @@ class _RootState extends State<_Root> with WidgetsBindingObserver {
             sayItAvailable:
                 _sayItAvailability == SpeechAvailability.available &&
                 _d.store.sayItEnabled,
+            puppySaysAvailable: _d.actions != null && _d.store.puppySaysEnabled,
             onPick: (m) => _onPicked(picker.$1, picker.$2, m),
             onBack: () => setState(() => _picker = null),
           ),

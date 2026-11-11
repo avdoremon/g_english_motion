@@ -10,15 +10,25 @@ void main() {
     const mf = ModeKind.memoryFlip, bp = ModeKind.balloonPop;
     const ds = ModeKind.dragSpell, ss = ModeKind.skyShoot;
     const say = ModeKind.sayIt, yn = ModeKind.yesNo;
+    const pup = ModeKind.puppySays;
     const expected = <int, Set<ModeKind>>{
-      1: {lj, ci, yn, say},
-      2: {lj, ci, mf, yn, say},
+      1: {lj, ci, yn, say, pup},
+      2: {lj, ci, mf, yn, say, pup},
       3: {mf, bp, ds, ss, yn, say},
       4: {mf, bp, ds, ss, yn, say},
       5: {mf, bp, ds, ss, yn, say},
     };
     for (final e in expected.entries) {
       expect(modesForGrade(e.key), e.value, reason: 'grade ${e.key}');
+    }
+  });
+
+  test('puppySays is a camera mode for grades 1-2 only', () {
+    final info = kModeInfos.firstWhere((i) => i.mode == ModeKind.puppySays);
+    expect(info.title, 'Theo Pup');
+    expect((info.minGrade, info.maxGrade, info.usesCamera), (1, 2, true));
+    for (var g = 1; g <= 5; g++) {
+      expect(defaultModesForGrade(g), isNot(contains(ModeKind.puppySays)));
     }
   });
 

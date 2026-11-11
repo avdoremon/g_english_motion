@@ -69,6 +69,13 @@ const List<ModeInfo> kModeInfos = [
     usesCamera: true,
   ),
   ModeInfo(
+    mode: ModeKind.puppySays,
+    title: 'Theo Pup',
+    minGrade: 1,
+    maxGrade: 2,
+    usesCamera: true,
+  ),
+  ModeInfo(
     mode: ModeKind.sayIt,
     title: 'Luyện nói',
     minGrade: 1,

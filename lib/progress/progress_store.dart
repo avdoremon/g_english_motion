@@ -13,6 +13,7 @@ import '../input/confirm_gesture.dart';
 /// - `progress.unit.g{grade}`            int >= 1
 /// - `progress.confirmGesture`           string (ConfirmGesture.name)
 /// - `progress.sayIt`                    bool
+/// - `progress.puppySays`                bool
 /// - `progress.safetyAck`                bool
 /// - `progress.playMs`                   int (play time towards a break)
 /// - `progress.playAt`                   int (ms since epoch, last update)
@@ -41,6 +42,7 @@ class ProgressStore implements HistoryStore {
   static const _wrongKey = 'history.wrong';
   static const _gestureKey = 'progress.confirmGesture';
   static const _sayItKey = 'progress.sayIt';
+  static const _puppySaysKey = 'progress.puppySays';
   static const _safetyKey = 'progress.safetyAck';
   static const _playMsKey = 'progress.playMs';
   static const _playAtKey = 'progress.playAt';
@@ -172,6 +174,14 @@ class ProgressStore implements HistoryStore {
   }
 
   Future<void> setSayItEnabled(bool v) => _set(_sayItKey, v);
+
+  /// Parent switch for the puppySays mode (default off).
+  bool get puppySaysEnabled {
+    final v = _get(_puppySaysKey);
+    return v is bool ? v : false;
+  }
+
+  Future<void> setPuppySaysEnabled(bool v) => _set(_puppySaysKey, v);
 
   // ---- play time towards the break reminder ----
   //

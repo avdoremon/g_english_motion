@@ -168,6 +168,34 @@ Full facts and sources: [pose-plugin-evaluation.md](pose-plugin-evaluation.md).
 - Gradle/AGP compatibility is verified by CI (debug APK builds); nothing has
   been run on a device.
 
+## puppySays "Theo Pup" (experimental)
+
+- **Off by default.** It plays only when the parent switch "Trò Theo Pup (thử
+  nghiệm)" is on and `assets/config/actions.json` loaded; grades 1 and 2 only,
+  and always alone (never in the mix or the shuffle).
+- **Thresholds unverified on a device.** The jump, hands-up, clap and squat
+  detectors are tuned on synthetic poses only. The measurement plan and the
+  go/no-go bar are in [device-spike-actions.md](device-spike-actions.md).
+- **No skeleton overlay.** The spec (section 2) calls for joints only; it is
+  not built, and no camera image is shown anywhere on the screen.
+- **No touch fallback.** Every command must be answered with the body; a child
+  who cannot perform an action just waits for "Hết giờ" and the hint (never
+  marked wrong). A tap on the screen does nothing.
+- **Knees are not smoothed.** Squat reads the mid-hip height from single
+  frames (confidence-gated and held for 300 ms), with no filtering of the
+  landmarks, so jitter near the threshold can delay or miss a squat.
+
+- **puppySays clap uses a torso/hip fallback.** When the shoulders or hips
+  are not reliable, clap measures hand travel against a fallback body size
+  that is only approximate; a child with small, relaxed hand movement at
+  about 15 fps may be missed (see device-spike-actions.md).
+- **Squat grace at low fps.** The squat hold (300 ms) tolerates a landmark
+  dropout of 150 ms; at about 15 fps one missing frame is already 67 ms, so
+  two lost frames restart the hold. The squat baseline now follows steps and
+  slow walking, but a very sudden move of more than a quarter of the torso
+  (a tracking jump) can still count as one false squat, and a squat held for
+  more than 3 s is taken as the new rest position.
+
 ## Not implemented yet
 
 - LaneJump is not part of the grade 3-5 mix.

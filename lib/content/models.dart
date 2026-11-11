@@ -7,6 +7,7 @@ enum ModeKind {
   memoryFlip,
   balloonPop,
   yesNo,
+  puppySays,
 }
 
 class ContentItem {

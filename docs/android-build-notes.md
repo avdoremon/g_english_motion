@@ -90,3 +90,8 @@ If it does not take effect, check the built APK with `unzip -l` for the
 `.task` files; with `android.newDsl=false` the older spelling is
 `aaptOptions { ignoreAssetsPattern = ... }`. Re-check `MpPoseLandmarkerBackend`
 (`setConfig` model index) before shipping with fewer models.
+
+## Release hardening
+
+Release builds use R8 (minify + shrink) with `android/app/proguard-rules.pro`
+and sign from `android/key.properties` when present. See `docs/release.md`.

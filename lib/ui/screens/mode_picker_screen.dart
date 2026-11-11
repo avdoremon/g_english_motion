@@ -11,6 +11,8 @@ import '../theme/app_theme.dart';
 ///
 /// SayIt is listed only when [sayItAvailable] (the same condition under which
 /// Home shows "Luyện nói"); the app starts it through its own SayIt path.
+/// puppySays ("Theo Pup", experimental) is listed only when
+/// [puppySaysAvailable] (parent switch on and its actions loaded).
 class ModePickerScreen extends StatelessWidget {
   const ModePickerScreen({
     super.key,
@@ -19,6 +21,7 @@ class ModePickerScreen extends StatelessWidget {
     required this.onPick,
     required this.onBack,
     this.sayItAvailable = false,
+    this.puppySaysAvailable = false,
   });
 
   final int grade, level;
@@ -26,7 +29,7 @@ class ModePickerScreen extends StatelessWidget {
   /// `null` means "Trộn ngẫu nhiên": every camera mode valid for the grade.
   final void Function(ModeKind? mode) onPick;
   final VoidCallback onBack;
-  final bool sayItAvailable;
+  final bool sayItAvailable, puppySaysAvailable;
 
   static const _columns = 3;
   static const _gap = 14.0;
@@ -67,6 +70,7 @@ class ModePickerScreen extends StatelessWidget {
     switch (i.mode) {
       case ModeKind.laneJump:
       case ModeKind.catchIt:
+      case ModeKind.puppySays:
         return Icons.accessibility_new;
       default:
         return Icons.back_hand;
@@ -81,7 +85,9 @@ class ModePickerScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final infos = [
       for (final i in kModeInfos)
-        if (i.mode != ModeKind.sayIt || sayItAvailable) i,
+        if ((i.mode != ModeKind.puppySays || puppySaysAvailable) &&
+            (i.mode != ModeKind.sayIt || sayItAvailable))
+          i,
     ];
     final valid = modesForGrade(grade);
     final tiles = <_ModeTile>[

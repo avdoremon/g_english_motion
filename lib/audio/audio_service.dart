@@ -105,6 +105,16 @@ class AudioService {
     });
   }
 
+  /// Shows [text] as a caption only (no speech, no clip), in queue order.
+  Future<void> showCaption(String text) {
+    if (_disposed) return Future<void>.value();
+    if (_muted) {
+      _emit(text);
+      return Future<void>.value();
+    }
+    return _enqueue(() async => _emit(text));
+  }
+
   Future<void> playLine(VoiceLine l) {
     if (_disposed) return Future<void>.value();
     if (_muted) {

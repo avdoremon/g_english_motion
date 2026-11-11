@@ -70,7 +70,11 @@ class CatchItRound implements Round {
         _playerPresent = false;
       case PlayerFound():
         _playerPresent = true;
-      case Confirmed() || CursorMoved() || Pulled() || HandRaised():
+      case Confirmed() ||
+          CursorMoved() ||
+          Pulled() ||
+          HandRaised() ||
+          ActionPerformed():
         break;
     }
   }

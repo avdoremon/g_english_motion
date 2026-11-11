@@ -43,6 +43,7 @@ class Scoring {
       ModeKind.dragSpell => base + 3000 * slots,
       ModeKind.catchIt || ModeKind.yesNo => base,
       ModeKind.memoryFlip || ModeKind.balloonPop => base * 3 ~/ 2,
+      ModeKind.puppySays => base * 2,
     };
     return Duration(milliseconds: ms);
   }
