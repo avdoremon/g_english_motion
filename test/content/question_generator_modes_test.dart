@@ -207,4 +207,397 @@ void main() {
       }
     });
   });
+
+  group('trueFalse (yesNo)', () {
+    const words = [
+      'dog',
+      'apple',
+      'cat',
+      'umbrella',
+      'book',
+      'egg',
+      'bag',
+      'orange',
+      'pen',
+      'ice cream',
+      'ant',
+      'hat',
+    ];
+    String art(String w) => 'aeiou'.contains(w[0]) ? 'an' : 'a';
+
+    Unit ynUnit(
+      int grade,
+      int index, {
+      bool sentences = true,
+      List<String> extraPatterns = const [],
+      List<String>? only,
+    }) {
+      final p = 'g${grade}u$index';
+      final ws = only ?? words;
+      return Unit(
+        grade: grade,
+        index: index,
+        id: 'u${index.toString().padLeft(2, '0')}',
+        title: p,
+        items: [
+          for (var i = 0; i < ws.length; i++)
+            ContentItem(
+              id: '$p-${ws[i]}',
+              word: ws[i],
+              ttsText: ws[i],
+              image: 'assets/${ws[i]}.png',
+              sentencePatterns: sentences
+                  ? ['This is ${art(ws[i])} ${ws[i]}', ...extraPatterns]
+                  : const [],
+              distractorIds: [
+                '$p-${ws[(i + 1) % ws.length]}',
+                '$p-${ws[(i + 2) % ws.length]}',
+              ],
+              modes: const [ModeKind.yesNo],
+            ),
+        ],
+      );
+    }
+
+    List<PlannedQuestion> ynPlan(
+      ContentRepository repo, {
+      int seed = 1,
+      int grade = 1,
+      int count = 10,
+      int unit = 2,
+    }) => QuestionGenerator(repo, InMemoryHistoryStore(), Random(seed)).plan(
+      level: _level(count: count),
+      pos: CurriculumPosition(grade: grade, currentUnitIndex: unit),
+      modes: {ModeKind.yesNo},
+    );
+
+    ContentRepository repoOf({bool sentences = true, int grade = 1}) =>
+        ContentRepository([
+          ynUnit(grade, 1, sentences: sentences),
+          ynUnit(grade, 2, sentences: sentences),
+        ]);
+
+    bool hasWord(String text, String w) => RegExp(
+      '(?<![a-z])${RegExp.escape(w)}(?![a-z])',
+      caseSensitive: false,
+    ).hasMatch(text);
+
+    test('two silent choices, picture prompt, statement as prompt and tts', () {
+      final repo = repoOf();
+      for (var seed = 0; seed < 10; seed++) {
+        final plan = ynPlan(repo, seed: seed);
+        expect(plan, hasLength(10));
+        for (final pq in plan) {
+          expect(pq.mode, ModeKind.yesNo);
+          final q = pq.question as ChoiceQuestion;
+          expect(q.form, QuestionForm.trueFalse);
+          expect(q.choices, hasLength(2));
+          for (final c in q.choices) {
+            expect(c.itemId, q.itemId);
+            expect(c.showPicture, isFalse);
+            expect(c.showWord, isFalse);
+          }
+          expect(q.promptImageItemId, q.itemId);
+          expect(q.promptText, isNotNull);
+          expect(q.ttsText, q.promptText);
+          expect(q.correctIndex, anyOf(0, 1));
+        }
+      }
+    });
+
+    test('true and false statements differ by at most one per plan', () {
+      final repo = repoOf();
+      for (final count in [1, 2, 7, 8, 10, 11]) {
+        for (var seed = 0; seed < 20; seed++) {
+          final plan = ynPlan(repo, seed: seed, count: count);
+          final trues = plan
+              .where((p) => (p.question as ChoiceQuestion).correctIndex == 0)
+              .length;
+          final falses = plan.length - trues;
+          expect(
+            (trues - falses).abs(),
+            lessThanOrEqualTo(1),
+            reason: 'count $count seed $seed',
+          );
+        }
+      }
+    });
+
+    test('balance is deterministic per seed and varies across seeds', () {
+      final repo = repoOf();
+      List<int> order(int seed) => [
+        for (final p in ynPlan(repo, seed: seed))
+          (p.question as ChoiceQuestion).correctIndex,
+      ];
+      expect(order(3), order(3));
+      expect(
+        {for (var s = 0; s < 20; s++) order(s).join()}.length,
+        greaterThan(1),
+      );
+    });
+
+    test(
+      'true statement has the item word; false has a distractor, not it',
+      () {
+        final repo = repoOf();
+        var trues = 0, falses = 0;
+        for (var seed = 0; seed < 20; seed++) {
+          for (final pq in ynPlan(repo, seed: seed)) {
+            final q = pq.question as ChoiceQuestion;
+            final word = repo.byId(q.itemId).word;
+            final text = q.promptText!;
+            if (q.correctIndex == 0) {
+              trues++;
+              expect(hasWord(text, word), isTrue, reason: text);
+            } else {
+              falses++;
+              expect(hasWord(text, word), isFalse, reason: text);
+              final own = repo.byId(q.itemId).distractorIds;
+              final claimed = [for (final id in own) repo.byId(id).word];
+              expect(
+                claimed.any((w) => hasWord(text, w)),
+                isTrue,
+                reason: text,
+              );
+            }
+          }
+        }
+        expect(trues, greaterThan(0));
+        expect(falses, greaterThan(0));
+      },
+    );
+
+    test('a/an agrees with the swapped word', () {
+      final repo = repoOf();
+      final bad = RegExp(
+        r'\b(a) [aeiou]|\b(an) [^aeiou]',
+        caseSensitive: false,
+      );
+      for (var seed = 0; seed < 30; seed++) {
+        for (final pq in ynPlan(repo, seed: seed)) {
+          final t = (pq.question as ChoiceQuestion).promptText!;
+          expect(bad.hasMatch(t), isFalse, reason: t);
+        }
+      }
+      // Both directions occur: an -> a and a -> an.
+      final texts = {
+        for (var seed = 0; seed < 30; seed++)
+          for (final pq in ynPlan(repo, seed: seed))
+            (pq.question as ChoiceQuestion).promptText!,
+      };
+      expect(texts.any((t) => t.startsWith('This is an ')), isTrue);
+      expect(texts.any((t) => t.startsWith('This is a ')), isTrue);
+    });
+
+    test('only the swapped word\'s article is fixed', () {
+      const ws = ['dog', 'cat', 'bag', 'hat', 'pen', 'book'];
+      final repo = ContentRepository([
+        ynUnit(1, 1, only: ws, extraPatterns: const []),
+        Unit(
+          grade: 1,
+          index: 2,
+          id: 'u02',
+          title: 'g1u2',
+          items: [
+            for (var i = 0; i < ws.length; i++)
+              ContentItem(
+                id: 'g1u2-${ws[i]}',
+                word: ws[i],
+                ttsText: ws[i],
+                image: 'a.png',
+                sentencePatterns: ['A man has a ${ws[i]} and a rug'],
+                distractorIds: ['g1u2-${ws[(i + 1) % ws.length]}'],
+                modes: const [ModeKind.yesNo],
+              ),
+          ],
+        ),
+      ]);
+      for (var seed = 0; seed < 20; seed++) {
+        for (final pq in ynPlan(repo, seed: seed, unit: 2)) {
+          final q = pq.question as ChoiceQuestion;
+          if (!q.itemId.startsWith('g1u2')) continue;
+          expect(q.promptText, startsWith('A man has a '));
+          expect(q.promptText, endsWith(' and a rug'));
+        }
+      }
+    });
+
+    test('an article-less swap and a capitalised word keep their case', () {
+      final repo = ContentRepository([
+        Unit(
+          grade: 1,
+          index: 1,
+          id: 'u01',
+          title: 'g1u1',
+          items: [
+            for (final (i, w) in ['dog', 'cat', 'bag', 'hat'].indexed)
+              ContentItem(
+                id: 'g1u1-$w',
+                word: w,
+                ttsText: w,
+                image: 'a.png',
+                sentencePatterns: [
+                  '${w[0].toUpperCase()}${w.substring(1)} is here',
+                ],
+                distractorIds: [
+                  'g1u1-${['dog', 'cat', 'bag', 'hat'][(i + 1) % 4]}',
+                ],
+                modes: const [ModeKind.yesNo],
+              ),
+          ],
+        ),
+      ]);
+      for (var seed = 0; seed < 10; seed++) {
+        for (final pq in ynPlan(repo, seed: seed, count: 4, unit: 1)) {
+          final t = (pq.question as ChoiceQuestion).promptText!;
+          expect(t, matches(RegExp(r'^[A-Z][a-z]+ is here$')), reason: t);
+        }
+      }
+    });
+
+    test('no usable sentence falls back to the bare claimed word', () {
+      final repo = repoOf(sentences: false);
+      for (var seed = 0; seed < 10; seed++) {
+        for (final pq in ynPlan(repo, seed: seed)) {
+          final q = pq.question as ChoiceQuestion;
+          final word = repo.byId(q.itemId).word;
+          expect(q.promptText, q.ttsText);
+          if (q.correctIndex == 0) {
+            expect(q.promptText, word);
+          } else {
+            expect(q.promptText, isNot(word));
+            expect(
+              repo.byId(q.itemId).distractorIds.map((d) => repo.byId(d).word),
+              contains(q.promptText),
+            );
+          }
+        }
+      }
+    });
+
+    test('a pattern without the item word falls back to the bare word', () {
+      final repo = ContentRepository([
+        for (final u in [1, 2])
+          Unit(
+            grade: 1,
+            index: u,
+            id: 'u0$u',
+            title: 'g1u$u',
+            items: [
+              for (final (i, w) in ['dog', 'cat', 'bag', 'hat'].indexed)
+                ContentItem(
+                  id: 'g1u$u-$w',
+                  word: w,
+                  ttsText: w,
+                  image: 'a.png',
+                  sentencePatterns: const ['Nothing relevant here'],
+                  distractorIds: [
+                    'g1u$u-${['dog', 'cat', 'bag', 'hat'][(i + 1) % 4]}',
+                  ],
+                  modes: const [ModeKind.yesNo],
+                ),
+            ],
+          ),
+      ]);
+      for (final pq in ynPlan(repo, count: 8)) {
+        final q = pq.question as ChoiceQuestion;
+        expect(q.promptText, isNot(contains('Nothing')));
+        expect(q.promptText, q.ttsText);
+      }
+    });
+
+    test('a distractor containing the item word is never the false claim', () {
+      // "ice" appears inside "ice cream": a false claim of "ice cream" would
+      // still show the item word "ice".
+      final repo = ContentRepository([
+        Unit(
+          grade: 1,
+          index: 1,
+          id: 'u01',
+          title: 'g1u1',
+          items: [
+            ContentItem(
+              id: 'ice',
+              word: 'ice',
+              ttsText: 'ice',
+              image: 'a.png',
+              sentencePatterns: const ['I like ice'],
+              distractorIds: const ['icecream', 'dog'],
+              modes: const [ModeKind.yesNo],
+            ),
+            ContentItem(
+              id: 'icecream',
+              word: 'ice cream',
+              ttsText: 'ice cream',
+              image: 'a.png',
+              sentencePatterns: const ['I like ice cream'],
+              distractorIds: const ['dog'],
+              modes: const [ModeKind.yesNo],
+            ),
+            ContentItem(
+              id: 'dog',
+              word: 'dog',
+              ttsText: 'dog',
+              image: 'a.png',
+              sentencePatterns: const ['I like dog'],
+              distractorIds: const ['ice'],
+              modes: const [ModeKind.yesNo],
+            ),
+          ],
+        ),
+      ]);
+      for (var seed = 0; seed < 20; seed++) {
+        for (final pq in ynPlan(repo, seed: seed, count: 6, unit: 1)) {
+          final q = pq.question as ChoiceQuestion;
+          if (q.itemId != 'ice' || q.correctIndex == 0) continue;
+          expect(q.promptText, 'I like dog');
+        }
+      }
+    });
+
+    test('item with no image or no usable distractor is never asked', () {
+      final repo = ContentRepository([
+        Unit(
+          grade: 1,
+          index: 1,
+          id: 'u01',
+          title: 'g1u1',
+          items: [
+            for (final w in ['dog', 'cat', 'bag', 'hat'])
+              ContentItem(
+                id: w,
+                word: w,
+                ttsText: w,
+                image: w == 'dog' ? null : 'a.png',
+                sentencePatterns: ['I see $w'],
+                distractorIds: [w == 'cat' ? 'cat' : 'dog'],
+                modes: const [ModeKind.yesNo],
+              ),
+          ],
+        ),
+      ]);
+      for (var seed = 0; seed < 10; seed++) {
+        for (final pq in ynPlan(repo, seed: seed, count: 6, unit: 1)) {
+          expect(pq.question.itemId, isNot('dog'), reason: 'no image');
+        }
+      }
+    });
+
+    test('no item is asked more than twice (widened pool)', () {
+      // Unit 2 alone has 3 items; the pool widens to the whole grade.
+      final repo = ContentRepository([
+        ynUnit(1, 1),
+        ynUnit(1, 2, only: ['dog', 'cat', 'bag']),
+      ]);
+      for (var seed = 0; seed < 20; seed++) {
+        final plan = ynPlan(repo, seed: seed, count: 8);
+        expect(plan, hasLength(8));
+        final counts = <String, int>{};
+        for (final pq in plan) {
+          counts.update(pq.question.itemId, (c) => c + 1, ifAbsent: () => 1);
+        }
+        expect(counts.values.every((c) => c <= 2), isTrue, reason: '$counts');
+      }
+    });
+  });
 }

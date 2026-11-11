@@ -19,6 +19,7 @@ const _modeForms = <ModeKind, List<QuestionForm>>{
   ModeKind.catchIt: [QuestionForm.listenPickPicture],
   ModeKind.memoryFlip: [QuestionForm.memoryMatch],
   ModeKind.balloonPop: [QuestionForm.popWord],
+  ModeKind.yesNo: [QuestionForm.trueFalse],
 };
 
 /// One (item x form) candidate; [modes] are the requested modes that can host it.
@@ -260,6 +261,14 @@ class QuestionGenerator {
   ) {
     final out = <PlannedQuestion>[];
     int? prev1, prev2;
+    // True / false statements are balanced over the plan (counts differ by at
+    // most one), in a random order.
+    final tfCount = ordered
+        .where((k) => k.pair.form == QuestionForm.trueFalse)
+        .length;
+    final tfTruths = [for (var i = 0; i < tfCount; i++) i.isEven]
+      ..shuffle(_rng);
+    var tfNext = 0;
     for (final k in ordered) {
       final item = k.pair.item;
       final Question q;
@@ -279,6 +288,25 @@ class QuestionGenerator {
             ttsText: k.pair.sentence!,
             words: _scramble(answer),
             answer: answer,
+          );
+        case QuestionForm.trueFalse:
+          final statement = _statement(k.pair, truth: tfTruths[tfNext++]);
+          q = ChoiceQuestion(
+            itemId: item.id,
+            form: QuestionForm.trueFalse,
+            ttsText: statement.text,
+            promptText: statement.text,
+            promptImageItemId: item.id,
+            // Choice 0 = Đúng, 1 = Sai; the screen labels them itself.
+            choices: [
+              for (var i = 0; i < 2; i++)
+                ChoiceOption(
+                  itemId: item.id,
+                  showPicture: false,
+                  showWord: false,
+                ),
+            ],
+            correctIndex: statement.isTrue ? 0 : 1,
           );
         case QuestionForm.memoryMatch:
         case QuestionForm.popWord:
@@ -335,6 +363,57 @@ class QuestionGenerator {
           );
       }
       out.add(PlannedQuestion(mode: k.mode!, question: q));
+    }
+    return out;
+  }
+
+  /// The yes/no statement for [p]: the item's sentence as is when [truth],
+  /// otherwise the sentence with the item's word swapped for a distractor's
+  /// (the article before each swapped word is fixed to "a" / "an"). Without a
+  /// usable sentence the statement is the bare claimed word.
+  ({String text, bool isTrue}) _statement(_Pair p, {required bool truth}) {
+    final item = p.item;
+    if (truth) {
+      return (text: p.sentence ?? item.word, isTrue: true);
+    }
+    final claims = _claims(item);
+    final claim = claims[_rng.nextInt(claims.length)];
+    final sentence = p.sentence;
+    if (sentence == null) return (text: claim.word, isTrue: false);
+    final swap = RegExp(
+      r'(?:(?<![\p{L}\p{N}_])(an|a)(\s+))?' + _wordRe(item.word).pattern,
+      caseSensitive: false,
+      unicode: true,
+    );
+    final text = sentence.replaceAllMapped(swap, (m) {
+      final article = m.group(1);
+      final gap = m.group(2) ?? '';
+      final matched = m[0]!.substring((article?.length ?? 0) + gap.length);
+      var word = claim.word;
+      if (matched.isNotEmpty && matched[0] != matched[0].toLowerCase()) {
+        word = word[0].toUpperCase() + word.substring(1);
+      }
+      if (article == null) return word;
+      var fixed = 'aeiou'.contains(claim.word[0].toLowerCase()) ? 'an' : 'a';
+      if (article[0] != article[0].toLowerCase()) {
+        fixed = fixed[0].toUpperCase() + fixed.substring(1);
+      }
+      return '$fixed$gap$word';
+    });
+    return (text: text, isTrue: false);
+  }
+
+  /// Distractors of [item] that can serve as a false claim: not the item
+  /// itself, and their word does not contain the item's word (or the false
+  /// statement would still show it).
+  List<ContentItem> _claims(ContentItem item) {
+    final re = _wordRe(item.word);
+    final out = <ContentItem>[];
+    final words = <String>{};
+    for (final id in item.distractorIds) {
+      final c = _repo.byId(id);
+      if (c.id == item.id || c.word.isEmpty || re.hasMatch(c.word)) continue;
+      if (words.add(c.word.toLowerCase())) out.add(c);
     }
     return out;
   }
@@ -539,6 +618,13 @@ class QuestionGenerator {
         return '';
       case QuestionForm.memoryMatch:
         return item.image == null ? null : '';
+      case QuestionForm.trueFalse:
+        if (item.image == null || _claims(item).isEmpty) return null;
+        final re = _wordRe(item.word);
+        for (final s in item.sentencePatterns) {
+          if (re.hasMatch(s)) return s;
+        }
+        return '';
       case QuestionForm.popWord:
         if (item.image == null) return null;
         return _popNeighbours(item, grade).length >= 2 ? '' : null;

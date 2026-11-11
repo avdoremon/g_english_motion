@@ -114,6 +114,30 @@ class TagModesTest(unittest.TestCase):
         self.assertNotIn('memoryFlip', m)
         self.assertNotIn('catchIt', m)
 
+    def test_yes_no_needs_image_and_one_valid_distractor(self):
+        self.fixture()
+        self.write('grade3/u02.json', unit(3, [
+            item('g3u02-self', 'owl', distractors=('g3u02-self',)),
+            item('g3u02-ghost', 'fox', distractors=('nope',)),
+            item('g3u02-one', 'ant', distractors=('nope', 'g3u01-cat')),
+        ]))
+        tag_modes.run(self.root, check=False)
+        m = self.modes('grade3/u01.json', 'g3u01-fewd')
+        self.assertIn('yesNo', m)  # one valid distractor is enough
+        self.assertNotIn('memoryFlip', m)
+        self.assertNotIn('yesNo', self.modes('grade3/u01.json', 'g3u01-noimg'))
+        self.assertNotIn('yesNo', self.modes('grade3/u02.json', 'g3u02-self'))
+        self.assertNotIn('yesNo', self.modes('grade3/u02.json', 'g3u02-ghost'))
+        self.assertIn('yesNo', self.modes('grade3/u02.json', 'g3u02-one'))
+
+    def test_yes_no_never_removed(self):
+        self.fixture()
+        data = json.loads(self.read('grade3/u01.json'))
+        data['items'][4]['modes'].append('yesNo')  # no image: not earned
+        self.write('grade3/u01.json', data)
+        tag_modes.run(self.root, check=False)
+        self.assertIn('yesNo', self.modes('grade3/u01.json', 'g3u01-noimg'))
+
     def test_balloon_pop_needs_two_near_words_case_insensitive(self):
         self.fixture()
         tag_modes.run(self.root, check=False)
@@ -137,7 +161,7 @@ class TagModesTest(unittest.TestCase):
         tag_modes.run(self.root, check=False)
         m = self.modes('grade3/u01.json', 'g3u01-cat')
         self.assertEqual(m[0], 'sayIt')
-        self.assertEqual(m, ['sayIt', 'memoryFlip', 'catchIt', 'balloonPop'])
+        self.assertEqual(m, ['sayIt', 'memoryFlip', 'catchIt', 'balloonPop', 'yesNo'])
         # A manually authored tag is never removed, even if no longer earned.
         data = json.loads(self.read('grade3/u01.json'))
         data['items'][3]['modes'].append('balloonPop')

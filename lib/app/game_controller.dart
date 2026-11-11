@@ -26,6 +26,7 @@ import '../modes/lane_jump.dart';
 import '../modes/mode_availability.dart';
 import '../modes/round.dart';
 import '../modes/sky_shoot.dart';
+import '../modes/yes_no.dart';
 import '../progress/progress_store.dart';
 import '../session/level_session.dart';
 
@@ -646,6 +647,13 @@ class GameController extends ChangeNotifier {
             targetRect: _holdRect(q.choices.length),
           );
         }
+      case ModeKind.yesNo:
+        if (q is ChoiceQuestion) {
+          return YesNoRound(
+            q,
+            timeLimit: Scoring.timeFor(level, ModeKind.yesNo),
+          );
+        }
       case ModeKind.balloonPop:
         if (q is ChoiceQuestion) {
           return HoldPickRound(
@@ -950,6 +958,8 @@ class GameController extends ChangeNotifier {
   String? _clipId(Question q) => switch (q) {
     OrderQuestion() => null,
     ChoiceQuestion(form: QuestionForm.fillBlank) => null,
+    // The statement, not the item's word.
+    ChoiceQuestion(form: QuestionForm.trueFalse) => null,
     _ => q.itemId,
   };
 

@@ -100,5 +100,9 @@ void main() {
       Scoring.timeFor(levels[0], ModeKind.sayIt),
       const Duration(seconds: 20),
     );
+    expect(
+      Scoring.timeFor(levels[0], ModeKind.yesNo),
+      Scoring.timeFor(levels[0], ModeKind.laneJump),
+    );
   });
 }

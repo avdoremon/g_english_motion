@@ -79,6 +79,14 @@ void main() {
           it.modes.contains(ModeKind.catchIt)) {
         expect(it.image, isNotNull, reason: '${it.id}: needs an image');
       }
+      if (it.modes.contains(ModeKind.yesNo)) {
+        expect(it.image, isNotNull, reason: '${it.id}: yesNo needs an image');
+        expect(
+          it.distractorIds.where((d) => d != it.id && all.contains(d)),
+          isNotEmpty,
+          reason: '${it.id}: yesNo needs >= 1 valid distractor',
+        );
+      }
       if (it.modes.contains(ModeKind.balloonPop)) {
         expect(it.image, isNotNull, reason: '${it.id}: needs an image');
         expect(
@@ -209,10 +217,11 @@ void main() {
               ModeKind.memoryFlip,
               ModeKind.catchIt,
               ModeKind.balloonPop,
+              ModeKind.yesNo,
             ),
             reason:
                 '${it.id}: grades 1-2 only use laneJump/sayIt/memoryFlip/'
-                'catchIt/balloonPop',
+                'catchIt/balloonPop/yesNo',
           );
         }
         if (it.modes.contains(ModeKind.sayIt)) {
@@ -363,6 +372,7 @@ void main() {
           ModeKind.balloonPop,
           ModeKind.memoryFlip,
           ModeKind.catchIt,
+          ModeKind.yesNo,
         ]) {
           if (!modesForGrade(grade).contains(mode)) continue;
           final gradeItems = {
