@@ -21,6 +21,7 @@ void main() {
     WidgetTester tester, {
     int grade = 1,
     bool sayIt = false,
+    bool puppy = false,
     Size size = const Size(1280, 720),
     double textScale = 1.0,
   }) async {
@@ -39,6 +40,7 @@ void main() {
             grade: grade,
             level: 1,
             sayItAvailable: sayIt,
+            puppySaysAvailable: puppy,
             onPick: picks.add,
             onBack: () => backs++,
           ),
@@ -132,18 +134,28 @@ void main() {
     },
   );
 
-  testWidgets('8 mode tiles (with SayIt) plus shuffle make 9', (tester) async {
-    await pump(tester, grade: 4, sayIt: true);
-    // puppySays has no tile until its parent switch is wired (Task 5).
+  testWidgets('every mode tile (SayIt and Theo Pup on) plus shuffle', (
+    tester,
+  ) async {
+    await pump(tester, grade: 4, sayIt: true, puppy: true);
     expect(kModeInfos, hasLength(9));
     for (final i in kModeInfos) {
-      expect(
-        tile(i.mode),
-        i.mode == ModeKind.puppySays ? findsNothing : findsOneWidget,
-        reason: '${i.mode}',
-      );
+      expect(tile(i.mode), findsOneWidget, reason: '${i.mode}');
     }
     expect(find.byKey(const ValueKey('mode-shuffle')), findsOneWidget);
+  });
+
+  testWidgets('Theo Pup tile only when available; picks puppySays at grade 1; '
+      'locked at grade 4', (tester) async {
+    await pump(tester, grade: 1);
+    expect(tile(ModeKind.puppySays), findsNothing);
+    await pump(tester, grade: 1, puppy: true);
+    expect(enabled(tester, ModeKind.puppySays), isTrue);
+    await tester.tap(tile(ModeKind.puppySays));
+    expect(picks, [ModeKind.puppySays]);
+    await pump(tester, grade: 4, puppy: true);
+    expect(tile(ModeKind.puppySays), findsOneWidget);
+    expect(enabled(tester, ModeKind.puppySays), isFalse);
   });
 
   testWidgets('SayIt tile only when available, and it picks sayIt', (
@@ -166,13 +178,12 @@ void main() {
             tester,
             grade: g,
             sayIt: true,
+            puppy: true,
             size: size,
             textScale: scale,
           );
           expect(tester.takeException(), isNull);
-          for (final i in kModeInfos.where(
-            (i) => i.mode != ModeKind.puppySays,
-          )) {
+          for (final i in kModeInfos) {
             final key = tile(i.mode);
             await tester.ensureVisible(key);
             final r = tester.getRect(key);
@@ -195,10 +206,16 @@ void main() {
           '${size.width.toInt()}x${size.height.toInt()} scale $scale', (
         tester,
       ) async {
-        await pump(tester, grade: 4, sayIt: true, size: size, textScale: scale);
+        await pump(
+          tester,
+          grade: 4,
+          sayIt: true,
+          puppy: true,
+          size: size,
+          textScale: scale,
+        );
         final keys = [
-          for (final i in kModeInfos)
-            if (i.mode != ModeKind.puppySays) tile(i.mode),
+          for (final i in kModeInfos) tile(i.mode),
           find.byKey(const ValueKey('mode-shuffle')),
         ];
         for (final k in keys) {

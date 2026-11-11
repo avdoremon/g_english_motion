@@ -278,6 +278,38 @@ void main() {
     expect(log, contains('tts:ball'));
   });
 
+  group('showCaption', () {
+    test('emits the caption only: no TTS, no clip', () async {
+      existing.add('assets/audio/en/g1u01-ball.m4a');
+      await svc.showCaption('Nhảy lên nào!');
+      await Future<void>.delayed(Duration.zero);
+      expect(captions, ['Nhảy lên nào!']);
+      expect(log, isEmpty);
+    });
+
+    test('keeps queue order after a prior item', () async {
+      tts.speakFor = const Duration(milliseconds: 20);
+      final a = svc.sayEnglish('one');
+      final b = svc.showCaption('hint');
+      await Future<void>.delayed(const Duration(milliseconds: 5));
+      // "one" is still being spoken: the caption waits its turn.
+      expect(captions, ['one']);
+      await Future.wait([a, b]);
+      await Future<void>.delayed(Duration.zero);
+      expect(captions, ['one', 'hint']);
+      expect(log, ['tts:one', 'tts-end:one']);
+    });
+
+    test('is emitted when muted, without touching audio', () async {
+      svc.muteForListening();
+      log.clear();
+      await svc.showCaption('hint');
+      await Future<void>.delayed(Duration.zero);
+      expect(captions, ['hint']);
+      expect(log, isEmpty);
+    });
+  });
+
   test('concurrent calls play in order and never overlap', () async {
     tts.speakFor = const Duration(milliseconds: 20);
     final a = svc.sayEnglish('one');

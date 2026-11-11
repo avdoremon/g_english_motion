@@ -616,6 +616,7 @@ class _RootState extends State<_Root> with WidgetsBindingObserver {
             sayItAvailable:
                 _sayItAvailability == SpeechAvailability.available &&
                 _d.store.sayItEnabled,
+            puppySaysAvailable: _d.actions != null && _d.store.puppySaysEnabled,
             onPick: (m) => _onPicked(picker.$1, picker.$2, m),
             onBack: () => setState(() => _picker = null),
           ),

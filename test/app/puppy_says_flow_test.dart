@@ -86,6 +86,22 @@ void main() {
       expect(h.controller.activeModes, defaultModesForGrade(3));
     });
 
+    test('grades 1 and 2 are on, 3 and up are off (flag on)', () async {
+      for (final g in [1, 2, 3, 4, 5]) {
+        await setUp(grade: g);
+        expect(
+          h.controller.activeModes.contains(ModeKind.puppySays),
+          g <= 2,
+          reason: 'grade $g',
+        );
+        if (g > 2) {
+          expect(h.controller.activeModes, defaultModesForGrade(g));
+        }
+        await h.dispose();
+      }
+      await setUp(); // for tearDown
+    });
+
     test('shuffle never includes puppySays, flag on or off', () async {
       for (final on in [true, false]) {
         for (final g in [1, 2, 3]) {
@@ -171,6 +187,8 @@ void main() {
         greaterThan(h.captions.indexOf(VoiceLine.outOfTime.caption)),
       );
       expect(h.captions, isNot(contains(VoiceLine.tryAgain.caption)));
+      // The hint is a caption only: it is never spoken.
+      expect(h.ttsLog.where((e) => e.contains(hint)), isEmpty);
     });
 
     test('a correct answer says no hint and no wrong line', () async {
@@ -218,8 +236,29 @@ void main() {
     test('the lane tracker is not touched', () async {
       await setUp();
       await h.startAndCalibrate();
-      // harnessLevel.choiceCount is 3 and puppySays has no choices.
-      expect(h.controller.selectedLane, 1);
+      final initial = h.controller.selectedLane;
+      expect(initial, 1);
+      endPrompt();
+      // Stand in the left lane for a good while (no action, no timeout).
+      final left = GameHarness.hipXForLane(0, 3);
+      await h.run(
+        const Duration(milliseconds: 1500),
+        pose: (_) => makePose(hipX: left),
+        stopWhen: () => h.controller.session!.lastResult != null,
+      );
+      expect(h.controller.selectedLane, initial);
+    });
+
+    test('control: the same pose does move the lane in laneJump', () async {
+      await setUp(mode: ModeKind.laneJump);
+      await h.startAndCalibrate();
+      final left = GameHarness.hipXForLane(0, 3);
+      h.controller.session!.onPromptFinished();
+      await h.run(
+        const Duration(milliseconds: 1500),
+        pose: (_) => makePose(hipX: left),
+      );
+      expect(h.controller.selectedLane, 0);
     });
 
     test('a real clap pose sequence answers a clap command', () async {

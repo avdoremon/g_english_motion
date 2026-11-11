@@ -785,7 +785,9 @@ class GameController extends ChangeNotifier {
   void debugInject(GameInputEvent e) => _dispatch(e);
 
   void _dispatch(GameInputEvent e) {
-    if (e is LaneChanged) {
+    // puppySays has no lanes: the tracker still runs inside PoseSession, but
+    // its lane is not recorded.
+    if (e is LaneChanged && !activeModes.contains(ModeKind.puppySays)) {
       _selectedLane = e.lane;
       // The session drops lane changes outside the playing phase; catchIt
       // grades the lane at the catch line, so keep its round current anyway.
