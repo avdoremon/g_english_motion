@@ -1,4 +1,3 @@
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:g_english_motion/input/clap_detector.dart';
 import 'package:g_english_motion/input/pose_types.dart';
@@ -80,5 +79,55 @@ void main() {
     d.update(apart(), ms(0));
     d.reset();
     expect(d.update(together(), ms(100)), isFalse);
+  });
+
+  test('arms down then hands together at the belly does not clap', () {
+    final d = ClapDetector();
+    // dx 0.2 = 1.25 shoulder widths, wrists below the hips.
+    final down = wrists(0.4, 0.6, ly: 0.65, ry: 0.65);
+    d.update(down, ms(0));
+    d.update(down, ms(100));
+    expect(d.update(wrists(0.49, 0.51, ly: 0.5, ry: 0.5), ms(300)), isFalse);
+    expect(d.update(together(), ms(400)), isFalse);
+  });
+
+  test('arms at hip level (1.25 sw apart) then chest does not clap', () {
+    final d = ClapDetector();
+    final side = wrists(0.4, 0.6, ly: 0.55, ry: 0.55);
+    d.update(side, ms(0));
+    expect(d.update(together(), ms(300)), isFalse);
+  });
+
+  test('wide open arms above the hips then together clap', () {
+    final d = ClapDetector();
+    // dx 0.256 = 1.6 shoulder widths.
+    d.update(wrists(0.372, 0.628), ms(0));
+    expect(d.update(together(), ms(500)), isTrue);
+  });
+
+  test('wide arms but together after more than the window never clap', () {
+    final d = ClapDetector();
+    d.update(wrists(0.372, 0.628), ms(0));
+    expect(d.update(together(), ms(900)), isFalse);
+  });
+
+  test('wide wrists below the hips do not arm the clap', () {
+    final d = ClapDetector();
+    d.update(wrists(0.3, 0.7, ly: 0.8, ry: 0.8), ms(0));
+    expect(d.update(together(), ms(200)), isFalse);
+  });
+
+  test('a degenerate shoulder width is a doubtful frame', () {
+    final d = ClapDetector();
+    d.update(apart(), ms(0));
+    final p = together();
+    final narrow = Pose({
+      ...p.joints,
+      PoseJoint.leftShoulder: const Landmark(0.49, 0.3, 1),
+      PoseJoint.rightShoulder: const Landmark(0.51, 0.3, 1),
+    });
+    expect(d.update(narrow, ms(200)), isFalse);
+    // The window is untouched by the doubtful frame, so a good one fires.
+    expect(d.update(together(), ms(300)), isTrue);
   });
 }

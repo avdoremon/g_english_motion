@@ -51,11 +51,12 @@ void main() {
           if (e.key != PoseJoint.leftHip) e.key: e.value,
       });
       expect(d.update(missing, ms(233)), isFalse);
-      var fired = 0;
+      final fires = <int>[];
       for (var t = 266; t <= 1500; t += 33) {
-        if (d.update(drop(0.3), ms(t))) fired++;
+        if (d.update(drop(0.3), ms(t))) fires.add(t);
       }
-      expect(fired, 1);
+      // The hold counts from the first frame at 0 ms: fires at 332 ms (first frame past 300 ms).
+      expect(fires, [332]);
     },
   );
 
@@ -96,5 +97,15 @@ void main() {
     d.reset();
     expect(d.update(drop(0.3), ms(233)), isFalse);
     expect(run(d, drop(0.3), 266, 700), 1);
+  });
+
+  test('rebaseline moves the baseline and clears hold and latch', () {
+    final d = SquatDetector(cal);
+    expect(run(d, drop(0.3), 0, 600), 1);
+    // Player now rests where the old baseline reads as a deep squat.
+    d.rebaseline(drop(0.3));
+    expect(run(d, drop(0.3), 700, 2000), 0);
+    // A real drop from the new baseline fires.
+    expect(run(d, makePose(hipY: 0.69 + 0.1), 2100, 2800), 1);
   });
 }

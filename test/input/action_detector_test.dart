@@ -1,4 +1,3 @@
-
 import 'package:flutter_test/flutter_test.dart';
 import 'package:g_english_motion/input/action_detector.dart';
 import 'package:g_english_motion/input/calibrator.dart';
@@ -153,5 +152,36 @@ void main() {
     d.rebaseline(makePose(hipY: 0.45));
     final c = run(d, makePose(hipY: 0.45), 0, 300);
     expect(c[PuppyAction.jump], 0);
+  });
+
+  test('rebaseline also rebases the squat baseline', () {
+    final d = ActionDetector(cal);
+    // Player stands 0.1 lower than calibrated (0.333 torso: reads as squat).
+    final low = makePose(hipY: 0.7, kneeY: 0.95);
+    d.rebaseline(low);
+    var c = run(d, low, 0, 1500);
+    expect(c.values.every((v) => v == 0), isTrue);
+    // A real drop from the new rest fires squat.
+    c = run(d, makePose(hipY: 0.8, kneeY: 0.95), 1533, 2300);
+    expect(c[PuppyAction.squat], 1);
+    // And a player standing higher than calibrated: no squat, drop fires.
+    final e = ActionDetector(cal);
+    final high = makePose(hipY: 0.5);
+    e.rebaseline(high);
+    expect(run(e, high, 0, 1500)[PuppyAction.squat], 0);
+    expect(run(e, makePose(hipY: 0.6), 1533, 2300)[PuppyAction.squat], 1);
+  });
+
+  test('jump and handsUp can land on the same frame', () {
+    final d = settled();
+    // Hands up at rest for 480 ms, then the body lifts on the frame that
+    // completes the 500 ms hold.
+    final rest = handsUp();
+    var t = 1300;
+    for (; t < 1300 + 480; t += 30) {
+      expect(d.update(rest, ms(t)), isEmpty);
+    }
+    final both = d.update(handsUp(lift: 0.1), ms(1800));
+    expect(both, {PuppyAction.jump, PuppyAction.handsUp});
   });
 }

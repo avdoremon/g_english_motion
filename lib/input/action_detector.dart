@@ -72,6 +72,11 @@ class ActionDetector {
     _jump.suppressUntil(t);
   }
 
-  /// Takes [p] as the new resting position of the jump detector.
-  void rebaseline(Pose p) => _jump.rebaseline(p);
+  /// Takes [p] as the new resting position of the jump and squat detectors
+  /// (the squat baseline becomes the pose's mid-hip y; the torso height stays
+  /// the calibrated one).
+  void rebaseline(Pose p) {
+    _jump.rebaseline(p);
+    _squat.rebaseline(p);
+  }
 }

@@ -36,6 +36,7 @@ class SquatDetector {
   /// Landmarks below this confidence are not trusted.
   final double minConfidence;
 
+  late double _baselineHipY = calibration.baselineHipY;
   Duration? _since;
   Duration _lastDown = Duration.zero;
   bool _fired = false;
@@ -45,6 +46,18 @@ class SquatDetector {
   void reset() {
     _since = null;
     _doubt = false;
+  }
+
+  /// Takes the pose's mid-hip y as the new standing baseline (the torso height
+  /// stays the calibrated one) and clears the hold, the dropout state and the
+  /// fired latch. Without a reliable mid-hip nothing changes.
+  void rebaseline(Pose p) {
+    final hip = p.midHipY;
+    if (hip == null) return;
+    _baselineHipY = hip;
+    _since = null;
+    _doubt = false;
+    _fired = false;
   }
 
   /// Feed one pose; returns true on the frame a squat is detected.
@@ -61,9 +74,7 @@ class SquatDetector {
       }
       return false;
     }
-    final drop =
-        ((lh.y + rh.y) / 2 - calibration.baselineHipY) /
-        calibration.torsoHeight;
+    final drop = ((lh.y + rh.y) / 2 - _baselineHipY) / calibration.torsoHeight;
     if (drop <= releaseTorso) _fired = false;
     if (drop < dropTorso) {
       reset();
