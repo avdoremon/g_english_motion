@@ -2,6 +2,7 @@ import 'dart:math';
 
 import '../levels/level_config.dart';
 import 'content_repository.dart';
+import 'action_config.dart';
 import 'curriculum.dart';
 import 'edit_distance.dart';
 import 'history_store.dart';
@@ -41,11 +42,14 @@ class _Pick {
 }
 
 class QuestionGenerator {
-  QuestionGenerator(this._repo, this._history, this._rng);
+  QuestionGenerator(this._repo, this._history, this._rng, {this.actions});
 
   final ContentRepository _repo;
   final HistoryStore _history;
   final Random _rng;
+
+  /// The puppySays commands; without them that mode yields no plan.
+  final ActionConfig? actions;
 
   /// Plans [level.questionCount] questions.
   ///
@@ -68,6 +72,14 @@ class QuestionGenerator {
     required Set<ModeKind> modes,
   }) {
     final n = level.questionCount;
+    // puppySays is not item-based. A plan of it alone is built from the action
+    // config; next to other modes it is left out (the item-based plan below is
+    // then exactly what those modes alone would give).
+    if (modes.contains(ModeKind.puppySays)) {
+      final rest = modes.difference({ModeKind.puppySays});
+      if (rest.isEmpty) return _planActions(n, pos.grade);
+      modes = rest;
+    }
     final units = unitsForLevel(_repo, pos, level.window);
     if (n <= 0) return const [];
     var pairs = _pool(units, pos.grade, modes);
@@ -207,6 +219,37 @@ class QuestionGenerator {
     return _build(ordered, level, pos);
   }
 
+  /// [n] [ActionQuestion]s for [grade]: the grade's actions shuffled, cycled
+  /// again (freshly shuffled) when [n] exceeds their number, with no action
+  /// directly after itself. Empty without actions.
+  List<PlannedQuestion> _planActions(int n, int grade) {
+    final defs = actions?.forGrade(grade) ?? const <ActionDef>[];
+    if (n <= 0 || defs.isEmpty) return const [];
+    final order = <ActionDef>[];
+    while (order.length < n) {
+      final cycle = [...defs]..shuffle(_rng);
+      if (order.isNotEmpty && cycle.length > 1 && cycle[0] == order.last) {
+        final t = cycle[0];
+        cycle[0] = cycle[1];
+        cycle[1] = t;
+      }
+      order.addAll(cycle);
+    }
+    return [
+      for (final d in order.take(n))
+        PlannedQuestion(
+          mode: ModeKind.puppySays,
+          question: ActionQuestion(
+            itemId: d.id,
+            ttsText: d.ttsText,
+            command: d.command,
+            hintVi: d.hintVi,
+            action: d.action,
+          ),
+        ),
+    ];
+  }
+
   /// Shuffles within each cycle (so a pair repeats only after the pool is
   /// used up), keeps wrong items off position 0 and splits adjacent repeats.
   List<_Pick> _arrange(List<_Pick> picks, Set<String> wrong) {
@@ -308,6 +351,8 @@ class QuestionGenerator {
             ],
             correctIndex: statement.isTrue ? 0 : 1,
           );
+        case QuestionForm.doAction:
+          throw StateError('doAction questions are not item-based');
         case QuestionForm.memoryMatch:
         case QuestionForm.popWord:
         case QuestionForm.listenPickPicture:
@@ -624,6 +669,8 @@ class QuestionGenerator {
   String? _eligible(ContentItem item, QuestionForm form, int grade) {
     final upper = grade >= 3;
     switch (form) {
+      case QuestionForm.doAction:
+        return null;
       case QuestionForm.listenPickPicture:
       case QuestionForm.seePicturePickWord:
         return item.image == null ? null : '';

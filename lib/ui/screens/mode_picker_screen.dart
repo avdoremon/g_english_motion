@@ -81,7 +81,10 @@ class ModePickerScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final infos = [
       for (final i in kModeInfos)
-        if (i.mode != ModeKind.sayIt || sayItAvailable) i,
+        // puppySays is listed once its parent switch exists (not yet).
+        if (i.mode != ModeKind.puppySays &&
+            (i.mode != ModeKind.sayIt || sayItAvailable))
+          i,
     ];
     final valid = modesForGrade(grade);
     final tiles = <_ModeTile>[

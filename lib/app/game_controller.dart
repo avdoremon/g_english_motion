@@ -19,6 +19,7 @@ import '../input/pose_session.dart';
 import '../input/pose_types.dart';
 import '../levels/level_config.dart';
 import '../levels/scoring.dart';
+import '../modes/action_round.dart';
 import '../modes/catch_it.dart';
 import '../modes/drag_spell.dart';
 import '../modes/hold_pick.dart';
@@ -139,7 +140,8 @@ class GameController extends ChangeNotifier {
     if (shuffle) {
       // "Trộn ngẫu nhiên": every camera mode offered at the grade (SayIt is
       // started separately by the app, never through the controller).
-      final all = modesForGrade(grade).difference({ModeKind.sayIt});
+      final all = modesForGrade(grade)
+          .difference({ModeKind.sayIt, ModeKind.puppySays});
       if (all.isNotEmpty) return all;
     }
     final m = mode;
@@ -655,6 +657,13 @@ class GameController extends ChangeNotifier {
             timeLimit: Scoring.timeFor(level, ModeKind.yesNo),
           );
         }
+      case ModeKind.puppySays:
+        if (q is ActionQuestion) {
+          return ActionRound(
+            q,
+            timeLimit: Scoring.timeFor(level, ModeKind.puppySays),
+          );
+        }
       case ModeKind.balloonPop:
         if (q is ChoiceQuestion) {
           return HoldPickRound(
@@ -976,6 +985,8 @@ class GameController extends ChangeNotifier {
     ChoiceQuestion(form: QuestionForm.fillBlank) => null,
     // The statement, not the item's word.
     ChoiceQuestion(form: QuestionForm.trueFalse) => null,
+    // The command is spoken as is; the action id has no word clip.
+    ActionQuestion() => null,
     _ => q.itemId,
   };
 
@@ -1008,6 +1019,9 @@ class GameController extends ChangeNotifier {
           if (_stillExplaining(pq, review)) {
             await _audio.explainAnswer(_repo.byId(q.itemId));
           }
+        case ActionQuestion():
+          // Nothing to explain: the opening line is the whole feedback.
+          break;
         case OrderQuestion():
           await _audio.playLine(VoiceLine.theAnswerIs);
           if (_stillExplaining(pq, review)) {

@@ -134,9 +134,14 @@ void main() {
 
   testWidgets('8 mode tiles (with SayIt) plus shuffle make 9', (tester) async {
     await pump(tester, grade: 4, sayIt: true);
-    expect(kModeInfos, hasLength(8));
+    // puppySays has no tile until its parent switch is wired (Task 5).
+    expect(kModeInfos, hasLength(9));
     for (final i in kModeInfos) {
-      expect(tile(i.mode), findsOneWidget, reason: '${i.mode}');
+      expect(
+        tile(i.mode),
+        i.mode == ModeKind.puppySays ? findsNothing : findsOneWidget,
+        reason: '${i.mode}',
+      );
     }
     expect(find.byKey(const ValueKey('mode-shuffle')), findsOneWidget);
   });
@@ -165,7 +170,9 @@ void main() {
             textScale: scale,
           );
           expect(tester.takeException(), isNull);
-          for (final i in kModeInfos) {
+          for (final i in kModeInfos.where(
+            (i) => i.mode != ModeKind.puppySays,
+          )) {
             final key = tile(i.mode);
             await tester.ensureVisible(key);
             final r = tester.getRect(key);
@@ -190,7 +197,8 @@ void main() {
       ) async {
         await pump(tester, grade: 4, sayIt: true, size: size, textScale: scale);
         final keys = [
-          for (final i in kModeInfos) tile(i.mode),
+          for (final i in kModeInfos)
+            if (i.mode != ModeKind.puppySays) tile(i.mode),
           find.byKey(const ValueKey('mode-shuffle')),
         ];
         for (final k in keys) {

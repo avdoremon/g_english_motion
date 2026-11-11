@@ -1,0 +1,8 @@
+{
+  "actions": [
+    {"id": "jump",    "command": "Jump!",            "ttsText": "Puppy says: jump!",       "hintVi": "Nhảy lên nào!",     "minGrade": 1, "maxGrade": 2},
+    {"id": "handsUp", "command": "Hands up!",        "ttsText": "Puppy says: hands up!",   "hintVi": "Giơ tay lên nào!",  "minGrade": 1, "maxGrade": 2},
+    {"id": "clap",    "command": "Clap your hands!", "ttsText": "Puppy says: clap your hands!", "hintVi": "Vỗ tay nào!",  "minGrade": 1, "maxGrade": 2},
+    {"id": "squat",   "command": "Squat down!",      "ttsText": "Puppy says: squat down!", "hintVi": "Ngồi xuống nào!",   "minGrade": 1, "maxGrade": 2}
+  ]
+}

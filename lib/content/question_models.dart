@@ -1,3 +1,4 @@
+import '../input/action_detector.dart';
 import 'models.dart';
 
 enum QuestionForm {
@@ -10,6 +11,7 @@ enum QuestionForm {
   memoryMatch,
   popWord,
   trueFalse,
+  doAction,
 }
 
 class ChoiceOption {
@@ -91,6 +93,29 @@ class OrderQuestion extends Question {
 
   @override
   QuestionForm get form => QuestionForm.orderSentence;
+}
+
+/// puppySays: the puppy names a body [action]. [itemId] is the action id (not
+/// a content item), [ttsText] the spoken command, [command] the text shown and
+/// [hintVi] the Vietnamese hint.
+class ActionQuestion extends Question {
+  const ActionQuestion({
+    required this.itemId,
+    required this.ttsText,
+    required this.command,
+    required this.hintVi,
+    required this.action,
+  });
+
+  @override
+  final String itemId;
+  @override
+  final String ttsText;
+  final String command, hintVi;
+  final PuppyAction action;
+
+  @override
+  QuestionForm get form => QuestionForm.doAction;
 }
 
 class PlannedQuestion {
