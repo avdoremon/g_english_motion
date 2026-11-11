@@ -77,7 +77,8 @@ class RoundVerdict extends StatelessWidget {
         Text(switch (result) {
           RoundResult.correct => correctLabel ?? labelFor(result),
           RoundResult.timeout => labelFor(result),
-          _ => wrongLabel ?? labelFor(result),
+          RoundResult.wrong => wrongLabel ?? labelFor(result),
+          null => labelFor(result),
         }, style: AppTheme.textStyles.heading),
         SizedBox(width: trailing),
       ],
