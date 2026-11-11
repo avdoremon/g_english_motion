@@ -128,7 +128,11 @@ class HoldPickRound implements Round {
         _hover = hit;
         _progress = p.progress;
         if (p.completed && hit != null) _pick(hit);
-      case LaneChanged() || Confirmed() || Pulled() || HandRaised():
+      case LaneChanged() ||
+          Confirmed() ||
+          Pulled() ||
+          HandRaised() ||
+          ActionPerformed():
         break;
     }
   }

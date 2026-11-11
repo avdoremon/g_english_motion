@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:g_english_motion/input/action_detector.dart';
 import 'package:g_english_motion/input/calibrator.dart';
 import 'package:g_english_motion/input/game_input_event.dart';
 import 'package:g_english_motion/input/jump_detector.dart';
@@ -27,6 +28,7 @@ Future<List<GameInputEvent>> run(
   bool cursor = false,
   bool pull = false,
   bool handSide = false,
+  bool actions = false,
 }) async {
   final source = FakePoseFrameSource(frames);
   final session = PoseSession(
@@ -37,6 +39,7 @@ Future<List<GameInputEvent>> run(
     cursor: cursor,
     pull: pull,
     handSide: handSide,
+    actions: actions,
   );
   final events = await session.events.toList(); // closes when frames end
   await session.dispose();
@@ -264,6 +267,153 @@ void main() {
       confirm: ConfirmGesture.raiseHands,
     );
     expect(jumped.whereType<Confirmed>(), isEmpty);
+  });
+
+  group('actions', () {
+    Pose clapPose(double wristX) => makePose(
+      leftWrist: Offset(0.5 - wristX, 0.4),
+      rightWrist: Offset(0.5 + wristX, 0.4),
+    );
+
+    // Standing, then a clap (apart 1200-1400, together 1400-1700), then apart.
+    List<PoseFrame> clapping() => poseSequence(
+      duration: ms(2500),
+      posesAt: (t) => [
+        t >= ms(1200) && t < ms(1400)
+            ? clapPose(0.2)
+            : t >= ms(1400) && t < ms(1700)
+            ? clapPose(0.01)
+            : makePose(
+                leftWrist: const Offset(0.4, 0.55),
+                rightWrist: const Offset(0.6, 0.55),
+              ),
+      ],
+    );
+
+    List<PuppyAction> performed(List<GameInputEvent> e) =>
+        e.whereType<ActionPerformed>().map((a) => a.action).toList();
+
+    test('a clap emits ActionPerformed(clap) when enabled', () async {
+      final events = await run(clapping(), actions: true);
+      expect(performed(events), [PuppyAction.clap]);
+    });
+
+    test('emits nothing by default', () async {
+      final events = await run(clapping());
+      expect(events.whereType<ActionPerformed>(), isEmpty);
+    });
+
+    // Hands up from 1000 on (stand before), [interrupt] replacing the frames
+    // in [from, to); the pose is held the whole time.
+    List<PoseFrame> held({
+      required int from,
+      required int to,
+      required PoseFrame Function(Duration t) interrupt,
+    }) => [
+      for (final f in poseSequence(
+        duration: ms(4000),
+        posesAt: (t) => [
+          t < ms(1000)
+              ? makePose()
+              : makePose(
+                  leftWrist: const Offset(0.3, 0.1),
+                  rightWrist: const Offset(0.7, 0.1),
+                ),
+        ],
+      ))
+        if (f.timestamp >= ms(from) && f.timestamp < ms(to))
+          interrupt(f.timestamp)
+        else
+          f,
+    ];
+
+    Future<List<GameInputEvent>> runFrames(List<PoseFrame> frames) async {
+      final c = StreamController<PoseFrame>();
+      final session = PoseSession(
+        c.stream,
+        calibration,
+        laneCount: 3,
+        actions: true,
+      );
+      final events = <GameInputEvent>[];
+      final done = Completer<void>();
+      session.events.listen(events.add, onError: (_) {}, onDone: done.complete);
+      frames.forEach(c.add);
+      await c.close();
+      await done.future;
+      await session.dispose();
+      return events;
+    }
+
+    int handsUpCount(List<GameInputEvent> e) =>
+        performed(e).where((a) => a == PuppyAction.handsUp).length;
+
+    test('a held hands-up across PlayerLost/PlayerFound fires once', () async {
+      final events = await runFrames(
+        held(from: 1700, to: 2400, interrupt: (t) => PoseFrame(const [], t)),
+      );
+      expect(events.whereType<PlayerLost>(), hasLength(1));
+      expect(events.whereType<PlayerFound>(), hasLength(1));
+      expect(handsUpCount(events), 1);
+    });
+
+    test('a held hands-up across failed frames fires once', () async {
+      final events = await runFrames(
+        held(
+          from: 1700,
+          to: 1900,
+          interrupt: (t) => PoseFrame([_ThrowingPose()], t),
+        ),
+      );
+      expect(handsUpCount(events), 1);
+    });
+
+    test('a held hands-up across uncertain frames fires once', () async {
+      final events = await runFrames(
+        held(
+          from: 1700,
+          to: 1900,
+          interrupt: (t) => PoseFrame([
+            makePose(
+              confidence: 0.2,
+              leftWrist: const Offset(0.3, 0.1),
+              rightWrist: const Offset(0.7, 0.1),
+            ),
+          ], t),
+        ),
+      );
+      expect(handsUpCount(events), 1);
+    });
+
+    test(
+      'the reacquire grace blocks actions right after PlayerFound',
+      () async {
+        // Gap 1000-1600 (lost at 1500); a clap right after (apart 1600-1700,
+        // together 1700-2000) lands inside the 500 ms grace after PlayerFound.
+        final frames = poseSequence(
+          duration: ms(3000),
+          posesAt: (t) {
+            if (t >= ms(1000) && t < ms(1600)) return [];
+            return [
+              t >= ms(1600) && t < ms(1700)
+                  ? clapPose(0.2)
+                  : t >= ms(1700) && t < ms(2000)
+                  ? clapPose(0.01)
+                  : makePose(
+                      leftWrist: const Offset(0.4, 0.55),
+                      rightWrist: const Offset(0.6, 0.55),
+                    ),
+            ];
+          },
+        );
+        final events = await runFrames(frames);
+        final found = events.whereType<PlayerFound>().single;
+        final inGrace = events.whereType<ActionPerformed>().where(
+          (a) => a.at < found.at + PoseSession.reacquireGrace,
+        );
+        expect(inGrace, isEmpty);
+      },
+    );
   });
 
   group('handSide', () {

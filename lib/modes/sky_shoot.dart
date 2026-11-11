@@ -181,7 +181,7 @@ class SkyShootRound implements Round {
       case Pulled(:final hand):
         if (!_started || !_playerPresent || _phase != SkyPhase.reeling) return;
         _pull(hand);
-      case LaneChanged() || CursorMoved() || HandRaised():
+      case LaneChanged() || CursorMoved() || HandRaised() || ActionPerformed():
         break;
     }
   }
