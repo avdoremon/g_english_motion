@@ -75,4 +75,77 @@ void main() {
     expect(notes, contains('android.builtInKotlin=false'));
     expect(notes, contains('android.newDsl=false'));
   });
+
+  group('release hardening', () {
+    test('signingConfigs.release reads key.properties, debug fallback', () {
+      expect(app, contains('key.properties'));
+      for (final k in [
+        'storeFile',
+        'storePassword',
+        'keyAlias',
+        'keyPassword',
+      ]) {
+        expect(app, contains('"$k"'), reason: 'key.properties key $k');
+      }
+      expect(
+        app,
+        matches(RegExp(r'signingConfigs\s*\{[\s\S]*create\("release"\)')),
+      );
+      expect(app, contains('signingConfigs.getByName("release")'));
+      expect(app, contains('signingConfigs.getByName("debug")'));
+    });
+
+    test('minify and resource shrinking are enabled for release', () {
+      expect(app, matches(RegExp(r'isMinifyEnabled\s*=\s*true')));
+      expect(app, matches(RegExp(r'isShrinkResources\s*=\s*true')));
+    });
+
+    test('proguard file is referenced, present, keeps MediaPipe', () {
+      expect(app, contains('proguard-android-optimize.txt'));
+      expect(app, contains('"proguard-rules.pro"'));
+      final rules = read('android/app/proguard-rules.pro');
+      expect(rules, contains('-keep class com.google.mediapipe.** { *; }'));
+      expect(rules, contains('-dontwarn com.google.mediapipe.**'));
+      expect(rules, contains('com.google.protobuf.**'));
+    });
+
+    test('CI has a build-android-release job running a release APK build', () {
+      final ci = read('.github/workflows/ci.yml');
+      expect(ci, contains('build-android-release:'));
+      expect(ci, contains('flutter build apk --release'));
+    });
+
+    test('.gitignore covers key.properties and keystores', () {
+      final ignore = read('.gitignore');
+      expect(ignore, contains('android/key.properties'));
+      expect(ignore, contains('*.jks'));
+      expect(ignore, contains('*.keystore'));
+    });
+
+    test('no keystore is tracked and no password literal is in the build', () {
+      final tracked = Process.runSync('git', ['ls-files']).stdout as String;
+      expect(
+        tracked
+            .split('\n')
+            .where(
+              (f) =>
+                  f.endsWith('.jks') ||
+                  f.endsWith('.keystore') ||
+                  f.endsWith('key.properties'),
+            ),
+        isEmpty,
+      );
+      expect(
+        app,
+        isNot(matches(RegExp(r'(storePassword|keyPassword)\s*=\s*"'))),
+      );
+    });
+
+    test('release docs exist', () {
+      final doc = read('docs/release.md');
+      expect(doc, contains('keytool'));
+      expect(doc, contains('key.properties'));
+      expect(doc, contains('flutter build apk --release'));
+    });
+  });
 }

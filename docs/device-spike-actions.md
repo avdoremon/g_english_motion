@@ -89,3 +89,5 @@ Below the bar: tune once or twice using the table above. If an action still
 cannot reach it, either remove that command from `actions.json` (the other
 three keep working) or keep the mode behind the parent switch as experimental.
 Record the measured numbers in the known-limitations page when done.
+
+- Confirm on device that the clap pictogram (`Icons.sign_language`) does not read as sign language to children; swap the icon if it does.
