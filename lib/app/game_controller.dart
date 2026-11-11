@@ -7,6 +7,7 @@ import 'package:flutter/foundation.dart';
 
 import '../audio/audio_service.dart';
 import '../audio/voice_lines.dart';
+import '../content/action_config.dart';
 import '../content/content_repository.dart';
 import '../content/curriculum.dart';
 import '../content/models.dart';
@@ -111,6 +112,7 @@ class GameController extends ChangeNotifier {
     required ContentRepository repo,
     required AudioService audio,
     required TickerFactory ticker,
+    ActionConfig? actions,
     Random? rng,
     WelcomeGate? welcome,
     this.castLatency = defaultCastLatency,
@@ -125,6 +127,7 @@ class GameController extends ChangeNotifier {
        _repo = repo,
        _audio = audio,
        _tickerFactory = ticker,
+       _actions = actions,
        _rng = rng ?? Random(),
        _welcome = welcome ?? WelcomeGate(),
        _calibratorFactory = calibratorFactory ?? Calibrator.new;
@@ -133,18 +136,29 @@ class GameController extends ChangeNotifier {
 
   /// The chosen [mode] when it is offered at [grade], else the grade's default
   /// mix (grades 1-2 LaneJump; 3-5 DragSpell and SkyShoot).
+  ///
+  /// puppySays is gated: it is only ever active when the parent switch is on
+  /// AND its commands loaded, and then it plays ALONE (a plan drops it when
+  /// mixed with other modes). Neither the default mix nor the shuffle set
+  /// ever contain it.
   Set<ModeKind> get _modes => activeModes;
+
+  bool get _puppySaysAvailable => _actions != null && _store.puppySaysEnabled;
 
   @visibleForTesting
   Set<ModeKind> get activeModes {
     if (shuffle) {
       // "Trộn ngẫu nhiên": every camera mode offered at the grade (SayIt is
-      // started separately by the app, never through the controller).
+      // started separately by the app, never through the controller;
+      // puppySays only plays alone, so it is never part of a mix).
       final all = modesForGrade(grade)
           .difference({ModeKind.sayIt, ModeKind.puppySays});
       if (all.isNotEmpty) return all;
     }
     final m = mode;
+    if (m == ModeKind.puppySays && !_puppySaysAvailable) {
+      return defaultModesForGrade(grade);
+    }
     return m != null && modesForGrade(grade).contains(m)
         ? {m}
         : defaultModesForGrade(grade);
@@ -188,6 +202,7 @@ class GameController extends ChangeNotifier {
   final AudioService _audio;
   final TickerFactory _tickerFactory;
   final Random _rng;
+  final ActionConfig? _actions;
 
   /// Shared with every other controller of this app session: the welcome
   /// line is said once, not at every level.
@@ -318,7 +333,7 @@ class GameController extends ChangeNotifier {
   Future<PermissionOutcome> _start(PoseFrameSource source) async {
     _source = source;
     try {
-      _plan = QuestionGenerator(_repo, _store, _rng).plan(
+      _plan = QuestionGenerator(_repo, _store, _rng, actions: _actions).plan(
         level: level,
         pos: CurriculumPosition(
           grade: grade,
@@ -547,6 +562,7 @@ class GameController extends ChangeNotifier {
           activeModes.contains(ModeKind.balloonPop),
       pull: grade >= 3,
       handSide: activeModes.contains(ModeKind.yesNo),
+      actions: activeModes.contains(ModeKind.puppySays),
     );
     _pose = pose;
     _selectedLane = pose.currentLane;
@@ -565,7 +581,8 @@ class GameController extends ChangeNotifier {
     _tickSub ??= _tickerFactory().listen(_onTick);
     _setPhase(GamePhase.playing);
     // Before the first question; the audio queue keeps the order.
-    if (grade < 3) {
+    // puppySays has no lanes to jump into: its prompt says what to do.
+    if (grade < 3 && !activeModes.contains(ModeKind.puppySays)) {
       unawaited(
         _audio.playLine(
           confirm == ConfirmGesture.raiseHands
@@ -909,7 +926,8 @@ class GameController extends ChangeNotifier {
     if (_lost &&
         (s.round is HoldPickRound ||
             s.round is CatchItRound ||
-            s.round is YesNoRound)) {
+            s.round is YesNoRound ||
+            s.round is ActionRound)) {
       s.onEvent(PlayerLost(at: _lastFrameTs));
     }
   }
@@ -1020,8 +1038,11 @@ class GameController extends ChangeNotifier {
             await _audio.explainAnswer(_repo.byId(q.itemId));
           }
         case ActionQuestion():
-          // Nothing to explain: the opening line is the whole feedback.
-          break;
+          // After the neutral opening line, only the Vietnamese hint (as a
+          // caption) so the child knows what was asked; never a wrong line.
+          if (_stillExplaining(pq, review)) {
+            await _audio.showCaption(q.hintVi);
+          }
         case OrderQuestion():
           await _audio.playLine(VoiceLine.theAnswerIs);
           if (_stillExplaining(pq, review)) {

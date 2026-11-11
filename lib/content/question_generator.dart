@@ -1,8 +1,8 @@
 import 'dart:math';
 
 import '../levels/level_config.dart';
-import 'content_repository.dart';
 import 'action_config.dart';
+import 'content_repository.dart';
 import 'curriculum.dart';
 import 'edit_distance.dart';
 import 'history_store.dart';
@@ -52,6 +52,10 @@ class QuestionGenerator {
   final ActionConfig? actions;
 
   /// Plans [level.questionCount] questions.
+  ///
+  /// [ModeKind.puppySays] must be played alone: it is planned only when it is
+  /// the sole requested mode (from [actions]); mixed with other modes it is
+  /// dropped, so the other modes' plans are exactly what they would be alone.
   ///
   /// Selection is item-first: every eligible item is used once (wrong items
   /// within their 30% quota, then not-recently-asked items, then recent ones;

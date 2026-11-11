@@ -102,6 +102,14 @@ void main() {
     expect(r.chosenIndex, isNull);
   });
 
+  test('an oversize tick clamps the clock and times out', () {
+    final r = _round()..start();
+    r.tick(_limit * 2);
+    expect(r.remaining, Duration.zero);
+    expect(r.result, RoundResult.timeout);
+    expect(r.elapsedFraction, 1.0);
+  });
+
   test('hand and lane events are ignored', () {
     final r = _round()..start();
     r.onEvent(const HandRaised(Hand.left, at: Duration.zero));

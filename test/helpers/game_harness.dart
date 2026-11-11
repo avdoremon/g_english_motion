@@ -6,6 +6,7 @@ import 'dart:math' as math;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:g_english_motion/app/game_controller.dart';
 import 'package:g_english_motion/audio/audio_service.dart';
+import 'package:g_english_motion/content/action_config.dart';
 import 'package:g_english_motion/content/content_repository.dart';
 import 'package:g_english_motion/content/models.dart';
 import 'package:g_english_motion/input/pose_frame_source.dart';
@@ -173,10 +174,13 @@ class GameHarness {
     ModeKind? mode,
     bool shuffle = false,
     ContentRepository? repo,
+    ActionConfig? actions,
+    bool puppySaysEnabled = false,
   }) async {
     SharedPreferences.setMockInitialValues({});
     final store = ProgressStore(await SharedPreferences.getInstance());
     await store.setConfirmGesture(confirm);
+    if (puppySaysEnabled) await store.setPuppySaysEnabled(true);
     final frames = StreamController<PoseFrame>(sync: true);
     final source = CountingSource.fromStream(
       frames.stream,
@@ -219,6 +223,7 @@ class GameHarness {
       repo: repo,
       audio: audio,
       ticker: () => tickCtl.stream,
+      actions: actions,
       rng: math.Random(seed),
     );
     return GameHarness._(
