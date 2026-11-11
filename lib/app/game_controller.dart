@@ -994,7 +994,6 @@ class GameController extends ChangeNotifier {
         case ChoiceQuestion(form: QuestionForm.trueFalse):
           // Only after the answer. A true statement was right: say it again.
           // A false one: the picture's real word.
-          if (!_stillExplaining(pq, review)) return;
           if (q.correctIndex == 0) {
             await _audio.sayEnglish(q.ttsText);
           } else {

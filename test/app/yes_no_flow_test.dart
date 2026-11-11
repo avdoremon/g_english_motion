@@ -163,6 +163,54 @@ void main() {
     expect(r.result, isNull);
   });
 
+  group('real pose frames', () {
+    // One hand well above the shoulder, the other down, held for 1.5 s.
+    Pose raised(bool left) => makePose(
+      hipX: GameHarness.hipXForLane(1, 3),
+      leftWrist: left ? const Offset(0.4, 0.1) : const Offset(0.4, 0.5),
+      rightWrist: left ? const Offset(0.6, 0.5) : const Offset(0.6, 0.1),
+    );
+
+    test('a raised left hand answers Đúng, a right hand Sai', () async {
+      for (final left in [true, false]) {
+        await setUpYesNo();
+        final s = h.controller.session!;
+        endPrompt();
+        await h.run(
+          const Duration(milliseconds: 2500),
+          pose: (_) => raised(left),
+          stopWhen: () => s.round.result != null,
+        );
+        expect(s.round.chosenIndex, left ? 0 : 1);
+        await h.dispose();
+      }
+      await setUpYesNo(); // for tearDown
+    });
+
+    test('without yesNo the same raise produces no HandRaised', () async {
+      for (final mode in [ModeKind.laneJump, ModeKind.catchIt]) {
+        h = await GameHarness.create(
+          modes: [mode],
+          mode: mode,
+          withImages: true,
+          hangTts: true,
+        );
+        await h.startAndCalibrate();
+        final seen = <GameInputEvent>[];
+        final sub = h.controller.events.listen(seen.add);
+        h.controller.session!.onPromptFinished();
+        await h.run(
+          const Duration(milliseconds: 2500),
+          pose: (_) => raised(true),
+        );
+        await sub.cancel();
+        expect(seen.whereType<HandRaised>(), isEmpty, reason: '$mode');
+        await h.dispose();
+      }
+      await setUpYesNo(); // for tearDown
+    });
+  });
+
   group('post-answer explanation', () {
     Future<void> answerWrong(GameHarness h) async {
       final s = h.controller.session!;
