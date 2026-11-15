@@ -102,4 +102,4 @@ cannot reach it, either remove that command from `actions.json` (the other
 three keep working) or keep the mode behind the parent switch as experimental.
 Record the measured numbers in the known-limitations page when done.
 
-- Confirm on device that the clap pictogram (`Icons.sign_language`) does not read as sign language to children; swap the icon if it does.
+- Confirm on device that the clap pictogram (`Icons.celebration`, a party popper; Material has no clapping icon) reads as "clap" to children next to the spoken command; swap the icon if it does not.

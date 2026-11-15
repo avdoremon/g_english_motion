@@ -32,7 +32,7 @@ class PuppySaysScreen extends StatelessWidget {
   static IconData iconFor(PuppyAction a) => switch (a) {
     PuppyAction.jump => Icons.keyboard_double_arrow_up,
     PuppyAction.handsUp => Icons.back_hand,
-    PuppyAction.clap => Icons.sign_language,
+    PuppyAction.clap => Icons.celebration,
     PuppyAction.squat => Icons.keyboard_double_arrow_down,
   };
 
@@ -79,14 +79,28 @@ class PuppySaysScreen extends StatelessWidget {
                           return Row(
                             children: [
                               Center(
-                                child: TinTin(
-                                  key: const ValueKey('puppy-mascot'),
-                                  state: RoundVerdict.mascotFor(
-                                    result,
-                                    feedback: answered,
-                                  ),
-                                  size: pup,
-                                  pulse: s.index,
+                                child: Stack(
+                                  clipBehavior: Clip.none,
+                                  children: [
+                                    TinTin(
+                                      key: const ValueKey('puppy-mascot'),
+                                      state: RoundVerdict.mascotFor(
+                                        result,
+                                        feedback: answered,
+                                      ),
+                                      size: pup,
+                                      pulse: s.index,
+                                    ),
+                                    if (compact && timeout)
+                                      Positioned(
+                                        right: 0,
+                                        bottom: 0,
+                                        child: _Pictogram(
+                                          action: q.action,
+                                          size: 48,
+                                        ),
+                                      ),
+                                  ],
                                 ),
                               ),
                               SizedBox(width: gap * 2),
@@ -97,7 +111,9 @@ class PuppySaysScreen extends StatelessWidget {
                                     if (compact && timeout)
                                       // Short screen, timeout: the two-line
                                       // verdict (kind line + hint, which names
-                                      // the action) takes the command's room.
+                                      // the action) takes the command's room;
+                                      // the small pictogram moves onto the
+                                      // mascot's corner instead.
                                       const SizedBox.shrink()
                                     else if (compact)
                                       // Short screen: the pictogram sits

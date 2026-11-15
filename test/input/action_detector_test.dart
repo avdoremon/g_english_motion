@@ -231,4 +231,16 @@ void main() {
       expect(run(d, up, 5233, 5400)[PuppyAction.jump], 1);
     });
   });
+
+  test('a squat held 5.5 s then standing up fires no jump; squat re-works', () {
+    final d = settled();
+    final squat = makePose(hipY: 0.7, kneeY: 0.75);
+    expect(run(d, squat, 1300, 6800)[PuppyAction.squat], 1);
+    // Standing up (hips rise back to the calibrated rest).
+    final up = run(d, stand(), 6833, 9000);
+    expect(up[PuppyAction.jump], 0);
+    expect(up[PuppyAction.squat], 0);
+    // A later real squat still fires.
+    expect(run(d, squat, 9033, 10000)[PuppyAction.squat], 1);
+  });
 }
