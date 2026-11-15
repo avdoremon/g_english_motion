@@ -166,5 +166,14 @@ void main() {
       expect(ramp(d, 0, 0.3, 3033, 3500), isEmpty); // still descending
       expect(run(d, drop(0.3), 3533, 4200), 1);
     });
+
+    test('a very slow shallow squat (0.4 torso over 2 s) fires', () {
+      final d = SquatDetector(cal);
+      run(d, stand(), 0, 3000);
+      final fires = ramp(d, 0, 0.4, 3033, 5033);
+      // Held at the bottom for a moment, as a child would.
+      fires.addAll(run(d, drop(0.4), 5066, 5800) > 0 ? [5800] : []);
+      expect(fires, hasLength(1));
+    });
   });
 }

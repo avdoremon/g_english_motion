@@ -159,6 +159,12 @@ void main() {
         await startPlaying(tester);
         await runOut(tester);
         expect(tester.takeException(), isNull);
+        // The pictogram stays on a timeout; the command too where it fits.
+        final pic = tester.getRect(
+          find.byKey(const ValueKey('puppy-pictogram')),
+        );
+        expect(pic.bottom, lessThanOrEqualTo(size.height));
+        expect(pic.right, lessThanOrEqualTo(size.width));
         final hint = tester.getRect(find.byKey(const ValueKey('puppy-hint')));
         expect(hint.bottom, lessThanOrEqualTo(size.height));
         expect(hint.right, lessThanOrEqualTo(size.width));
@@ -215,6 +221,10 @@ void main() {
       for (final a in PuppyAction.values) PuppySaysScreen.iconFor(a),
     };
     expect(icons, hasLength(PuppyAction.values.length));
+    expect(
+      PuppySaysScreen.iconFor(PuppyAction.clap),
+      isNot(Icons.sign_language),
+    );
   });
 
   testWidgets('no camera image and no touch answer', (tester) async {
@@ -255,6 +265,7 @@ void main() {
     await runOut(tester);
     expect(session().lastResult, RoundResult.timeout);
     expect(find.text('Hết giờ'), findsOneWidget);
+    expect(find.byKey(const ValueKey('puppy-pictogram')), findsOneWidget);
     expect(
       tester.widget<Text>(find.byKey(const ValueKey('puppy-hint'))).data,
       q().hintVi,

@@ -53,6 +53,16 @@ class SquatDetector {
   static const Duration _window = Duration(seconds: 1);
   static const Duration _windowSlack = Duration(milliseconds: 100);
 
+  /// Drift is followed only while the hips are less than this fraction of
+  /// [dropTorso] below the baseline: a very slow, shallow squat is not
+  /// absorbed beyond it (the baseline stops following and the squat fires).
+  static const double _driftAbsorbFraction = 0.6;
+
+  /// Downward drift is followed more slowly than upward drift, so that the
+  /// baseline lags a slow squat by more than [_driftAbsorbFraction] of the
+  /// threshold (and then stops following) instead of tracking it forever.
+  static const double _driftDownTauSeconds = 1.0;
+
   /// Drift is followed only while the last [_shortWindow] moved less than this
   /// (about 0.2 torso/s): the first part of a fast squat is not absorbed.
   static const double _driftShortRangeTorso = 0.08;
@@ -70,9 +80,16 @@ class SquatDetector {
   bool _fired = false;
   bool _doubt = false;
 
+  /// Set when a held squat was healed into the baseline: the body is still
+  /// low, and standing up must not be read as a jump. Cleared by a reliable
+  /// frame with the hips back within [releaseTorso] of the pre-heal baseline
+  /// (or by [rearm] / [rebaseline]).
+  double? _healedFrom;
+
   /// True while a squat is held or being timed (the latch is set or the hold
-  /// timer runs): the owner must not take this position as a resting one.
-  bool get isDown => _fired || _since != null;
+  /// timer runs), or was healed and the child has not stood up yet: the owner
+  /// must not take this position as a resting one.
+  bool get isDown => _fired || _since != null || _healedFrom != null;
 
   /// Forgets the hold timer and the stillness window. The fired latch is kept.
   void reset() {
@@ -94,6 +111,7 @@ class SquatDetector {
   /// Clears the hold and the fired latch (a pose held now registers once),
   /// keeping the baseline.
   void rearm() {
+    _healedFrom = null;
     _since = null;
     _doubt = false;
     _fired = false;
@@ -110,6 +128,7 @@ class SquatDetector {
   }
 
   void _setBaseline(double hipY) {
+    _healedFrom = null;
     _baselineHipY = hipY;
     _since = null;
     _doubt = false;
@@ -153,13 +172,20 @@ class SquatDetector {
     } else {
       _stillSince ??= _recent.first.$1;
     }
-    if (isDown) {
+    if (_fired || _since != null) {
       // Down and still for long: the baseline is stale (or the child holds a
-      // very long squat); take this as rest rather than latch forever.
+      // very long squat); take this as rest rather than latch forever. The
+      // old baseline is remembered so that isDown stays true until the child
+      // has stood up again (the jump detector must not follow the body down).
       final still = _stillSince;
-      if (still != null && t - still >= _healAfter) _setBaseline(hipY);
+      if (still != null && t - still >= _healAfter) {
+        final old = _baselineHipY;
+        _setBaseline(hipY);
+        _healedFrom = old;
+      }
       return;
     }
+    if (_healedFrom != null) return; // wait for a standing frame (update)
     if (range < _stillRangeTorso) {
       if (drop.abs() >= dropTorso / 2) {
         // Persistent offset (stepped closer / farther): the whole second is
@@ -170,10 +196,13 @@ class SquatDetector {
             (hipY - _baselineHipY) * (dt / (_stillTauSeconds + dt));
       }
     } else if (range < _driftRangeTorso &&
-        drop < dropTorso / 2 &&
+        drop < dropTorso * _driftAbsorbFraction &&
         dt > 0 &&
         _recentRange(t) < _driftShortRangeTorso) {
-      _baselineHipY += (hipY - _baselineHipY) * (dt / (_driftTauSeconds + dt));
+      final tau = hipY > _baselineHipY
+          ? _driftDownTauSeconds
+          : _driftTauSeconds;
+      _baselineHipY += (hipY - _baselineHipY) * (dt / (tau + dt));
     }
   }
 
@@ -190,6 +219,12 @@ class SquatDetector {
         if (t - _lastDown > grace) _clearHold();
       }
       return false;
+    }
+    final healed = _healedFrom;
+    if (healed != null &&
+        ((lh.y + rh.y) / 2 - healed) / calibration.torsoHeight <=
+            releaseTorso) {
+      _healedFrom = null; // stood up again: the squat baseline follows
     }
     _adapt((lh.y + rh.y) / 2, t);
     final drop = ((lh.y + rh.y) / 2 - _baselineHipY) / calibration.torsoHeight;
