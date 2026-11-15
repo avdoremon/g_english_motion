@@ -67,7 +67,11 @@ class YesNoRound implements Round {
         _playerPresent = false;
       case PlayerFound():
         _playerPresent = true;
-      case LaneChanged() || Confirmed() || CursorMoved() || Pulled():
+      case LaneChanged() ||
+          Confirmed() ||
+          CursorMoved() ||
+          Pulled() ||
+          ActionPerformed():
         break;
     }
   }

@@ -132,7 +132,8 @@ class DragSpellRound implements Round {
           Confirmed() ||
           CursorMoved() ||
           Pulled() ||
-          HandRaised():
+          HandRaised() ||
+          ActionPerformed():
         break;
     }
   }

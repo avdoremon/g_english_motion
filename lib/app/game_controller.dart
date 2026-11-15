@@ -7,6 +7,7 @@ import 'package:flutter/foundation.dart';
 
 import '../audio/audio_service.dart';
 import '../audio/voice_lines.dart';
+import '../content/action_config.dart';
 import '../content/content_repository.dart';
 import '../content/curriculum.dart';
 import '../content/models.dart';
@@ -19,6 +20,7 @@ import '../input/pose_session.dart';
 import '../input/pose_types.dart';
 import '../levels/level_config.dart';
 import '../levels/scoring.dart';
+import '../modes/action_round.dart';
 import '../modes/catch_it.dart';
 import '../modes/drag_spell.dart';
 import '../modes/hold_pick.dart';
@@ -110,6 +112,7 @@ class GameController extends ChangeNotifier {
     required ContentRepository repo,
     required AudioService audio,
     required TickerFactory ticker,
+    ActionConfig? actions,
     Random? rng,
     WelcomeGate? welcome,
     this.castLatency = defaultCastLatency,
@@ -124,6 +127,7 @@ class GameController extends ChangeNotifier {
        _repo = repo,
        _audio = audio,
        _tickerFactory = ticker,
+       _actions = actions,
        _rng = rng ?? Random(),
        _welcome = welcome ?? WelcomeGate(),
        _calibratorFactory = calibratorFactory ?? Calibrator.new;
@@ -132,17 +136,29 @@ class GameController extends ChangeNotifier {
 
   /// The chosen [mode] when it is offered at [grade], else the grade's default
   /// mix (grades 1-2 LaneJump; 3-5 DragSpell and SkyShoot).
+  ///
+  /// puppySays is gated: it is only ever active when the parent switch is on
+  /// AND its commands loaded, and then it plays ALONE (a plan drops it when
+  /// mixed with other modes). Neither the default mix nor the shuffle set
+  /// ever contain it.
   Set<ModeKind> get _modes => activeModes;
+
+  bool get _puppySaysAvailable => _actions != null && _store.puppySaysEnabled;
 
   @visibleForTesting
   Set<ModeKind> get activeModes {
     if (shuffle) {
       // "Trộn ngẫu nhiên": every camera mode offered at the grade (SayIt is
-      // started separately by the app, never through the controller).
-      final all = modesForGrade(grade).difference({ModeKind.sayIt});
+      // started separately by the app, never through the controller;
+      // puppySays only plays alone, so it is never part of a mix).
+      final all = modesForGrade(grade)
+          .difference({ModeKind.sayIt, ModeKind.puppySays});
       if (all.isNotEmpty) return all;
     }
     final m = mode;
+    if (m == ModeKind.puppySays && !_puppySaysAvailable) {
+      return defaultModesForGrade(grade);
+    }
     return m != null && modesForGrade(grade).contains(m)
         ? {m}
         : defaultModesForGrade(grade);
@@ -186,6 +202,7 @@ class GameController extends ChangeNotifier {
   final AudioService _audio;
   final TickerFactory _tickerFactory;
   final Random _rng;
+  final ActionConfig? _actions;
 
   /// Shared with every other controller of this app session: the welcome
   /// line is said once, not at every level.
@@ -316,7 +333,7 @@ class GameController extends ChangeNotifier {
   Future<PermissionOutcome> _start(PoseFrameSource source) async {
     _source = source;
     try {
-      _plan = QuestionGenerator(_repo, _store, _rng).plan(
+      _plan = QuestionGenerator(_repo, _store, _rng, actions: _actions).plan(
         level: level,
         pos: CurriculumPosition(
           grade: grade,
@@ -545,6 +562,7 @@ class GameController extends ChangeNotifier {
           activeModes.contains(ModeKind.balloonPop),
       pull: grade >= 3,
       handSide: activeModes.contains(ModeKind.yesNo),
+      actions: activeModes.contains(ModeKind.puppySays),
     );
     _pose = pose;
     _selectedLane = pose.currentLane;
@@ -563,7 +581,8 @@ class GameController extends ChangeNotifier {
     _tickSub ??= _tickerFactory().listen(_onTick);
     _setPhase(GamePhase.playing);
     // Before the first question; the audio queue keeps the order.
-    if (grade < 3) {
+    // puppySays has no lanes to jump into: its prompt says what to do.
+    if (grade < 3 && !activeModes.contains(ModeKind.puppySays)) {
       unawaited(
         _audio.playLine(
           confirm == ConfirmGesture.raiseHands
@@ -653,6 +672,13 @@ class GameController extends ChangeNotifier {
           return YesNoRound(
             q,
             timeLimit: Scoring.timeFor(level, ModeKind.yesNo),
+          );
+        }
+      case ModeKind.puppySays:
+        if (q is ActionQuestion) {
+          return ActionRound(
+            q,
+            timeLimit: Scoring.timeFor(level, ModeKind.puppySays),
           );
         }
       case ModeKind.balloonPop:
@@ -759,7 +785,9 @@ class GameController extends ChangeNotifier {
   void debugInject(GameInputEvent e) => _dispatch(e);
 
   void _dispatch(GameInputEvent e) {
-    if (e is LaneChanged) {
+    // puppySays has no lanes: the tracker still runs inside PoseSession, but
+    // its lane is not recorded.
+    if (e is LaneChanged && !activeModes.contains(ModeKind.puppySays)) {
       _selectedLane = e.lane;
       // The session drops lane changes outside the playing phase; catchIt
       // grades the lane at the catch line, so keep its round current anyway.
@@ -893,14 +921,21 @@ class GameController extends ChangeNotifier {
     }
     _roundStarted = s.current;
     _roundStartedReview = s.isReview;
-    // PoseSession compares against frame timestamps.
-    _pose?.suppressConfirmUntil(_lastFrameTs + confirmGrace);
+    if (s.round is ActionRound) {
+      // No confirm-grace: a quick reaction right after the prompt must count.
+      // Poses already held at round start (hands up, squat) register once.
+      _pose?.rearmActions();
+    } else {
+      // PoseSession compares against frame timestamps.
+      _pose?.suppressConfirmUntil(_lastFrameTs + confirmGrace);
+    }
     // The player left during the prompt: a hold-pick or catchIt round (peek,
     // clock) must not run with nobody there. LaneJump keeps its behaviour.
     if (_lost &&
         (s.round is HoldPickRound ||
             s.round is CatchItRound ||
-            s.round is YesNoRound)) {
+            s.round is YesNoRound ||
+            s.round is ActionRound)) {
       s.onEvent(PlayerLost(at: _lastFrameTs));
     }
   }
@@ -976,6 +1011,8 @@ class GameController extends ChangeNotifier {
     ChoiceQuestion(form: QuestionForm.fillBlank) => null,
     // The statement, not the item's word.
     ChoiceQuestion(form: QuestionForm.trueFalse) => null,
+    // The command is spoken as is; the action id has no word clip.
+    ActionQuestion() => null,
     _ => q.itemId,
   };
 
@@ -1007,6 +1044,16 @@ class GameController extends ChangeNotifier {
         case SpellQuestion():
           if (_stillExplaining(pq, review)) {
             await _audio.explainAnswer(_repo.byId(q.itemId));
+          }
+        case ActionQuestion():
+          // After the neutral opening line, the kind "camera did not see it"
+          // caption, then the Vietnamese hint so the child knows what was
+          // asked; captions only, never a wrong line.
+          if (_stillExplaining(pq, review)) {
+            await _audio.showCaption(ActionQuestion.notSeenVi);
+          }
+          if (_stillExplaining(pq, review)) {
+            await _audio.showCaption(q.hintVi);
           }
         case OrderQuestion():
           await _audio.playLine(VoiceLine.theAnswerIs);

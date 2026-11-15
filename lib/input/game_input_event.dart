@@ -1,3 +1,4 @@
+import 'action_detector.dart';
 import 'pose_types.dart';
 
 sealed class GameInputEvent {
@@ -30,6 +31,12 @@ class Pulled extends GameInputEvent {
 class HandRaised extends GameInputEvent {
   const HandRaised(this.hand, {required super.at});
   final Hand hand;
+}
+
+/// The player performed a body [action] (puppySays); see [ActionDetector].
+class ActionPerformed extends GameInputEvent {
+  const ActionPerformed(this.action, {required super.at});
+  final PuppyAction action;
 }
 
 class PlayerLost extends GameInputEvent {

@@ -343,6 +343,27 @@ void main() {
       await tester.pumpAndSettle();
     });
 
+    testWidgets('Theo Pup switch defaults off, explains it is experimental '
+        'and persists', (tester) async {
+      await tester.binding.setSurfaceSize(const Size(800, 900));
+      addTearDown(() => tester.binding.setSurfaceSize(null));
+      await tester.pumpWidget(settings());
+      final toggle = find.byKey(const ValueKey('toggle-puppysays'));
+      expect(toggle, findsOneWidget);
+      expect(find.textContaining('Trò Theo Pup (thử nghiệm)'), findsOneWidget);
+      expect(find.textContaining('thử nghiệm, có thể'), findsOneWidget);
+      expect(store.puppySaysEnabled, isFalse);
+      expect(tester.widget<SwitchListTile>(toggle).value, isFalse);
+      await tester.tap(toggle);
+      await tester.pump();
+      expect(store.puppySaysEnabled, isTrue);
+      expect(tester.widget<SwitchListTile>(toggle).value, isTrue);
+      await tester.tap(toggle);
+      await tester.pump();
+      expect(store.puppySaysEnabled, isFalse);
+      await tester.pumpAndSettle();
+    });
+
     testWidgets('unit stepper clamps to 1..max', (tester) async {
       await tester.pumpWidget(settings());
       expect(store.currentUnit(1), 1);

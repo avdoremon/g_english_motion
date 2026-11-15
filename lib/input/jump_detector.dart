@@ -51,6 +51,11 @@ class JumpDetector {
   Duration? _liftStartedAt;
   Duration _suppressUntil = Duration.zero;
 
+  /// While true the baseline neither re-baselines nor drifts (the owner knows
+  /// the body is held in a non-resting pose, e.g. a squat, and standing up
+  /// must read as a return, not a jump).
+  bool freezeBaseline = false;
+
   /// Blocks firing until [t] (inclusive of earlier timestamps only).
   void suppressUntil(Duration t) {
     if (t > _suppressUntil) _suppressUntil = t;
@@ -110,7 +115,9 @@ class JumpDetector {
     }
     final spansWindow = t - _recent.first.$1 >= _stillFor - _windowSlack;
     final range = hi - lo;
-    if (spansWindow && range < _stillRangeRatio * fireAt) {
+    if (freezeBaseline) {
+      // Held non-resting pose: keep the standing baseline.
+    } else if (spansWindow && range < _stillRangeRatio * fireAt) {
       if (lift.abs() >= half) {
         // Persistent offset (player stepped closer/farther): re-baseline.
         _baseline = current;

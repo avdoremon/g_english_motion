@@ -1,10 +1,12 @@
 import 'dart:math';
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:g_english_motion/content/action_config.dart';
 import 'package:g_english_motion/content/curriculum.dart';
 import 'package:g_english_motion/content/content_repository.dart';
 import 'package:g_english_motion/content/history_store.dart';
 import 'package:g_english_motion/content/models.dart';
+import 'package:g_english_motion/input/action_detector.dart';
 import 'package:g_english_motion/content/question_generator.dart';
 import 'package:g_english_motion/content/question_models.dart';
 import 'package:g_english_motion/levels/level_config.dart';
@@ -221,7 +223,7 @@ void main() {
           expect(words.join(' '), isNot(answer.join(' ')));
           expect([...words]..sort(), [...answer]..sort());
           expect(answer.length, inInclusiveRange(3, 6));
-        case ChoiceQuestion():
+        case ChoiceQuestion() || ActionQuestion():
           fail('dragSpell must not produce choice questions');
       }
     }
@@ -444,6 +446,7 @@ void main() {
         SpellQuestion() => '${p.mode.name}|spell|${q.itemId}|${q.tiles.join()}',
         OrderQuestion() =>
           '${p.mode.name}|order|${q.itemId}|${q.words.join(" ")}',
+        ActionQuestion() => '${p.mode.name}|action|${q.itemId}',
       };
     }
 
@@ -854,5 +857,126 @@ void main() {
         }
       }
     });
+  });
+
+  group('puppySays plans', () {
+    ActionConfig actions({int min = 1, int max = 2, List<String>? ids}) {
+      final all = ['jump', 'handsUp', 'clap', 'squat'];
+      return ActionConfig([
+        for (final id in ids ?? all)
+          ActionDef(
+            id: id,
+            command: '$id!',
+            ttsText: 'Puppy says: $id!',
+            hintVi: 'vi $id',
+            action: PuppyAction.values.firstWhere((a) => a.name == id),
+            minGrade: min,
+            maxGrade: max,
+          ),
+      ]);
+    }
+
+    List<PlannedQuestion> planFor(
+      int grade,
+      int count, {
+      int seed = 1,
+      ActionConfig? cfg,
+      Set<ModeKind> modes = const {ModeKind.puppySays},
+    }) =>
+        QuestionGenerator(
+          repo,
+          InMemoryHistoryStore(),
+          Random(seed),
+          actions: cfg,
+        ).plan(
+          level: _level(count: count),
+          pos: CurriculumPosition(grade: grade, currentUnitIndex: 1),
+          modes: modes,
+        );
+
+    test('exactly questionCount ActionQuestions for grades 1-2', () {
+      for (final g in [1, 2]) {
+        for (final n in [8, 10, 12]) {
+          final plan = planFor(g, n, cfg: actions());
+          expect(plan, hasLength(n));
+          for (final p in plan) {
+            expect(p.mode, ModeKind.puppySays);
+            expect(p.question, isA<ActionQuestion>());
+          }
+        }
+      }
+    });
+
+    test('cycles through all actions, no immediate repeat', () {
+      for (var seed = 0; seed < 30; seed++) {
+        final plan = planFor(1, 10, seed: seed, cfg: actions());
+        final ids = [for (final p in plan) p.question.itemId];
+        expect(ids.sublist(0, 4).toSet(), hasLength(4));
+        expect(ids.sublist(4, 8).toSet(), hasLength(4));
+        for (var i = 1; i < ids.length; i++) {
+          expect(ids[i], isNot(ids[i - 1]), reason: 'seed $seed: $ids');
+        }
+      }
+    });
+
+    test('a single action may repeat; carries config fields', () {
+      final plan = planFor(1, 3, cfg: actions(ids: ['clap']));
+      expect(plan, hasLength(3));
+      final q = plan.first.question as ActionQuestion;
+      expect(
+        (q.itemId, q.command, q.action),
+        ('clap', 'clap!', PuppyAction.clap),
+      );
+      expect(q.ttsText, 'Puppy says: clap!');
+      expect(q.hintVi, 'vi clap');
+    });
+
+    test('deterministic per seed, different across seeds', () {
+      String d(List<PlannedQuestion> p) =>
+          p.map((x) => x.question.itemId).join();
+      expect(
+        d(planFor(1, 12, seed: 7, cfg: actions())),
+        d(planFor(1, 12, seed: 7, cfg: actions())),
+      );
+      final distinct = {
+        for (var s = 0; s < 10; s++) d(planFor(1, 12, seed: s, cfg: actions())),
+      };
+      expect(distinct.length, greaterThan(1));
+    });
+
+    test('no plan without actions for the grade (or at all)', () {
+      expect(planFor(1, 8), isEmpty);
+      expect(planFor(3, 8, cfg: actions()), isEmpty);
+    });
+
+    test(
+      'mixed with other modes: puppySays is left out, streams unchanged',
+      () {
+        String d(List<PlannedQuestion> p) => p
+            .map(
+              (x) =>
+                  '${x.mode.name}|${x.question.form.name}|${x.question.itemId}',
+            )
+            .join(',');
+        final base = planFor(1, 10, seed: 5, modes: {ModeKind.laneJump});
+        final mixed = planFor(
+          1,
+          10,
+          seed: 5,
+          cfg: actions(),
+          modes: {ModeKind.laneJump, ModeKind.puppySays},
+        );
+        expect(d(mixed), d(base));
+        expect(
+          planFor(
+            1,
+            10,
+            seed: 5,
+            modes: {ModeKind.laneJump, ModeKind.puppySays},
+          ),
+          hasLength(10),
+        );
+      },
+    );
   });
 }

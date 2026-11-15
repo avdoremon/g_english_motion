@@ -64,7 +64,7 @@ class LaneJumpRound implements Round {
         _result = lane == question.correctIndex
             ? RoundResult.correct
             : RoundResult.wrong;
-      case CursorMoved() || Pulled() || HandRaised():
+      case CursorMoved() || Pulled() || HandRaised() || ActionPerformed():
         break;
     }
   }

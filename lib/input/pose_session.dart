@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'action_detector.dart';
 import 'calibrator.dart';
 import 'cursor_tracker.dart';
 import 'game_input_event.dart';
@@ -46,8 +47,10 @@ class PoseSession {
     this.cursor = false,
     this.pull = false,
     this.handSide = false,
+    this.actions = false,
   }) : _laneTracker = LaneTracker(calibration, laneCount: laneCount),
        _jump = JumpDetector(calibration),
+       _actions = actions ? ActionDetector(calibration) : null,
        _cursor = CursorTracker(calibration),
        _calibration = calibration,
        _seedX = calibration.centerX,
@@ -71,6 +74,10 @@ class PoseSession {
   /// Also emit [HandRaised] when one hand stays alone above the nose (left =
   /// the person's own left). Off for the other modes.
   final bool handSide;
+
+  /// Also emit [ActionPerformed] for each jump / hands up / clap / squat the
+  /// player performs. Off for the other modes.
+  final bool actions;
 
   static const double _maxTrackDistance = 0.25;
   static const double _maxReacquireDistance = 0.6;
@@ -107,6 +114,7 @@ class PoseSession {
 
   final LaneTracker _laneTracker;
   final JumpDetector _jump;
+  final ActionDetector? _actions;
   final CursorTracker _cursor;
   final Calibration _calibration;
   late PullDetector _pull = PullDetector(_calibration);
@@ -152,7 +160,12 @@ class PoseSession {
   void suppressConfirmUntil(Duration t) {
     if (t > _suppressConfirmUntil) _suppressConfirmUntil = t;
     _jump.suppressUntil(t);
+    _actions?.suppressUntil(t);
   }
+
+  /// Re-arms the action detectors for a new puppySays round (see
+  /// [ActionDetector.rearm]): a pose the child already holds registers once.
+  void rearmActions() => _actions?.rearm();
 
   Future<void> dispose() async {
     if (_disposed) return;
@@ -254,8 +267,10 @@ class PoseSession {
   /// sustained run of failures report the player as lost.
   void _onFrameFailed(Duration t) {
     _jump.suppressUntil(t + _uncertainHold);
+    _actions?.suppressUntil(t + _uncertainHold);
     _raise = _newRaise();
     _handSide.reset();
+    _actions?.reset();
     _pull = PullDetector(_calibration);
     _throwingSince ??= t;
     if (!_lost && t - _throwingSince! >= _lostAfter) _enterLost(t);
@@ -285,8 +300,10 @@ class PoseSession {
     if (player == null) {
       // Not sure who/where the player is: never score through this frame.
       _jump.suppressUntil(t + _uncertainHold);
+      _actions?.suppressUntil(t + _uncertainHold);
       _raise = _newRaise();
       _handSide.reset();
+      _actions?.reset();
       _pull = PullDetector(_calibration);
       if (!_lost && t - _lastValidAt! >= _lostAfter) _enterLost(t);
       return;
@@ -301,11 +318,13 @@ class PoseSession {
       _resetCursor();
       _raise = _newRaise();
       _handSide.reset();
+      _actions?.reset();
       _pull = PullDetector(_calibration);
       // The jump baseline is stale (the child may have walked back in from
       // somewhere else), so it is re-taken here, and nothing is graded while
       // the detector settles.
       _jump.rebaseline(player);
+      _actions?.rebaseline(player);
       suppressConfirmUntil(t + reacquireGrace);
       _emit(PlayerFound(at: t));
     }
@@ -336,6 +355,13 @@ class PoseSession {
     if (handSide) {
       final hand = _handSide.update(pose, t);
       if (hand != null) _emit(HandRaised(hand, at: t));
+    }
+
+    final actionDetector = _actions;
+    if (actionDetector != null) {
+      for (final a in actionDetector.update(pose, t)) {
+        _emit(ActionPerformed(a, at: t));
+      }
     }
 
     final bool fired;

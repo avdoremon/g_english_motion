@@ -135,6 +135,24 @@ class _ParentSettingsState extends State<ParentSettings> {
               setState(() {});
             },
           ),
+          SwitchListTile(
+            key: const ValueKey('toggle-puppysays'),
+            contentPadding: EdgeInsets.zero,
+            title: Text(
+              'Trò Theo Pup (thử nghiệm)',
+              style: AppTheme.textStyles.label,
+            ),
+            subtitle: Text(
+              'Bé làm theo lệnh của Pup (nhảy, giơ tay, vỗ tay, ngồi xuống). '
+              'Đang thử nghiệm, có thể nhận diện chưa chuẩn.',
+              style: AppTheme.textStyles.label.copyWith(color: AppTheme.muted),
+            ),
+            value: _s.puppySaysEnabled,
+            onChanged: (v) {
+              _s.setPuppySaysEnabled(v);
+              setState(() {});
+            },
+          ),
           const SizedBox(height: 8),
           // A plain line, not a link: there is no policy page to open yet,
           // and a line that looks tappable but does nothing reads as a bug.

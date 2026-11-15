@@ -83,6 +83,16 @@ void main() {
     expect(Scoring.unlocksNext(3), isTrue);
   });
 
+  test('puppySays gets double the base time', () {
+    for (final l in levels) {
+      expect(
+        Scoring.timeFor(l, ModeKind.puppySays),
+        l.baseTime * 2,
+        reason: 'level ${l.level}',
+      );
+    }
+  });
+
   test('timeFor per mode', () {
     expect(
       Scoring.timeFor(levels[2], ModeKind.skyShoot),

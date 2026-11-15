@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:g_english_motion/input/action_detector.dart';
 import 'package:g_english_motion/input/game_input_event.dart';
 import 'package:g_english_motion/input/one_euro_filter.dart';
 import 'package:g_english_motion/input/pose_types.dart';
@@ -91,6 +92,7 @@ void main() {
       const CursorMoved(0.1, 0.2, at: Duration(seconds: 1)),
       const Pulled(Hand.left, at: Duration(seconds: 1)),
       const HandRaised(Hand.left, at: Duration(seconds: 1)),
+      const ActionPerformed(PuppyAction.clap, at: Duration(seconds: 1)),
       const PlayerLost(at: Duration(seconds: 1)),
       const PlayerFound(at: Duration(seconds: 1)),
     ];
@@ -101,6 +103,7 @@ void main() {
         CursorMoved() => 'cursor',
         Pulled() => 'pull',
         HandRaised() => 'hand',
+        ActionPerformed() => 'action',
         PlayerLost() => 'lost',
         PlayerFound() => 'found',
       };

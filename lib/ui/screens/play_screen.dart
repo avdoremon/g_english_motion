@@ -8,6 +8,7 @@ import 'catch_it_screen.dart';
 import 'drag_spell_screen.dart';
 import 'lane_jump_screen.dart';
 import 'memory_flip_screen.dart';
+import 'puppy_says_screen.dart';
 import 'sky_shoot_screen.dart';
 import 'yes_no_screen.dart';
 
@@ -56,6 +57,11 @@ class PlayScreen extends StatelessWidget {
           ),
           ModeKind.yesNo => YesNoScreen(
             key: const ValueKey('mode-yesNo'),
+            controller: controller,
+            onExit: onExit,
+          ),
+          ModeKind.puppySays => PuppySaysScreen(
+            key: const ValueKey('mode-puppySays'),
             controller: controller,
             onExit: onExit,
           ),

@@ -3,6 +3,7 @@ import 'package:g_english_motion/content/history_store.dart';
 import 'package:g_english_motion/content/models.dart';
 import 'package:g_english_motion/content/curriculum.dart';
 import 'package:g_english_motion/content/question_models.dart';
+import 'package:g_english_motion/input/action_detector.dart';
 import 'package:g_english_motion/input/game_input_event.dart';
 import 'package:g_english_motion/levels/level_config.dart';
 import 'package:g_english_motion/modes/round.dart';
@@ -369,6 +370,49 @@ void main() {
       expect(store.recentIds(), hasLength(8));
     },
   );
+
+  test('action questions are not recorded in history, mixed plan', () async {
+    final store = RecordingHistory();
+    final plan = [
+      pqOf('i0'),
+      const PlannedQuestion(
+        mode: ModeKind.puppySays,
+        question: ActionQuestion(
+          itemId: 'act-jump',
+          ttsText: 'Jump!',
+          command: 'jump',
+          hintVi: 'Nhảy lên',
+          action: PuppyAction.jump,
+        ),
+      ),
+    ];
+    final session = LevelSession(
+      level: level,
+      plan: plan,
+      history: store,
+      feedbackTime: feedback,
+      makeRound: (pq, {required bool review}) => FakeRound(pq, review),
+    )..begin();
+    for (final r in [RoundResult.correct, RoundResult.timeout]) {
+      session.onPromptFinished();
+      (session.round as FakeRound).setResult(r);
+      session.tick(ms);
+      session.tick(feedback);
+    }
+    // The timed-out action gets a review round (stars/unlock unchanged).
+    session.onPromptFinished();
+    (session.round as FakeRound).setResult(RoundResult.correct);
+    session.tick(ms);
+    session.tick(feedback);
+    expect(session.phase, SessionPhase.finished);
+    await session.historyWritten;
+    expect(store.calls.where((c) => c.startsWith('asked:')), ['asked:i0']);
+    expect(store.calls.any((c) => c.contains('act-jump')), isFalse);
+    expect(store.recentIds(), ['i0']);
+    expect(store.wrongIds(), isEmpty);
+    expect(session.outcome!.correct, 1);
+    expect(session.outcome!.total, 2);
+  });
 
   test(
     'history seeded with a wrong id is cleared when answered correctly',

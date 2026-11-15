@@ -295,7 +295,12 @@ class LevelSession implements PausableSession {
   // end-of-level screen.
   Future<void> _writeHistory() async {
     try {
-      final asked = <String>{for (final p in plan) p.question.itemId};
+      // Action commands have no vocabulary item: they must not enter the
+      // recent / wrong lists the question generator draws from.
+      final asked = <String>{
+        for (final p in plan)
+          if (p.question is! ActionQuestion) p.question.itemId,
+      };
       await history.recordAsked(asked.toList());
       final wrong = <String>[];
       final clear = <String>[];

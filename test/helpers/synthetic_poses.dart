@@ -1,10 +1,10 @@
 // Synthetic pose helpers for tests.
 //
 // API: `Pose makePose({hipX = 0.5, hipY = 0.6, torso = 0.3, confidence = 1.0,
-//   noseY, leftWrist, rightWrist, knees = true})`
+//   noseY, leftWrist, rightWrist, knees = true, kneeY})`
 // - hips at hipY, x = hipX +/- 0.05; shoulders at hipY - torso, x = hipX +/- 0.08
 // - nose at x = hipX, y = noseY ?? hipY - torso - 0.1
-// - knees at hipY + 0.25 (x = hipX +/- 0.05) when `knees` is true
+// - knees at kneeY ?? hipY + 0.25 (x = hipX +/- 0.05) when `knees` is true
 // - wrists only present when an Offset (x, y) is given
 // - every joint gets the given `confidence`
 import 'dart:math' as math;
@@ -21,6 +21,7 @@ Pose makePose({
   Offset? leftWrist,
   Offset? rightWrist,
   bool knees = true,
+  double? kneeY,
 }) {
   Landmark lm(double x, double y) => Landmark(x, y, confidence);
   final shoulderY = hipY - torso;
@@ -34,8 +35,8 @@ Pose makePose({
     if (rightWrist != null)
       PoseJoint.rightWrist: lm(rightWrist.dx, rightWrist.dy),
     if (knees) ...{
-      PoseJoint.leftKnee: lm(hipX - 0.05, hipY + 0.25),
-      PoseJoint.rightKnee: lm(hipX + 0.05, hipY + 0.25),
+      PoseJoint.leftKnee: lm(hipX - 0.05, kneeY ?? hipY + 0.25),
+      PoseJoint.rightKnee: lm(hipX + 0.05, kneeY ?? hipY + 0.25),
     },
   });
 }

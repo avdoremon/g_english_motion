@@ -78,6 +78,7 @@ void main() {
       isFalse,
       reason: 'the parent switch is what asks for the microphone',
     );
+    expect(s.puppySaysEnabled, isFalse);
     expect(s.safetyAcknowledged, isFalse);
   });
 
@@ -177,6 +178,7 @@ void main() {
       'progress.unit.g1': 'zzz',
       'progress.confirmGesture': 42,
       'progress.sayIt': 'yes',
+      'progress.puppySays': 'yes',
       'progress.safetyAck': 7,
       'history.recent': 'notalist',
       'history.wrong': 12,
@@ -187,6 +189,7 @@ void main() {
     expect(s.currentUnit(1), 1);
     expect(s.confirmGesture, ConfirmGesture.jump);
     expect(s.sayItEnabled, isFalse);
+    expect(s.puppySaysEnabled, isFalse);
     expect(s.safetyAcknowledged, isFalse);
     expect(s.recentIds(), isEmpty);
     expect(s.wrongIds(), isEmpty);
@@ -211,11 +214,13 @@ void main() {
       s.setCurrentUnit(1, 5),
       s.setConfirmGesture(ConfirmGesture.raiseHands),
       s.setSayItEnabled(true),
+      s.setPuppySaysEnabled(true),
       s.acknowledgeSafety(),
     ];
     expect(s.currentUnit(1), 5);
     expect(s.confirmGesture, ConfirmGesture.raiseHands);
     expect(s.sayItEnabled, isTrue);
+    expect(s.puppySaysEnabled, isTrue);
     expect(s.safetyAcknowledged, isTrue);
     await Future.wait(fs);
   });

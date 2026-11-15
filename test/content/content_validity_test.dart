@@ -334,7 +334,8 @@ void main() {
       test('grade $grade: every unit and level 1-5 fills each valid mode', () {
         final unitCount = repo.unitsFor(grade).length;
         for (final mode in modesForGrade(grade)) {
-          if (mode == ModeKind.sayIt) continue; // not question-driven
+          if (mode == ModeKind.sayIt || mode == ModeKind.puppySays) continue;
+          // not item-based
           for (var unit = 1; unit <= unitCount; unit++) {
             for (final level in levels) {
               final plan =
@@ -423,7 +424,8 @@ void main() {
     // grade, yesNo included, still fills exactly questionCount.
     for (var grade = 1; grade <= 5; grade++) {
       test('grade $grade: mixed plans with yesNo fill questionCount', () {
-        final mixed = modesForGrade(grade).difference({ModeKind.sayIt});
+        final mixed = modesForGrade(grade)
+            .difference({ModeKind.sayIt, ModeKind.puppySays});
         if (!mixed.contains(ModeKind.yesNo)) return;
         final unitCount = repo.unitsFor(grade).length;
         for (var unit = 1; unit <= unitCount; unit++) {
