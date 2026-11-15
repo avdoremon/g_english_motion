@@ -12,6 +12,7 @@ import 'package:g_english_motion/content/edit_distance.dart';
 import 'package:g_english_motion/content/history_store.dart';
 import 'package:g_english_motion/content/models.dart';
 import 'package:g_english_motion/content/question_generator.dart';
+import 'package:g_english_motion/content/question_models.dart';
 import 'package:g_english_motion/levels/level_config.dart';
 import 'package:g_english_motion/modes/mode_availability.dart';
 
@@ -78,6 +79,14 @@ void main() {
       if (it.modes.contains(ModeKind.memoryFlip) ||
           it.modes.contains(ModeKind.catchIt)) {
         expect(it.image, isNotNull, reason: '${it.id}: needs an image');
+      }
+      if (it.modes.contains(ModeKind.yesNo)) {
+        expect(it.image, isNotNull, reason: '${it.id}: yesNo needs an image');
+        expect(
+          it.distractorIds.where((d) => d != it.id && all.contains(d)),
+          isNotEmpty,
+          reason: '${it.id}: yesNo needs >= 1 valid distractor',
+        );
       }
       if (it.modes.contains(ModeKind.balloonPop)) {
         expect(it.image, isNotNull, reason: '${it.id}: needs an image');
@@ -209,10 +218,11 @@ void main() {
               ModeKind.memoryFlip,
               ModeKind.catchIt,
               ModeKind.balloonPop,
+              ModeKind.yesNo,
             ),
             reason:
                 '${it.id}: grades 1-2 only use laneJump/sayIt/memoryFlip/'
-                'catchIt/balloonPop',
+                'catchIt/balloonPop/yesNo',
           );
         }
         if (it.modes.contains(ModeKind.sayIt)) {
@@ -354,6 +364,91 @@ void main() {
       });
     }
 
+    int count(String text, String w) => RegExp(
+      r'(?<![\p{L}\p{N}_])' + RegExp.escape(w) + r'(?![\p{L}\p{N}_])',
+      caseSensitive: false,
+      unicode: true,
+    ).allMatches(text).length;
+
+    // yesNo statements read as sense: no repeated item word, no claimed word
+    // that appears twice, and a false statement never shows the item's word.
+    for (var grade = 1; grade <= 5; grade++) {
+      test('grade $grade: yesNo statements never repeat a word', () {
+        if (!modesForGrade(grade).contains(ModeKind.yesNo)) return;
+        final unitCount = repo.unitsFor(grade).length;
+        for (var unit = 1; unit <= unitCount; unit++) {
+          for (final level in levels) {
+            for (final seed in [unit, unit + 100]) {
+              final plan =
+                  QuestionGenerator(
+                    repo,
+                    InMemoryHistoryStore(),
+                    Random(seed),
+                  ).plan(
+                    level: level,
+                    pos: CurriculumPosition(
+                      grade: grade,
+                      currentUnitIndex: unit,
+                    ),
+                    modes: {ModeKind.yesNo},
+                  );
+              expect(plan.length, level.questionCount);
+              for (final pq in plan) {
+                final q = pq.question as ChoiceQuestion;
+                final item = repo.byId(q.itemId);
+                final text = q.promptText!;
+                final why = '${item.id} "$text"';
+                expect(
+                  count(text, item.word),
+                  lessThanOrEqualTo(1),
+                  reason: why,
+                );
+                if (q.correctIndex == 0) continue;
+                expect(count(text, item.word), 0, reason: why);
+                for (final d in item.distractorIds) {
+                  expect(
+                    count(text, repo.byId(d).word),
+                    lessThanOrEqualTo(1),
+                    reason: why,
+                  );
+                }
+              }
+            }
+          }
+        }
+      });
+    }
+
+    // The mixed ("Trộn ngẫu nhiên") plan: every camera mode valid for the
+    // grade, yesNo included, still fills exactly questionCount.
+    for (var grade = 1; grade <= 5; grade++) {
+      test('grade $grade: mixed plans with yesNo fill questionCount', () {
+        final mixed = modesForGrade(grade).difference({ModeKind.sayIt});
+        if (!mixed.contains(ModeKind.yesNo)) return;
+        final unitCount = repo.unitsFor(grade).length;
+        for (var unit = 1; unit <= unitCount; unit++) {
+          for (final level in levels) {
+            final plan =
+                QuestionGenerator(
+                  repo,
+                  InMemoryHistoryStore(),
+                  Random(unit),
+                ).plan(
+                  level: level,
+                  pos: CurriculumPosition(grade: grade, currentUnitIndex: unit),
+                  modes: mixed,
+                );
+            expect(
+              plan.length,
+              level.questionCount,
+              reason: 'grade $grade unit $unit level ${level.level}',
+            );
+            expect(plan.every((q) => mixed.contains(q.mode)), isTrue);
+          }
+        }
+      });
+    }
+
     // A single tagged item must not carry a whole plan: the same picture
     // asked 3+ times in a row of 8 reads as a bug to a child.
     for (var grade = 1; grade <= 5; grade++) {
@@ -363,6 +458,7 @@ void main() {
           ModeKind.balloonPop,
           ModeKind.memoryFlip,
           ModeKind.catchIt,
+          ModeKind.yesNo,
         ]) {
           if (!modesForGrade(grade).contains(mode)) continue;
           final gradeItems = {

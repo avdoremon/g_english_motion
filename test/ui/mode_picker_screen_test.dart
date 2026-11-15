@@ -106,6 +106,41 @@ void main() {
     expect(backs, 1);
   });
 
+  testWidgets(
+    'yesNo tile (hand icon) is enabled at grades 1 and 4 and picks it',
+    (tester) async {
+      for (final g in [1, 4]) {
+        await pump(tester, grade: g);
+        expect(enabled(tester, ModeKind.yesNo), isTrue, reason: 'grade $g');
+        expect(
+          find.descendant(
+            of: tile(ModeKind.yesNo),
+            matching: find.text('Đúng/Sai'),
+          ),
+          findsOneWidget,
+        );
+        expect(
+          find.descendant(
+            of: tile(ModeKind.yesNo),
+            matching: find.byIcon(Icons.back_hand),
+          ),
+          findsOneWidget,
+        );
+      }
+      await tester.tap(tile(ModeKind.yesNo));
+      expect(picks, [ModeKind.yesNo]);
+    },
+  );
+
+  testWidgets('8 mode tiles (with SayIt) plus shuffle make 9', (tester) async {
+    await pump(tester, grade: 4, sayIt: true);
+    expect(kModeInfos, hasLength(8));
+    for (final i in kModeInfos) {
+      expect(tile(i.mode), findsOneWidget, reason: '${i.mode}');
+    }
+    expect(find.byKey(const ValueKey('mode-shuffle')), findsOneWidget);
+  });
+
   testWidgets('SayIt tile only when available, and it picks sayIt', (
     tester,
   ) async {
